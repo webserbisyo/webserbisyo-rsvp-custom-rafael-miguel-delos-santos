@@ -1,0 +1,30 @@
+# QA Checklist
+
+- `npm run typecheck`
+- `npm run lint`
+- `npm run build`
+- `git diff --check`
+- Confirm `src/app/page.tsx` renders the platform-compatible public page, not `SiteShell`, `SiteHeader`, `SiteFooter`, or the old section renderer.
+- Confirm `src/app/rsvp/page.tsx` renders the dedicated custom RSVP page.
+- Compare the default runtime against the main platform public/account preview section/card rhythm.
+- Confirm live mode has required env values.
+- Confirm design mode sample content is not used in live mode.
+- Confirm RSVP appears inline on the homepage and uses the local `#rsvp` section anchor.
+- Confirm the dedicated custom RSVP page does not redirect guests to platform RSVP routes.
+- Confirm `/?access=...` preserves the query when navigating to `/rsvp`.
+- Confirm `/rsvp?access=...` forwards the token to both the public GET and RSVP POST API calls.
+- Confirm an invalid or regenerated-old `?access=` token does not load event data or submit RSVP.
+- Confirm capacity/validation errors show the platform API message.
+- Confirm select controls keep safe right-side chevron spacing at `360px`, `361px`, and `375px`.
+- Confirm gift QR/image renders only when the public DTO provides a valid public URL.
+- Confirm live mode does not show fake QR/photos or gallery placeholders.
+- Confirm favicon/tab icon appears.
+- Confirm `manifest.webmanifest` is reachable.
+- Confirm `/favicon.ico`, `/icon.png`, `/apple-icon.png`, `/icons/icon-192.png`, `/icons/icon-512.png`, and `/icons/icon-512-maskable.png` return the expected asset, not HTML.
+- Confirm `/` and `/rsvp` both inherit the same favicon and manifest metadata.
+- Confirm `/?access=...` and `/rsvp?access=...` still show the same favicon and manifest links.
+- Confirm the service worker registers without caching `/api/*` or RSVP `POST`s.
+- Confirm offline navigation falls back to `offline.html`.
+- Confirm offline mode does not fake successful RSVP submission.
+- Confirm no duplicate public event fetches occur between metadata generation and page render for the same request.
+- Confirm clone-only heavy animations or media widgets are lazy-loaded instead of blocking first paint.

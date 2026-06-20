@@ -1,0 +1,24 @@
+:root {
+  --background: #fffaf1;
+  --surface: #ffffff;
+  --surface-muted: #f8efe3;
+  --text: #302722;
+  --text-muted: #725d4f;
+  --primary: #b8644a;
+  --primary-foreground: #ffffff;
+  --sage: #8f8a80;
+  --sage-foreground: #ffffff;
+  --gold: #b99466;
+  --border: rgba(92, 70, 56, 0.14);
+  --focus: #b8644a;
+  --success: #4f7d5a;
+  --warning: #f5d48b;
+  --warning-foreground: #302722;
+  --error: #a84f45;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --shadow-soft: 0 18px 50px rgba(63, 45, 35, 0.08);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}

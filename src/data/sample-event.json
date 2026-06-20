@@ -1,0 +1,199 @@
+{
+  "id": "sample-event",
+  "slug": "sample-wedding",
+  "title": "Sample Wedding Celebration",
+  "status": "published",
+  "eventType": "wedding",
+  "eventDate": "2026-10-18T15:30:00+08:00",
+  "timezone": "Asia/Manila",
+  "content": {
+    "layout": {
+      "sectionOrder": [
+      "host_info",
+      "countdown",
+      "music_effects",
+      "main_event",
+      "venue",
+      "secondary_event",
+      "timeline_program",
+      "entourage",
+      "principal_sponsors",
+      "attire_motif",
+      "extra_info",
+      "rsvp_form",
+      "gift_details",
+      "guestbook",
+      "story_message",
+      "contact_socials"
+      ],
+      "enabledSections": {
+        "host_info": true,
+        "countdown": true,
+        "music_effects": true,
+        "main_event": true,
+        "venue": true,
+        "secondary_event": true,
+        "timeline_program": true,
+        "entourage": true,
+        "principal_sponsors": true,
+        "attire_motif": true,
+        "extra_info": true,
+        "rsvp_form": true,
+        "gift_details": true,
+        "guestbook": true,
+        "story_message": true,
+        "contact_socials": true
+      }
+    },
+    "sections": {
+      "host_info": {
+        "enabled": true,
+        "content": {
+          "kicker": "Together with their families",
+          "coupleNames": "Mara & Nico",
+          "hostCopy": "Request the honor of your presence as they celebrate their wedding day.",
+          "dateText": "18 October 2026"
+        }
+      },
+      "countdown": {
+        "enabled": true,
+        "content": {
+          "label": "Counting down to the celebration"
+        }
+      },
+      "music_effects": {
+        "enabled": true,
+        "content": {
+          "title": "A gentle wedding mood",
+          "description": "Soft ceremony ambience with no autoplay or heavy effects."
+        }
+      },
+      "main_event": {
+        "enabled": true,
+        "content": {
+          "label": "Wedding Ceremony",
+          "dateTime": "2026-10-18T15:30:00+08:00",
+          "deadline": "Please arrive by 3:00 PM.",
+          "note": "An unplugged ceremony will be observed."
+        }
+      },
+      "venue": {
+        "enabled": true,
+        "content": {
+          "name": "Sample Events Place",
+          "address": "123 Sample Avenue, Makati City",
+          "mapsUrl": "https://maps.google.com",
+          "note": "Parking is available near the main entrance."
+        }
+      },
+      "secondary_event": {
+        "enabled": true,
+        "content": {
+          "label": "Reception",
+          "dateTime": "2026-10-18T18:00:00+08:00",
+          "venue": "Sample Events Place Reception Hall",
+          "note": "Dinner and program follow after cocktails."
+        }
+      },
+      "timeline_program": {
+        "enabled": true,
+        "content": {
+          "items": [
+            { "time": "3:30 PM", "label": "Ceremony" },
+            { "time": "5:00 PM", "label": "Cocktails" },
+            { "time": "6:00 PM", "label": "Reception" }
+          ]
+        }
+      },
+      "entourage": {
+        "enabled": true,
+        "content": {
+          "groups": [
+            { "title": "Parents", "names": ["Sample Parent One", "Sample Parent Two"] },
+            { "title": "Best People", "names": ["Sample Attendant One", "Sample Attendant Two"] }
+          ]
+        }
+      },
+      "principal_sponsors": {
+        "enabled": true,
+        "content": {
+          "names": ["Sample Sponsor One", "Sample Sponsor Two", "Sample Sponsor Three"]
+        }
+      },
+      "attire_motif": {
+        "enabled": true,
+        "content": {
+          "dressCode": "Formal wedding attire",
+          "motif": "Terracotta, cocoa, and ivory",
+          "notes": "Please avoid white and very bright neon colors."
+        }
+      },
+      "extra_info": {
+        "enabled": true,
+        "content": {
+          "items": [
+            { "title": "Children", "body": "Kindly refer to the invitation for reserved seats." },
+            { "title": "Photos", "body": "Please tag the couple using the shared wedding hashtag." }
+          ]
+        }
+      },
+      "rsvp_form": {
+        "enabled": true,
+        "content": {
+          "title": "Confirm your attendance",
+          "body": "Please let the hosts know if you can join the celebration. The inline RSVP section stays part of the same page flow.",
+          "note": "Online response collection can be connected here while keeping the RSVP experience inside the same page flow.",
+          "companionLimit": "1",
+          "emailEnabled": true,
+          "emailRequired": false,
+          "plusOneEnabled": true,
+          "phoneEnabled": true,
+          "phoneRequired": false,
+          "messageToHostEnabled": true,
+          "foodAllergiesEnabled": false,
+          "companionNameEnabled": false,
+          "companionAgeEnabled": false
+        }
+      },
+      "gift_details": {
+        "enabled": true,
+        "content": {
+          "note": "Your presence is the best gift. For those who wish to give, a small registry note may be shown here.",
+          "options": [
+            { "label": "Gift table", "description": "A gift table will be available at the reception." }
+          ]
+        }
+      },
+      "guestbook": {
+        "enabled": true,
+        "content": {
+          "messages": [
+            { "id": "1", "name": "A Sample Guest", "message": "Wishing you a beautiful celebration.", "isApproved": true },
+            { "id": "2", "name": "Hidden Sample", "message": "This should not render.", "isApproved": false }
+          ]
+        }
+      },
+      "story_message": {
+        "enabled": true,
+        "content": {
+          "title": "Our Story",
+          "body": "A short public love story or message from the couple can be rendered here."
+        }
+      },
+      "contact_socials": {
+        "enabled": true,
+        "content": {
+          "contactName": "Sample Event Coordinator",
+          "email": "hello@example.com",
+          "phone": "+63 900 000 0000",
+          "socials": [
+            { "label": "Instagram", "url": "https://instagram.com/example" }
+          ]
+        }
+      }
+    }
+  },
+  "urls": {
+    "publicWebsiteUrl": "https://sample-wedding.rsvp.webserbisyo.com"
+  }
+}

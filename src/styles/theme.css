@@ -1,0 +1,9 @@
+:root {
+  --color-ivory: var(--background);
+  --color-cream: #f9efe3;
+  --color-cocoa: #5c4638;
+  --color-charcoal: var(--text);
+  --color-terracotta: var(--primary);
+  --color-coral: #c97258;
+  --color-linen: var(--surface-muted);
+}

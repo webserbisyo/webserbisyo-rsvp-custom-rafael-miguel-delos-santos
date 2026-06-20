@@ -1,0 +1,47 @@
+{
+  "name": "webserbisyo-rsvp-custom-starter",
+  "version": "1.0.0",
+  "description": "Frontend-only custom event website starter for WebSerbisyo RSVP.",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "guard:neutral-starter": "node scripts/guard-neutral-starter.mjs",
+    "validate": "npm run guard:neutral-starter && npm run typecheck && npm run lint && npm run build",
+    "prefetch:event": "tsx scripts/prefetch-event.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webserbisyo/webserbisyo-rsvp-custom-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/webserbisyo/webserbisyo-rsvp-custom-starter/issues"
+  },
+  "homepage": "https://github.com/webserbisyo/webserbisyo-rsvp-custom-starter#readme",
+  "dependencies": {
+    "lucide-react": "^1.17.0",
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.7",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
