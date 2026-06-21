@@ -89,13 +89,20 @@ export const clientConfig = {
     tokens: {}
   },
   layout: {
-    navEnabled: false,
+    navEnabled: true,
     footerEnabled: false
   },
   nav: {
     links: [
-      { label: "Home", href: "#top" },
-      { label: "RSVP", href: "#rsvp" }
+      { label: "Story", href: "#our-story" },
+      { label: "Countdown", href: "#countdown" },
+      { label: "Ceremony", href: "#ceremony" },
+      { label: "Venue", href: "#venue" },
+      { label: "Reception", href: "#reception" },
+      { label: "Timeline", href: "#timeline" },
+      { label: "Entourage", href: "#entourage" },
+      { label: "Attire", href: "#attire" },
+      { label: "Details", href: "#extra-info" }
     ] satisfies readonly ClientNavLinkConfig[]
   },
   footer: {

@@ -3,6 +3,7 @@
 @import "./theme.css";
 @import "./typography.css";
 @import "./components.css";
+@import "../client/styles/client-theme.css";
 
 @theme {
   --color-ivory: var(--color-ivory);
@@ -30,6 +31,7 @@
   --color-error: var(--error);
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
+  --font-poppins: var(--font-poppins);
   --shadow-soft: var(--shadow-soft);
 }
 
@@ -41,14 +43,16 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  background: var(--color-ivory);
-  color: var(--color-cocoa);
-}
+@layer base {
+  body {
+    margin: 0;
+    background: var(--color-ivory);
+    color: var(--color-cocoa);
+  }
 
-a {
-  color: inherit;
+  a {
+    color: inherit;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

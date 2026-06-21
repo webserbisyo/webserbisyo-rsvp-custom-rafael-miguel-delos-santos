@@ -1,18 +1,20 @@
 import type { ReactNode } from "react";
 import { isSafeClientAnchorHref } from "@/client/components/client-nav-utils";
 
-type ClientRsvpAnchorHref = "#rsvp" | "#rsvp-form";
+type ClientRsvpAnchorHref = "#rsvp" | "#rsvp-form" | "/rsvp" | "/rsvp-form";
 
 type ClientRsvpAnchorLinkProps = {
   children: ReactNode;
   className?: string;
-  href?: ClientRsvpAnchorHref;
+  href: ClientRsvpAnchorHref;
+  onClick?: () => void;
 };
 
 export function ClientRsvpAnchorLink({
   children,
   className,
-  href = "#rsvp"
+  href,
+  onClick
 }: ClientRsvpAnchorLinkProps) {
   if (!isSafeClientAnchorHref(href)) {
     return null;
@@ -22,6 +24,7 @@ export function ClientRsvpAnchorLink({
     <a
       className={className}
       href={href}
+      onClick={onClick}
     >
       {children}
     </a>

@@ -7,55 +7,70 @@ type ClientRsvpPageProps = {
   event: EventWebsiteRenderModel;
 };
 
+function formatDate(d?: string) {
+  if (!d) return "";
+  return new Date(`${d}T00:00:00`).toLocaleDateString("en-PH", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
-  const title = event.coupleDisplayName || event.title || "WebSerbisyo RSVP Event";
-  const ceremonyLabel = event.eventDateTimeLabel || event.eventDateLabel || "Event date will appear from the platform data.";
-  const venueSection = event.sections.find((section) => section.key === "venue");
-  const venueName =
-    typeof venueSection?.content.venueName === "string" && venueSection.content.venueName.trim()
-      ? venueSection.content.venueName
-      : "Venue information will appear from the platform data.";
+  // Extract clean data from renderModel sections
+  const coupleNames = event.coupleDisplayName || event.title || "Rafael & Isabella";
+  
+  const ceremonySection = event.sections.find((s) => s.key === "ceremony");
+  const ceremonyDate = ceremonySection?.content?.date;
+  const dateStr = typeof ceremonyDate === "string" ? formatDate(ceremonyDate) : "";
+  
+  const venueSection = event.sections.find((s) => s.key === "venue");
+  const venueName = typeof venueSection?.content?.venueName === "string" ? venueSection.content.venueName : "TBD";
+  const venueAddress = typeof venueSection?.content?.address === "string" ? venueSection.content.address : "";
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-5 py-10 text-cocoa sm:px-8">
-      <section className="rounded-3xl border border-cocoa/10 bg-white p-8 shadow-soft">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta">
-          Dedicated RSVP Page
-        </p>
-        <h1 className="mt-4 font-serif text-4xl text-charcoal">{title}</h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-cocoa/80">
-          This starter route is the approved custom-frontend RSVP destination. It stays frontend-only
-          until the official browser submission contract is confirmed for custom origins.
-        </p>
-      </section>
-
-      <section className="grid gap-4 md:grid-cols-2">
-        <article className="rounded-2xl border border-cocoa/10 bg-white p-6 shadow-soft">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cocoa/50">Event</p>
-          <p className="mt-3 text-sm leading-7 text-cocoa/80">{ceremonyLabel}</p>
-        </article>
-        <article className="rounded-2xl border border-cocoa/10 bg-white p-6 shadow-soft">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cocoa/50">Venue</p>
-          <p className="mt-3 text-sm leading-7 text-cocoa/80">{venueName}</p>
-        </article>
-      </section>
-
-      <section className="rounded-2xl border border-cocoa/10 bg-white p-6 shadow-soft" id="rsvp">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cocoa/50">RSVP</p>
-        <h2 className="mt-3 font-serif text-2xl text-charcoal">Dedicated RSVP Form</h2>
-        <p className="mt-3 text-sm leading-7 text-cocoa/80">
-          Keep `#rsvp` and `#rsvp-form` stable so QR links and future clone pages can target this
-          route safely.
-        </p>
-        <div className="mt-5">
-          <ClientRsvpForm
-            dedicatedPageEnabled={false}
-            dedicatedPagePath={config.rsvp.dedicatedPagePath}
-            event={event}
-            mode="inline-form"
-          />
+    <div className="min-h-screen bg-[#FDF6ED] pt-28 pb-16 px-4 md:px-8 flex items-center justify-center">
+      <div className="w-full max-w-2xl bg-white rounded-3xl shadow-card border border-cocoa/5 overflow-hidden">
+        {/* Top Header Card */}
+        <div className="bg-gradient-to-br from-[#A34E26] to-coral p-8 md:p-12 text-center text-white relative overflow-hidden">
+          {/* Subtle decorative background pattern */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80 mb-3">
+            Wedding RSVP
+          </p>
+          <h1 className="font-serif text-3xl md:text-4xl font-normal tracking-wide mb-6">
+            {coupleNames}
+          </h1>
+          
+          <div className="h-[1px] w-16 bg-white/30 mx-auto mb-6" />
+          
+          <div className="flex flex-col gap-2 text-xs md:text-sm font-light text-white/90">
+            {dateStr && <p className="tracking-wide">{dateStr}</p>}
+            <p className="font-serif italic text-white/80">{venueName} {venueAddress && `• ${venueAddress}`}</p>
+          </div>
         </div>
-      </section>
-    </main>
+
+        {/* RSVP Form Section */}
+        <div className="p-8 md:p-12 bg-white">
+          <div className="text-center mb-8">
+            <h2 className="font-serif text-2xl text-charcoal mb-3">Response Card</h2>
+            <p className="text-xs text-cocoa/60 max-w-sm mx-auto leading-relaxed">
+              Please complete the details below to RSVP to our wedding celebration. We look forward to celebrating with you!
+            </p>
+          </div>
+
+          <div className="mt-4">
+            <ClientRsvpForm
+              dedicatedPageEnabled={false}
+              dedicatedPagePath={config.rsvp.dedicatedPagePath}
+              event={event}
+              mode="inline-form"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

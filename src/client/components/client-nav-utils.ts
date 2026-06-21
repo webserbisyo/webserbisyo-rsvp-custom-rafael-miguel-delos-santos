@@ -8,7 +8,15 @@ const allowedAnchorHrefs = new Set([
   "#gifts",
   "#messages",
   "#rsvp",
-  "#rsvp-form"
+  "#rsvp-form",
+  "#gallery",
+  "#reception",
+  "#entourage",
+  "#sponsors",
+  "#extra-info",
+  "#our-story",
+  "#contact",
+  "#countdown"
 ]);
 
 export type ClientAnchorHref =
@@ -21,12 +29,22 @@ export type ClientAnchorHref =
   | "#gifts"
   | "#messages"
   | "#rsvp"
-  | "#rsvp-form";
+  | "#rsvp-form"
+  | "#gallery"
+  | "#reception"
+  | "#entourage"
+  | "#sponsors"
+  | "#extra-info"
+  | "#our-story"
+  | "#contact"
+  | "#countdown";
 
-export function isSafeClientAnchorHref(href: string): href is ClientAnchorHref {
-  return allowedAnchorHrefs.has(href);
+export function isSafeClientAnchorHref(href: string): boolean {
+  if (href === "/rsvp" || href === "/rsvp-form") return true;
+  const target = href.startsWith("/") ? href.slice(1) : href;
+  return allowedAnchorHrefs.has(target);
 }
 
-export function isRsvpClientAnchorHref(href: string): href is "#rsvp" | "#rsvp-form" {
-  return href === "#rsvp" || href === "#rsvp-form";
+export function isRsvpClientAnchorHref(href: string): boolean {
+  return href === "#rsvp" || href === "#rsvp-form" || href === "/rsvp" || href === "/rsvp-form";
 }

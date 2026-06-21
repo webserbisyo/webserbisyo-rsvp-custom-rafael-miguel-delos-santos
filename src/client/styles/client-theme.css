@@ -1,5 +1,51 @@
-/*
-  Future client-specific CSS variable overrides belong here.
-  This file is intentionally inert in Phase 2 and is not imported by runtime yet.
-  Do not place client-specific names, assets, or active visual overrides here in the starter.
-*/
+/* ============================================================
+   CLIENT THEME OVERRIDE — Rafael & Isabella
+   Sunset Coast Romance beach wedding palette
+   Overrides starter :root tokens from tokens.css / theme.css.
+   Loaded LAST in globals.css so these values win the cascade.
+   ============================================================ */
+
+:root {
+  /* Starter token names — overridden with beach values */
+  --background: #FDF6ED;
+  --surface: #FFFFFF;
+  --surface-muted: #FFF3E4;
+  --text: #3B2A1A;
+  --text-muted: #8C6E52;
+  --primary: #C95E35;
+  --primary-foreground: #FFFFFF;
+  --sage: #7A9E7E;
+  --sage-foreground: #FFFFFF;
+  --gold: #C9943A;
+  --border: #E8D5B7;
+  --focus: #C95E35;
+  --success: #1D9E75;
+  --warning: #C9943A;
+  --warning-foreground: #FFFFFF;
+  --error: #C0392B;
+  --shadow-soft: 0 4px 24px rgba(59, 42, 26, 0.08);
+
+  /* theme.css derived names — overridden to beach palette */
+  --color-ivory: #FDF6ED;
+  --color-cream: #FFF3E4;
+  --color-cocoa: #3B2A1A;
+  --color-charcoal: #3B2A1A;
+  --color-terracotta: #C95E35;
+  --color-coral: #C95E35;
+  --color-linen: #F1E8D8;
+
+  /* New beach-specific tokens (blueprint palette) */
+  --color-sand: #E8C97A;
+  --color-blush: #F5C4B3;
+  --color-ocean: #1D9E75;
+  --color-driftwood: #8C6E52;
+
+  /* Elevated card shadow tier (gallery, hero CTA) */
+  --shadow-card: 0 8px 32px rgba(59, 42, 26, 0.12);
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
