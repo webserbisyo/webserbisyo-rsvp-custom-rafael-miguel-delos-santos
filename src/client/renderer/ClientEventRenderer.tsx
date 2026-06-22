@@ -215,7 +215,7 @@ function MusicEffectsSection({ data }: { data: unknown }) {
   return (
     <section
       id="music"
-      className="py-20 md:py-28 px-4 bg-cream text-cocoa text-center relative overflow-hidden"
+      className="py-20 md:py-28 px-4 bg-gradient-to-b from-[#E8F4F0] via-[#C5E5DC] to-[#8EC9BB] text-cocoa text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
         <SpotlightCard className="p-8 md:p-12 shadow-soft border border-[#5c4638]/10 text-center bg-[#4a3528]/95 text-cream relative">
@@ -536,7 +536,7 @@ function GallerySection() {
     >
       {/* Decorative Sea Elements on Sides - Sticky Track System */}
       <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10">
-        
+
         {/* Left Side Sticky Group */}
         <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
           <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] transform translate-x-2 md:translate-x-4 lg:translate-x-8">
