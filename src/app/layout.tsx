@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
       <body>
         <PwaRegister />
         {children}

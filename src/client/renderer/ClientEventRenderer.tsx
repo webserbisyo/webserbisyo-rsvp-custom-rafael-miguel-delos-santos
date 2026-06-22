@@ -111,7 +111,7 @@ function HeroSection({ data }: { data: any }) {
       {/* Soft gradient overlay for styling and high text readability */}
       <div className="absolute inset-x-0 bottom-0 top-[74px] z-1 bg-gradient-to-b from-black/25 via-[#2D1B12]/15 to-[#2D1B12]/30 pointer-events-none" />
 
-      <div className="relative z-10 max-w-4xl mx-auto w-full px-4 mb-4">
+      <div className="relative z-20 max-w-4xl mx-auto w-full px-4 mb-4">
         <FadeContent>
           {coupleInfo?.hostLine && (
             <div className="inline-block px-6 py-2 rounded-full border border-coral/30 text-coral text-xs font-semibold tracking-[0.2em] uppercase mb-6 bg-[#FDF6ED]/30 backdrop-blur-md">
@@ -170,6 +170,10 @@ function HeroSection({ data }: { data: any }) {
             </a>
           </div>
         </FadeContent>
+      </div>
+      {/* Wave divider at bottom to cut the image in a wavy shape */}
+      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
+        <WaveDivider className="text-cream" />
       </div>
     </section>
   );
@@ -532,7 +536,7 @@ function GallerySection() {
   return (
     <section
       id="gallery"
-      className="pt-20 pb-20 px-4 bg-gradient-to-br from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
+      className="pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
     >
       {/* Decorative Sea Elements on Sides - Sticky Track System */}
       <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10">
@@ -1052,13 +1056,12 @@ export function ClientEventRenderer({ config, event }: ClientEventRendererProps)
       <main className="flex min-h-screen w-full flex-col text-cocoa">
         <ScrollProgressBar />
         <HeroSection data={event.raw.renderModel} />
-        <WaveDivider />
         <CountdownSection data={event.raw.renderModel} />
-        <WaveDivider flip className="text-[#FDF6ED] bg-[#E8F4F0]" />
+        <WaveDivider flip className="text-cream bg-[#E8F4F0]" />
         <MusicEffectsSection data={event.raw.renderModel} />
         <WaveDivider flip className="text-[#8EC9BB] bg-[#FDECD0]" />
         <GallerySection />
-        <WaveDivider />
+        <WaveDivider className="text-[#FDF6ED] bg-[#EBC485]" />
         <CeremonySection data={event.raw.renderModel} mounted={mounted} />
         <WaveDivider />
         <VenueSection data={event.raw.renderModel} />
