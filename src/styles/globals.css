@@ -48,6 +48,7 @@ html {
     margin: 0;
     background: var(--color-ivory);
     color: var(--color-cocoa);
+    overflow-x: hidden;
   }
 
   a {

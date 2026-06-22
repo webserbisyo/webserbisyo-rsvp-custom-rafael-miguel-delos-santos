@@ -18,5 +18,11 @@ export {
   Mail,
   Phone,
   AtSign,
-  Globe
+  Globe,
+  Play,
+  Pause,
+  Square,
+  Volume2,
+  VolumeX
 } from "lucide-react";
+

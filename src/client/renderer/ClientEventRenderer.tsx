@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, react-hooks/set-state-in-effect */
 "use client";
 
 import { ClientRsvpForm } from "@/client/rsvp";
@@ -7,6 +8,11 @@ import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "fra
 import { BlurText, ScrollReveal, FadeContent, AnimatedContent, ScrollStack, ScrollStackItem } from "@/client/libs/reactbits";
 import Link from "next/link";
 import { Heart, Bus, Anchor, Bed, Sparkles, ChevronDown, HelpCircle, MapPin, Gift } from "lucide-react";
+import { AudioProvider, useAudio } from "@/client/components/audio-context";
+import { SpotlightCard } from "@/client/components/SpotlightCard";
+import { FloatingMusicBubble } from "@/client/components/FloatingMusicBubble";
+import { Play, Pause, Square, Music4 } from "@/client/libs/icons";
+
 
 function formatTime(t?: string) {
   if (!t) return "";
@@ -75,7 +81,7 @@ function ScrollProgressBar() {
 
 function HeroSection({ data }: { data: any }) {
   const { coupleInfo, ceremony } = data ?? {};
-  
+
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -88,9 +94,9 @@ function HeroSection({ data }: { data: any }) {
   const backgroundY = useSpring(rawY, { stiffness: 90, damping: 25, mass: 0.4 });
 
   return (
-    <section 
+    <section
       ref={heroRef}
-      id="hero" 
+      id="hero"
       className="relative pt-64 pb-12 px-4 text-center overflow-hidden bg-ivory min-h-[95vh] flex flex-col justify-end"
     >
       {/* Smooth Parallax Background Image */}
@@ -155,7 +161,7 @@ function HeroSection({ data }: { data: any }) {
               <Heart size={14} className="fill-white/20 group-hover:scale-125 group-hover:fill-white transition-transform duration-300 ease-out" />
               <span>Reserve Your Seat</span>
             </Link>
-            
+
             <a
               href="#our-story"
               className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-all duration-300 ease-out cursor-pointer"
@@ -169,21 +175,142 @@ function HeroSection({ data }: { data: any }) {
   );
 }
 
-function MusicEffectsSection({ data }: { data: any }) {
-  const { musicEffects } = data ?? {};
+interface MusicEffectsData {
+  musicEffects?: {
+    musicLink?: string;
+    musicTitle?: string;
+    playButtonLabel?: string;
+    shortNote?: string;
+  };
+}
+
+function MusicEffectsSection({ data }: { data: unknown }) {
+  const renderModel = data as MusicEffectsData | null | undefined;
+  const { musicEffects } = renderModel ?? {};
+  const { playbackState, isPlaying, play, pause, stop, setMusicData } = useAudio();
+
+  // Register track details with audio context
+  useEffect(() => {
+    if (musicEffects?.musicLink) {
+      setMusicData(musicEffects.musicLink, musicEffects.musicTitle || "", musicEffects.shortNote || "");
+    }
+  }, [musicEffects, setMusicData]);
+
   if (!musicEffects?.musicLink) return null;
+
+  // Parse title and artist from the musicTitle field
+  let displayTitle = musicEffects.musicTitle || "Our Wedding Song";
+  let displayArtist = "Wedding Ambience";
+
+  if (musicEffects.musicTitle?.includes(" - ")) {
+    const parts = musicEffects.musicTitle.split(" - ");
+    displayTitle = parts[0].trim();
+    displayArtist = parts[1].trim();
+  } else if (musicEffects.musicTitle?.includes(" by ")) {
+    const parts = musicEffects.musicTitle.split(" by ");
+    displayTitle = parts[0].trim();
+    displayArtist = parts[1].trim();
+  }
+
   return (
-    <section id="music" className="py-12 px-4 bg-cocoa text-cream text-center">
-      <div className="max-w-xl mx-auto">
-        <h3 className="font-serif text-2xl mb-2">{musicEffects.musicTitle}</h3>
-        <p className="text-cream/70 text-sm mb-6">{musicEffects.shortNote}</p>
-        <a href={musicEffects.musicLink} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 bg-cream text-cocoa rounded-full text-sm font-semibold uppercase tracking-wider hover:bg-sand transition">
-          {musicEffects.playButtonLabel || "Play Song ♫"}
-        </a>
+    <section
+      id="music"
+      className="py-20 md:py-28 px-4 bg-cream text-cocoa text-center relative overflow-hidden"
+    >
+      <div className="max-w-md mx-auto relative z-10">
+        <SpotlightCard className="p-8 md:p-12 shadow-soft border border-[#5c4638]/10 text-center bg-[#4a3528]/95 text-cream relative">
+          {/* Eyebrow */}
+          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-sand/80 mb-6">
+            OUR WEDDING SONG
+          </p>
+
+          {/* Disc Graphic */}
+          <div className="relative w-28 h-28 mx-auto mb-8 flex items-center justify-center">
+            {/* Pulsating outer light ring */}
+            {isPlaying && (
+              <div className="absolute inset-0 rounded-full border border-cream/20 scale-110 animate-ping pointer-events-none" />
+            )}
+
+            {/* Spinning vinyl disk */}
+            <motion.div
+              animate={{ rotate: isPlaying ? 360 : 0 }}
+              transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+              className="w-full h-full rounded-full bg-gradient-to-br from-[#1c1410] via-[#2d211a] to-[#1c1410] border-2 border-cream/20 shadow-xl flex items-center justify-center relative group"
+            >
+              {/* Record grooves */}
+              <div className="absolute inset-2 rounded-full border border-cream/5 pointer-events-none" />
+              <div className="absolute inset-4 rounded-full border border-cream/5 pointer-events-none" />
+              <div className="absolute inset-6 rounded-full border border-cream/5 pointer-events-none" />
+
+              {/* Center Label */}
+              <div className="w-10 h-10 rounded-full bg-[#f9efe3] flex items-center justify-center text-cocoa shadow-inner">
+                <Music4 className="w-4 h-4" />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Metadata */}
+          <h3 className="font-serif text-3xl font-medium mb-1 truncate text-[#f9efe3]">
+            {displayTitle}
+          </h3>
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-coral mb-6">
+            {displayArtist}
+          </p>
+
+          {/* Short Note */}
+          <p className="text-sm italic text-cream/70 max-w-xs mx-auto mb-8 font-serif leading-relaxed">
+            “{musicEffects.shortNote || "A song that reminds us of our journey together."}”
+          </p>
+
+          {/* Controls */}
+          <div className="flex justify-center gap-3 items-center">
+            <AnimatePresence mode="wait">
+              {isPlaying ? (
+                <motion.button
+                  key="pause-btn"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  onClick={pause}
+                  className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f9efe3] text-cocoa rounded-full text-xs font-bold uppercase tracking-wider hover:bg-sand transition active:scale-95 shadow-md cursor-pointer shrink-0"
+                >
+                  <Pause className="w-4 h-4 fill-current" />
+                  <span>Pause</span>
+                </motion.button>
+              ) : (
+                <motion.button
+                  key="play-btn"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  onClick={play}
+                  className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f9efe3] text-cocoa rounded-full text-xs font-bold uppercase tracking-wider hover:bg-sand transition active:scale-95 shadow-md cursor-pointer shrink-0"
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  <span>Play Song</span>
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+            {(playbackState === "playing" || playbackState === "paused") && (
+              <motion.button
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onClick={stop}
+                className="flex items-center justify-center gap-2 px-6 py-3 border border-cream/30 text-cream rounded-full text-xs font-bold uppercase tracking-wider hover:bg-cream/10 transition active:scale-95 cursor-pointer shrink-0"
+              >
+                <Square className="w-4 h-4 fill-current" />
+                <span>Stop</span>
+              </motion.button>
+            )}
+          </div>
+        </SpotlightCard>
       </div>
     </section>
   );
 }
+
 
 function CeremonySection({ data, mounted }: { data: any, mounted: boolean }) {
   const { ceremony } = data ?? {};
@@ -245,7 +372,7 @@ function CountdownSection({ data }: { data: any }) {
   };
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  
+
   useEffect(() => {
     setMounted(true);
     setTime(getTimeLeft());
@@ -261,32 +388,51 @@ function CountdownSection({ data }: { data: any }) {
   ];
 
   return (
-    <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream overflow-hidden">
+    <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream">
       {/* Decorative Coconut Trees on Sides */}
-      <img 
-        src="/beach assets finalized/12.png" 
+      <img
+        src="/beach assets finalized/12.png"
         alt="Palm tree left"
-        className="absolute left-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-0 transform -translate-x-[35%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-left"
+        className="absolute left-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[35%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-left"
       />
-      <img 
-        src="/beach assets finalized/13.png" 
+      <img
+        src="/beach assets finalized/13.png"
         alt="Palm tree right"
-        className="absolute right-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-0 transform translate-x-[35%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-right"
+        className="absolute right-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[35%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-right"
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      {/* Wave Dividers on top of Palm Trees */}
+      <img
+        src="/beach assets finalized/9.png"
+        alt="Left wave divider"
+        className="absolute left-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform -translate-x-[15%] sm:-translate-x-[20%] translate-y-[43%]"
+      />
+      <img
+        src="/beach assets finalized/6.png"
+        alt="Right wave divider"
+        className="absolute right-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform translate-x-[15%] sm:translate-x-[20%] translate-y-[43%]"
+      />
+
+      {/* Center Flower Bouquet Motif on Divider */}
+      <img
+        src="/beach assets finalized/16.png"
+        alt="Center flower divider"
+        className="absolute left-1/2 bottom-0 w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[55%]"
+      />
+
+      <div className="relative z-30 max-w-4xl mx-auto transform -translate-y-6 md:-translate-y-12">
         <SectionHeading
           label="Save the Date"
           title={countdown?.title || "Counting Down to Our Special Day"}
           subtitle={countdown?.shortNote}
         />
-        
+
         <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 mt-12 max-w-3xl mx-auto">
           {units.map(({ label, value }) => {
             const digits = String(value).padStart(2, "0").split("");
             return (
-              <div 
-                key={label} 
+              <div
+                key={label}
                 className="rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-6 text-center bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(59,42,26,0.05)] hover:shadow-[0_12px_40px_rgba(201,94,53,0.1)] hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-18 lg:h-22 items-center overflow-hidden">
@@ -403,15 +549,15 @@ function GallerySection() {
               <ScrollStackItem key={i}>
                 <div
                   className="bg-[#FDFAF5] border-2 border-[var(--border)] rounded p-3 pb-14 mx-auto shadow-card relative transition-all duration-300"
-                  style={{ 
+                  style={{
                     transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
                     maxWidth: isPortrait ? "390px" : "520px"
                   }}
                 >
                   <div className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}>
                     {mounted && (
-                      <img 
-                        src={photo.src} 
+                      <img
+                        src={photo.src}
                         alt={photo.caption}
                         loading="lazy"
                         className="w-full h-full object-cover rounded-sm hover:scale-105 transition-transform duration-500"
@@ -467,11 +613,11 @@ function TimelineSection({ data }: { data: any }) {
     <section id="timeline" className="py-24 px-4 bg-ivory overflow-hidden">
       <div className="max-w-5xl mx-auto relative z-10">
         <SectionHeading label="Wedding Day Timeline" title="The flow of the day" subtitle="So our guests know what to expect — from sunlit arrivals to bonfire farewells." />
-        
+
         <div className="relative mt-24 max-w-4xl mx-auto pb-8">
           {/* The vertical line */}
           <div className="absolute left-[24px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#D47A5A]/30 md:-translate-x-1/2" />
-          
+
           <div className="space-y-16 md:space-y-24">
             {timelineProgram.items.map((item: any, i: number) => {
               const isEven = i % 2 === 0;
@@ -643,7 +789,7 @@ function ExtraInfoSection({ data }: { data: any }) {
     <section id="extra-info" className="py-24 px-4 bg-cream overflow-hidden">
       <div className="max-w-2xl mx-auto relative z-10">
         <SectionHeading label="Details" title={extraInfo.sectionTitle || "Additional Details"} subtitle={extraInfo.sectionIntro} />
-        
+
         <div className="space-y-4 mt-12">
           {extraInfo.items.map((item: any, i: number) => {
             const IconComponent = getIconForTitle(item.title);
@@ -666,7 +812,7 @@ function ExtraInfoSection({ data }: { data: any }) {
                     <div className="w-14 h-14 rounded-full bg-[#EBF7F5] flex items-center justify-center text-[#2D7A70] shrink-0 transition-transform duration-300 group-hover:scale-105">
                       <IconComponent className="w-6 h-6" />
                     </div>
-                    
+
                     {/* Title */}
                     <div>
                       <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium tracking-wide">
@@ -819,7 +965,7 @@ function ContactSection({ data }: { data: any }) {
           <div className="flex flex-col gap-3 text-sm items-center">
             {contactSocials.email && <p>Email: <a href={`mailto:${contactSocials.email}`} className="text-sand hover:underline">{contactSocials.email}</a></p>}
             {contactSocials.contactNumber && <p>Phone: {contactSocials.contactNumber}</p>}
-            
+
             <div className="flex gap-4 mt-4 justify-center">
               {contactSocials.facebookUrl && (
                 <a href={contactSocials.facebookUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-cream text-cocoa rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-sand transition">
@@ -859,43 +1005,46 @@ export function ClientEventRenderer({ config, event }: ClientEventRendererProps)
   useEffect(() => setMounted(true), []);
 
   return (
-    <main className="flex min-h-screen w-full flex-col text-cocoa">
-      <ScrollProgressBar />
-      <HeroSection data={event.raw.renderModel} />
-      <WaveDivider />
-      <CountdownSection data={event.raw.renderModel} />
-      
-      <MusicEffectsSection data={event.raw.renderModel} />
+    <AudioProvider>
+      <main className="flex min-h-screen w-full flex-col text-cocoa">
+        <ScrollProgressBar />
+        <HeroSection data={event.raw.renderModel} />
+        <WaveDivider />
+        <CountdownSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <MusicEffectsSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <GallerySection />
+        <WaveDivider />
+        <CeremonySection data={event.raw.renderModel} mounted={mounted} />
+        <WaveDivider />
+        <VenueSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <ReceptionSection data={event.raw.renderModel} />
+        <WaveDivider />
+        <TimelineSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <EntourageSection data={event.raw.renderModel} />
+        <WaveDivider />
+        <SponsorsSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <AttireSection data={event.raw.renderModel} />
+        <WaveDivider />
+        <ExtraInfoSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <RsvpCtaSection />
 
-      <WaveDivider flip />
-      <CeremonySection data={event.raw.renderModel} mounted={mounted} />
-      <WaveDivider />
-      <VenueSection data={event.raw.renderModel} />
-      <WaveDivider flip />
-      <GallerySection />
-      <WaveDivider flip />
-      <ReceptionSection data={event.raw.renderModel} />
-      <WaveDivider />
-      <TimelineSection data={event.raw.renderModel} />
-      <WaveDivider flip />
-      <EntourageSection data={event.raw.renderModel} />
-      <WaveDivider />
-      <SponsorsSection data={event.raw.renderModel} />
-      <WaveDivider flip />
-      <AttireSection data={event.raw.renderModel} />
-      <WaveDivider />
-      <ExtraInfoSection data={event.raw.renderModel} />
-      <WaveDivider flip />
-      <RsvpCtaSection />
-
-      <WaveDivider flip />
-      <GiftsSection data={event.raw.renderModel} />
-      <WaveDivider />
-      <GuestbookSection data={event.raw.renderModel} />
-      <WaveDivider flip />
-      <OurStorySection data={event.raw.renderModel} />
-      <WaveDivider />
-      <ContactSection data={event.raw.renderModel} />
-    </main>
+        <WaveDivider flip />
+        <GiftsSection data={event.raw.renderModel} />
+        <WaveDivider />
+        <GuestbookSection data={event.raw.renderModel} />
+        <WaveDivider flip />
+        <OurStorySection data={event.raw.renderModel} />
+        <WaveDivider />
+        <ContactSection data={event.raw.renderModel} />
+      </main>
+      <FloatingMusicBubble />
+    </AudioProvider>
   );
 }
+

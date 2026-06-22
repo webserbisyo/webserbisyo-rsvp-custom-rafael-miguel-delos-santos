@@ -94,7 +94,7 @@ export const clientConfig = {
   },
   nav: {
     links: [
-      { label: "Story", href: "#our-story" },
+      { label: "Gallery", href: "#gallery" },
       { label: "Countdown", href: "#countdown" },
       { label: "Ceremony", href: "#ceremony" },
       { label: "Venue", href: "#venue" },
