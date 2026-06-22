@@ -31,10 +31,10 @@ function formatDate(d?: string) {
   });
 }
 
-function WaveDivider({ flip = false }: { flip?: boolean }) {
+function WaveDivider({ flip = false, className = "text-cream" }: { flip?: boolean; className?: string }) {
   return (
     <div className={`w-full overflow-hidden leading-none ${flip ? "rotate-180" : ""}`} aria-hidden>
-      <svg viewBox="0 0 1440 56" className="w-full h-10 md:h-14 text-cream" preserveAspectRatio="none">
+      <svg viewBox="0 0 1440 56" className={`w-full h-10 md:h-14 ${className}`} preserveAspectRatio="none">
         <path
           d="M0,28 C180,56 360,0 540,28 C720,56 900,0 1080,28 C1260,56 1380,14 1440,28 L1440,56 L0,56 Z"
           fill="currentColor"
@@ -1054,9 +1054,9 @@ export function ClientEventRenderer({ config, event }: ClientEventRendererProps)
         <HeroSection data={event.raw.renderModel} />
         <WaveDivider />
         <CountdownSection data={event.raw.renderModel} />
-        <WaveDivider flip />
+        <WaveDivider flip className="text-[#FDF6ED] bg-[#E8F4F0]" />
         <MusicEffectsSection data={event.raw.renderModel} />
-        <WaveDivider flip />
+        <WaveDivider flip className="text-[#8EC9BB] bg-[#FDECD0]" />
         <GallerySection />
         <WaveDivider />
         <CeremonySection data={event.raw.renderModel} mounted={mounted} />
