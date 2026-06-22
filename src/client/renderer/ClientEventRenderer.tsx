@@ -530,15 +530,34 @@ function GallerySection() {
   }, []);
 
   return (
-    <section id="gallery" className="pt-20 pb-20 px-4 bg-cocoa">
-      <div className="max-w-2xl mx-auto">
+    <section
+      id="gallery"
+      className="pt-20 pb-20 px-4 bg-gradient-to-br from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
+    >
+      {/* Decorative Sea Elements on Sides */}
+      <img
+        src="/beach assets finalized/15.png"
+        alt="Sea shells left"
+        className="absolute left-0 top-[15%] w-32 sm:w-40 md:w-52 lg:w-64 xl:w-72 h-auto object-contain pointer-events-none z-10 transform -translate-x-[20%] select-none opacity-90 transition-all duration-300"
+      />
+      <img
+        src="/beach assets finalized/14.png"
+        alt="Sea elements right"
+        className="absolute right-0 bottom-[15%] w-32 sm:w-40 md:w-52 lg:w-64 xl:w-72 h-auto object-contain pointer-events-none z-10 transform translate-x-[20%] select-none opacity-90 transition-all duration-300"
+      />
+
+      <div className="max-w-2xl mx-auto relative z-20">
         <div className="text-center mb-14">
-          <p className="text-xs font-medium tracking-[0.25em] uppercase mb-3 text-sand">Our Memories</p>
-          <h2 className="font-serif text-cream text-3xl md:text-4xl font-medium mb-3">A Story in Frames</h2>
-          <div className="flex items-center justify-center gap-3 mt-5 text-sand/70">
-            <div className="h-px w-12 bg-sand/50" />
-            <span>✦</span>
-            <div className="h-px w-12 bg-sand/50" />
+          <p className="text-xs font-bold tracking-[0.25em] uppercase mb-3 text-[#3B2A1A]/85">
+            Our Memories
+          </p>
+          <h2 className="font-serif text-[#3B2A1A] text-3xl md:text-4xl font-medium mb-3">
+            A Story in Frames
+          </h2>
+          <div className="flex items-center justify-center gap-3 mt-5 text-[#3B2A1A]/40">
+            <div className="h-px w-12 bg-[#3B2A1A]/20" />
+            <span className="text-[#C95E35]">✦</span>
+            <div className="h-px w-12 bg-[#3B2A1A]/20" />
           </div>
         </div>
 
@@ -548,7 +567,7 @@ function GallerySection() {
             return (
               <ScrollStackItem key={i}>
                 <div
-                  className="bg-[#FDFAF5] border-2 border-[var(--border)] rounded p-3 pb-14 mx-auto shadow-card relative transition-all duration-300"
+                  className="bg-white border-2 border-white rounded p-3 pb-14 mx-auto shadow-card relative transition-all duration-300"
                   style={{
                     transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
                     maxWidth: isPortrait ? "390px" : "520px"
