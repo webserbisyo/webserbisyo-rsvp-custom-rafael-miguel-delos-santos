@@ -536,46 +536,35 @@ function GallerySection() {
     >
       {/* Decorative Sea Elements on Sides - Sticky Track System */}
       <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10">
-        {/* Left Top: 14.png */}
+        
+        {/* Left Side Sticky Group */}
         <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
-          <div className="sticky top-[15vh] left-0">
+          <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] transform translate-x-2 md:translate-x-4 lg:translate-x-8">
             <img
               src="/beach assets finalized/14.png"
               alt="Sea shells top left"
-              className="w-40 sm:w-52 md:w-64 lg:w-[22rem] xl:w-[26rem] h-auto object-contain max-w-none transform -translate-x-[10%] -rotate-[15deg] opacity-90 select-none transition-transform duration-500"
+              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-90 select-none transition-transform duration-500"
             />
-          </div>
-        </div>
-
-        {/* Left Bottom: 15.png */}
-        <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
-          <div className="sticky top-[55vh] left-0">
             <img
               src="/beach assets finalized/15.png"
               alt="Sea shells bottom left"
-              className="w-40 sm:w-52 md:w-64 lg:w-[22rem] xl:w-[26rem] h-auto object-contain max-w-none transform -translate-x-[10%] rotate-[20deg] opacity-90 select-none transition-transform duration-500"
+              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-90 select-none transition-transform duration-500"
             />
           </div>
         </div>
 
-        {/* Right Top: 15.png */}
+        {/* Right Side Sticky Group */}
         <div className="absolute top-0 bottom-0 right-0 w-0 pointer-events-none">
-          <div className="sticky top-[20vh] right-0 flex justify-end">
+          <div className="sticky top-[20vh] right-0 flex flex-col items-end gap-[20vh] transform -translate-x-2 md:-translate-x-4 lg:-translate-x-8">
             <img
               src="/beach assets finalized/15.png"
               alt="Sea shells top right"
-              className="w-40 sm:w-52 md:w-64 lg:w-[22rem] xl:w-[26rem] h-auto object-contain max-w-none transform translate-x-[10%] rotate-[45deg] opacity-90 select-none transition-transform duration-500"
+              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-90 select-none transition-transform duration-500"
             />
-          </div>
-        </div>
-
-        {/* Right Bottom: 14.png */}
-        <div className="absolute top-0 bottom-0 right-0 w-0 pointer-events-none">
-          <div className="sticky top-[60vh] right-0 flex justify-end">
             <img
               src="/beach assets finalized/14.png"
               alt="Sea shells bottom right"
-              className="w-40 sm:w-52 md:w-64 lg:w-[22rem] xl:w-[26rem] h-auto object-contain max-w-none transform translate-x-[10%] -rotate-[30deg] opacity-90 select-none transition-transform duration-500"
+              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-90 select-none transition-transform duration-500"
             />
           </div>
         </div>
