@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useAudio } from "./audio-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music4, Play, Pause, Square, X } from "@/client/libs/icons";
+import { parseMusicMeta } from "@/client/utils/music-meta";
 
 export function FloatingMusicBubble() {
   const { playbackState, musicTitle, isPlaying, play, pause, stop } = useAudio();
@@ -14,19 +15,7 @@ export function FloatingMusicBubble() {
     return null;
   }
 
-  // Parse title and artist from the musicTitle field
-  let displayTitle = musicTitle || "Our Wedding Song";
-  let displayArtist = "Ambience";
-
-  if (musicTitle.includes(" - ")) {
-    const parts = musicTitle.split(" - ");
-    displayTitle = parts[0].trim();
-    displayArtist = parts[1].trim();
-  } else if (musicTitle.includes(" by ")) {
-    const parts = musicTitle.split(" by ");
-    displayTitle = parts[0].trim();
-    displayArtist = parts[1].trim();
-  }
+  const { displayTitle, displayArtist } = parseMusicMeta(musicTitle);
 
   return (
     <div className="fixed bottom-6 right-6 z-[99] flex flex-col items-end">

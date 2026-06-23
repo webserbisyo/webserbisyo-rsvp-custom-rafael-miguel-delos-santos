@@ -1,21 +1,14 @@
 import type { ClientConfig } from "@/client/client.config";
 import { ClientRsvpForm } from "@/client/rsvp/ClientRsvpForm";
 import type { EventWebsiteRenderModel } from "@/types/public-event";
+import { formatDate } from "@/client/utils/formatters";
 
 type ClientRsvpPageProps = {
   config: ClientConfig;
   event: EventWebsiteRenderModel;
 };
 
-function formatDate(d?: string) {
-  if (!d) return "";
-  return new Date(`${d}T00:00:00`).toLocaleDateString("en-PH", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+
 
 export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
   // Extract clean data from renderModel sections
