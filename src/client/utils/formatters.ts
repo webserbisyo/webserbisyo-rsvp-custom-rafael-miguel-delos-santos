@@ -35,3 +35,27 @@ export function formatDate(d?: string): string {
     day: "numeric",
   });
 }
+
+/**
+ * Formats a datetime string "YYYY-MM-DDTHH:MM" to "Month DD, YYYY at H:MM AM/PM".
+ * Returns empty string if input is falsy.
+ */
+export function formatDateTime(dt?: string): string {
+  if (!dt) return "";
+  const dateObj = new Date(dt);
+  if (isNaN(dateObj.getTime())) return "";
+
+  const dateStr = dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  
+  const timeStr = dateObj.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return `${dateStr} at ${timeStr}`;
+}

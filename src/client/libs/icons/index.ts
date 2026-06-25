@@ -23,6 +23,11 @@ export {
   Pause,
   Square,
   Volume2,
-  VolumeX
+  VolumeX,
+  Bus,
+  Pin,
+  Compass,
+  Sparkles
 } from "lucide-react";
+
 

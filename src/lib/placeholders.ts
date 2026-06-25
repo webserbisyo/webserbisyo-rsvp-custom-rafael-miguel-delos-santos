@@ -30,6 +30,12 @@ export async function getDesignEvent(_apiBaseUrl: string, eventSlug: string, pre
   try {
     const snapshot = JSON.parse(await readFile(snapshotPath, "utf8")) as unknown;
     if (isSnapshotResponse(snapshot)) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          `[webserbisyo] Using local event snapshot: .webserbisyo/event.snapshot.json\n` +
+          `Live admin changes will not appear until snapshot is refreshed.`
+        );
+      }
       return normalizePublicEvent({
         event: snapshot.data,
         source: "snapshot",
@@ -39,6 +45,13 @@ export async function getDesignEvent(_apiBaseUrl: string, eventSlug: string, pre
     }
   } catch {
     // Snapshot mode is optional and local-only. Missing or malformed snapshots fall back to sample data.
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    console.warn(
+      `[webserbisyo] Local event snapshot missing or invalid at: .webserbisyo/event.snapshot.json\n` +
+      `Falling back to sample design placeholder.`
+    );
   }
 
   return getSampleEvent(_apiBaseUrl, eventSlug, previewMode);

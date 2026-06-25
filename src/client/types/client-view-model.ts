@@ -21,6 +21,8 @@ export type ClientCeremonyData = {
   eventTime?: string;
   eventLabel?: string;
   scheduleNote?: string;
+  endTime?: string;
+  rsvpDeadline?: string;
 };
 
 export type ClientVenueData = {
@@ -43,13 +45,13 @@ export type ClientMusicData = {
 };
 
 export type ClientReceptionData = {
-  title?: string;
+  receptionLabel?: string;
   venueName?: string;
-  address?: string;
+  fullAddress?: string;
   startTime?: string;
   endTime?: string;
-  mapsLink?: string;
-  note?: string;
+  googleMapsLink?: string;
+  receptionNote?: string;
 };
 
 export type ClientTimelineItem = {

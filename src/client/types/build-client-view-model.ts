@@ -60,6 +60,8 @@ export function buildClientViewModel(raw: Record<string, unknown>): ClientViewMo
       eventTime: str(ceremonyRaw, "eventTime"),
       eventLabel: str(ceremonyRaw, "eventLabel"),
       scheduleNote: str(ceremonyRaw, "scheduleNote"),
+      endTime: str(ceremonyRaw, "endTime"),
+      rsvpDeadline: str(ceremonyRaw, "rsvpDeadline"),
     },
     venue: {
       venueName: str(venueRaw, "venueName"),
@@ -78,13 +80,13 @@ export function buildClientViewModel(raw: Record<string, unknown>): ClientViewMo
       playButtonLabel: str(musicRaw, "playButtonLabel"),
     },
     reception: {
-      title: str(receptionRaw, "title"),
+      receptionLabel: str(receptionRaw, "title"),
       venueName: str(receptionRaw, "venueName"),
-      address: str(receptionRaw, "address"),
+      fullAddress: str(receptionRaw, "address"),
       startTime: str(receptionRaw, "startTime"),
       endTime: str(receptionRaw, "endTime"),
-      mapsLink: str(receptionRaw, "mapsLink"),
-      note: str(receptionRaw, "note"),
+      googleMapsLink: str(receptionRaw, "mapsLink"),
+      receptionNote: str(receptionRaw, "note"),
     },
     timelineProgram: {
       items: arr(timelineRaw, "items").map((item) => {

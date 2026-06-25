@@ -1,29 +1,28 @@
 "use client";
 
 /**
- * ExtraInfoSection
+ * ExtraInfoSection (Details)
  *
- * Accordion-style FAQ with icon-based categories and expand/collapse.
- * Extracted from ClientEventRenderer.tsx lines 818–906.
- * Includes the getIconForTitle helper.
+ * Displays additional guest reminder notes in a responsive glassmorphism grid.
+ * Copies and adapts the clean, highly polished shell placement strategy from the
+ * finalized Entourage section (EntourageSection.tsx) as the decorative source of truth.
+ *
+ * Features:
+ * - Clean, non-accordion cards visible by default (no Lucide icons, no chevrons).
+ * - Dynamically generated elegant numbered badges (NOTE 01 ✦, NOTE 02 ✦, etc.).
+ * - **Gutter-based Desktop Framing**: mathematically calculated side offsets place 4 corner
+ *   shells in the gutters completely outside the card/heading area (hidden lg:block).
+ * - **Gap-based Mobile/Tablet Framing**: renders mobile-only shell accents (lg:hidden) inside
+ *   card vertical gaps behind the cards (z-10) and a bottom closing shell under the last card.
+ * - **Clean Heading Zone**: no decorations are rendered in the top area on mobile/tablet, keeping
+ *   the section label, title, and intro 100% clean and uncompromised.
+ * - Original PNG color and visual quality strictly preserved (opacity-100, no blurs/filters).
+ * - Early return safety check for empty data states.
  */
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Bus, Anchor, Bed, Sparkles, ChevronDown, HelpCircle, MapPin, Gift } from "lucide-react";
+import { motion } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import type { ClientExtraInfoItem } from "@/client/types/client-view-model";
-
-function getIconForTitle(title: string) {
-  const t = title.toLowerCase();
-  if (t.includes("shuttle") || t.includes("transport") || t.includes("service")) return Bus;
-  if (t.includes("parking") || t.includes("car")) return Anchor;
-  if (t.includes("accommodation") || t.includes("hotel") || t.includes("stay") || t.includes("room")) return Bed;
-  if (t.includes("confetti") || t.includes("policy") || t.includes("no ")) return Sparkles;
-  if (t.includes("gift") || t.includes("registry")) return Gift;
-  if (t.includes("venue") || t.includes("location") || t.includes("map")) return MapPin;
-  return HelpCircle;
-}
 
 type ExtraInfoSectionProps = {
   extraInfo: {
@@ -33,79 +32,138 @@ type ExtraInfoSectionProps = {
   };
 };
 
-export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+// Rotation and transform variations for mobile gap-based shells
+const MOBILE_SHELL_TRANSFORMS = [
+  "rotate-[-10deg]",
+  "rotate-[12deg] scale-x-[-1]",
+  "rotate-[6deg] scale-y-[-1]",
+  "rotate-[-14deg] scale-x-[-1]"
+];
 
+export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
   if (!extraInfo?.items?.length) return null;
 
   return (
-    <section id="extra-info" className="py-24 px-4 bg-cream overflow-hidden">
-      <div className="max-w-2xl mx-auto relative z-10">
-        <SectionHeading label="Details" title={extraInfo.sectionTitle || "Additional Details"} subtitle={extraInfo.sectionIntro} />
+    <section
+      id="extra-info"
+      className="relative isolate overflow-x-clip bg-cream px-4 pt-24 pb-28 sm:py-28 lg:py-32"
+    >
+      {/* 1. Gallery-style Global Desktop Shell Layer (z-0, hidden lg:block) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 hidden lg:block select-none"
+      >
+        {/* Top-Left Shell (14.png) - top side, left gutter */}
+        <img
+          src="/beach%20assets%20finalized/14.png"
+          alt=""
+          className="absolute left-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[-10deg] opacity-100 lg:w-80 xl:w-96"
+        />
 
-        <div className="space-y-4 mt-12">
-          {extraInfo.items.map((item, i) => {
-            const IconComponent = getIconForTitle(item.title);
-            const isOpen = openIndex === i;
+        {/* Top-Right Shell (15.png) - top side, right gutter */}
+        <img
+          src="/beach%20assets%20finalized/15.png"
+          alt=""
+          className="absolute right-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[10deg] opacity-100 lg:w-80 xl:w-96"
+        />
+
+        {/* Bottom-Left Shell (15.png) - bottom side, left gutter */}
+        <img
+          src="/beach%20assets%20finalized/15.png"
+          alt=""
+          className="absolute bottom-24 left-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[12deg] opacity-100 lg:w-80 xl:w-96"
+        />
+
+        {/* Bottom-Right Shell (14.png) - bottom side, right gutter */}
+        <img
+          src="/beach%20assets%20finalized/14.png"
+          alt=""
+          className="absolute bottom-24 right-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[-12deg] opacity-100 lg:w-80 xl:w-96"
+        />
+      </div>
+
+      {/* 2. Main Content Wrapper (z-10) */}
+      <div className="max-w-5xl mx-auto relative z-10">
+        
+        {/* Section Heading — kept completely clean of background assets on mobile */}
+        <SectionHeading
+          label="Details"
+          title={extraInfo.sectionTitle || "Additional Details"}
+          subtitle={extraInfo.sectionIntro}
+        />
+
+        {/* 3. Cards Grid Layer - Mobile/Tablet 1-Column Stack, Desktop 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10 mt-12 md:mt-16 w-full">
+          {extraInfo.items.map((item, index) => {
+            const badgeNumber = String(index + 1).padStart(2, "0");
+            const isLastCard = index === extraInfo.items.length - 1;
 
             return (
-              <motion.div
-                key={i}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-white border border-[#E6D5C3]/40 rounded-[20px] shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer group"
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-              >
-                <div className="p-6 md:p-8 flex items-center justify-between gap-4 select-none">
-                  <div className="flex items-center gap-5 sm:gap-6">
-                    {/* Icon Container */}
-                    <div className="w-14 h-14 rounded-full bg-[#EBF7F5] flex items-center justify-center text-[#2D7A70] shrink-0 transition-transform duration-300 group-hover:scale-105">
-                      <IconComponent className="w-6 h-6" />
-                    </div>
+              <div key={index} className="relative group/card-wrapper">
+                
+                {/* Mobile/Tablet Gap Shells (lg:hidden, z-10) - extending into the vertical gaps */}
+                {!isLastCard && (
+                  <img
+                    src={index % 2 === 0 ? "/beach%20assets%20finalized/14.png" : "/beach%20assets%20finalized/15.png"}
+                    alt=""
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-100 lg:hidden ${
+                      index % 2 === 0 
+                        ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[index % MOBILE_SHELL_TRANSFORMS.length]}` 
+                        : `-right-8 ${MOBILE_SHELL_TRANSFORMS[index % MOBILE_SHELL_TRANSFORMS.length]}`
+                    }`}
+                    loading="lazy"
+                  />
+                )}
 
-                    {/* Title */}
-                    <div>
-                      <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium tracking-wide">
-                        {item.title}
-                      </h4>
-                    </div>
+                {/* Mobile/Tablet bottom closing shell accent under the very last card */}
+                {isLastCard && (
+                  <img
+                    src="/beach%20assets%20finalized/14.png"
+                    alt=""
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-100 lg:hidden"
+                    loading="lazy"
+                  />
+                )}
+
+                {/* 4. Glassmorphism Note Card (z-20) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-soft hover:border-sand/60 transition-all duration-300 relative z-20 h-full flex flex-col justify-center"
+                >
+                  {/* Badge Row */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-coral">
+                      NOTE {badgeNumber}
+                    </span>
+                    <span className="text-sand text-xs select-none">✦</span>
                   </div>
 
-                  {/* Chevron indicator */}
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="text-sand shrink-0 p-1"
-                  >
-                    <ChevronDown className="w-5 h-5" />
-                  </motion.div>
-                </div>
+                  {/* Card Title */}
+                  <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium">
+                    {item.title}
+                  </h4>
 
-                {/* Expanded Content with smooth height transition */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    >
-                      <div className="px-6 pb-8 md:px-8 md:pb-10 pl-[80px] md:pl-[96px] pr-6 md:pr-12">
-                        <div className="h-px bg-gradient-to-r from-[#E6D5C3]/30 via-[#E6D5C3]/10 to-transparent mb-5" />
-                        <p className="text-driftwood text-sm md:text-base leading-relaxed text-balance">
-                          {item.details}
-                        </p>
-                      </div>
-                    </motion.div>
+                  {/* Elegant Divider */}
+                  <div className="h-px w-16 bg-sand/35 my-4" />
+
+                  {/* Card Body Description */}
+                  {item.details && (
+                    <p className="text-cocoa/80 text-sm md:text-base leading-relaxed text-balance">
+                      {item.details}
+                    </p>
                   )}
-                </AnimatePresence>
-              </motion.div>
+                </motion.div>
+
+              </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );

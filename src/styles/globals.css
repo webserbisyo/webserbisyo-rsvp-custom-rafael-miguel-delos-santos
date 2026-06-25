@@ -33,6 +33,12 @@
   --font-serif: var(--font-serif);
   --font-poppins: var(--font-poppins);
   --shadow-soft: var(--shadow-soft);
+  --color-sand: var(--color-sand);
+  --color-blush: var(--color-blush);
+  --color-ocean: var(--color-ocean);
+  --color-driftwood: var(--color-driftwood);
+  --color-shell-pink: var(--color-shell-pink);
+  --shadow-card: var(--shadow-card);
 }
 
 * {
