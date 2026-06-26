@@ -151,16 +151,24 @@ export function VenueSection({ venue }: VenueSectionProps) {
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}
         <img
-          src="/beach%20assets%20finalized/4.png"
-          alt="Tropical leaf top-left"
-          className="absolute -top-12 -left-16 sm:-top-16 sm:-left-24 lg:-top-20 lg:-left-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-all duration-300"
+          src="/beach%20assets%20finalized/4.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-12 -left-16 sm:-top-16 sm:-left-24 lg:-top-20 lg:-left-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Decorative Tropical Leaf Asset - Upper Right (Layer 2) - Enlarged significantly and responsive */}
         <img
-          src="/beach%20assets%20finalized/5.png"
-          alt="Tropical leaf top-right"
-          className="absolute -top-12 -right-16 sm:-top-16 sm:-right-24 lg:-top-20 lg:-right-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-all duration-300"
+          src="/beach%20assets%20finalized/5.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-12 -right-16 sm:-top-16 sm:-right-24 lg:-top-20 lg:-right-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-[opacity,transform] duration-300"
         />
       </div>
 
@@ -175,7 +183,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
             
             {/* Left Column: Details & Logistics */}
             <SpotlightCard 
-              className="bg-white/65 backdrop-blur-md border border-sand/40 p-8 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-all duration-500"
+              className="bg-white/65 backdrop-blur-md border border-sand/40 p-8 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
               spotlightColor="rgba(232, 201, 122, 0.08)"
             >
               <div className="space-y-8">
@@ -212,7 +220,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
             {/* Right Column: Framed Map Picture Card + CTA */}
             <div className="flex flex-col items-center">
               {embedUrl ? (
-                <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)]">
+                <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)]">
                   
                   {/* Decorative Pin Overlay attached to the border */}
                   <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
@@ -243,7 +251,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
                     href={externalMapsLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-out cursor-pointer"
+                    className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
                   >
                     <span>Open in Google Maps</span>
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -258,8 +266,12 @@ export function VenueSection({ venue }: VenueSectionProps) {
 
       {/* Center Flower Bouquet Motif on Divider below Venue section */}
       <img
-        src="/beach%20assets%20finalized/16.png"
-        alt="Center flower divider"
+        src="/beach%20assets%20finalized/16.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
         className="absolute left-1/2 bottom-0 w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[55%]"
       />
     </section>

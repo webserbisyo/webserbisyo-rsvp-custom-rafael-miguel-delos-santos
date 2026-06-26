@@ -46,18 +46,24 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
       >
         {/* Left Bird - Top Left Corner */}
         <img
-          src="/beach assets finalized/7.png"
+          src="/beach%20assets%20finalized/7.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute left-2 md:left-6 lg:left-10 top-4 md:top-8 w-20 sm:w-24 md:w-48 lg:w-56 xl:w-64 h-auto opacity-95 pointer-events-none select-none z-0 rotate-[-5deg]"
-          loading="lazy"
         />
 
         {/* Right Bird - Top Right Corner */}
         <img
-          src="/beach assets finalized/8.png"
+          src="/beach%20assets%20finalized/8.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute right-2 md:right-6 lg:right-10 top-4 md:top-8 w-20 sm:w-24 md:w-48 lg:w-56 xl:w-64 h-auto opacity-95 pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1]"
-          loading="lazy"
         />
       </div>
 
@@ -77,7 +83,7 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-all duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
+              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
             >
               <ul className="space-y-3">
                 {leftColumn.map((name, i) => (
@@ -97,7 +103,7 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-all duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
+              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
             >
               <ul className="space-y-3">
                 {rightColumn.map((name, i) => (
@@ -119,7 +125,7 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-all duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
+              className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
             >
               <ul className="space-y-3">
                 {namesList.map((name, i) => (

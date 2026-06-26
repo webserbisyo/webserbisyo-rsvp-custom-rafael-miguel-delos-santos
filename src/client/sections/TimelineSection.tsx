@@ -18,12 +18,12 @@ type TimelineSectionProps = {
 };
 
 const ASSET_LOOP = [
-  { src: "/beach assets finalized/20.png", opacityClass: "opacity-90", rotateClass: "rotate-[15deg]", desktopWidth: "w-48", mobileWidth: "w-20" },
-  { src: "/beach assets finalized/2.png", opacityClass: "opacity-85", rotateClass: "-rotate-12", desktopWidth: "w-56", mobileWidth: "w-24" },
-  { src: "/beach assets finalized/19.png", opacityClass: "opacity-100", rotateClass: "scale-x-[-1]", desktopWidth: "w-40", mobileWidth: "w-16" },
-  { src: "/beach assets finalized/21.png", opacityClass: "opacity-90", rotateClass: "-rotate-[20deg]", desktopWidth: "w-56", mobileWidth: "w-24" },
-  { src: "/beach assets finalized/3.png", opacityClass: "opacity-85", rotateClass: "rotate-12", desktopWidth: "w-64", mobileWidth: "w-24" },
-  { src: "/beach assets finalized/19.png", opacityClass: "opacity-100", rotateClass: "", desktopWidth: "w-40", mobileWidth: "w-16" }
+  { src: "/beach%20assets%20finalized/20.webp", opacityClass: "opacity-90", rotateClass: "rotate-[15deg]", desktopWidth: "w-48", mobileWidth: "w-20" },
+  { src: "/beach%20assets%20finalized/2.webp", opacityClass: "opacity-85", rotateClass: "-rotate-12", desktopWidth: "w-56", mobileWidth: "w-24" },
+  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "scale-x-[-1]", desktopWidth: "w-40", mobileWidth: "w-16" },
+  { src: "/beach%20assets%20finalized/21.webp", opacityClass: "opacity-90", rotateClass: "-rotate-[20deg]", desktopWidth: "w-56", mobileWidth: "w-24" },
+  { src: "/beach%20assets%20finalized/3.webp", opacityClass: "opacity-85", rotateClass: "rotate-12", desktopWidth: "w-64", mobileWidth: "w-24" },
+  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "", desktopWidth: "w-40", mobileWidth: "w-16" }
 ];
 
 export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
@@ -68,7 +68,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-coral -translate-x-1/2 md:-translate-y-1/2 z-30 transition-all duration-500 group-hover/row:scale-110 ${nodeClasses}`}
+                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-coral -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
                   />
 
                   {/* Mobile Layout */}
@@ -84,7 +84,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                         {formattedTime}
                       </div>
                       <div className={`relative z-10 pointer-events-none select-none flex items-center ${assetJustifyClass}`}>
-                        <img src={asset.src} alt="" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.mobileWidth} h-auto`} loading="lazy" />
+                        <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.mobileWidth} h-auto`} />
                       </div>
                     </div>
                     <div className={glassCardClasses}>
@@ -106,7 +106,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           className="w-1/2 flex justify-end pr-20 relative z-10"
                         >
                           <div className="absolute left-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} loading="lazy" />
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
                           </div>
                           <div className="text-coral font-serif text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
                             {formattedTime}
@@ -153,7 +153,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                             {formattedTime}
                           </div>
                           <div className="absolute right-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} loading="lazy" />
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
                           </div>
                         </motion.div>
                       </>

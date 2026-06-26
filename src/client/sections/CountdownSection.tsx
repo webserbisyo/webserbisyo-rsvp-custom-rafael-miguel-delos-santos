@@ -57,32 +57,52 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
     <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream">
       {/* Decorative Coconut Trees on Sides */}
       <img
-        src="/beach assets finalized/12.png"
-        alt="Palm tree left"
-        className="absolute left-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[35%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-left"
+        src="/beach%20assets%20finalized/12.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
+        className="absolute left-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[35%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-left"
       />
       <img
-        src="/beach assets finalized/13.png"
-        alt="Palm tree right"
-        className="absolute right-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[35%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-all duration-300 origin-bottom-right"
+        src="/beach%20assets%20finalized/13.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
+        className="absolute right-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[35%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-right"
       />
 
       {/* Wave Dividers on top of Palm Trees */}
       <img
-        src="/beach assets finalized/9.png"
-        alt="Left wave divider"
+        src="/beach%20assets%20finalized/9.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
         className="absolute left-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform -translate-x-[15%] sm:-translate-x-[20%] translate-y-[43%]"
       />
       <img
-        src="/beach assets finalized/6.png"
-        alt="Right wave divider"
+        src="/beach%20assets%20finalized/6.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
         className="absolute right-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform translate-x-[15%] sm:translate-x-[20%] translate-y-[43%]"
       />
 
       {/* Center Flower Bouquet Motif on Divider */}
       <img
-        src="/beach assets finalized/16.png"
-        alt="Center flower divider"
+        src="/beach%20assets%20finalized/16.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
         className="absolute left-1/2 bottom-0 w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[55%]"
       />
 
@@ -99,7 +119,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
             return (
               <div
                 key={label}
-                className="rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-6 text-center bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(59,42,26,0.05)] hover:shadow-[0_12px_40px_rgba(201,94,53,0.1)] hover:-translate-y-1.5 transition-all duration-300"
+                className="rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-6 text-center bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(59,42,26,0.05)] hover:shadow-[0_12px_40px_rgba(201,94,53,0.1)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
               >
                 <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-18 lg:h-22 items-center overflow-hidden">
                   {digits.map((d, i) => (

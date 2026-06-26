@@ -72,3 +72,26 @@ html {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Scoped scrollbar for Guestbook expanded message areas only */
+.guestbook-scrollarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sand, #d8bf9f) transparent;
+}
+
+.guestbook-scrollarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.guestbook-scrollarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.guestbook-scrollarea::-webkit-scrollbar-thumb {
+  background-color: var(--color-sand, #d8bf9f);
+  border-radius: 9999px;
+}
+
+.guestbook-scrollarea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-coral, #d65f3f);
+}

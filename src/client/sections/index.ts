@@ -22,5 +22,5 @@ export { ExtraInfoSection } from "./ExtraInfoSection";
 export { RsvpCtaSection } from "./RsvpCtaSection";
 export { GiftsSection } from "./GiftsSection";
 export { GuestbookSection } from "./GuestbookSection";
-export { OurStorySection } from "./OurStorySection";
+export { LoveStorySection } from "./LoveStorySection";
 export { ContactSection } from "./ContactSection";

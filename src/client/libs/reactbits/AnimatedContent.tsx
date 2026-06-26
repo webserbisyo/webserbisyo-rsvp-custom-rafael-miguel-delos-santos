@@ -45,7 +45,7 @@ export default function AnimatedContent({
   return (
     <div
       ref={ref}
-      className={`transition-all ease-out ${className}`}
+      className={`transition-[opacity,transform] ease-out ${className}`}
       style={{
         opacity: visible ? 1 : 0,
         transform: `translate(${tx}px, ${ty}px)`,

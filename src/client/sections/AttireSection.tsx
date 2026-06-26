@@ -12,6 +12,7 @@
  *     (lg:left-[-2rem] / lg:right-[-2rem]) and vertically aligned with the illustration area (lg:top-[40%]).
  * - All decorative PNGs render at original visual quality (opacity-100, no filters/blurs).
  * - Main attire image size is strictly preserved at the restored approved scale.
+ * - Shitted bottom flowers to positive bottom offsets to prevent layout clipping and increased section bottom padding to prevent overlaps.
  */
 
 import { SectionHeading } from "@/client/components/SectionHeading";
@@ -55,51 +56,75 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
   }
 
   return (
-    <section id="attire" className="py-24 px-4 bg-ivory relative overflow-x-clip isolate">
+    <section id="attire" className="pt-24 pb-28 md:pb-32 px-4 bg-ivory relative overflow-x-clip isolate">
       
       {/* Absolute Decorative Background Layer - Corner Flowers and Desktop-Only Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         
-        {/* Top-Left Flower (17.png) */}
+        {/* Top-Left Flower (17.webp) */}
         <img
-          src="/beach%20assets%20finalized/17.png"
+          src="/beach%20assets%20finalized/17.webp"
           alt=""
-          className="absolute -top-10 -left-10 sm:-top-12 sm:-left-12 md:-top-16 md:-left-16 lg:-top-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -left-10 sm:-top-12 sm:-left-12 md:-top-16 md:-left-16 lg:-top-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
         />
 
-        {/* Top-Right Flower (16.png) */}
+        {/* Top-Right Flower (16.webp) */}
         <img
-          src="/beach%20assets%20finalized/16.png"
+          src="/beach%20assets%20finalized/16.webp"
           alt=""
-          className="absolute -top-10 -right-10 sm:-top-12 sm:-right-12 md:-top-16 md:-right-16 lg:-top-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -right-10 sm:-top-12 sm:-right-12 md:-top-16 md:-right-16 lg:-top-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
         />
 
-        {/* Bottom-Left Flower (16.png) - Tucked behind lower card area */}
+        {/* Bottom-Left Flower (16.webp) - Tucked behind lower card area with positive bottom offset */}
         <img
-          src="/beach%20assets%20finalized/16.png"
+          src="/beach%20assets%20finalized/16.webp"
           alt=""
-          className="absolute -bottom-10 -left-10 sm:-bottom-12 sm:-left-12 md:-bottom-16 md:-left-16 lg:-bottom-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -left-10 bottom-2 sm:-left-12 sm:bottom-4 md:-left-16 md:bottom-6 lg:-left-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
         />
 
-        {/* Bottom-Right Flower (17.png) - Fixed typo to ensure it displays in the lower right corner */}
+        {/* Bottom-Right Flower (17.webp) - Tucked behind lower card area with positive bottom offset */}
         <img
-          src="/beach%20assets%20finalized/17.png"
+          src="/beach%20assets%20finalized/17.webp"
           alt=""
-          className="absolute -bottom-10 -right-10 sm:-bottom-12 sm:-right-12 md:-bottom-16 md:-right-16 lg:-bottom-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -right-10 bottom-2 sm:-right-12 sm:bottom-4 md:-right-16 md:bottom-6 lg:-right-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
         />
 
-        {/* Desktop-Only Left Palm Leaf (4.png) - Framed to the outermost left screen edge */}
+        {/* Desktop-Only Left Palm Leaf (4.webp) - Framed to the outermost left screen edge */}
         <img
-          src="/beach%20assets%20finalized/4.png"
+          src="/beach%20assets%20finalized/4.webp"
           alt=""
-          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:left-[-2rem] xl:left-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-all duration-300 hidden lg:block"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:left-[-2rem] xl:left-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 hidden lg:block"
         />
 
-        {/* Desktop-Only Right Palm Leaf (5.png) - Framed to the outermost right screen edge */}
+        {/* Desktop-Only Right Palm Leaf (5.webp) - Framed to the outermost right screen edge */}
         <img
-          src="/beach%20assets%20finalized/5.png"
+          src="/beach%20assets%20finalized/5.webp"
           alt=""
-          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:right-[-2rem] xl:right-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-all duration-300 hidden lg:block"
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:right-[-2rem] xl:right-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 hidden lg:block"
         />
       </div>
 
@@ -118,18 +143,24 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
           
           {/* Mobile/Tablet Left Side Palm Leaf (4.png) - Aligned to frame the illustration, hidden on desktop */}
           <img
-            src="/beach%20assets%20finalized/4.png"
+            src="/beach%20assets%20finalized/4.webp"
             alt=""
             aria-hidden="true"
-            className="absolute left-[-2rem] sm:left-[-3rem] md:left-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-all duration-300 lg:hidden"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute left-[-2rem] sm:left-[-3rem] md:left-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 lg:hidden"
           />
 
           {/* Mobile/Tablet Right Side Palm Leaf (5.png) - Aligned to frame the illustration, hidden on desktop */}
           <img
-            src="/beach%20assets%20finalized/5.png"
+            src="/beach%20assets%20finalized/5.webp"
             alt=""
             aria-hidden="true"
-            className="absolute right-[-2rem] sm:right-[-3rem] md:right-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-all duration-300 lg:hidden"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute right-[-2rem] sm:right-[-3rem] md:right-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 lg:hidden"
           />
 
           {/* Soft warm radial glow backdrop */}
@@ -137,10 +168,11 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
           
           {/* Main Attire Image - Strictly preserved approved visual scale */}
           <img
-            src="/beach%20assets%20finalized/attire.png"
+            src="/beach%20assets%20finalized/attire.webp"
             alt="Tropical formal attire examples"
             width={2752}
             height={1536}
+            decoding="async"
             className="relative z-10 w-[92vw] max-w-[420px] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[760px] h-auto object-contain pointer-events-none"
             draggable={false}
           />
@@ -148,7 +180,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
 
         {/* Standalone Guideline Paragraph */}
         {displayIntro && (
-          <p className="text-cocoa/80 text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-all duration-300">
+          <p className="text-cocoa/80 text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-opacity duration-300">
             {displayIntro}
           </p>
         )}
@@ -156,7 +188,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
         {/* Compact Dress Code Spotlight Glassmorphism Card */}
         <AnimatedContent>
           <SpotlightCard 
-            className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-all duration-500"
+            className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
             spotlightColor="rgba(232, 201, 122, 0.08)"
           >
             {/* Dress Code Title / Note */}

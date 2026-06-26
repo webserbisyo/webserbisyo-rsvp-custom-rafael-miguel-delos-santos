@@ -55,29 +55,45 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
       >
         {/* Top-Left Shell (14.png) - top side, left gutter */}
         <img
-          src="/beach%20assets%20finalized/14.png"
+          src="/beach%20assets%20finalized/14.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute left-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[-10deg] opacity-100 lg:w-80 xl:w-96"
         />
 
         {/* Top-Right Shell (15.png) - top side, right gutter */}
         <img
-          src="/beach%20assets%20finalized/15.png"
+          src="/beach%20assets%20finalized/15.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute right-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[10deg] opacity-100 lg:w-80 xl:w-96"
         />
 
         {/* Bottom-Left Shell (15.png) - bottom side, left gutter */}
         <img
-          src="/beach%20assets%20finalized/15.png"
+          src="/beach%20assets%20finalized/15.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute bottom-24 left-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[12deg] opacity-100 lg:w-80 xl:w-96"
         />
 
         {/* Bottom-Right Shell (14.png) - bottom side, right gutter */}
         <img
-          src="/beach%20assets%20finalized/14.png"
+          src="/beach%20assets%20finalized/14.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute bottom-24 right-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[-12deg] opacity-100 lg:w-80 xl:w-96"
         />
       </div>
@@ -104,26 +120,30 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
                 {/* Mobile/Tablet Gap Shells (lg:hidden, z-10) - extending into the vertical gaps */}
                 {!isLastCard && (
                   <img
-                    src={index % 2 === 0 ? "/beach%20assets%20finalized/14.png" : "/beach%20assets%20finalized/15.png"}
+                    src={index % 2 === 0 ? "/beach%20assets%20finalized/14.webp" : "/beach%20assets%20finalized/15.webp"}
                     alt=""
                     aria-hidden="true"
+                    width={2048}
+                    height={2048}
+                    decoding="async"
                     className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-100 lg:hidden ${
                       index % 2 === 0 
                         ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[index % MOBILE_SHELL_TRANSFORMS.length]}` 
                         : `-right-8 ${MOBILE_SHELL_TRANSFORMS[index % MOBILE_SHELL_TRANSFORMS.length]}`
                     }`}
-                    loading="lazy"
                   />
                 )}
 
                 {/* Mobile/Tablet bottom closing shell accent under the very last card */}
                 {isLastCard && (
                   <img
-                    src="/beach%20assets%20finalized/14.png"
+                    src="/beach%20assets%20finalized/14.webp"
                     alt=""
                     aria-hidden="true"
+                    width={2048}
+                    height={2048}
+                    decoding="async"
                     className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-100 lg:hidden"
-                    loading="lazy"
                   />
                 )}
 
@@ -133,7 +153,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-soft hover:border-sand/60 transition-all duration-300 relative z-20 h-full flex flex-col justify-center"
+                  className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-soft hover:border-sand/60 transition-[border-color,box-shadow] duration-300 relative z-20 h-full flex flex-col justify-center"
                 >
                   {/* Badge Row */}
                   <div className="flex items-center gap-2 mb-3">

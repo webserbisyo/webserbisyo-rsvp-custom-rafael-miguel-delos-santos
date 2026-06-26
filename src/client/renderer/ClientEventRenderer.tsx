@@ -33,7 +33,7 @@ import {
   RsvpCtaSection,
   GiftsSection,
   GuestbookSection,
-  OurStorySection,
+  LoveStorySection,
   ContactSection,
 } from "@/client/sections";
 
@@ -74,15 +74,19 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <AttireSection attireDressCode={vm.attireDressCode} />
         <WaveDivider />
         <ExtraInfoSection extraInfo={vm.extraInfo} />
-        <WaveDivider flip />
+        <WaveDivider flip className="text-cream bg-coral" />
         <RsvpCtaSection />
 
-        <WaveDivider flip />
+        <WaveDivider flip className="text-[#8C4520] bg-ivory" />
         <GiftsSection giftDetails={vm.giftDetails} />
         <WaveDivider />
-        <GuestbookSection guestbook={vm.guestbook} />
+        <GuestbookSection 
+          guestbook={vm.guestbook} 
+          guestbookMessages={event.guestbookMessages}
+          eventSource={event.source}
+        />
         <WaveDivider flip />
-        <OurStorySection loveStory={vm.loveStory} />
+        <LoveStorySection loveStory={vm.loveStory} />
         <WaveDivider />
         <ContactSection contactSocials={vm.contactSocials} />
       </main>

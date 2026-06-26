@@ -32,7 +32,7 @@ export function ClientNav({ config }: ClientNavProps) {
   return (
     <nav
       aria-label="Client navigation"
-      className="fixed top-0 z-50 w-full border-b border-cocoa/5 bg-[#FDFBF7]/85 backdrop-blur-md transition-all duration-300 shadow-sm"
+      className="fixed top-0 z-50 w-full border-b border-cocoa/5 bg-[#FDFBF7]/85 backdrop-blur-md transition-[border-color,box-shadow,background-color] duration-300 shadow-sm"
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
         {/* Left: Monogram */}
@@ -74,7 +74,7 @@ export function ClientNav({ config }: ClientNavProps) {
         {/* Right: RSVP Button */}
         <div className="hidden lg:flex items-center justify-end min-w-[120px]">
           <Link
-            className="rounded-full border border-coral text-coral bg-transparent px-6 py-2.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-coral/[0.04] hover:shadow-[0_0_16px_rgba(201,94,53,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+            className="rounded-full border border-coral text-coral bg-transparent px-6 py-2.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-[color,background-color,border-color,box-shadow,transform] duration-300 hover:bg-coral/[0.04] hover:shadow-[0_0_16px_rgba(201,94,53,0.3)] hover:scale-[1.02] active:scale-[0.98]"
             href="/rsvp"
           >
             RSVP
@@ -93,7 +93,7 @@ export function ClientNav({ config }: ClientNavProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-[#FDFBF7] border-b border-cocoa/10 absolute w-full left-0 shadow-lg transition-all duration-300">
+        <div className="lg:hidden bg-[#FDFBF7] border-b border-cocoa/10 absolute w-full left-0 shadow-lg transition-[border-color,box-shadow] duration-300">
           <ul className="flex flex-col px-6 py-8 gap-6 items-center text-center text-xs font-semibold uppercase tracking-[0.2em] text-cocoa/80">
             {links.map((link) => {
               const resolvedHref = getResolvedHref(link.href);
@@ -102,7 +102,7 @@ export function ClientNav({ config }: ClientNavProps) {
                 <li key={`mobile-${link.label}-${link.href}`} className="w-full">
                   {isRsvp ? (
                     <Link
-                      className="inline-block rounded-full border border-coral text-coral bg-transparent px-8 py-3 w-full max-w-[240px] text-center text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-coral/[0.04] hover:shadow-[0_0_16px_rgba(201,94,53,0.35)]"
+                      className="inline-block rounded-full border border-coral text-coral bg-transparent px-8 py-3 w-full max-w-[240px] text-center text-xs font-bold uppercase tracking-[0.2em] transition-[color,background-color,border-color,box-shadow] duration-300 hover:bg-coral/[0.04] hover:shadow-[0_0_16px_rgba(201,94,53,0.35)]"
                       href={resolvedHref}
                       onClick={() => setIsOpen(false)}
                     >

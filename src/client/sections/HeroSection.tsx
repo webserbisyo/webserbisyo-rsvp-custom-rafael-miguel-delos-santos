@@ -47,7 +47,7 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
       <motion.div
         style={{
           y: backgroundY,
-          backgroundImage: "url('/wedding-assets/The-ceremony-arch.jpeg')",
+          backgroundImage: "url('/wedding-assets/The-ceremony-arch.webp')",
           backgroundPosition: "center 40%",
         }}
         className="absolute inset-x-0 bottom-0 top-[74px] z-0 bg-cover bg-no-repeat scale-120 pointer-events-none"
@@ -100,7 +100,7 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4 max-w-xl mx-auto">
             <Link
               href="/rsvp"
-              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-coral text-white border border-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase shadow-md hover:bg-[#b24d26] hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-out cursor-pointer"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-coral text-white border border-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase shadow-md hover:bg-[#b24d26] hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
             >
               <Heart size={14} className="fill-white/20 group-hover:scale-125 group-hover:fill-white transition-transform duration-300 ease-out" />
               <span>Reserve Your Seat</span>
@@ -108,7 +108,7 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
 
             <a
               href="#our-story"
-              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-all duration-300 ease-out cursor-pointer"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
             >
               <span>Our Story</span>
             </a>

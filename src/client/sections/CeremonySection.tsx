@@ -88,16 +88,24 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
     <section id="ceremony" className="relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-hidden z-0">
       {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
       <img
-        src="/beach assets finalized/17.png"
-        alt="Plumeria flowers bottom-left"
-        className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-all duration-300 block"
+        src="/beach%20assets%20finalized/17.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
+        className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-[opacity,transform] duration-300 block"
       />
 
       {/* Decorative Plumeria Flower bottom-right (Layer 2) - Mirror flipped, enlarged, and responsive */}
       <img
-        src="/beach assets finalized/17.png"
-        alt="Plumeria flowers bottom-right"
-        className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-all duration-300 block"
+        src="/beach%20assets%20finalized/17.webp"
+        alt=""
+        aria-hidden="true"
+        width={2048}
+        height={2048}
+        decoding="async"
+        className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-[opacity,transform] duration-300 block"
         style={{ transform: "scaleX(-1)" }}
       />
 
@@ -107,24 +115,36 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
           {/* Centered mobile lantern - beautifully sized on mobile (Layer 2) */}
           <div className="flex justify-center mb-6 sm:hidden">
             <img
-              src="/beach assets finalized/19.png"
-              alt="Candle lantern centered decorative"
+              src="/beach%20assets%20finalized/19.webp"
+              alt=""
+              aria-hidden="true"
+              width={2048}
+              height={2048}
+              decoding="async"
               className="w-24 sm:w-28 h-auto object-contain pointer-events-none z-10 select-none opacity-70"
             />
           </div>
 
           {/* Left candle lantern - balanced sweet-spot sizing with framing offsets */}
           <img
-            src="/beach assets finalized/19.png"
-            alt="Candle lantern left decorative"
-            className="absolute -left-20 sm:-left-32 md:-left-40 lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-all duration-300 hidden sm:block"
+            src="/beach%20assets%20finalized/19.webp"
+            alt=""
+            aria-hidden="true"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute -left-20 sm:-left-32 md:-left-40 lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-[opacity,transform] duration-300 hidden sm:block"
           />
 
           {/* Right candle lantern - balanced sweet-spot sizing with framing offsets */}
           <img
-            src="/beach assets finalized/19.png"
-            alt="Candle lantern right decorative"
-            className="absolute -right-20 sm:-right-32 md:-right-40 lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-all duration-300 hidden sm:block"
+            src="/beach%20assets%20finalized/19.webp"
+            alt=""
+            aria-hidden="true"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute -right-20 sm:-right-32 md:-right-40 lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-[opacity,transform] duration-300 hidden sm:block"
           />
 
           <SectionHeading
@@ -140,7 +160,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             
             {/* Left side: Calendar Grid Visualizer with soft glass / translucent styling */}
             <div className="flex justify-center items-stretch">
-              <div className="relative flex flex-col justify-center bg-cream/80 backdrop-blur-md border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-card w-full select-none overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
+              <div className="relative flex flex-col justify-center bg-cream/80 backdrop-blur-md border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-card w-full select-none overflow-hidden transform hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={grid ? `${grid.monthName}-${grid.year}` : "skeleton"}

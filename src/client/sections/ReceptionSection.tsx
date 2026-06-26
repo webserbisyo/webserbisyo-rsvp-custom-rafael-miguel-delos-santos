@@ -61,29 +61,45 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
         {/* Decorative Bird Assets — large elegant top-side framing elements, scaled up on desktop */}
         <img
-          src="/beach assets finalized/7.png"
-          alt="Decorative bird left"
-          className="absolute top-6 left-4 sm:top-8 sm:left-8 md:top-10 md:left-12 lg:top-12 lg:left-16 xl:top-16 xl:-left-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-all duration-300"
+          src="/beach%20assets%20finalized/7.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute top-6 left-4 sm:top-8 sm:left-8 md:top-10 md:left-12 lg:top-12 lg:left-16 xl:top-16 xl:-left-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-[opacity,transform] duration-300"
         />
         <img
-          src="/beach assets finalized/8.png"
-          alt="Decorative bird right"
-          className="absolute top-6 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 lg:top-12 lg:right-16 xl:top-16 xl:-right-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-all duration-300"
+          src="/beach%20assets%20finalized/8.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute top-6 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 lg:top-12 lg:right-16 xl:top-16 xl:-right-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-[opacity,transform] duration-300"
         />
 
         {/* Decorative Corner Flowers — framing the lower portion of the section with tight compositional coupling */}
         {/* Bottom-Left Corner Flower */}
         <img
-          src="/beach assets finalized/17.png"
-          alt="Bottom left floral accent"
-          className="absolute -left-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform transition-all duration-300"
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -left-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform transition-[opacity,transform] duration-300"
         />
 
         {/* Bottom-Right Corner Flower */}
         <img
-          src="/beach assets finalized/17.png"
-          alt="Bottom right floral accent"
-          className="absolute -right-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform scale-x-[-1] transition-all duration-300"
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -right-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform scale-x-[-1] transition-[opacity,transform] duration-300"
         />
       </div>
 
@@ -96,7 +112,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
 
         <FadeContent>
           <SpotlightCard
-            className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-all duration-500"
+            className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
             spotlightColor="rgba(232, 201, 122, 0.08)"
           >
             <div className="space-y-6 sm:space-y-8">
@@ -167,7 +183,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                 href={reception.googleMapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-out cursor-pointer"
+                className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
               >
                 <span>Get Directions</span>
                 <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

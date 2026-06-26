@@ -18,55 +18,37 @@ import { ScrollStack, ScrollStackItem } from "@/client/libs/reactbits";
 
 const GALLERY_PHOTOS = [
   {
-    src: "/wedding-assets/The-ceremony-arch.jpeg",
+    src: "/wedding-assets/The-ceremony-arch.webp",
     caption: "The Ceremony Arch",
     location: "Beachfront Setup",
     orientation: "landscape",
   },
   {
-    src: "/wedding-assets/female-solor-portrait.jpeg",
+    src: "/wedding-assets/female-solor-portrait.webp",
     caption: "The Beautiful Bride",
     location: "Isabella Solo",
     orientation: "portrait",
   },
   {
-    src: "/wedding-assets/male-solo-porttrait.jpeg",
+    src: "/wedding-assets/male-solo-porttrait.webp",
     caption: "The Dashing Groom",
     location: "Rafael Solo",
     orientation: "portrait",
   },
   {
-    src: "/wedding-assets/male-solo-landscape.jpeg",
-    caption: "Groom's Preparation",
-    location: "Before the Ceremony",
-    orientation: "landscape",
-  },
-  {
-    src: "/wedding-assets/female-solo-landscape.jpeg",
-    caption: "Bride's Moments",
-    location: "Ocean-view Suite",
-    orientation: "landscape",
-  },
-  {
-    src: "/wedding-assets/The-arrival-moment.jpeg",
-    caption: "The Arrival Moment",
-    location: "Walking Down the Aisle",
-    orientation: "landscape",
-  },
-  {
-    src: "/wedding-assets/Sunset-silhouette.jpeg",
+    src: "/wedding-assets/Sunset-silhouette.webp",
     caption: "Sunset Silhouette",
     location: "Golden Hour Beach",
     orientation: "landscape",
   },
   {
-    src: "/wedding-assets/The-table-venue-detail.jpeg",
+    src: "/wedding-assets/The-table-venue-detail.webp",
     caption: "Reception Details",
     location: "Table Settings",
     orientation: "landscape",
   },
   {
-    src: "/wedding-assets/The-table-venue-detail2.jpeg",
+    src: "/wedding-assets/The-table-venue-detail2.webp",
     caption: "Floral & Decor",
     location: "Dinner Setup",
     orientation: "landscape",
@@ -95,13 +77,21 @@ export function GallerySection() {
         <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
           <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] transform translate-x-2 md:translate-x-4 lg:translate-x-8">
             <img
-              src="/beach assets finalized/14.png"
-              alt="Sea shells top left"
+              src="/beach%20assets%20finalized/14.webp"
+              alt=""
+              aria-hidden="true"
+              width={2048}
+              height={2048}
+              decoding="async"
               className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-90 select-none transition-transform duration-500"
             />
             <img
-              src="/beach assets finalized/15.png"
-              alt="Sea shells bottom left"
+              src="/beach%20assets%20finalized/15.webp"
+              alt=""
+              aria-hidden="true"
+              width={2048}
+              height={2048}
+              decoding="async"
               className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-90 select-none transition-transform duration-500"
             />
           </div>
@@ -111,13 +101,21 @@ export function GallerySection() {
         <div className="absolute top-0 bottom-0 right-0 w-0 pointer-events-none">
           <div className="sticky top-[20vh] right-0 flex flex-col items-end gap-[20vh] transform -translate-x-2 md:-translate-x-4 lg:-translate-x-8">
             <img
-              src="/beach assets finalized/15.png"
-              alt="Sea shells top right"
+              src="/beach%20assets%20finalized/15.webp"
+              alt=""
+              aria-hidden="true"
+              width={2048}
+              height={2048}
+              decoding="async"
               className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-90 select-none transition-transform duration-500"
             />
             <img
-              src="/beach assets finalized/14.png"
-              alt="Sea shells bottom right"
+              src="/beach%20assets%20finalized/14.webp"
+              alt=""
+              aria-hidden="true"
+              width={2048}
+              height={2048}
+              decoding="async"
               className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-90 select-none transition-transform duration-500"
             />
           </div>
@@ -145,7 +143,7 @@ export function GallerySection() {
             return (
               <ScrollStackItem key={i}>
                 <div
-                  className="bg-white border-2 border-white rounded p-3 pb-14 mx-auto shadow-card relative transition-all duration-300"
+                  className="bg-white border-2 border-white rounded p-3 pb-14 mx-auto shadow-card relative transition-[border-color,box-shadow] duration-300"
                   style={{
                     transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
                     maxWidth: isPortrait ? "390px" : "520px"
@@ -156,7 +154,7 @@ export function GallerySection() {
                       <img
                         src={photo.src}
                         alt={photo.caption}
-                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover rounded-sm hover:scale-105 transition-transform duration-500"
                       />
                     )}

@@ -64,29 +64,45 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
       >
         {/* top-left */}
         <img
-          src="/beach assets finalized/14.png"
+          src="/beach%20assets%20finalized/14.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute left-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[-10deg] opacity-90 lg:w-80 xl:w-96"
         />
 
         {/* top-right */}
         <img
-          src="/beach assets finalized/15.png"
+          src="/beach%20assets%20finalized/15.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute right-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[10deg] opacity-90 lg:w-80 xl:w-96"
         />
 
         {/* bottom-left */}
         <img
-          src="/beach assets finalized/15.png"
+          src="/beach%20assets%20finalized/15.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute bottom-24 left-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[12deg] opacity-90 lg:w-80 xl:w-96"
         />
 
         {/* bottom-right */}
         <img
-          src="/beach assets finalized/14.png"
+          src="/beach%20assets%20finalized/14.webp"
           alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
           className="absolute bottom-24 right-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[-12deg] opacity-90 lg:w-80 xl:w-96"
         />
       </div>
@@ -119,31 +135,35 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                           {/* Mobile-only background shell accent, extending into the vertical gaps */}
                           {!isLastCard && (
                             <img
-                              src={absoluteIndex % 2 === 0 ? "/beach assets finalized/14.png" : "/beach assets finalized/15.png"}
+                              src={absoluteIndex % 2 === 0 ? "/beach%20assets%20finalized/14.webp" : "/beach%20assets%20finalized/15.webp"}
                               alt=""
                               aria-hidden="true"
+                              width={2048}
+                              height={2048}
+                              decoding="async"
                               className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-85 md:hidden ${
                                 absoluteIndex % 2 === 0 
                                   ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[absoluteIndex % MOBILE_SHELL_TRANSFORMS.length]}` 
                                   : `-right-8 ${MOBILE_SHELL_TRANSFORMS[absoluteIndex % MOBILE_SHELL_TRANSFORMS.length]}`
                               }`}
-                              loading="lazy"
                             />
                           )}
 
                           {/* Mobile-only bottom closing shell accent under the very last card */}
                           {isLastCard && (
                             <img
-                              src="/beach assets finalized/14.png"
+                              src="/beach%20assets%20finalized/14.webp"
                               alt=""
                               aria-hidden="true"
+                              width={2048}
+                              height={2048}
+                              decoding="async"
                               className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-85 md:hidden"
-                              loading="lazy"
                             />
                           )}
 
                           {/* Glassmorphism Card */}
-                          <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center transition-all duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md relative z-20 h-full flex flex-col justify-center">
+                          <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md relative z-20 h-full flex flex-col justify-center">
                             <h4 className="text-coral font-medium tracking-widest uppercase mb-2 text-sm">
                               {displayTitle}
                             </h4>
