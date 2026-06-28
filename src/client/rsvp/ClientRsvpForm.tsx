@@ -5,6 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { appendPrivateAccessToken, normalizePrivateAccessToken } from "@/lib/private-access";
 import type { EventWebsiteRenderModel, NormalizedSection } from "@/types/public-event";
 import { submitPublicRsvp, type PublicRsvpPayload } from "./submit-rsvp";
+import { Button } from "@/client/components/ui/button";
+import { Input } from "@/client/components/ui/input";
+import { Textarea } from "@/client/components/ui/textarea";
+import { Label } from "@/client/components/ui/label";
+import { Card, CardHeader, CardTitle, CardContent } from "@/client/components/ui/card";
 
 type ClientRsvpFormProps = {
   dedicatedPageEnabled: boolean;
@@ -137,10 +142,14 @@ export function ClientRsvpForm({
   if (status === "success") {
     return (
       <div className="space-y-4">
-        <div className="rounded-2xl border border-cocoa/10 bg-ivory/60 p-8 text-center" id="rsvp-form">
-          <h3 className="mb-2 text-xl font-semibold text-charcoal">Thank You!</h3>
-          <p className="text-cocoa/80">Your RSVP has been submitted successfully.</p>
-        </div>
+        <Card id="rsvp-form" className="border-cocoa/10 bg-ivory/60 p-8 text-center">
+          <CardHeader className="p-0 mb-2">
+            <CardTitle>Thank You!</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <p className="text-cocoa/80">Your RSVP has been submitted successfully.</p>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -161,66 +170,79 @@ export function ClientRsvpForm({
         </div>
       ) : null}
 
-      <form onSubmit={handleSubmit} className="rounded-2xl border border-cocoa/10 bg-ivory/60 p-5" id="rsvp-form">
-        <div className="grid gap-4">
+      <Card id="rsvp-form" className="border-cocoa/10 bg-ivory/60 p-5">
+        <form onSubmit={handleSubmit} className="grid gap-4">
           {globalError ? (
             <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600">
               {globalError}
             </div>
           ) : null}
 
-          <Field
-            label="Guest Name"
-            required
-            placeholder="Your full name"
-            value={guestName}
-            onChange={(e) => setGuestName(e.target.value)}
-            disabled={isSubmitting}
-            error={fieldErrors?.guestName?.[0]}
-          />
+          <div className="grid gap-2">
+            <Label>Guest Name *</Label>
+            <Input
+              required
+              placeholder="Your full name"
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+              disabled={isSubmitting}
+              className={fieldErrors?.guestName?.[0] ? "border-red-300" : ""}
+            />
+            {fieldErrors?.guestName?.[0] && <span className="text-xs text-red-500">{fieldErrors.guestName[0]}</span>}
+          </div>
 
           {(showFullForm || showCompactFields) && rsvpConfig.emailEnabled ? (
-            <Field
-              label="Email"
-              required={rsvpConfig.emailRequired}
-              placeholder="you@example.com"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={isSubmitting}
-              error={fieldErrors?.email?.[0]}
-            />
+            <div className="grid gap-2">
+              <Label>Email{rsvpConfig.emailRequired ? " *" : ""}</Label>
+              <Input
+                required={rsvpConfig.emailRequired}
+                placeholder="you@example.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+                className={fieldErrors?.email?.[0] ? "border-red-300" : ""}
+              />
+              {fieldErrors?.email?.[0] && <span className="text-xs text-red-500">{fieldErrors.email[0]}</span>}
+            </div>
           ) : null}
 
           {showFullForm && rsvpConfig.phoneEnabled ? (
-            <Field
-              label="Phone Number"
-              required={rsvpConfig.phoneRequired}
-              placeholder="09XXXXXXXXX"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              disabled={isSubmitting}
-              error={fieldErrors?.phone?.[0]}
-            />
+            <div className="grid gap-2">
+              <Label>Phone Number{rsvpConfig.phoneRequired ? " *" : ""}</Label>
+              <Input
+                required={rsvpConfig.phoneRequired}
+                placeholder="09XXXXXXXXX"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                disabled={isSubmitting}
+                className={fieldErrors?.phone?.[0] ? "border-red-300" : ""}
+              />
+              {fieldErrors?.phone?.[0] && <span className="text-xs text-red-500">{fieldErrors.phone[0]}</span>}
+            </div>
           ) : null}
 
           {showFullForm ? (
             <div className="grid gap-2">
-              <span className="text-sm font-semibold text-charcoal">Attendance *</span>
+              <Label>Attendance *</Label>
               <div className="flex flex-wrap gap-2">
-                <ChoiceButton
-                  label="Yes, I will attend"
-                  selected={attendanceStatus === "attending"}
+                <Button
+                  variant={attendanceStatus === "attending" ? "secondary" : "outline"}
                   onClick={() => setAttendanceStatus("attending")}
                   disabled={isSubmitting}
-                />
-                <ChoiceButton
-                  label="Sorry, I can't attend"
-                  selected={attendanceStatus === "not_attending"}
+                  type="button"
+                >
+                  Yes, I will attend
+                </Button>
+                <Button
+                  variant={attendanceStatus === "not_attending" ? "secondary" : "outline"}
                   onClick={() => setAttendanceStatus("not_attending")}
                   disabled={isSubmitting}
-                />
+                  type="button"
+                >
+                  Sorry, I can&apos;t attend
+                </Button>
               </div>
               {fieldErrors?.attendanceStatus ? (
                 <span className="text-xs text-red-500">{fieldErrors.attendanceStatus[0]}</span>
@@ -230,79 +252,81 @@ export function ClientRsvpForm({
 
           {showFullForm && rsvpConfig.plusOneEnabled ? (
             <div className="grid gap-2">
-              <span className="text-sm font-semibold text-charcoal">Companions</span>
+              <Label>Companions</Label>
               <p className="text-sm leading-6 text-cocoa/70">
                 Guests may bring up to {rsvpConfig.companionLimit} companion{rsvpConfig.companionLimit === 1 ? "" : "s"}.
               </p>
               <div className="flex flex-wrap gap-2">
                 {Array.from({ length: rsvpConfig.companionLimit + 1 }, (_, index) => (
-                  <ChoiceButton
+                  <Button
                     key={index}
-                    label={index === 0 ? "Just me" : `Me + ${index}`}
-                    selected={companionCount === index}
+                    variant={companionCount === index ? "secondary" : "outline"}
                     onClick={() => setCompanionCount(index)}
                     disabled={isSubmitting}
-                  />
+                    type="button"
+                  >
+                    {index === 0 ? "Just me" : `Me + ${index}`}
+                  </Button>
                 ))}
               </div>
 
               {rsvpConfig.companionNameEnabled && companionCount > 0 ? (
                 Array.from({ length: companionCount }, (_, index) => (
-                  <div key={index} className="grid gap-3 rounded-2xl border border-cocoa/10 bg-white/70 p-4">
-                    <Field
-                      label={`Companion ${index + 1} Name`}
-                      placeholder="Full name"
-                      value={companions[index]?.fullName || ""}
-                      onChange={(e) => updateCompanion(index, "fullName", e.target.value)}
-                      disabled={isSubmitting}
-                    />
-                    {rsvpConfig.companionAgeEnabled ? (
-                      <Field
-                        label={`Companion ${index + 1} Age`}
-                        placeholder="Adult, child, or age"
-                        value={companions[index]?.ageLabel || ""}
-                        onChange={(e) => updateCompanion(index, "ageLabel", e.target.value)}
+                  <Card key={index} className="grid gap-3 bg-white/70 p-4">
+                    <div className="grid gap-2">
+                      <Label>Companion {index + 1} Name</Label>
+                      <Input
+                        placeholder="Full name"
+                        value={companions[index]?.fullName || ""}
+                        onChange={(e) => updateCompanion(index, "fullName", e.target.value)}
                         disabled={isSubmitting}
                       />
+                    </div>
+                    {rsvpConfig.companionAgeEnabled ? (
+                      <div className="grid gap-2">
+                        <Label>Companion {index + 1} Age</Label>
+                        <Input
+                          placeholder="Adult, child, or age"
+                          value={companions[index]?.ageLabel || ""}
+                          onChange={(e) => updateCompanion(index, "ageLabel", e.target.value)}
+                          disabled={isSubmitting}
+                        />
+                      </div>
                     ) : null}
-                  </div>
+                  </Card>
                 ))
               ) : null}
             </div>
           ) : null}
 
           {showFullForm && rsvpConfig.foodAllergiesEnabled ? (
-            <TextArea
-              label="Food Allergies / Dietary Restrictions"
-              placeholder="List any allergies or dietary restrictions for your party."
-              value={dietaryNotes}
-              onChange={(e) => setDietaryNotes(e.target.value)}
-              disabled={isSubmitting}
-            />
+            <div className="grid gap-2">
+              <Label>Food Allergies / Dietary Restrictions</Label>
+              <Textarea
+                placeholder="List any allergies or dietary restrictions for your party."
+                value={dietaryNotes}
+                onChange={(e) => setDietaryNotes(e.target.value)}
+                disabled={isSubmitting}
+              />
+            </div>
           ) : null}
 
           {(showFullForm || showCompactFields) && rsvpConfig.messageToHostEnabled ? (
-            <TextArea
-              label="Message to Host"
-              placeholder="Leave a short message."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={isSubmitting}
-            />
+            <div className="grid gap-2">
+              <Label>Message to Host</Label>
+              <Textarea
+                placeholder="Leave a short message."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={isSubmitting}
+              />
+            </div>
           ) : null}
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <button
-              className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                isSubmitting
-                  ? "border-cocoa/15 text-cocoa/60 cursor-not-allowed"
-                  : "border-terracotta bg-terracotta text-white hover:bg-terracotta/90"
-              }`}
-              disabled={isSubmitting}
-              type="submit"
-            >
+            <Button disabled={isSubmitting} type="submit" variant="default">
               {isSubmitting ? "Submitting..." : "Submit RSVP"}
-            </button>
+            </Button>
             {dedicatedPageEnabled && mode !== "cta-only" ? (
               <a
                 className="text-sm font-semibold text-terracotta underline-offset-2 hover:underline"
@@ -312,105 +336,9 @@ export function ClientRsvpForm({
               </a>
             ) : null}
           </div>
-        </div>
-      </form>
+        </form>
+      </Card>
     </div>
-  );
-}
-
-function Field({
-  label,
-  placeholder,
-  required = false,
-  type = "text",
-  value,
-  onChange,
-  disabled,
-  error,
-}: {
-  label: string;
-  placeholder: string;
-  required?: boolean;
-  type?: "email" | "tel" | "text";
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
-  error?: string;
-}) {
-  return (
-    <label className="grid gap-2">
-      <span className="text-sm font-semibold text-charcoal">
-        {label}
-        {required ? " *" : ""}
-      </span>
-      <input
-        className={`rounded-2xl border bg-white px-4 py-3 text-sm text-cocoa/80 focus:outline-none focus:ring-2 focus:ring-terracotta/50 ${
-          error ? "border-red-300" : "border-cocoa/10"
-        } ${disabled ? "opacity-50" : ""}`}
-        disabled={disabled}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-      />
-      {error ? <span className="text-xs text-red-500">{error}</span> : null}
-    </label>
-  );
-}
-
-function TextArea({
-  label,
-  placeholder,
-  value,
-  onChange,
-  disabled,
-}: {
-  label: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  disabled?: boolean;
-}) {
-  return (
-    <label className="grid gap-2">
-      <span className="text-sm font-semibold text-charcoal">{label}</span>
-      <textarea
-        className={`min-h-[120px] rounded-2xl border border-cocoa/10 bg-white px-4 py-3 text-sm text-cocoa/80 focus:outline-none focus:ring-2 focus:ring-terracotta/50 ${
-          disabled ? "opacity-50" : ""
-        }`}
-        disabled={disabled}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-    </label>
-  );
-}
-
-function ChoiceButton({
-  label,
-  selected,
-  onClick,
-  disabled
-}: {
-  label: string;
-  selected: boolean;
-  onClick: () => void;
-  disabled?: boolean;
-}) {
-  return (
-    <button
-      className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-        selected
-          ? "border-terracotta bg-terracotta/10 text-terracotta"
-          : "border-cocoa/10 text-cocoa/60 hover:border-cocoa/30"
-      } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-      disabled={disabled}
-      type="button"
-      onClick={onClick}
-    >
-      {label}
-    </button>
   );
 }
 

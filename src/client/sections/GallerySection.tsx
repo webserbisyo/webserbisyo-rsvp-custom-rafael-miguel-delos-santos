@@ -36,6 +36,24 @@ const GALLERY_PHOTOS = [
     orientation: "portrait",
   },
   {
+    src: "/wedding-assets/male-solo-landscape.webp",
+    caption: "Groom's Preparation",
+    location: "Before the Ceremony",
+    orientation: "landscape",
+  },
+  {
+    src: "/wedding-assets/female-solo-landscape.webp",
+    caption: "Bride's Moments",
+    location: "Ocean-view Suite",
+    orientation: "landscape",
+  },
+  {
+    src: "/wedding-assets/The-arrival-moment.webp",
+    caption: "The Arrival Moment",
+    location: "Walking Down the Aisle",
+    orientation: "landscape",
+  },
+  {
     src: "/wedding-assets/Sunset-silhouette.webp",
     caption: "Sunset Silhouette",
     location: "Golden Hour Beach",
