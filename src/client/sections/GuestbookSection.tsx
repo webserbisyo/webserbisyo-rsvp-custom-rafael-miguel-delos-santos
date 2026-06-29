@@ -13,7 +13,7 @@
  * - Bottom-left and bottom-right corner flowers (17.webp and 16.webp) with positive bottom offsets to avoid clipping.
  * - Increased bottom padding on the section wrapper to avoid flower-card overlaps.
  * - Complete removal of the old side palm leaves to prevent asset overcrowding.
- * - Gated mock data that only displays in development or design mode when real messages are absent.
+ * - Gated mock data that only displays in development when NEXT_PUBLIC_USE_MOCK_GUESTBOOK is true and real messages are absent.
  */
 
 import { useState, useRef, useEffect } from "react";
@@ -21,6 +21,7 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientGuestbookData } from "@/client/types/client-view-model";
 import type { GuestbookMessage } from "@/types/public-event";
+import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
 
 type GuestbookSectionProps = {
   guestbook: ClientGuestbookData;
@@ -35,42 +36,18 @@ interface DisplayMessage {
   createdAt?: string;
 }
 
-const MOCK_GUESTBOOK_MESSAGES = [
-  {
-    name: "Tito Ramon & Tita Elisa",
-    message: "Wishing you both a lifetime filled with love, laughter, and quiet joy in every season of life. May your home always be full of warmth and grace."
-  },
-  {
-    name: "Andrea Cruz",
-    message: "Seeing your love story unfold has been such a beautiful blessing. Wishing you a marriage filled with patience, kindness, and unforgettable memories."
-  },
-  {
-    name: "Miguel Santos",
-    message: "Congratulations on this beautiful new chapter. May your partnership continue to grow stronger through every challenge and every celebration ahead."
-  },
-  {
-    name: "Ninong Daniel",
-    message: "May your union always be guided by faith, understanding, and deep respect for one another. Praying for a joyful and abundant married life."
-  },
-  {
-    name: "Carla & Jen",
-    message: "Your love is inspiring, and your wedding is such a wonderful reflection of who you are. Wishing you endless happiness and beautiful adventures together."
-  },
-  {
-    name: "Lola Teresa",
-    message: "Seeing the two of you surrounded by family, friends, and the beauty of this day has been such a heartfelt reminder of what love can become when it is patient, kind, and deeply rooted in friendship. May your marriage always be filled with laughter, understanding, quiet strength, and countless memories that make every season of life feel meaningful."
-  }
-];
-
 export function GuestbookSection({
   guestbook,
   guestbookMessages,
   eventSource
 }: GuestbookSectionProps) {
   const [expandedMessageId, setExpandedMessageId] = useState<string | number | null>(null);
+  const [showAllMessages, setShowAllMessages] = useState(false);
   const [showTopFade, setShowTopFade] = useState(false);
   const [showBottomFade, setShowBottomFade] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const INITIAL_VISIBLE_MESSAGES = 6;
 
   const updateScrollFades = (element: HTMLDivElement) => {
     const { scrollTop, scrollHeight, clientHeight } = element;
@@ -100,24 +77,28 @@ export function GuestbookSection({
 
   const realMessages = guestbookMessages ?? [];
 
-  // Enable mock visualization only in local development or inside the dashboard designer
+  // Enable mock visualization only in local development when NEXT_PUBLIC_USE_MOCK_GUESTBOOK is true and real messages are empty
   const canShowMockMessages =
     realMessages.length === 0 &&
-    (process.env.NODE_ENV === "development" || eventSource === "design");
+    process.env.NODE_ENV === "development" &&
+    process.env.NEXT_PUBLIC_USE_MOCK_GUESTBOOK === "true";
 
-  // Map real database messages to our card model safely
-  const realDisplayMessages: DisplayMessage[] = realMessages.map((msg, idx) => ({
-    id: msg.id ?? idx,
-    name: msg.name ?? "Anonymous Guest",
-    message: msg.message ?? "",
-    createdAt: msg.createdAt ?? undefined
-  }));
+  // Map real database messages to our card model safely, filtering out empty ones
+  const realDisplayMessages: DisplayMessage[] = realMessages
+    .filter((msg) => msg.message && msg.message.trim() !== "")
+    .map((msg, idx) => ({
+      id: msg.id ?? `guestbook-${idx}`,
+      name: msg.name?.trim() || "A Guest",
+      message: msg.message!.trim(),
+      createdAt: msg.createdAt ?? undefined
+    }));
 
-  // Map mock messages to the same card model
-  const mockDisplayMessages: DisplayMessage[] = MOCK_GUESTBOOK_MESSAGES.map((msg, idx) => ({
-    id: `mock-${idx}`,
+  // Map mock messages to the same card model, preserving their custom IDs and timestamps
+  const mockDisplayMessages: DisplayMessage[] = MOCK_GUESTBOOK_MESSAGES.map((msg) => ({
+    id: msg.id,
     name: msg.name,
-    message: msg.message
+    message: msg.message,
+    createdAt: msg.createdAt
   }));
 
   // Resolve active dataset based on environment gating
@@ -128,14 +109,45 @@ export function GuestbookSection({
       ? mockDisplayMessages
       : [];
 
+  // Sort messages newest first based on createdAt
+  const sortedMessages = [...messagesToRender].sort((a, b) => {
+    const timeA = a.createdAt ? new Date(a.createdAt).getTime() : NaN;
+    const timeB = b.createdAt ? new Date(b.createdAt).getTime() : NaN;
+
+    const hasA = !isNaN(timeA);
+    const hasB = !isNaN(timeB);
+
+    if (hasA && hasB) return timeB - timeA;
+    if (hasA) return -1; // A has timestamp, place it before B (which has none)
+    if (hasB) return 1;  // B has timestamp, place it before A (which has none)
+    return 0; // Keep original order if both are missing timestamps
+  });
+
+  const visibleMessages = showAllMessages
+    ? sortedMessages
+    : sortedMessages.slice(0, INITIAL_VISIBLE_MESSAGES);
+
   const handleToggle = (id: string | number) => {
     setExpandedMessageId((prev) => (prev === id ? null : id));
+  };
+
+  const handleSectionToggle = () => {
+    if (showAllMessages) {
+      setShowAllMessages(false);
+      setExpandedMessageId(null); // Clear card-level expansion
+      document.getElementById("guestbook")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    } else {
+      setShowAllMessages(true);
+    }
   };
 
   return (
     <section
       id="guestbook"
-      className="relative isolate overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
+      className="relative overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
     >
       {/* 1. Absolute Decorative Background Layer (z-0, pointer-events-none, no lazy loading, opacity-100) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
@@ -193,110 +205,131 @@ export function GuestbookSection({
         />
 
         <AnimatedContent>
-          {messagesToRender.length > 0 ? (
+          {visibleMessages.length > 0 ? (
             /* Note-card grid: 1-col mobile, 2-col tablet, 3-col desktop */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 w-full text-center items-start">
-              {messagesToRender.map((msg) => {
-                const isLong = msg.message.length > 180;
-                const isExpanded = expandedMessageId === msg.id;
+            <div className="flex flex-col items-center w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 w-full text-center items-start">
+                {visibleMessages.map((msg) => {
+                  const isLong = msg.message.length > 180;
+                  const isExpanded = expandedMessageId === msg.id;
 
-                // Mobile: expands inline
-                const mobileDisplayText = isLong && !isExpanded
-                  ? `${msg.message.slice(0, 175)}...`
-                  : msg.message;
+                  // Mobile: expands inline
+                  const mobileDisplayText = isLong && !isExpanded
+                    ? `${msg.message.slice(0, 175)}...`
+                    : msg.message;
 
-                // Desktop: always truncated in the grid card unless expanded
-                const desktopDisplayText = isLong
-                  ? `${msg.message.slice(0, 175)}...`
-                  : msg.message;
+                  // Desktop: always truncated in the grid card unless expanded
+                  const desktopDisplayText = isLong
+                    ? `${msg.message.slice(0, 175)}...`
+                    : msg.message;
 
-                return (
-                  <div
-                    key={msg.id}
-                    className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between items-center h-full text-center"
-                  >
-                    {/* Upper Part: Message & Inline Toggle */}
-                    <div className="flex flex-col items-center w-full">
-                      {/* Message Body (Mobile) */}
-                      <p className="block md:hidden text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
-                        &ldquo;{mobileDisplayText}&rdquo;
-                      </p>
+                  return (
+                    <div
+                      key={msg.id}
+                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between items-center h-full text-center"
+                    >
+                      {/* Upper Part: Message & Inline Toggle */}
+                      <div className="flex flex-col items-center w-full">
+                        {/* Message Body (Mobile) */}
+                        <p className="block md:hidden text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
+                          &ldquo;{mobileDisplayText}&rdquo;
+                        </p>
 
-                      {/* Message Body (Desktop/Tablet) */}
-                      <div className="hidden md:block w-full">
-                        {isLong && isExpanded ? (
-                          <div className="relative w-full">
-                            <div
-                              ref={scrollContainerRef}
-                              onScroll={handleScroll}
-                              tabIndex={0}
-                              className="guestbook-scrollarea max-h-[10rem] overflow-y-scroll pr-4 [scrollbar-gutter:stable] text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded"
-                            >
-                              &ldquo;{msg.message}&rdquo;
+                        {/* Message Body (Desktop/Tablet) */}
+                        <div className="hidden md:block w-full">
+                          {isLong && isExpanded ? (
+                            <div className="relative w-full">
+                              <div
+                                ref={scrollContainerRef}
+                                onScroll={handleScroll}
+                                tabIndex={0}
+                                className="guestbook-scrollarea max-h-[10rem] overflow-y-scroll pr-4 [scrollbar-gutter:stable] text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded"
+                              >
+                                &ldquo;{msg.message}&rdquo;
+                              </div>
+                              {showTopFade && (
+                                <div
+                                  className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-6 bg-gradient-to-b from-white/90 to-transparent"
+                                  aria-hidden="true"
+                               />
+                              )}
+                              {showBottomFade && (
+                                <div
+                                  className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-8 bg-gradient-to-t from-white/95 to-transparent"
+                                  aria-hidden="true"
+                                />
+                              )}
                             </div>
-                            {showTopFade && (
-                              <div
-                                className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-6 bg-gradient-to-b from-white/90 to-transparent"
-                                aria-hidden="true"
-                              />
-                            )}
-                            {showBottomFade && (
-                              <div
-                                className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-8 bg-gradient-to-t from-white/95 to-transparent"
-                                aria-hidden="true"
-                              />
-                            )}
+                          ) : (
+                            <p className="text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
+                              &ldquo;{desktopDisplayText}&rdquo;
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Toggle Button directly below the message */}
+                        {isLong && (
+                          <div className="mt-2">
+                            {/* Mobile Toggle */}
+                            <button
+                              onClick={() => handleToggle(msg.id)}
+                              className="block md:hidden text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
+                              type="button"
+                              aria-expanded={isExpanded}
+                            >
+                              {isExpanded ? "View less" : "View more"}
+                            </button>
+
+                            {/* Desktop/Tablet Toggle */}
+                            <button
+                              onClick={() => handleToggle(msg.id)}
+                              className="hidden md:block text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
+                              type="button"
+                              aria-expanded={isExpanded}
+                            >
+                              {isExpanded ? "View less" : "View more"}
+                            </button>
                           </div>
-                        ) : (
-                          <p className="text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
-                            &ldquo;{desktopDisplayText}&rdquo;
-                          </p>
                         )}
                       </div>
 
-                      {/* Toggle Button directly below the message */}
-                      {isLong && (
-                        <div className="mt-2">
-                          {/* Mobile Toggle */}
-                          <button
-                            onClick={() => handleToggle(msg.id)}
-                            className="block md:hidden text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
-                            type="button"
-                            aria-expanded={isExpanded}
-                          >
-                            {isExpanded ? "View less" : "View more"}
-                          </button>
-
-                          {/* Desktop/Tablet Toggle */}
-                          <button
-                            onClick={() => handleToggle(msg.id)}
-                            className="hidden md:block text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
-                            type="button"
-                            aria-expanded={isExpanded}
-                          >
-                            {isExpanded ? "View less" : "View more"}
-                          </button>
+                      {/* Lower Part: Divider & Name */}
+                      <div className="flex flex-col items-center w-full mt-4">
+                        {/* Centered Premium Flex Divider */}
+                        <div className="mb-4 flex w-full items-center justify-center select-none" aria-hidden="true">
+                          <span className="h-px w-12 sm:w-16 bg-sand/35" />
+                          <span className="mx-3 text-xs text-coral/65">✦</span>
+                          <span className="h-px w-12 sm:w-16 bg-sand/35" />
                         </div>
-                      )}
-                    </div>
 
-                    {/* Lower Part: Divider & Name */}
-                    <div className="flex flex-col items-center w-full mt-4">
-                      {/* Centered Premium Flex Divider */}
-                      <div className="mb-4 flex w-full items-center justify-center select-none" aria-hidden="true">
-                        <span className="h-px w-12 sm:w-16 bg-sand/35" />
-                        <span className="mx-3 text-xs text-coral/65">✦</span>
-                        <span className="h-px w-12 sm:w-16 bg-sand/35" />
+                        {/* Guest Name */}
+                        <span className="text-coral text-xs sm:text-sm font-bold uppercase tracking-wider block">
+                          {msg.name}
+                        </span>
                       </div>
-
-                      {/* Guest Name */}
-                      <span className="text-coral text-xs sm:text-sm font-bold uppercase tracking-wider block">
-                        {msg.name}
-                      </span>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              {/* Section-level View More/Less Button */}
+              {sortedMessages.length > INITIAL_VISIBLE_MESSAGES && (
+                <div className="mt-12 flex flex-col items-center gap-3">
+                  <span className="text-xs text-driftwood/75 font-medium tracking-wide">
+                    {showAllMessages 
+                      ? `Showing all ${sortedMessages.length} messages` 
+                      : `Showing ${INITIAL_VISIBLE_MESSAGES} of ${sortedMessages.length} messages`
+                    }
+                  </span>
+                  <button
+                    onClick={handleSectionToggle}
+                    className="group px-6 py-3 rounded-full border border-coral text-coral hover:bg-coral/[0.04] active:scale-95 transition-all duration-300 font-bold text-xs uppercase tracking-widest cursor-pointer shadow-[0_4px_12px_rgba(201,94,53,0.08)] hover:shadow-[0_8px_20px_rgba(201,94,53,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/40"
+                    type="button"
+                  >
+                    {showAllMessages ? "View Less" : "View More Messages"}
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             /* Polished empty state glass card for production */

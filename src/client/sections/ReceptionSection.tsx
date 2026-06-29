@@ -54,11 +54,11 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
   return (
     <section 
       id="reception" 
-      className="pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory relative overflow-visible"
+      className="pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory relative"
     >
-      {/* Decorative Assets Wrapper - clips horizontal and vertical overflow of large assets 
-          internally to prevent page-level horizontal scrolling or section-level inner vertical scrolling */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+      {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
+          internally to prevent page-level horizontal scrolling */}
+      <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Bird Assets — large elegant top-side framing elements, scaled up on desktop */}
         <img
           src="/beach%20assets%20finalized/7.webp"
@@ -113,7 +113,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
         <FadeContent>
           <SpotlightCard
             className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-            spotlightColor="rgba(232, 201, 122, 0.08)"
+            spotlightColor="rgba(232, 201, 122, 0.16)"
           >
             <div className="space-y-6 sm:space-y-8">
               {/* Venue Name & Full Address */}
@@ -129,7 +129,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                       </h3>
                     )}
                     {reception.fullAddress && (
-                      <p className="text-driftwood text-sm md:text-base mt-1.5 leading-relaxed">
+                      <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                         {reception.fullAddress}
                       </p>
                     )}
@@ -146,7 +146,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                   <div className="flex-1">
                     <h4 className="font-serif text-base font-semibold text-cocoa">Time</h4>
                     {derivedDate && (
-                      <p className="text-driftwood text-sm md:text-base mt-1.5 font-medium leading-relaxed">
+                      <p className="text-[#725d4f] text-sm md:text-base mt-1.5 font-medium leading-relaxed">
                         {derivedDate}
                       </p>
                     )}
@@ -167,7 +167,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                   </div>
                   <div className="flex-1">
                     <h4 className="font-serif text-base font-semibold text-cocoa">Note</h4>
-                    <p className="text-driftwood text-sm md:text-base mt-1.5 leading-relaxed">
+                    <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                       {reception.receptionNote}
                     </p>
                   </div>
@@ -183,7 +183,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                 href={reception.googleMapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
+                className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_10px_28px_rgba(201,94,53,0.38)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300 ease-out cursor-pointer"
               >
                 <span>Get Directions</span>
                 <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

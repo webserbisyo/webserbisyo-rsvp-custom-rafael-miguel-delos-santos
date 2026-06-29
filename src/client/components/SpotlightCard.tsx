@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 export function SpotlightCard({
   children,
   className = "",
-  spotlightColor = "rgba(249, 239, 227, 0.08)",
+  spotlightColor = "rgba(232, 201, 122, 0.16)",
 }: {
   children: React.ReactNode;
   className?: string;
@@ -27,7 +27,7 @@ export function SpotlightCard({
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`relative overflow-hidden rounded-3xl bg-cocoa border border-cream/10 shadow-soft transition-[border-color,box-shadow] duration-500 ${className}`}
+      className={`group relative overflow-hidden rounded-3xl bg-cocoa border border-cream/10 shadow-soft transition-[border-color,box-shadow] duration-500 ${className}`}
       style={{
         "--mouse-x": "50%",
         "--mouse-y": "50%",
@@ -35,7 +35,7 @@ export function SpotlightCard({
     >
       {/* Spotlight Radial Overlay */}
       <div
-        className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
         style={{
           background: `radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), ${spotlightColor}, transparent 80%)`,
         }}

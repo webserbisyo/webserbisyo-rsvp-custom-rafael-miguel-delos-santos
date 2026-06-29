@@ -52,7 +52,11 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
     if (nextOpen) {
       setActivePaperIndex(2);
     } else {
-      setActivePaperIndex(null);
+      // Delay resetting the active paper index until the closing animation (500ms) completes
+      // to prevent sudden z-index popping of clicked photos.
+      setTimeout(() => {
+        setActivePaperIndex(null);
+      }, 500);
       setPaperOffsets(Array.from({ length: maxItems }, () => ({ x: 0, y: 0 })));
     }
   };
@@ -89,58 +93,70 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
 
   const scaleStyle = { transform: `scale(${size})` };
 
-  const getOpenTransform = (index: number) => {
-    if (index === 0) return "translate(-175%, -90%) rotate(-12deg) scale(1.3)";
-    if (index === 1) return "translate(75%, -90%) rotate(12deg) scale(1.3)";
-    if (index === 2) return "translate(-50%, -120%) rotate(4deg) scale(1.4)";
-    return "";
-  };
-
-  return (
-    <div style={scaleStyle} className={className}>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .folder-front-label {
-          position: absolute;
-          left: 50%;
-          z-index: 40;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          user-select: none;
-          pointer-events: none;
-          transition: all 0.3s ease-out;
-          transform-origin: center bottom;
-          gap: 0.25rem;
-        }
-        
-        @media (min-width: 640px) {
-          .folder-front-label {
-            gap: 0.375rem;
-          }
-        }
-        
-        .folder-front-label.is-closed {
-          top: 58%;
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 1;
-        }
-        
-        .group:hover .folder-front-label.is-closed {
-          top: 62%;
-          transform: translate(-50%, -50%) scaleY(0.72) scale(0.96);
-          opacity: 0.9;
-        }
-        
-        .folder-front-label.is-open {
-          top: 62%;
-          transform: translate(-50%, -50%) perspective(700px) rotateX(8deg) scaleY(0.78) scale(0.96);
-          opacity: 0.75;
-        }
-      `}} />
+    return (
+      <div style={scaleStyle} className={className}>
+          <style dangerouslySetInnerHTML={{ __html: `
+            .folder-front-label {
+              position: absolute;
+              left: 50%;
+              z-index: 50;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              user-select: none;
+              pointer-events: none;
+              transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+              transform-origin: center center;
+              gap: 0.25rem;
+              will-change: transform, opacity;
+              backface-visibility: hidden;
+            }
+            
+            .folder-front-label.is-closed {
+              top: 58%;
+              transform: translate(-50%, -50%);
+              opacity: 1;
+            }
+            
+            .group:hover .folder-front-label.is-closed {
+              top: 58%;
+              transform: translate(-50%, -50%) translateY(10px) perspective(700px) rotateX(12deg) scaleY(0.72);
+              opacity: 0.9;
+            }
+            
+            .folder-front-label.is-open {
+              top: 58%;
+              transform: translate(-50%, -50%) translateY(14px) perspective(700px) rotateX(14deg) scaleY(0.68);
+              opacity: 0.75;
+            }
+            
+            /* Responsive Open Transforms via CSS Variables */
+            .folder-paper-0 {
+              --paper-open-transform: translate(-175%, -90%) rotate(-12deg) scale(1.3);
+            }
+            .folder-paper-1 {
+              --paper-open-transform: translate(75%, -90%) rotate(12deg) scale(1.3);
+            }
+            .folder-paper-2 {
+              --paper-open-transform: translate(-50%, -120%) rotate(4deg) scale(1.4);
+            }
+            
+            @media (max-width: 639px) {
+              .folder-paper-0 {
+                --paper-open-transform: translate(-88%, -88%) rotate(-8deg) scale(1.12);
+              }
+              .folder-paper-1 {
+                --paper-open-transform: translate(-12%, -72%) rotate(8deg) scale(1.12);
+              }
+              .folder-paper-2 {
+                --paper-open-transform: translate(-50%, -135%) rotate(0deg) scale(1.25);
+              }
+            }
+          `}} />
       <div
-        className={`group relative transition-all duration-300 ease-in cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${!open ? "hover:-translate-y-2" : ""
+        className={`group relative transition-transform duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${!open ? "hover:-translate-y-2" : ""
           }`}
         style={{
           ...folderStyle,
@@ -172,7 +188,7 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
             if (i === 1) sizeClasses = open ? "w-[85%] h-[95%]" : "w-[80%] h-[70%]";
             if (i === 2) sizeClasses = open ? "w-[100%] h-[95%]" : "w-[90%] h-[60%]";
             const transformStyle = open
-              ? `${getOpenTransform(i)} translate(${paperOffsets[i].x}px, ${paperOffsets[i].y}px)`
+              ? `var(--paper-open-transform) translate(${paperOffsets[i].x}px, ${paperOffsets[i].y}px)`
               : undefined;
             return (
               <div
@@ -185,13 +201,14 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
                     setActivePaperIndex(i);
                   }
                 }}
-                className={`absolute bottom-[10%] left-1/2 transition-all duration-500 ease-out ${!open ? "transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0" : "hover:scale-110"
+                className={`absolute bottom-[10%] left-1/2 transition-transform duration-500 ease-out transform-gpu will-change-transform folder-paper-${i} ${!open ? "transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0" : "hover:scale-110"
                   } ${sizeClasses}`}
                 style={{
                   ...(!open ? {} : { transform: transformStyle }),
                   backgroundColor: i === 0 ? paper1 : i === 1 ? paper2 : paper3,
                   borderRadius: "10px",
-                  zIndex: open ? (activePaperIndex === i ? 50 : 20) : 20,
+                  zIndex: open ? (activePaperIndex === i ? 30 : 20) : 20,
+                  backfaceVisibility: "hidden",
                 }}
               >
                 {item}
@@ -199,28 +216,30 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
             );
           })}
           <div
-            className={`absolute z-30 w-full h-full origin-bottom transition-all duration-300 ease-out ${!open ? "group-hover:[transform:skew(15deg)_scaleY(0.6)]" : ""
+            className={`absolute z-40 w-full h-full origin-bottom transition-transform duration-300 ease-out transform-gpu will-change-transform ${!open ? "group-hover:[transform:skew(15deg)_scaleY(0.6)]" : ""
               }`}
             style={{
               backgroundColor: color,
               borderRadius: "5px 10px 10px 10px",
               ...(open && { transform: "skew(15deg) scaleY(0.6)" }),
+              backfaceVisibility: "hidden",
             }}
           ></div>
           <div
-            className={`absolute z-30 w-full h-full origin-bottom transition-all duration-300 ease-out ${!open ? "group-hover:[transform:skew(-15deg)_scaleY(0.6)]" : ""
+            className={`absolute z-40 w-full h-full origin-bottom transition-transform duration-300 ease-out transform-gpu will-change-transform ${!open ? "group-hover:[transform:skew(-15deg)_scaleY(0.6)]" : ""
               }`}
             style={{
               backgroundColor: color,
               borderRadius: "5px 10px 10px 10px",
               ...(open && { transform: "skew(-15deg) scaleY(0.6)" }),
+              backfaceVisibility: "hidden",
             }}
           ></div>
 
           {/* Centered Heart Icon and Open/Close Text */}
           <div className={`folder-front-label ${open ? "is-open" : "is-closed"}`}>
-            <Heart className="h-7 w-7 sm:h-8 sm:w-8 fill-white/20 text-white" aria-hidden="true" />
-            <span className="text-base sm:text-lg font-bold tracking-[0.16em]">
+            <Heart className="h-5 w-5 sm:h-6 sm:w-6 fill-white/20 text-white" aria-hidden="true" />
+            <span className="text-sm sm:text-base font-bold tracking-[0.14em]">
               {open ? "CLOSE" : "OPEN"}
             </span>
           </div>

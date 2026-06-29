@@ -46,7 +46,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
   return (
     <section
       id="extra-info"
-      className="relative isolate overflow-x-clip bg-cream px-4 pt-24 pb-28 sm:py-28 lg:py-32"
+      className="relative overflow-x-clip bg-cream px-4 pt-24 pb-28 sm:py-28 lg:py-32"
     >
       {/* 1. Gallery-style Global Desktop Shell Layer (z-0, hidden lg:block) */}
       <div
@@ -164,7 +164,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
                   </div>
 
                   {/* Card Title */}
-                  <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium">
+                  <h4 className="font-serif text-xl md:text-2xl text-[#302722] font-semibold">
                     {item.title}
                   </h4>
 
@@ -173,7 +173,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
 
                   {/* Card Body Description */}
                   {item.details && (
-                    <p className="text-cocoa/80 text-sm md:text-base leading-relaxed text-balance">
+                    <p className="text-[#725d4f] text-sm md:text-base leading-relaxed text-balance">
                       {item.details}
                     </p>
                   )}

@@ -27,7 +27,13 @@ export {
   Bus,
   Pin,
   Compass,
-  Sparkles
+  Sparkles,
+  Home,
+  BookOpen,
+  Image,
+  Utensils,
+  Shirt,
+  Award
 } from "lucide-react";
 
 

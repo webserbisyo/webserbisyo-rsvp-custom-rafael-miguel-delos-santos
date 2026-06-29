@@ -63,7 +63,7 @@ export function FloatingMusicBubble() {
               {isPlaying ? (
                 <button
                   onClick={pause}
-                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#b24d26] transition shadow-sm active:scale-95"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(201,94,53,0.3)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300"
                 >
                   <Pause className="w-3.5 h-3.5 fill-current" />
                   <span>Pause</span>
@@ -71,7 +71,7 @@ export function FloatingMusicBubble() {
               ) : (
                 <button
                   onClick={play}
-                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#b24d26] transition shadow-sm active:scale-95"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(201,94,53,0.3)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
                   <span>Play</span>
@@ -98,7 +98,7 @@ export function FloatingMusicBubble() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsExpanded((prev) => !prev)}
-        className="w-14 h-14 rounded-full bg-coral hover:bg-[#b24d26] text-white flex items-center justify-center shadow-soft relative group cursor-pointer"
+        className="w-14 h-14 rounded-full bg-coral hover:bg-coral hover:brightness-105 hover:shadow-[0_8px_24px_rgba(201,94,53,0.35)] text-white flex items-center justify-center shadow-soft relative group cursor-pointer transition-all duration-300"
         aria-label="Wedding song controls"
       >
         <AnimatePresence mode="wait">

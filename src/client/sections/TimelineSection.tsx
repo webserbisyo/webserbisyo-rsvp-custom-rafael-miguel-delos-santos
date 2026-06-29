@@ -30,7 +30,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
   if (!timelineProgram?.items?.length) return null;
 
   return (
-    <section id="timeline" className="py-24 px-4 bg-cream overflow-x-hidden relative isolate">
+    <section id="timeline" className="py-24 px-4 bg-cream overflow-x-hidden relative">
       <div className="max-w-5xl mx-auto relative z-10">
         <SectionHeading label="Wedding Day Timeline" title="The flow of the day" subtitle="So our guests know what to expect — from sunlit arrivals to bonfire farewells." />
 
@@ -88,8 +88,8 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                       </div>
                     </div>
                     <div className={glassCardClasses}>
-                      {title && <h4 className="font-serif text-xl text-cocoa mb-2 tracking-wide text-balance">{title}</h4>}
-                      {item.description && <p className="text-driftwood text-sm leading-relaxed text-balance">{item.description}</p>}
+                      {title && <h4 className="font-serif text-xl text-[#302722] font-semibold mb-2 tracking-wide text-balance">{title}</h4>}
+                      {item.description && <p className="text-[#725d4f] text-sm leading-relaxed text-balance">{item.description}</p>}
                     </div>
                   </motion.div>
 
@@ -121,8 +121,8 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           className="w-1/2 flex justify-start pl-20 relative z-30"
                         >
                           <div className={glassCardClasses}>
-                            {title && <h4 className="font-serif text-[1.4rem] text-cocoa mb-3 tracking-wide text-balance">{title}</h4>}
-                            {item.description && <p className="text-driftwood text-base leading-relaxed text-balance">{item.description}</p>}
+                            {title && <h4 className="font-serif text-[1.4rem] text-[#302722] font-semibold mb-3 tracking-wide text-balance">{title}</h4>}
+                            {item.description && <p className="text-[#725d4f] text-base leading-relaxed text-balance">{item.description}</p>}
                           </div>
                         </motion.div>
                       </>
@@ -137,8 +137,8 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           className="w-1/2 flex justify-end pr-20 relative z-30"
                         >
                           <div className={glassCardClasses}>
-                            {title && <h4 className="font-serif text-[1.4rem] text-cocoa mb-3 tracking-wide text-balance">{title}</h4>}
-                            {item.description && <p className="text-driftwood text-base leading-relaxed text-balance">{item.description}</p>}
+                            {title && <h4 className="font-serif text-[1.4rem] text-[#302722] font-semibold mb-3 tracking-wide text-balance">{title}</h4>}
+                            {item.description && <p className="text-[#725d4f] text-base leading-relaxed text-balance">{item.description}</p>}
                           </div>
                         </motion.div>
                         {/* Right Side: Time + Asset */}

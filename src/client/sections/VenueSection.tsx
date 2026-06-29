@@ -147,8 +147,8 @@ export function VenueSection({ venue }: VenueSectionProps) {
 
   return (
     <section id="venue" className="pt-24 pb-28 px-4 bg-cream relative">
-      {/* Decorative Leaves Wrapper - clips horizontal and vertical overflow of large leaves to prevent inner scroll or page-level horizontal scrolling */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+      {/* Decorative Leaves Wrapper - clips horizontal overflow of large leaves to prevent page-level horizontal scrolling */}
+      <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}
         <img
           src="/beach%20assets%20finalized/4.webp"
@@ -184,7 +184,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
             {/* Left Column: Details & Logistics */}
             <SpotlightCard 
               className="bg-white/65 backdrop-blur-md border border-sand/40 p-8 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-              spotlightColor="rgba(232, 201, 122, 0.08)"
+              spotlightColor="rgba(232, 201, 122, 0.16)"
             >
               <div className="space-y-8">
                 {/* Row 1: Full Address */}
@@ -194,7 +194,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
                   </div>
                   <div className="flex-1">
                     <h4 className="font-serif text-base font-semibold text-cocoa">Full Address</h4>
-                    <p className="text-driftwood text-sm md:text-base mt-1.5 leading-relaxed">
+                    <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                       {venue.address}
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
                     </div>
                     <div className="flex-1">
                       <h4 className="font-serif text-base font-semibold text-cocoa">Arrival / Landmark Note</h4>
-                      <p className="text-driftwood text-sm md:text-base mt-1.5 leading-relaxed">
+                      <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                         {venue.arrivalNote}
                       </p>
                     </div>
@@ -251,7 +251,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
                     href={externalMapsLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-[#8C4520] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_0_20px_rgba(201,94,53,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
+                    className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_10px_28px_rgba(201,94,53,0.38)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300 ease-out cursor-pointer"
                   >
                     <span>Open in Google Maps</span>
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

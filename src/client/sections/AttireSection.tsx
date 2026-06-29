@@ -56,7 +56,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
   }
 
   return (
-    <section id="attire" className="pt-24 pb-28 md:pb-32 px-4 bg-ivory relative overflow-x-clip isolate">
+    <section id="attire" className="pt-24 pb-28 md:pb-32 px-4 bg-ivory relative overflow-x-clip">
       
       {/* Absolute Decorative Background Layer - Corner Flowers and Desktop-Only Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
@@ -180,7 +180,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
 
         {/* Standalone Guideline Paragraph */}
         {displayIntro && (
-          <p className="text-cocoa/80 text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-opacity duration-300">
+          <p className="text-[#725d4f] text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-opacity duration-300">
             {displayIntro}
           </p>
         )}
@@ -189,11 +189,11 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
         <AnimatedContent>
           <SpotlightCard 
             className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-            spotlightColor="rgba(232, 201, 122, 0.08)"
+            spotlightColor="rgba(232, 201, 122, 0.16)"
           >
             {/* Dress Code Title / Note */}
             {attireDressCode.dressCodeNote && (
-              <h3 className="font-serif text-2xl md:text-3xl text-cocoa font-medium mb-2">
+              <h3 className="font-serif text-2xl md:text-3xl text-[#302722] font-semibold mb-2">
                 {attireDressCode.dressCodeNote}
               </h3>
             )}
@@ -216,7 +216,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
                     className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-sand/30 shadow-sm transition-transform duration-300 group-hover:scale-110"
                     style={{ backgroundColor: color.hex }}
                   />
-                  <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-cocoa/80 mt-2 uppercase">
+                  <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#725d4f] mt-2 uppercase">
                     {color.name}
                   </span>
                 </div>

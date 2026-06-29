@@ -55,7 +55,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
   return (
     <section 
       id="entourage" 
-      className="relative isolate overflow-x-clip bg-ivory px-4 pt-24 pb-28 sm:py-28 lg:py-32"
+      className="relative overflow-x-clip bg-ivory px-4 pt-24 pb-28 sm:py-28 lg:py-32"
     >
       {/* Gallery-style Global Desktop Shell Layer */}
       <div

@@ -36,24 +36,6 @@ const GALLERY_PHOTOS = [
     orientation: "portrait",
   },
   {
-    src: "/wedding-assets/male-solo-landscape.webp",
-    caption: "Groom's Preparation",
-    location: "Before the Ceremony",
-    orientation: "landscape",
-  },
-  {
-    src: "/wedding-assets/female-solo-landscape.webp",
-    caption: "Bride's Moments",
-    location: "Ocean-view Suite",
-    orientation: "landscape",
-  },
-  {
-    src: "/wedding-assets/The-arrival-moment.webp",
-    caption: "The Arrival Moment",
-    location: "Walking Down the Aisle",
-    orientation: "landscape",
-  },
-  {
     src: "/wedding-assets/Sunset-silhouette.webp",
     caption: "Sunset Silhouette",
     location: "Golden Hour Beach",
@@ -85,11 +67,11 @@ export function GallerySection() {
 
   return (
     <section
-      id="gallery"
-      className="pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
-    >
-      {/* Decorative Sea Elements on Sides - Sticky Track System */}
-      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10">
+       id="gallery"
+       className="pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
+     >
+       {/* Decorative Sea Elements on Sides - Sticky Track System */}
+       <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10 overflow-x-clip">
 
         {/* Left Side Sticky Group */}
         <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">

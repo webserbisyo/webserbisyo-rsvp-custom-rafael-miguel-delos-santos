@@ -43,7 +43,10 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
       className="py-20 md:py-28 px-4 bg-gradient-to-b from-[#E8F4F0] via-[#C5E5DC] to-[#8EC9BB] text-cocoa text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
-        <SpotlightCard className="p-8 md:p-12 shadow-soft border border-[#5c4638]/10 text-center bg-[#4a3528]/95 text-cream relative">
+        <SpotlightCard 
+          className="p-8 md:p-12 shadow-soft border border-[#5c4638]/10 text-center bg-[#4a3528]/95 text-cream relative"
+          spotlightColor="rgba(232, 201, 122, 0.20)"
+        >
           {/* Eyebrow */}
           <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-sand/80 mb-6">
             OUR WEDDING SONG

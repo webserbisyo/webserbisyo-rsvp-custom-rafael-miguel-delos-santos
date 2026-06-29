@@ -5,11 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { appendPrivateAccessToken, normalizePrivateAccessToken } from "@/lib/private-access";
 import type { EventWebsiteRenderModel, NormalizedSection } from "@/types/public-event";
 import { submitPublicRsvp, type PublicRsvpPayload } from "./submit-rsvp";
-import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
 import { Textarea } from "@/client/components/ui/textarea";
 import { Label } from "@/client/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/client/components/ui/card";
 
 type ClientRsvpFormProps = {
   dedicatedPageEnabled: boolean;
@@ -52,7 +50,6 @@ export function ClientRsvpForm({
 }: ClientRsvpFormProps) {
   const searchParams = useSearchParams();
   const accessToken = normalizePrivateAccessToken(searchParams.get("access"));
-  const dedicatedPageHref = appendPrivateAccessToken(dedicatedPagePath, accessToken) ?? dedicatedPagePath;
   const rsvpConfig = getStarterRsvpConfig(event.sections.find((section) => section.key === "rsvp_form"));
   const showFullForm = mode === "inline-form";
   const showCompactFields = mode === "compact-form";
@@ -141,15 +138,14 @@ export function ClientRsvpForm({
 
   if (status === "success") {
     return (
-      <div className="space-y-4">
-        <Card id="rsvp-form" className="border-cocoa/10 bg-ivory/60 p-8 text-center">
-          <CardHeader className="p-0 mb-2">
-            <CardTitle>Thank You!</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <p className="text-cocoa/80">Your RSVP has been submitted successfully.</p>
-          </CardContent>
-        </Card>
+      <div id="rsvp-form" className="py-12 text-center flex flex-col items-center justify-center animate-fadeIn">
+        <div className="w-14 h-14 bg-[#4f7d5a]/10 text-[#4f7d5a] rounded-full flex items-center justify-center mb-5 text-3xl select-none" aria-hidden="true">
+          ✓
+        </div>
+        <h2 className="font-serif text-3xl text-[#302722] mb-3">Thank You!</h2>
+        <p className="text-sm text-[#725d4f]/85 max-w-sm leading-relaxed">
+          Your RSVP has been submitted successfully. We look forward to celebrating with you!
+        </p>
       </div>
     );
   }
@@ -157,187 +153,227 @@ export function ClientRsvpForm({
   const isSubmitting = status === "submitting";
 
   return (
-    <div className="space-y-4">
-      {dedicatedPageEnabled && mode !== "cta-only" ? (
-        <div className="space-y-2">
-          <p className="text-sm leading-7 text-cocoa/70">
-            The dedicated RSVP page is available at{" "}
-            <a className="font-semibold text-terracotta underline-offset-2 hover:underline" href={dedicatedPageHref}>
-              {dedicatedPageHref}
-            </a>
-            .
-          </p>
-        </div>
-      ) : null}
-
-      <Card id="rsvp-form" className="border-cocoa/10 bg-ivory/60 p-5">
-        <form onSubmit={handleSubmit} className="grid gap-4">
-          {globalError ? (
-            <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600">
-              {globalError}
-            </div>
-          ) : null}
-
-          <div className="grid gap-2">
-            <Label>Guest Name *</Label>
-            <Input
-              required
-              placeholder="Your full name"
-              value={guestName}
-              onChange={(e) => setGuestName(e.target.value)}
-              disabled={isSubmitting}
-              className={fieldErrors?.guestName?.[0] ? "border-red-300" : ""}
-            />
-            {fieldErrors?.guestName?.[0] && <span className="text-xs text-red-500">{fieldErrors.guestName[0]}</span>}
+    <div className="w-full">
+      <form id="rsvp-form" onSubmit={handleSubmit} className="grid gap-6">
+        {globalError ? (
+          <div className="rounded-xl bg-[#a84f45]/10 border border-[#a84f45]/20 p-4 text-sm text-[#a84f45]">
+            {globalError}
           </div>
+        ) : null}
 
-          {(showFullForm || showCompactFields) && rsvpConfig.emailEnabled ? (
-            <div className="grid gap-2">
-              <Label>Email{rsvpConfig.emailRequired ? " *" : ""}</Label>
-              <Input
-                required={rsvpConfig.emailRequired}
-                placeholder="you@example.com"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+        {/* Guest Name */}
+        <div className="grid gap-2">
+          <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            Guest Name *
+          </Label>
+          <Input
+            required
+            placeholder="Your full name"
+            value={guestName}
+            onChange={(e) => setGuestName(e.target.value)}
+            disabled={isSubmitting}
+            className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+              fieldErrors?.guestName?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+            }`}
+          />
+          {fieldErrors?.guestName?.[0] && (
+            <span className="text-xs text-[#a84f45]">{fieldErrors.guestName[0]}</span>
+          )}
+        </div>
+
+        {/* Email Address */}
+        {(showFullForm || showCompactFields) && rsvpConfig.emailEnabled ? (
+          <div className="grid gap-2">
+            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              Email{rsvpConfig.emailRequired ? " *" : ""}
+            </Label>
+            <Input
+              required={rsvpConfig.emailRequired}
+              placeholder="you@example.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isSubmitting}
+              className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+                fieldErrors?.email?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+              }`}
+            />
+            {fieldErrors?.email?.[0] && (
+              <span className="text-xs text-[#a84f45]">{fieldErrors.email[0]}</span>
+            )}
+          </div>
+        ) : null}
+
+        {/* Phone Number */}
+        {showFullForm && rsvpConfig.phoneEnabled ? (
+          <div className="grid gap-2">
+            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              Phone Number{rsvpConfig.phoneRequired ? " *" : ""}
+            </Label>
+            <Input
+              required={rsvpConfig.phoneRequired}
+              placeholder="09XXXXXXXXX"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              disabled={isSubmitting}
+              className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+                fieldErrors?.phone?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+              }`}
+            />
+            {fieldErrors?.phone?.[0] && (
+              <span className="text-xs text-[#a84f45]">{fieldErrors.phone[0]}</span>
+            )}
+          </div>
+        ) : null}
+
+        {/* Attendance Toggles */}
+        {showFullForm ? (
+          <div className="grid gap-2">
+            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              Will you attend? *
+            </Label>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                type="button"
+                onClick={() => setAttendanceStatus("attending")}
                 disabled={isSubmitting}
-                className={fieldErrors?.email?.[0] ? "border-red-300" : ""}
-              />
-              {fieldErrors?.email?.[0] && <span className="text-xs text-red-500">{fieldErrors.email[0]}</span>}
-            </div>
-          ) : null}
-
-          {showFullForm && rsvpConfig.phoneEnabled ? (
-            <div className="grid gap-2">
-              <Label>Phone Number{rsvpConfig.phoneRequired ? " *" : ""}</Label>
-              <Input
-                required={rsvpConfig.phoneRequired}
-                placeholder="09XXXXXXXXX"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                className={`w-full py-3.5 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-soft active:scale-[0.97] ${
+                  attendanceStatus === "attending"
+                    ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
+                    : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
+                }`}
+              >
+                Yes, Attending
+              </button>
+              <button
+                type="button"
+                onClick={() => setAttendanceStatus("not_attending")}
                 disabled={isSubmitting}
-                className={fieldErrors?.phone?.[0] ? "border-red-300" : ""}
-              />
-              {fieldErrors?.phone?.[0] && <span className="text-xs text-red-500">{fieldErrors.phone[0]}</span>}
+                className={`w-full py-3.5 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-soft active:scale-[0.97] ${
+                  attendanceStatus === "not_attending"
+                    ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
+                    : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
+                }`}
+              >
+                Declining
+              </button>
             </div>
-          ) : null}
+            {fieldErrors?.attendanceStatus ? (
+              <span className="text-xs text-[#a84f45]">{fieldErrors.attendanceStatus[0]}</span>
+            ) : null}
+          </div>
+        ) : null}
 
-          {showFullForm ? (
+        {/* Companions (Conditional) */}
+        {showFullForm && rsvpConfig.plusOneEnabled && attendanceStatus === "attending" ? (
+          <div className="grid gap-4 p-5 bg-[#fffaf1]/30 border border-[rgba(201,114,88,0.1)] rounded-2xl animate-fadeIn">
             <div className="grid gap-2">
-              <Label>Attendance *</Label>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant={attendanceStatus === "attending" ? "secondary" : "outline"}
-                  onClick={() => setAttendanceStatus("attending")}
-                  disabled={isSubmitting}
-                  type="button"
-                >
-                  Yes, I will attend
-                </Button>
-                <Button
-                  variant={attendanceStatus === "not_attending" ? "secondary" : "outline"}
-                  onClick={() => setAttendanceStatus("not_attending")}
-                  disabled={isSubmitting}
-                  type="button"
-                >
-                  Sorry, I can&apos;t attend
-                </Button>
-              </div>
-              {fieldErrors?.attendanceStatus ? (
-                <span className="text-xs text-red-500">{fieldErrors.attendanceStatus[0]}</span>
-              ) : null}
-            </div>
-          ) : null}
-
-          {showFullForm && rsvpConfig.plusOneEnabled ? (
-            <div className="grid gap-2">
-              <Label>Companions</Label>
-              <p className="text-sm leading-6 text-cocoa/70">
-                Guests may bring up to {rsvpConfig.companionLimit} companion{rsvpConfig.companionLimit === 1 ? "" : "s"}.
+              <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+                Companions
+              </Label>
+              <p className="text-xs text-[#725d4f]/70 mb-1">
+                You may bring up to {rsvpConfig.companionLimit} companion{rsvpConfig.companionLimit === 1 ? "" : "s"}.
               </p>
               <div className="flex flex-wrap gap-2">
                 {Array.from({ length: rsvpConfig.companionLimit + 1 }, (_, index) => (
-                  <Button
+                  <button
                     key={index}
-                    variant={companionCount === index ? "secondary" : "outline"}
+                    type="button"
                     onClick={() => setCompanionCount(index)}
                     disabled={isSubmitting}
-                    type="button"
+                    className={`flex-1 py-2.5 rounded-lg border text-xs font-bold transition-all duration-300 cursor-pointer active:scale-[0.97] ${
+                      companionCount === index
+                        ? "bg-[#b8644a] text-white border-[#b8644a]"
+                        : "bg-[#fffaf1]/50 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#b8644a]/40 hover:-translate-y-0.5"
+                    }`}
                   >
                     {index === 0 ? "Just me" : `Me + ${index}`}
-                  </Button>
+                  </button>
                 ))}
               </div>
+            </div>
 
-              {rsvpConfig.companionNameEnabled && companionCount > 0 ? (
-                Array.from({ length: companionCount }, (_, index) => (
-                  <Card key={index} className="grid gap-3 bg-white/70 p-4">
+            {rsvpConfig.companionNameEnabled && companionCount > 0 ? (
+              <div className="grid gap-4 mt-2">
+                {Array.from({ length: companionCount }, (_, index) => (
+                  <div key={index} className="grid gap-3 p-4 bg-white/50 border border-[rgba(201,114,88,0.12)] rounded-xl">
                     <div className="grid gap-2">
-                      <Label>Companion {index + 1} Name</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+                        Companion {index + 1} Name
+                      </Label>
                       <Input
                         placeholder="Full name"
                         value={companions[index]?.fullName || ""}
                         onChange={(e) => updateCompanion(index, "fullName", e.target.value)}
                         disabled={isSubmitting}
+                        className="w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-2 px-3"
                       />
                     </div>
                     {rsvpConfig.companionAgeEnabled ? (
                       <div className="grid gap-2">
-                        <Label>Companion {index + 1} Age</Label>
+                        <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+                          Companion {index + 1} Age
+                        </Label>
                         <Input
                           placeholder="Adult, child, or age"
                           value={companions[index]?.ageLabel || ""}
                           onChange={(e) => updateCompanion(index, "ageLabel", e.target.value)}
                           disabled={isSubmitting}
+                          className="w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-2 px-3"
                         />
                       </div>
                     ) : null}
-                  </Card>
-                ))
-              ) : null}
-            </div>
-          ) : null}
-
-          {showFullForm && rsvpConfig.foodAllergiesEnabled ? (
-            <div className="grid gap-2">
-              <Label>Food Allergies / Dietary Restrictions</Label>
-              <Textarea
-                placeholder="List any allergies or dietary restrictions for your party."
-                value={dietaryNotes}
-                onChange={(e) => setDietaryNotes(e.target.value)}
-                disabled={isSubmitting}
-              />
-            </div>
-          ) : null}
-
-          {(showFullForm || showCompactFields) && rsvpConfig.messageToHostEnabled ? (
-            <div className="grid gap-2">
-              <Label>Message to Host</Label>
-              <Textarea
-                placeholder="Leave a short message."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                disabled={isSubmitting}
-              />
-            </div>
-          ) : null}
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <Button disabled={isSubmitting} type="submit" variant="default">
-              {isSubmitting ? "Submitting..." : "Submit RSVP"}
-            </Button>
-            {dedicatedPageEnabled && mode !== "cta-only" ? (
-              <a
-                className="text-sm font-semibold text-terracotta underline-offset-2 hover:underline"
-                href={dedicatedPageHref}
-              >
-                Open the dedicated RSVP page
-              </a>
+                  </div>
+                ))}
+              </div>
             ) : null}
           </div>
-        </form>
-      </Card>
+        ) : null}
+
+        {/* Food Allergies */}
+        {showFullForm && rsvpConfig.foodAllergiesEnabled ? (
+          <div className="grid gap-2">
+            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              Food Allergies / Dietary Restrictions
+            </Label>
+            <Textarea
+              placeholder="List any allergies or dietary restrictions for your party."
+              value={dietaryNotes}
+              onChange={(e) => setDietaryNotes(e.target.value)}
+              disabled={isSubmitting}
+              className="w-full min-h-[100px] bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 resize-none"
+            />
+          </div>
+        ) : null}
+
+        {/* Message to Host */}
+        {(showFullForm || showCompactFields) && rsvpConfig.messageToHostEnabled ? (
+          <div className="grid gap-2">
+            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              Message to the Couple
+            </Label>
+            <Textarea
+              placeholder="Leave a warm note for the couple."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              disabled={isSubmitting}
+              className="w-full min-h-[100px] bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 resize-none"
+            />
+          </div>
+        ) : null}
+
+        {/* Submit Button */}
+        <div className="mt-4">
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full py-4 rounded-full bg-gradient-to-r from-[#b8644a] to-[#c97258] hover:opacity-95 active:scale-[0.98] text-white font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer shadow-[0_16px_34px_rgba(201,114,88,0.32)] hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c97258]/40"
+          >
+            {isSubmitting ? "Submitting..." : "Submit RSVP"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

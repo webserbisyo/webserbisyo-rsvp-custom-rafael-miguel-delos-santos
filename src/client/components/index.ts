@@ -6,3 +6,4 @@ export { ClientRsvpAnchorLink } from "@/client/components/ClientRsvpAnchorLink";
 export { WaveDivider } from "@/client/components/WaveDivider";
 export { SectionHeading } from "@/client/components/SectionHeading";
 export { ScrollProgressBar } from "@/client/components/ScrollProgressBar";
+export { FloatingGuestDock } from "@/client/components/FloatingGuestDock";

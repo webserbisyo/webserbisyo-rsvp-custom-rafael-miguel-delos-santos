@@ -85,7 +85,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
   const grid = mounted ? getCalendarMonthGrid(focusDateString) : null;
 
   return (
-    <section id="ceremony" className="relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-hidden z-0">
+    <section id="ceremony" className="relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-hidden">
       {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
       <img
         src="/beach%20assets%20finalized/17.webp"
@@ -94,7 +94,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         width={2048}
         height={2048}
         decoding="async"
-        className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-[opacity,transform] duration-300 block"
+        className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
       />
 
       {/* Decorative Plumeria Flower bottom-right (Layer 2) - Mirror flipped, enlarged, and responsive */}
@@ -105,7 +105,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         width={2048}
         height={2048}
         decoding="async"
-        className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-95 transition-[opacity,transform] duration-300 block"
+        className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
         style={{ transform: "scaleX(-1)" }}
       />
 
@@ -121,7 +121,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
               width={2048}
               height={2048}
               decoding="async"
-              className="w-24 sm:w-28 h-auto object-contain pointer-events-none z-10 select-none opacity-70"
+              className="w-24 sm:w-28 h-auto object-contain pointer-events-none z-10 select-none opacity-90"
             />
           </div>
 
@@ -133,7 +133,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             width={2048}
             height={2048}
             decoding="async"
-            className="absolute -left-20 sm:-left-32 md:-left-40 lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-[opacity,transform] duration-300 hidden sm:block"
+            className="absolute -left-20 sm:-left-32 md:-left-40 lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 hidden sm:block"
           />
 
           {/* Right candle lantern - balanced sweet-spot sizing with framing offsets */}
@@ -144,7 +144,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             width={2048}
             height={2048}
             decoding="async"
-            className="absolute -right-20 sm:-right-32 md:-right-40 lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-60 sm:opacity-75 md:opacity-85 lg:opacity-90 transition-[opacity,transform] duration-300 hidden sm:block"
+            className="absolute -right-20 sm:-right-32 md:-right-40 lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 hidden sm:block"
           />
 
           <SectionHeading
@@ -171,7 +171,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                   >
                     {/* Month & Year header */}
                     <div className="text-center mb-6">
-                      <span className="font-serif text-xl sm:text-2xl font-semibold text-cocoa block">
+                      <span className="font-serif text-xl sm:text-2xl font-semibold text-[#302722] block">
                         {grid ? `${grid.monthName} ${grid.year}` : "Month Year"}
                       </span>
                     </div>
@@ -179,7 +179,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                     {/* Weekdays header */}
                     <div className="grid grid-cols-7 gap-1 sm:gap-3 text-center mb-3">
                       {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
-                        <span key={idx} className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-driftwood/50 uppercase">
+                        <span key={idx} className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase">
                           {day}
                         </span>
                       ))}
@@ -227,16 +227,16 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             <div className="flex">
               <SpotlightCard 
                 className="w-full h-full bg-white/80 backdrop-blur-md border border-sand/30 p-6 sm:p-8 rounded-3xl flex flex-col justify-center shadow-soft text-left"
-                spotlightColor="rgba(232, 201, 122, 0.08)"
+                spotlightColor="rgba(232, 201, 122, 0.16)"
               >
                 <div className="space-y-6">
                   
                   {/* Title & Kicker */}
                   <div>
-                    <h3 className="font-serif text-2xl text-cocoa font-medium mb-1">
+                    <h3 className="font-serif text-2xl text-[#302722] font-semibold mb-1">
                       Save Our Date
                     </h3>
-                    <p className="text-xs text-driftwood/80 uppercase tracking-widest font-semibold">
+                    <p className="text-xs text-[#725d4f] uppercase tracking-widest font-semibold">
                       We can&apos;t wait to celebrate with you
                     </p>
                   </div>
@@ -262,7 +262,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                           {ceremony.endTime && ` - ${formatTime(ceremony.endTime)}`}
                         </p>
                       )}
-                      <p className="text-xs text-driftwood mt-1">
+                      <p className="text-xs text-[#725d4f] mt-1">
                         {mounted ? formatDate(ceremony.eventDate) : ""}
                       </p>
                     </div>
@@ -301,7 +301,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                               <p className="text-sm text-coral font-medium mt-1">
                                 Kindly respond by {formatTime(ceremony.rsvpDeadline.split("T")[1])}
                               </p>
-                              <p className="text-xs text-driftwood mt-1">
+                              <p className="text-xs text-[#725d4f] mt-1">
                                 {formatDate(ceremony.rsvpDeadline.split("T")[0])}
                               </p>
                             </>
@@ -310,7 +310,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                               <p className="text-sm text-coral font-medium mt-1">
                                 Kindly respond by
                               </p>
-                              <p className="text-xs text-driftwood mt-1">
+                              <p className="text-xs text-[#725d4f] mt-1">
                                 {formatDate(ceremony.rsvpDeadline)}
                               </p>
                             </>

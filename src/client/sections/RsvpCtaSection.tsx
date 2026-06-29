@@ -16,7 +16,7 @@ export function RsvpCtaSection() {
   return (
     <section
       id="rsvp"
-      className="relative isolate overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
+      className="relative overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
     >
       {/* Decorative Bird Layer — Airy top corner/side accents */}
       <div
@@ -64,7 +64,7 @@ export function RsvpCtaSection() {
           >
             <Link
               href="/rsvp"
-              className="inline-block px-10 py-4 rounded-full text-sm font-medium tracking-wide bg-white text-coral hover:bg-white/95 hover:shadow-soft transition-[color,background-color,border-color,box-shadow,transform] duration-300 cursor-pointer"
+              className="inline-block px-10 py-4 rounded-full text-sm font-medium tracking-wide bg-white text-coral hover:bg-white/95 hover:-translate-y-0.5 hover:shadow-soft active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 transition-all duration-300 cursor-pointer"
             >
               RSVP Now ✦
             </Link>

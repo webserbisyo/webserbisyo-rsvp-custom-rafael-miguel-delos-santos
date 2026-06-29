@@ -68,8 +68,78 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
   ];
 
   return (
-    <section id="our-story" className="py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in">
-      <div className="max-w-3xl mx-auto">
+    <section id="our-story" className="py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in relative overflow-x-clip">
+      {/* Absolute Decorative Background Layer - Corner Flowers and Palm Leaves (z-0) */}
+      <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
+        {/* Top-Left Flower (17.webp) */}
+        <img
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -left-10 sm:-top-12 sm:-left-12 md:-top-16 md:-left-16 lg:-top-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Top-Right Flower (16.webp) */}
+        <img
+          src="/beach%20assets%20finalized/16.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -right-10 sm:-top-12 sm:-right-12 md:-top-16 md:-right-16 lg:-top-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Bottom-Left Flower (16.webp) - Tucked behind lower area with positive bottom offset */}
+        <img
+          src="/beach%20assets%20finalized/16.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -left-10 bottom-2 sm:-left-12 sm:bottom-4 md:-left-16 md:bottom-6 lg:-left-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Bottom-Right Flower (17.webp) - Tucked behind lower area with positive bottom offset */}
+        <img
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -right-10 bottom-2 sm:-right-12 sm:bottom-4 md:-right-16 md:bottom-6 lg:-right-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Left Palm Leaf (4.webp) */}
+        <img
+          src="/beach%20assets%20finalized/4.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute top-1/2 -translate-y-1/2 left-[-2rem] sm:left-[-3rem] md:left-[-4rem] lg:left-[-2rem] xl:left-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Right Palm Leaf (5.webp) */}
+        <img
+          src="/beach%20assets%20finalized/5.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute top-1/2 -translate-y-1/2 right-[-2rem] sm:right-[-3rem] md:right-[-4rem] lg:right-[-2rem] xl:right-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
+        />
+      </div>
+
+
+      <div className="max-w-3xl mx-auto relative z-10">
         {/* Main Section Heading Group */}
         <SectionHeading
           label={sectionEyebrow}
@@ -78,7 +148,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         />
 
         {/* Interactive Folder Component */}
-        <div className="my-16 sm:my-24 h-48 sm:h-64 flex items-center justify-center overflow-visible select-none">
+        <div className="mt-16 mb-10 sm:mt-24 sm:mb-16 h-40 sm:h-52 flex items-center justify-center overflow-visible select-none">
           <Folder
             color="#d65f3f"
             size={folderSize}
@@ -88,7 +158,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         </div>
 
         {/* Story Narrative Content */}
-        <div className="mt-12 sm:mt-16">
+        <div className="mt-8 sm:mt-12">
           {storyBody ? (
             <FadeContent blur={true} duration={0.8} delay={0.1} threshold={0.05}>
               {/* Romantic Narrative Body */}

@@ -87,7 +87,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         />
         <WaveDivider flip />
         <LoveStorySection loveStory={vm.loveStory} />
-        <WaveDivider />
+        <WaveDivider className="text-cocoa bg-ivory" />
         <ContactSection contactSocials={vm.contactSocials} />
       </main>
       <FloatingMusicBubble />
