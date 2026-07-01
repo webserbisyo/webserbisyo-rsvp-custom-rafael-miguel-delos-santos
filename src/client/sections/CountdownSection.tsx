@@ -64,9 +64,9 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
   ];
 
   return (
-    <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream">
+    <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream pb-24 sm:pb-20 md:pb-32">
       {/* Decorative Background Layer - Coconut Trees & Waves */}
-      <div className="absolute inset-0 overflow-x-clip pointer-events-none select-none z-10" aria-hidden="true">
+      <div className="absolute inset-x-0 top-0 bottom-0 overflow-x-clip overflow-y-visible pointer-events-none select-none z-10" aria-hidden="true">
         {/* Decorative Coconut Trees on Sides */}
         <img
           src="/beach%20assets%20finalized/12.webp"
@@ -95,7 +95,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform -translate-x-[15%] sm:-translate-x-[20%] translate-y-[43%]"
+          className="absolute left-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform -translate-x-[15%] sm:-translate-x-[20%] translate-y-[20%] sm:translate-y-[43%]"
         />
         <img
           src="/beach%20assets%20finalized/6.webp"
@@ -104,7 +104,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform translate-x-[15%] sm:translate-x-[20%] translate-y-[43%]"
+          className="absolute right-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform translate-x-[15%] sm:translate-x-[20%] translate-y-[20%] sm:translate-y-[43%]"
         />
 
         {/* Center Flower Bouquet Motif on Divider */}
@@ -115,7 +115,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-1/2 bottom-0 w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[55%]"
+          className="absolute left-1/2 bottom-0 w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[35%] sm:translate-y-[55%]"
         />
       </div>
 

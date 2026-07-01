@@ -18,7 +18,7 @@ export function FloatingMusicBubble() {
   const { displayTitle, displayArtist } = parseMusicMeta(musicTitle);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[99] flex flex-col items-end">
+    <div className="fixed bottom-[5.5rem] right-4 z-[99] flex flex-col items-end pb-[env(safe-area-inset-bottom)] sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -26,7 +26,7 @@ export function FloatingMusicBubble() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="mb-3 w-72 rounded-2xl bg-white/80 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
+            className="mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/80 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
           >
             <div className="flex justify-between items-start mb-3">
               <div className="flex gap-3 items-center min-w-0">
