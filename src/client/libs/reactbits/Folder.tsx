@@ -134,24 +134,24 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
             
             /* Responsive Open Transforms via CSS Variables */
             .folder-paper-0 {
-              --paper-open-transform: translate(-175%, -90%) rotate(-12deg) scale(1.3);
+              --paper-open-transform: translate(-155%, -80%) rotate(-12deg) scale(1.15);
             }
             .folder-paper-1 {
-              --paper-open-transform: translate(75%, -90%) rotate(12deg) scale(1.3);
+              --paper-open-transform: translate(55%, -80%) rotate(12deg) scale(1.15);
             }
             .folder-paper-2 {
-              --paper-open-transform: translate(-50%, -120%) rotate(4deg) scale(1.4);
+              --paper-open-transform: translate(-50%, -110%) rotate(4deg) scale(1.2);
             }
             
             @media (max-width: 639px) {
               .folder-paper-0 {
-                --paper-open-transform: translate(-88%, -88%) rotate(-8deg) scale(1.12);
+                --paper-open-transform: translate(-100%, -78%) rotate(-8deg) scale(1.0);
               }
               .folder-paper-1 {
-                --paper-open-transform: translate(-12%, -72%) rotate(8deg) scale(1.12);
+                --paper-open-transform: translate(0%, -62%) rotate(8deg) scale(1.0);
               }
               .folder-paper-2 {
-                --paper-open-transform: translate(-50%, -135%) rotate(0deg) scale(1.25);
+                --paper-open-transform: translate(-50%, -120%) rotate(0deg) scale(1.1);
               }
             }
           `}} />
@@ -175,11 +175,11 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
         aria-label={open ? "Close folder" : "Open folder"}
       >
         <div
-          className="relative w-[100px] h-[80px] rounded-tl-0 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
+          className="relative w-[180px] h-[144px] rounded-tl-0 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
           style={{ backgroundColor: folderBackColor }}
         >
           <span
-            className="absolute z-0 bottom-[98%] left-0 w-[30px] h-[10px] rounded-tl-[5px] rounded-tr-[5px] rounded-bl-0 rounded-br-0"
+            className="absolute z-0 bottom-[98%] left-0 w-[54px] h-[18px] rounded-tl-[5px] rounded-tr-[5px] rounded-bl-0 rounded-br-0"
             style={{ backgroundColor: folderBackColor }}
           ></span>
           {papers.map((item, i) => {
@@ -201,7 +201,7 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
                     setActivePaperIndex(i);
                   }
                 }}
-                className={`absolute bottom-[10%] left-1/2 transition-transform duration-500 ease-out transform-gpu will-change-transform folder-paper-${i} ${!open ? "transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0" : "hover:scale-110"
+                className={`absolute bottom-[10%] left-1/2 transition-transform duration-500 ease-out folder-paper-${i} ${!open ? "transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0" : "hover:scale-105"
                   } ${sizeClasses}`}
                 style={{
                   ...(!open ? {} : { transform: transformStyle }),

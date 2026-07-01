@@ -18,16 +18,16 @@ type LoveStorySectionProps = {
 };
 
 export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
-  const [folderSize, setFolderSize] = useState(2.2);
+  const [folderSize, setFolderSize] = useState(1.38);
 
   useEffect(() => {
     const updateSize = () => {
       if (window.innerWidth >= 768) {
-        setFolderSize(3.2);
+        setFolderSize(1.98);
       } else if (window.innerWidth >= 640) {
-        setFolderSize(2.8);
+        setFolderSize(1.72);
       } else {
-        setFolderSize(2.2);
+        setFolderSize(1.38);
       }
     };
     updateSize();
@@ -48,21 +48,30 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       key="groom"
       src="/wedding-assets/male-solo-landscape.webp"
       alt="Rafael before the ceremony"
+      width={1376}
+      height={768}
       decoding="async"
+      loading="eager"
       className="w-full h-full object-cover rounded-[10px]"
     />,
     <img
       key="bride"
       src="/wedding-assets/female-solo-landscape.webp"
       alt="Isabella before the ceremony"
+      width={1376}
+      height={768}
       decoding="async"
+      loading="eager"
       className="w-full h-full object-cover rounded-[10px]"
     />,
     <img
       key="couple"
       src="/wedding-assets/The-arrival-moment.webp"
       alt="Rafael and Isabella at the arrival moment"
+      width={1376}
+      height={768}
       decoding="async"
+      loading="eager"
       className="w-full h-full object-cover rounded-[10px]"
     />,
   ];

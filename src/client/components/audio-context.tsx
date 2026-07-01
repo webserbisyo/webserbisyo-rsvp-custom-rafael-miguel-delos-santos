@@ -42,10 +42,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  // True once the YouTube iframe fires its onLoad event
+  const iframeReadyRef = useRef(false);
+  // If user tapped play before iframe was ready, fire playVideo on load
+  const pendingPlayRef = useRef(false);
 
   // Detect source type
   const youtubeId = extractYoutubeId(musicLink);
@@ -53,65 +56,59 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const isPlaying = playbackState === "playing";
 
-  // Register music details
+  // Register music details and eagerly create the Audio element for MP3 sources.
+  // Creating it here (not in play()) ensures the element exists before first tap.
   const setMusicData = (link: string, title: string, note: string) => {
     if (link !== musicLink) {
       setMusicLink(link);
+
+      // Pre-create the HTML audio element so iOS has already seen the resource
+      // before the user taps play. The gesture check happens at play() time.
+      const ytId = extractYoutubeId(link);
+      if (!ytId && link) {
+        if (!audioRef.current) {
+          const audio = new Audio(link);
+          audio.loop = true;
+          audio.preload = "none"; // don't auto-fetch; just register the src
+          audio.addEventListener("timeupdate", () => setCurrentTime(audio.currentTime));
+          audio.addEventListener("loadedmetadata", () => setDuration(audio.duration));
+          audio.addEventListener("ended", () => {
+            setPlaybackState("stopped");
+            setCurrentTime(0);
+          });
+          audioRef.current = audio;
+        } else if (audioRef.current.src !== link) {
+          audioRef.current.src = link;
+        }
+      }
     }
-    if (title !== musicTitle) {
-      setMusicTitle(title);
-    }
-    if (note !== shortNote) {
-      setShortNote(note);
-    }
+    if (title !== musicTitle) setMusicTitle(title);
+    if (note !== shortNote) setShortNote(note);
   };
 
-  // Sync state with HTML5 audio element
+  // Keep audio element muted state in sync
   useEffect(() => {
-    if (sourceType !== "mp3") return;
-
-    if (!audioRef.current) {
-      const audio = new Audio(musicLink);
-      audio.loop = true;
-
-      // Event listeners
-      audio.addEventListener("timeupdate", () => {
-        setCurrentTime(audio.currentTime);
-      });
-      audio.addEventListener("loadedmetadata", () => {
-        setDuration(audio.duration);
-      });
-      audio.addEventListener("ended", () => {
-        setPlaybackState("stopped");
-        setCurrentTime(0);
-      });
-
-      audioRef.current = audio;
-    } else if (audioRef.current.src !== musicLink) {
-      audioRef.current.src = musicLink;
+    if (audioRef.current) {
+      audioRef.current.muted = isMuted;
     }
+  }, [isMuted]);
 
+  // Keep audio element paused/stopped in sync with state changes that don't
+  // come from the play() call itself (e.g. pause, stop, mute toggle).
+  useEffect(() => {
     const audio = audioRef.current;
-    audio.muted = isMuted;
+    if (!audio || sourceType !== "mp3") return;
 
-    if (playbackState === "playing") {
-      audio.play().catch((err) => {
-        console.warn("Audio play blocked by browser policies:", err);
-        setPlaybackState("paused");
-      });
-    } else if (playbackState === "paused") {
+    if (playbackState === "paused") {
       audio.pause();
     } else if (playbackState === "stopped") {
       audio.pause();
       audio.currentTime = 0;
     }
+    // "playing" is handled directly in play() to keep the iOS gesture chain intact.
+  }, [playbackState, sourceType]);
 
-    return () => {
-      // We don't destroy it immediately on cleanup, but we stop it on unmount of the provider
-    };
-  }, [playbackState, musicLink, sourceType, isMuted]);
-
-  // Clean up on unmount
+  // Clean up audio on unmount
   useEffect(() => {
     return () => {
       if (audioRef.current) {
@@ -121,43 +118,78 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Post messages to YouTube iframe helper
+  // Post messages to YouTube iframe
   const sendYoutubeCommand = (func: string, args: unknown = "") => {
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-      const message = JSON.stringify({
-        event: "command",
-        func: func,
-        args: args,
-      });
-      const postMsg = "post" + "Message";
-      const win = iframeRef.current.contentWindow as unknown as Record<
-        string,
-        (message: string, targetOrigin: string) => void
-      >;
-      if (win && typeof win[postMsg] === "function") {
-        win[postMsg](message, "*");
-      }
+    const iframe = iframeRef.current;
+    if (!iframe?.contentWindow) return;
+    const message = JSON.stringify({ event: "command", func, args });
+    const postMsg = "post" + "Message";
+    const win = iframe.contentWindow as unknown as Record<
+      string,
+      (message: string, targetOrigin: string) => void
+    >;
+    if (typeof win[postMsg] === "function") {
+      win[postMsg](message, "*");
     }
   };
 
-  // Sync mute state for YouTube
+  // Sync YouTube mute state
   useEffect(() => {
-    if (sourceType === "youtube" && hasStartedPlaying) {
+    if (sourceType === "youtube" && iframeReadyRef.current) {
       sendYoutubeCommand(isMuted ? "mute" : "unMute");
     }
-  }, [isMuted, sourceType, hasStartedPlaying]);
+  }, [isMuted, sourceType]);
 
   const play = () => {
-    setPlaybackState("playing");
-    setHasStartedPlaying(true);
-
-    if (sourceType === "youtube" && hasStartedPlaying) {
-      sendYoutubeCommand("playVideo");
+    if (sourceType === "mp3") {
+      // MP3: call play() synchronously inside the user gesture.
+      // iOS Safari requires audio.play() to be called in the same call stack
+      // as the user interaction (click/tap). useEffect breaks that chain.
+      if (!audioRef.current && musicLink) {
+        const audio = new Audio(musicLink);
+        audio.loop = true;
+        audio.addEventListener("timeupdate", () => setCurrentTime(audio.currentTime));
+        audio.addEventListener("loadedmetadata", () => setDuration(audio.duration));
+        audio.addEventListener("ended", () => {
+          setPlaybackState("stopped");
+          setCurrentTime(0);
+        });
+        audioRef.current = audio;
+      }
+      if (audioRef.current) {
+        audioRef.current.muted = isMuted;
+        audioRef.current.play().then(() => {
+          setPlaybackState("playing");
+        }).catch((err) => {
+          console.warn("[audio] play blocked:", err);
+          setPlaybackState("paused");
+        });
+        return; // state set in .then()/.catch()
+      }
     }
+
+    if (sourceType === "youtube") {
+      if (iframeReadyRef.current) {
+        // Iframe already loaded: send command immediately (still in gesture stack
+        // because postMessage is synchronous)
+        sendYoutubeCommand("playVideo");
+        setPlaybackState("playing");
+      } else {
+        // Iframe not ready yet — mark pending so onLoad fires playVideo
+        pendingPlayRef.current = true;
+        setPlaybackState("playing");
+      }
+      return;
+    }
+
+    setPlaybackState("playing");
   };
 
   const pause = () => {
     setPlaybackState("paused");
+    if (sourceType === "mp3" && audioRef.current) {
+      audioRef.current.pause();
+    }
     if (sourceType === "youtube") {
       sendYoutubeCommand("pauseVideo");
     }
@@ -165,8 +197,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const stop = () => {
     setPlaybackState("stopped");
-    setHasStartedPlaying(false);
+    pendingPlayRef.current = false;
     setCurrentTime(0);
+    if (sourceType === "mp3" && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
     if (sourceType === "youtube") {
       sendYoutubeCommand("stopVideo");
     }
@@ -181,22 +217,31 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       audioRef.current.currentTime = time;
       setCurrentTime(time);
     }
-    // YouTube seek is more complex and not strictly necessary for background music
   };
 
-  // Embed YouTube player invisibly
+  const handleIframeLoad = () => {
+    iframeReadyRef.current = true;
+    if (pendingPlayRef.current) {
+      pendingPlayRef.current = false;
+      sendYoutubeCommand("playVideo");
+    }
+  };
+
+  // Render YouTube player as soon as we have a valid youtubeId — not gated
+  // behind "hasStartedPlaying" to avoid the first-tap mounting race on iOS.
   const renderHiddenPlayer = () => {
-    if (sourceType !== "youtube" || !youtubeId || !hasStartedPlaying) return null;
+    if (sourceType !== "youtube" || !youtubeId) return null;
 
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&autoplay=1&controls=0&rel=0&origin=${encodeURIComponent(
-      origin
-    )}&playlist=${youtubeId}&loop=1`;
+    // autoplay=0: we control playback via postMessage, not autoplay.
+    // playsinline=1: required for iOS Safari to allow inline audio playback.
+    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&autoplay=0&controls=0&rel=0&playsinline=1&origin=${encodeURIComponent(origin)}&playlist=${youtubeId}&loop=1`;
 
     return (
       <div
         className="fixed pointer-events-none opacity-0 w-0 h-0 overflow-hidden"
         style={{ left: "-9999px", top: "-9999px" }}
+        aria-hidden="true"
       >
         {React.createElement("ifr" + "ame", {
           ref: iframeRef,
@@ -207,6 +252,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           title: "Wedding Ambience Player",
           allow: "autoplay; encrypted-media",
           tabIndex: -1,
+          onLoad: handleIframeLoad,
         })}
       </div>
     );
