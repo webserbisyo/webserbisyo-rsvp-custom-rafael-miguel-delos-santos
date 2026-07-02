@@ -33,7 +33,7 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
   return (
     <section
       id="gifts"
-      className="relative isolate overflow-x-clip bg-ivory py-24 px-4"
+      className="relative overflow-x-clip bg-ivory py-24 px-4"
     >
       {/* Decorative Floral Layer — Airy corner framing */}
       <div
@@ -48,7 +48,7 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -left-24 sm:-left-32 md:-left-44 lg:-left-28 -top-10 sm:-top-14 md:-top-20 lg:-top-4 w-28 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-65 lg:opacity-100"
+          className="absolute -left-16 sm:-left-32 md:-left-44 lg:-left-28 -top-8 sm:-top-14 md:-top-20 lg:-top-4 w-36 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
         />
 
         {/* Top-Right Flowers (17.png) */}
@@ -59,7 +59,7 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -right-24 sm:-right-32 md:-right-44 lg:-right-28 -top-10 sm:-top-14 md:-top-20 lg:-top-4 w-28 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[-5deg] opacity-65 lg:opacity-100"
+          className="absolute -right-16 sm:-right-32 md:-right-44 lg:-right-28 -top-8 sm:-top-14 md:-top-20 lg:-top-4 w-36 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[-5deg] opacity-100"
         />
 
         {/* Bottom-Left Flowers (17.png) — Raised to ensure visibility above bottom wave divider */}

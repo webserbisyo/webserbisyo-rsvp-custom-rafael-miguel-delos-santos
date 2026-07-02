@@ -25,7 +25,8 @@ export function ClientPageFrame({ children, config, floatingControlsManaged = fa
   return (
     <>
       {navEnabled ? <ClientNav config={resolvedConfig} /> : null}
-      <div className="relative z-10">
+      <FallingPetals />
+      <div className="relative">
         {children}
         {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
       </div>

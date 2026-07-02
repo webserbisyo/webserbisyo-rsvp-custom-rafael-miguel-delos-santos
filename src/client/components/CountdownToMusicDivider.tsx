@@ -3,10 +3,10 @@
 export function CountdownToMusicDivider() {
   return (
     <div
-      className="relative isolate z-20 -mt-px h-24 overflow-visible bg-gradient-to-b from-cream via-cream to-[#E8F4F0] sm:h-32 md:h-40 lg:h-44"
+      className="relative z-20 -mt-px h-24 overflow-x-clip overflow-y-visible bg-gradient-to-b from-cream via-cream to-[#E8F4F0] sm:h-32 md:h-40 lg:h-44"
       aria-hidden="true"
     >
-      <div className="absolute inset-0 overflow-x-clip overflow-y-visible pointer-events-none select-none">
+      <div className="absolute inset-0 overflow-visible pointer-events-none select-none">
         <img
           src="/beach%20assets%20finalized/9.webp"
           alt=""

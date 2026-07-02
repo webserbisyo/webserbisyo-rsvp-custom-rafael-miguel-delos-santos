@@ -17,7 +17,6 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/client/utils/formatters";
 import { WaveDivider } from "@/client/components/WaveDivider";
-import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientCoupleInfo, ClientCeremonyData } from "@/client/types/client-view-model";
 
 type HeroSectionProps = {
@@ -60,9 +59,6 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
       />
       {/* Soft gradient overlay for styling and high text readability */}
       <div className="absolute inset-x-0 bottom-0 top-[74px] z-[1] bg-gradient-to-b from-black/25 via-[#2D1B12]/15 to-[#2D1B12]/30 pointer-events-none" />
-
-      {/* Ambient section-scoped petals */}
-      <FallingPetals className="absolute inset-x-0 bottom-0 top-[74px] z-[2] pointer-events-none select-none" />
 
       <div className="relative z-20 max-w-4xl mx-auto w-full px-4 mb-4 mt-[42vh] sm:mt-[45vh]">
         <FadeContent>

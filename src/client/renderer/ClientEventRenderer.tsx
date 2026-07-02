@@ -65,6 +65,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <WaveDivider className="text-cream bg-ivory" />
         <VenueSection venue={vm.venue} />
         <CenterBouquetDivider />
+        <WaveDivider flip className="text-cream bg-ivory" />
         <ReceptionSection reception={vm.reception} ceremony={vm.ceremony} />
         <WaveDivider />
         <TimelineSection timelineProgram={vm.timelineProgram} />

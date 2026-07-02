@@ -1,18 +1,16 @@
 "use client";
 
-import { WaveDivider } from "@/client/components/WaveDivider";
+type CenterBouquetDividerProps = {
+  className?: string;
+};
 
-export function CenterBouquetDivider() {
+export function CenterBouquetDivider({ className = "bg-cream" }: CenterBouquetDividerProps) {
   return (
     <div
-      className="relative z-20 -mt-px -mb-px h-10 md:h-14 overflow-visible"
+      className={`relative z-20 -mt-px -mb-px h-16 overflow-visible sm:h-20 md:h-24 ${className}`}
       aria-hidden="true"
     >
-      {/* Self-contained wave background transition from cream to ivory */}
-      <WaveDivider flip className="text-cream bg-ivory" />
-
-      {/* Floating Bouquet Art */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-visible flex items-center justify-center">
+      <div className="absolute inset-0 z-10 overflow-visible pointer-events-none select-none">
         <img
           src="/beach%20assets%20finalized/16.webp"
           alt=""

@@ -1,6 +1,5 @@
 import type { ClientConfig } from "@/client/client.config";
 import { ClientRsvpForm } from "@/client/rsvp/ClientRsvpForm";
-import { FallingPetals } from "@/client/components/FallingPetals";
 import type { EventWebsiteRenderModel } from "@/types/public-event";
 
 type ClientRsvpPageProps = {
@@ -13,9 +12,6 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
 
   return (
     <div className="min-h-[100dvh] bg-[#fffaf1] bg-gradient-to-br from-[#fffaf1] via-[#f8efe3] to-[#fffaf1] pt-28 pb-32 px-4 md:px-8 flex items-center justify-center relative overflow-hidden">
-      {/* Ambient page-scoped petals */}
-      <FallingPetals className="absolute inset-0 pointer-events-none z-[1] select-none" />
-
       {/* 1. Terracotta/Coral Sunset Glow in Background */}
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,rgba(201,114,88,0.22)_0%,rgba(248,239,227,0.1)_50%,transparent_75%)] pointer-events-none -z-10 select-none" 

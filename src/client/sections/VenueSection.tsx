@@ -12,7 +12,6 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, ExternalLink, Bus, Pin, Compass } from "@/client/libs/icons";
-import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientVenueData } from "@/client/types/client-view-model";
 
 type VenueSectionProps = {
@@ -22,7 +21,6 @@ type VenueSectionProps = {
 type CoordResult = { type: "coords"; lat: string; lng: string; zoom: number };
 type TextResult  = { type: "text"; query: string };
 type MapExtract  = CoordResult | TextResult | null;
-
 
 /**
  * Parses a Google Maps URL and extracts the most precise locator available.
@@ -148,10 +146,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
   const ArrivalIcon = isShuttle ? Bus : Compass;
 
   return (
-    <section id="venue" className="relative isolate overflow-x-clip pt-24 pb-28 px-4 bg-cream">
-      {/* Ambient section-scoped petals */}
-      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
-
+    <section id="venue" className="relative overflow-x-clip pt-24 pb-28 px-4 bg-cream">
       {/* Decorative Leaves Wrapper - clips horizontal overflow of large leaves to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}
@@ -162,7 +157,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-24 -left-28 sm:-top-28 sm:-left-36 md:-top-32 md:-left-44 lg:-top-20 lg:-left-32 w-48 sm:w-64 md:w-80 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-45 sm:opacity-55 md:opacity-65 lg:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-12 -left-10 sm:-top-16 sm:-left-16 md:-top-20 md:-left-24 lg:-top-20 lg:-left-32 w-40 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Decorative Tropical Leaf Asset - Upper Right (Layer 2) - Enlarged significantly and responsive */}
@@ -173,7 +168,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-24 -right-28 sm:-top-28 sm:-right-36 md:-top-32 md:-right-44 lg:-top-20 lg:-right-32 w-48 sm:w-64 md:w-80 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-45 sm:opacity-55 md:opacity-65 lg:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-12 -right-10 sm:-top-16 sm:-right-16 md:-top-20 md:-right-24 lg:-top-20 lg:-right-32 w-40 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
       </div>
 

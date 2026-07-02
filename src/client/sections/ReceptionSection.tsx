@@ -28,7 +28,6 @@ import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, Clock3, Sparkles, ExternalLink } from "@/client/libs/icons";
 import { formatTime, formatDate } from "@/client/utils/formatters";
-import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientReceptionData, ClientCeremonyData } from "@/client/types/client-view-model";
 
 type ReceptionSectionProps = {
@@ -55,11 +54,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
   return (
     <section 
       id="reception" 
-      className="relative isolate overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory"
+      className="relative overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory"
     >
-      {/* Ambient section-scoped petals */}
-      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
-
       {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
           internally to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10" aria-hidden="true">
@@ -71,7 +67,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute hidden h-auto object-contain select-none opacity-45 transition-[opacity,transform] duration-300 lg:block lg:-left-24 lg:-top-4 lg:w-72 xl:-left-16 xl:-top-2 xl:w-80 2xl:left-0 2xl:w-[360px]"
+          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 left-0 -top-2 w-24 opacity-75 sm:left-[-1rem] sm:w-28 sm:opacity-80 md:left-[-2rem] md:w-36 lg:-left-24 lg:-top-4 lg:w-72 lg:opacity-90 xl:-left-16 xl:-top-2 xl:w-80 2xl:left-0 2xl:w-[360px]"
         />
         <img
           src="/beach%20assets%20finalized/8.webp"
@@ -80,7 +76,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute hidden h-auto object-contain select-none opacity-45 transition-[opacity,transform] duration-300 lg:block lg:-right-24 lg:-top-4 lg:w-72 xl:-right-16 xl:-top-2 xl:w-80 2xl:right-0 2xl:w-[360px]"
+          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 right-0 -top-2 w-24 opacity-75 sm:right-[-1rem] sm:w-28 sm:opacity-80 md:right-[-2rem] md:w-36 lg:-right-24 lg:-top-4 lg:w-72 lg:opacity-90 xl:-right-16 xl:-top-2 xl:w-80 2xl:right-0 2xl:w-[360px]"
         />
 
         {/* Decorative Corner Flowers — framing the lower portion of the section with tight compositional coupling */}

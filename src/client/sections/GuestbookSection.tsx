@@ -19,7 +19,6 @@
 import { useState, useRef, useEffect } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
-import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientGuestbookData } from "@/client/types/client-view-model";
 import type { GuestbookMessage } from "@/types/public-event";
 import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
@@ -148,10 +147,8 @@ export function GuestbookSection({
   return (
     <section
       id="guestbook"
-      className="relative isolate overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
+      className="relative overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
     >
-      {/* Ambient section-scoped petals */}
-      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
       {/* 1. Absolute Decorative Background Layer (z-0, pointer-events-none, no lazy loading, opacity-100) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         {/* Left Bird - Top Left Framing */}
@@ -162,7 +159,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute hidden h-auto pointer-events-none select-none z-0 rotate-[-5deg] opacity-75 lg:left-0 lg:top-2 lg:block lg:w-48 xl:left-6 xl:w-56"
+          className="absolute h-auto pointer-events-none select-none z-0 rotate-[-5deg] opacity-75 left-0 top-2 w-24 sm:left-[-1rem] sm:w-28 md:left-[-2rem] md:w-36 lg:left-0 lg:top-2 lg:w-48 xl:left-6 xl:w-56"
         />
 
         {/* Right Bird - Top Right Framing */}
@@ -173,7 +170,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute hidden h-auto pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1] opacity-75 lg:right-0 lg:top-2 lg:block lg:w-48 xl:right-6 xl:w-56"
+          className="absolute h-auto pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1] opacity-75 right-0 top-2 w-24 sm:right-[-1rem] sm:w-28 md:right-[-2rem] md:w-36 lg:right-0 lg:top-2 lg:w-48 xl:right-6 xl:w-56"
         />
 
         {/* Bottom-Left Flower - Anchors the base cleanly with positive bottom offset to prevent clipping */}
@@ -184,7 +181,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute lg:-left-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain rotate-12 pointer-events-none select-none z-0 opacity-100 hidden lg:block"
+          className="absolute left-0 bottom-4 w-24 sm:left-[-2rem] sm:w-32 md:left-[-3rem] md:w-44 lg:-left-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain rotate-12 pointer-events-none select-none z-0 opacity-100"
         />
 
         {/* Bottom-Right Flower - Anchors the base cleanly with positive bottom offset to prevent clipping */}
@@ -195,7 +192,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute lg:-right-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain -rotate-12 pointer-events-none select-none z-0 opacity-100 hidden lg:block"
+          className="absolute right-0 bottom-4 w-24 sm:right-[-2rem] sm:w-32 md:right-[-3rem] md:w-44 lg:-right-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain -rotate-12 pointer-events-none select-none z-0 opacity-100"
         />
       </div>
 
