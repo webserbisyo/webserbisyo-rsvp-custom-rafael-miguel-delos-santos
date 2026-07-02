@@ -28,6 +28,7 @@ import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, Clock3, Sparkles, ExternalLink } from "@/client/libs/icons";
 import { formatTime, formatDate } from "@/client/utils/formatters";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientReceptionData, ClientCeremonyData } from "@/client/types/client-view-model";
 
 type ReceptionSectionProps = {
@@ -56,6 +57,9 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
       id="reception" 
       className="relative isolate overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory"
     >
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
+
       {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
           internally to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10" aria-hidden="true">

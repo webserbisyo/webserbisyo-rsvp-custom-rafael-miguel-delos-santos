@@ -11,6 +11,7 @@
 import { useEffect, useState } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent, Folder } from "@/client/libs/reactbits";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientLoveStoryData } from "@/client/types/client-view-model";
 
 type LoveStorySectionProps = {
@@ -78,6 +79,9 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
 
   return (
     <section id="our-story" className="relative isolate overflow-x-clip py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in">
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
+
       {/* Absolute Decorative Background Layer - Corner Flowers and Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         {/* Top-Left Flower (17.webp) */}

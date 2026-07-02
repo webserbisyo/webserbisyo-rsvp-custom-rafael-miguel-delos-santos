@@ -80,7 +80,11 @@ function getViewportConfig(width: number, pathname: string): ViewportConfig {
   };
 }
 
-export function FallingPetals() {
+type FallingPetalsProps = {
+  className?: string;
+};
+
+export function FallingPetals({ className = "absolute inset-0 pointer-events-none z-[2] select-none" }: FallingPetalsProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const petalsRef = useRef<Petal[]>([]);
@@ -98,9 +102,9 @@ export function FallingPetals() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Initialize config dynamically based on current viewport width
-    const currentWidth = window.visualViewport?.width ?? window.innerWidth;
-    let config = getViewportConfig(currentWidth, pathname);
+    // Initialize config dynamically based on parent element width or viewport
+    const initialWidth = canvas.parentElement?.clientWidth ?? (window.visualViewport?.width ?? window.innerWidth);
+    let config = getViewportConfig(initialWidth, pathname);
 
     // Color distribution selector
     const getRandomColorTuple = (): ColorTuple => {
@@ -140,8 +144,8 @@ export function FallingPetals() {
       const speedYMultiplier = isLargeAccent ? 0.60 : 1.0;
       const swayMultiplier = isLargeAccent ? 1.45 : 1.0;
 
-      const initialWidth = dimensionsRef.current.width || window.innerWidth;
-      const centerX = Math.random() * (initialWidth + 200) - 100;
+      const currentWidth = dimensionsRef.current.width || (canvas.parentElement?.clientWidth ?? window.innerWidth);
+      const centerX = Math.random() * (currentWidth + 200) - 100;
 
       return {
         x: centerX,
@@ -161,10 +165,10 @@ export function FallingPetals() {
     };
 
     // Resize Handler
-    const resizeCanvas = () => {
+    const resizeCanvas = (w?: number, h?: number) => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = window.visualViewport?.width ?? window.innerWidth;
-      const height = window.innerHeight;
+      const width = w ?? canvas.parentElement?.clientWidth ?? (window.visualViewport?.width ?? window.innerWidth);
+      const height = h ?? canvas.parentElement?.clientHeight ?? window.innerHeight;
 
       dimensionsRef.current = { width, height };
 
@@ -191,17 +195,16 @@ export function FallingPetals() {
         }
         petalsRef.current = newPetals;
       } else if (petals.length < targetCount) {
-        // Add more petals if window expanded
+        // Add more petals if container expanded
         while (petals.length < targetCount) {
           petals.push(createPetal(-40, newConfig));
         }
       } else if (petals.length > targetCount) {
-        // Trim petals if window shrank
+        // Trim petals if container shrank
         petalsRef.current = petals.slice(0, targetCount);
       }
 
       // 3. Gently clamp or scale existing particles to fit the new size/opacity bounds
-      // This prevents desktop-sized petals from lingering on mobile during resize
       petals = petalsRef.current;
       for (let i = 0; i < petals.length; i++) {
         const p = petals[i];
@@ -214,10 +217,24 @@ export function FallingPetals() {
       }
     };
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    // Observers
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && canvas.parentElement) {
+      resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          resizeCanvas(width, height);
+        }
+      });
+      resizeObserver.observe(canvas.parentElement);
+    } else {
+      resizeCanvas();
+    }
+
+    const handleResize = () => resizeCanvas();
+    window.addEventListener("resize", handleResize);
     if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", resizeCanvas);
+      window.visualViewport.addEventListener("resize", handleResize);
     }
 
     // Drawing function for a single petal shape
@@ -307,7 +324,30 @@ export function FallingPetals() {
       animationFrameRef.current = requestAnimationFrame(update);
     };
 
-    animationFrameRef.current = requestAnimationFrame(update);
+    let isVisible = true;
+    let intersectionObserver: IntersectionObserver | null = null;
+
+    if (typeof IntersectionObserver !== "undefined") {
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            if (!animationFrameRef.current) {
+              animationFrameRef.current = requestAnimationFrame(update);
+            }
+          } else {
+            if (animationFrameRef.current) {
+              cancelAnimationFrame(animationFrameRef.current);
+              animationFrameRef.current = null;
+            }
+          }
+        },
+        { threshold: 0.05 }
+      );
+      intersectionObserver.observe(canvas);
+    } else {
+      animationFrameRef.current = requestAnimationFrame(update);
+    }
 
     // Page Visibility Pause (Save battery when tab is hidden)
     const handleVisibilityChange = () => {
@@ -317,7 +357,7 @@ export function FallingPetals() {
           animationFrameRef.current = null;
         }
       } else {
-        if (!animationFrameRef.current) {
+        if (isVisible && !animationFrameRef.current) {
           animationFrameRef.current = requestAnimationFrame(update);
         }
       }
@@ -327,9 +367,15 @@ export function FallingPetals() {
 
     // Cleanup on Unmount
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      if (intersectionObserver) {
+        intersectionObserver.disconnect();
+      }
+      window.removeEventListener("resize", handleResize);
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", resizeCanvas);
+        window.visualViewport.removeEventListener("resize", handleResize);
       }
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (animationFrameRef.current) {
@@ -338,5 +384,5 @@ export function FallingPetals() {
     };
   }, [pathname]);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[2] select-none" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

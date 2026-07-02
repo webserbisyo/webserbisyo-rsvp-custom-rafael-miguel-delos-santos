@@ -19,6 +19,7 @@
 import { useState, useRef, useEffect } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientGuestbookData } from "@/client/types/client-view-model";
 import type { GuestbookMessage } from "@/types/public-event";
 import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
@@ -149,6 +150,8 @@ export function GuestbookSection({
       id="guestbook"
       className="relative isolate overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
     >
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
       {/* 1. Absolute Decorative Background Layer (z-0, pointer-events-none, no lazy loading, opacity-100) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         {/* Left Bird - Top Left Framing */}

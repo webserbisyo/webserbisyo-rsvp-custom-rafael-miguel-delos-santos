@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { formatTime } from "@/client/utils/formatters";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientCountdownData, ClientCeremonyData } from "@/client/types/client-view-model";
 
 type CountdownSectionProps = {
@@ -65,6 +66,8 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
 
   return (
     <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream pb-24 sm:pb-20 md:pb-32">
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
       {/* Decorative Background Layer - Coconut Trees & Waves */}
       <div className="absolute inset-x-0 top-0 bottom-0 overflow-x-clip overflow-y-visible pointer-events-none select-none z-10" aria-hidden="true">
         {/* Decorative Coconut Trees on Sides */}

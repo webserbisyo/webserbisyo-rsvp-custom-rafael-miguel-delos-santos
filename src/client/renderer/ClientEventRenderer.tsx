@@ -62,10 +62,9 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <GallerySection />
         <WaveDivider className="text-[#FDF6ED] bg-[#EBC485]" />
         <CeremonySection ceremony={vm.ceremony} venue={vm.venue} mounted={mounted} />
-        <WaveDivider />
+        <WaveDivider className="text-cream bg-ivory" />
         <VenueSection venue={vm.venue} />
         <CenterBouquetDivider />
-        <WaveDivider flip />
         <ReceptionSection reception={vm.reception} ceremony={vm.ceremony} />
         <WaveDivider />
         <TimelineSection timelineProgram={vm.timelineProgram} />

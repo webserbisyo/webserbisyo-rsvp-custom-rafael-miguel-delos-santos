@@ -14,6 +14,7 @@ import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { FadeContent } from "@/client/libs/reactbits";
 import { formatDate, formatTime } from "@/client/utils/formatters";
 import { Clock3, MapPin, Heart } from "@/client/libs/icons";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientCeremonyData, ClientVenueData } from "@/client/types/client-view-model";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -86,6 +87,8 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
 
   return (
     <section id="ceremony" className="relative isolate pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-clip">
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
       {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
       <img
         src="/beach%20assets%20finalized/17.webp"

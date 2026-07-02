@@ -12,6 +12,7 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, ExternalLink, Bus, Pin, Compass } from "@/client/libs/icons";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import type { ClientVenueData } from "@/client/types/client-view-model";
 
 type VenueSectionProps = {
@@ -21,6 +22,7 @@ type VenueSectionProps = {
 type CoordResult = { type: "coords"; lat: string; lng: string; zoom: number };
 type TextResult  = { type: "text"; query: string };
 type MapExtract  = CoordResult | TextResult | null;
+
 
 /**
  * Parses a Google Maps URL and extracts the most precise locator available.
@@ -147,6 +149,9 @@ export function VenueSection({ venue }: VenueSectionProps) {
 
   return (
     <section id="venue" className="relative isolate overflow-x-clip pt-24 pb-28 px-4 bg-cream">
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
+
       {/* Decorative Leaves Wrapper - clips horizontal overflow of large leaves to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}

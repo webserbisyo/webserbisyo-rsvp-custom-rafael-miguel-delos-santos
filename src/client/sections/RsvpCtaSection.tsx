@@ -10,6 +10,7 @@
 
 import { motion } from "framer-motion";
 import { FadeContent } from "@/client/libs/reactbits";
+import { FallingPetals } from "@/client/components/FallingPetals";
 import Link from "next/link";
 
 export function RsvpCtaSection() {
@@ -18,6 +19,8 @@ export function RsvpCtaSection() {
       id="rsvp"
       className="relative isolate overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
     >
+      {/* Ambient section-scoped petals */}
+      <FallingPetals className="absolute inset-0 pointer-events-none z-[2] select-none" />
       {/* Decorative Bird Layer — Airy top corner/side accents */}
       <div
         aria-hidden="true"
