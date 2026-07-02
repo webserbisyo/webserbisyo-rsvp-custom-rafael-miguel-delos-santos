@@ -85,7 +85,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
   const grid = mounted ? getCalendarMonthGrid(focusDateString) : null;
 
   return (
-    <section id="ceremony" className="relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-hidden">
+    <section id="ceremony" className="relative isolate pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-clip">
       {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
       <img
         src="/beach%20assets%20finalized/17.webp"
@@ -109,7 +109,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         style={{ transform: "scaleX(-1)" }}
       />
 
-      <div className="relative z-20 max-w-4xl mx-auto">
+      <div className="relative z-30 max-w-4xl mx-auto">
         {/* Heading container with symmetrical framing lanterns (Layer 2) */}
         <div className="relative max-w-2xl mx-auto">
           {/* Centered mobile lantern - beautifully sized on mobile (Layer 2) */}
@@ -133,7 +133,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             width={2048}
             height={2048}
             decoding="async"
-            className="absolute -left-20 sm:-left-32 md:-left-40 lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 hidden sm:block"
+            className="absolute lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
           />
 
           {/* Right candle lantern - balanced sweet-spot sizing with framing offsets */}
@@ -144,7 +144,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
             width={2048}
             height={2048}
             decoding="async"
-            className="absolute -right-20 sm:-right-32 md:-right-40 lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 hidden sm:block"
+            className="absolute lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
           />
 
           <SectionHeading

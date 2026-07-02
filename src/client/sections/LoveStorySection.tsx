@@ -52,7 +52,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       height={768}
       decoding="async"
       loading="eager"
-      className="w-full h-full object-cover rounded-[10px]"
+      className="w-full h-full object-cover object-[58%_center] rounded-[10px]"
     />,
     <img
       key="bride"
@@ -62,7 +62,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       height={768}
       decoding="async"
       loading="eager"
-      className="w-full h-full object-cover rounded-[10px]"
+      className="w-full h-full object-cover object-[42%_center] rounded-[10px]"
     />,
     <img
       key="couple"
@@ -72,12 +72,12 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       height={768}
       decoding="async"
       loading="eager"
-      className="w-full h-full object-cover rounded-[10px]"
+      className="w-full h-full object-cover object-center rounded-[10px]"
     />,
   ];
 
   return (
-    <section id="our-story" className="py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in relative overflow-x-clip">
+    <section id="our-story" className="relative isolate overflow-x-clip py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in">
       {/* Absolute Decorative Background Layer - Corner Flowers and Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         {/* Top-Left Flower (17.webp) */}
@@ -88,7 +88,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-10 -left-10 sm:-top-12 sm:-left-12 md:-top-16 md:-left-16 lg:-top-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute -top-14 -left-20 sm:-top-16 sm:-left-24 md:-top-24 md:-left-32 lg:-top-20 lg:-left-24 w-[7rem] sm:w-[9rem] md:w-[11rem] lg:w-[18rem] h-auto object-contain -rotate-12 opacity-70 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Top-Right Flower (16.webp) */}
@@ -99,7 +99,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-10 -right-10 sm:-top-12 sm:-right-12 md:-top-16 md:-right-16 lg:-top-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute -top-14 -right-20 sm:-top-16 sm:-right-24 md:-top-24 md:-right-32 lg:-top-20 lg:-right-24 w-[7rem] sm:w-[9rem] md:w-[11rem] lg:w-[18rem] h-auto object-contain rotate-12 opacity-70 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Bottom-Left Flower (16.webp) - Tucked behind lower area with positive bottom offset */}
@@ -110,7 +110,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -left-10 bottom-2 sm:-left-12 sm:bottom-4 md:-left-16 md:bottom-6 lg:-left-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute -left-20 -bottom-20 sm:-left-24 sm:-bottom-24 md:-left-32 md:-bottom-28 lg:-left-24 lg:bottom-0 w-[7rem] sm:w-[9rem] md:w-[11rem] lg:w-[18rem] h-auto object-contain rotate-12 opacity-60 lg:opacity-90 transition-[opacity,transform] duration-300"
         />
 
         {/* Bottom-Right Flower (17.webp) - Tucked behind lower area with positive bottom offset */}
@@ -121,7 +121,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -right-10 bottom-2 sm:-right-12 sm:bottom-4 md:-right-16 md:bottom-6 lg:-right-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute -right-20 -bottom-20 sm:-right-24 sm:-bottom-24 md:-right-32 md:-bottom-28 lg:-right-24 lg:bottom-0 w-[7rem] sm:w-[9rem] md:w-[11rem] lg:w-[18rem] h-auto object-contain -rotate-12 opacity-60 lg:opacity-90 transition-[opacity,transform] duration-300"
         />
 
         {/* Left Palm Leaf (4.webp) */}
@@ -132,7 +132,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute top-1/2 -translate-y-1/2 left-[-2rem] sm:left-[-3rem] md:left-[-4rem] lg:left-[-2rem] xl:left-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute top-1/2 -translate-y-1/2 left-[-2rem] sm:left-[-3rem] md:left-[-4rem] lg:left-[-2rem] xl:left-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
         />
 
         {/* Right Palm Leaf (5.webp) */}
@@ -143,12 +143,12 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute top-1/2 -translate-y-1/2 right-[-2rem] sm:right-[-3rem] md:right-[-4rem] lg:right-[-2rem] xl:right-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
+          className="absolute top-1/2 -translate-y-1/2 right-[-2rem] sm:right-[-3rem] md:right-[-4rem] lg:right-[-2rem] xl:right-[-3rem] w-[7rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
         />
       </div>
 
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="max-w-3xl mx-auto relative z-30">
         {/* Main Section Heading Group */}
         <SectionHeading
           label={sectionEyebrow}
@@ -157,7 +157,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         />
 
         {/* Interactive Folder Component */}
-        <div className="mt-16 mb-10 sm:mt-24 sm:mb-16 h-40 sm:h-52 flex items-center justify-center overflow-visible select-none">
+        <div className="mt-16 mb-10 sm:mt-24 sm:mb-16 h-44 sm:h-56 md:h-64 flex items-center justify-center overflow-visible select-none">
           <Folder
             color="#d65f3f"
             size={folderSize}
@@ -185,4 +185,3 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
     </section>
   );
 }
-

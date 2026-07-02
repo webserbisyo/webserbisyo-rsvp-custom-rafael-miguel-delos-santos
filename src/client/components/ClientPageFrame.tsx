@@ -11,9 +11,10 @@ type ClientPageFrameProps = {
   children: ReactNode;
   config?: ClientConfig;
   event?: EventWebsiteRenderModel;
+  floatingControlsManaged?: boolean;
 };
 
-export function ClientPageFrame({ children, config }: ClientPageFrameProps) {
+export function ClientPageFrame({ children, config, floatingControlsManaged = false }: ClientPageFrameProps) {
   const resolvedConfig = config ?? clientConfig;
   const { footerEnabled, navEnabled } = resolvedConfig.layout;
 
@@ -25,9 +26,11 @@ export function ClientPageFrame({ children, config }: ClientPageFrameProps) {
     <>
       {navEnabled ? <ClientNav config={resolvedConfig} /> : null}
       <FallingPetals />
-      {children}
-      {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
-      {navEnabled ? <FloatingGuestDock /> : null}
+      <div className="relative z-10">
+        {children}
+        {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
+      </div>
+      {navEnabled && !floatingControlsManaged ? <FloatingGuestDock /> : null}
     </>
   );
 }

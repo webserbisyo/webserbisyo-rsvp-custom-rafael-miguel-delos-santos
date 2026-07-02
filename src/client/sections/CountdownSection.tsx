@@ -87,36 +87,6 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           className="absolute right-0 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[35%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-right"
         />
 
-        {/* Wave Dividers on top of Palm Trees */}
-        <img
-          src="/beach%20assets%20finalized/9.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform -translate-x-[15%] sm:-translate-x-[20%] translate-y-[20%] sm:translate-y-[43%]"
-        />
-        <img
-          src="/beach%20assets%20finalized/6.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute right-0 bottom-0 w-48 sm:w-60 md:w-[320px] lg:w-[400px] xl:w-[460px] h-auto object-contain pointer-events-none z-20 select-none transform translate-x-[15%] sm:translate-x-[20%] translate-y-[20%] sm:translate-y-[43%]"
-        />
-
-        {/* Center Flower Bouquet Motif on Divider */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-1/2 bottom-0 w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[35%] sm:translate-y-[55%]"
-        />
       </div>
 
       <div className="relative z-30 max-w-4xl mx-auto transform -translate-y-6 md:-translate-y-12">

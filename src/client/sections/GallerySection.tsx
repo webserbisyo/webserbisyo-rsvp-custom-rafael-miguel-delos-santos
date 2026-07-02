@@ -68,7 +68,7 @@ export function GallerySection() {
   return (
     <section
        id="gallery"
-       className="pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485] relative"
+       className="relative isolate overflow-x-clip pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485]"
      >
        {/* Decorative Sea Elements on Sides - Sticky Track System */}
        <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10 overflow-x-clip">
@@ -83,7 +83,7 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-90 select-none transition-transform duration-500"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
             />
             <img
               src="/beach%20assets%20finalized/15.webp"
@@ -92,7 +92,7 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-90 select-none transition-transform duration-500"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-90 select-none transition-transform duration-500"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
             />
             <img
               src="/beach%20assets%20finalized/14.webp"
@@ -116,13 +116,13 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-28 sm:w-36 md:w-44 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-90 select-none transition-transform duration-500"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
             />
           </div>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto relative z-20">
+      <div className="max-w-2xl mx-auto relative z-30">
         <div className="text-center mb-14">
           <p className="text-xs font-bold tracking-[0.25em] uppercase mb-3 text-[#3B2A1A]/85">
             Our Memories

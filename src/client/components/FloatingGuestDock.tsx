@@ -136,25 +136,57 @@ function DockIcon({ children, className = "" }: DockIconProps) {
 
 // ─── Semantic Floating Dock Wrapper ──────────────────────────────────
 
-export function FloatingGuestDock() {
+export function useGuestDockVisibility() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    let hasPassedHero = false;
+
+    const handleScroll = () => {
+      const isTouchViewport = window.matchMedia("(pointer: coarse)").matches;
+      const showThreshold = isTouchViewport
+        ? Math.min(180, window.innerHeight * 0.18)
+        : Math.min(320, window.innerHeight * 0.32);
+      const hideThreshold = isTouchViewport ? 48 : 120;
+
+      if (window.scrollY > showThreshold) {
+        hasPassedHero = true;
+        setIsVisible(true);
+        return;
+      }
+
+      if (window.scrollY < hideThreshold) {
+        hasPassedHero = false;
+        setIsVisible(false);
+        return;
+      }
+
+      if (hasPassedHero) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  return isVisible;
+}
+
+type GuestDockToolbarProps = {
+  className?: string;
+  compact?: boolean;
+};
+
+export function GuestDockToolbar({ className = "", compact = false }: GuestDockToolbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const isRsvpPage = pathname === "/rsvp";
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Fade in the dock past the Hero section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleItemClick = (href: string) => {
     if (href === "/rsvp") {
@@ -187,10 +219,63 @@ export function FloatingGuestDock() {
   const isHoveredVal = useMotionValue(0);
 
   const spring = { mass: 0.1, stiffness: 150, damping: 12 };
-  const magnification = 64;
-  const distance = 140;
-  const panelHeight = 60;
-  const baseItemSize = 44;
+  const magnification = compact ? 54 : 64;
+  const distance = compact ? 100 : 140;
+  const panelHeight = compact ? 54 : 60;
+  const baseItemSize = compact ? 38 : 44;
+
+  return (
+    <motion.div
+      onMouseMove={({ pageX }) => {
+        isHoveredVal.set(1);
+        mouseX.set(pageX);
+      }}
+      onMouseLeave={() => {
+        isHoveredVal.set(0);
+        mouseX.set(Infinity);
+      }}
+      onTouchStart={() => {
+        isHoveredVal.set(1);
+        mouseX.set(Infinity);
+      }}
+      className={`flex w-fit max-w-full shrink-0 items-end rounded-full border border-ivory/15 bg-[#2D1B12]/80 backdrop-blur-md shadow-2xl ${compact ? "justify-center gap-1.5 px-2 py-2 sm:gap-2 sm:px-3" : "gap-3 px-4 py-2"} ${className}`}
+      style={{ height: panelHeight }}
+      role="toolbar"
+      aria-label="Guest essentials navigation"
+    >
+      {dockItems.map((item, index) => {
+        const Icon = item.icon;
+        const isPrimary = item.isPrimary;
+
+        return (
+          <DockItem
+            key={index}
+            onClick={() => handleItemClick(item.href)}
+            className={
+              isPrimary
+                ? "bg-coral text-white border-coral shadow-[0_0_16px_rgba(201,94,53,0.35)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95"
+                : "bg-[#2D1B12]/60 border border-ivory/10 text-ivory/95 hover:border-ivory/30 hover:text-white hover:-translate-y-0.5 active:scale-95"
+            }
+            mouseX={mouseX}
+            spring={spring}
+            distance={distance}
+            magnification={magnification}
+            baseItemSize={baseItemSize}
+            label={item.label}
+          >
+            <DockIcon>
+              {Icon && <Icon className={compact ? "h-[18px] w-[18px] sm:h-5 sm:w-5" : "w-5 h-5"} />}
+            </DockIcon>
+            <DockLabel>{item.label}</DockLabel>
+          </DockItem>
+        );
+      })}
+    </motion.div>
+  );
+}
+
+export function FloatingGuestDock() {
+  const isVisible = useGuestDockVisibility();
 
   return (
     <AnimatePresence>
@@ -202,48 +287,7 @@ export function FloatingGuestDock() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed bottom-6 left-1/2 z-40 flex items-center pb-[env(safe-area-inset-bottom)] pointer-events-auto"
         >
-          <motion.div
-            onMouseMove={({ pageX }) => {
-              isHoveredVal.set(1);
-              mouseX.set(pageX);
-            }}
-            onMouseLeave={() => {
-              isHoveredVal.set(0);
-              mouseX.set(Infinity);
-            }}
-            className="flex items-end w-fit gap-3 rounded-full border border-ivory/15 bg-[#2D1B12]/80 backdrop-blur-md px-4 py-2 shadow-2xl"
-            style={{ height: panelHeight }}
-            role="toolbar"
-            aria-label="Guest essentials navigation"
-          >
-            {dockItems.map((item, index) => {
-              const Icon = item.icon;
-              const isPrimary = item.isPrimary;
-
-              return (
-                <DockItem
-                  key={index}
-                  onClick={() => handleItemClick(item.href)}
-                  className={
-                    isPrimary
-                      ? "bg-coral text-white border-coral shadow-[0_0_16px_rgba(201,94,53,0.35)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95"
-                      : "bg-[#2D1B12]/60 border border-ivory/10 text-ivory/95 hover:border-ivory/30 hover:text-white hover:-translate-y-0.5 active:scale-95"
-                  }
-                  mouseX={mouseX}
-                  spring={spring}
-                  distance={distance}
-                  magnification={magnification}
-                  baseItemSize={baseItemSize}
-                  label={item.label}
-                >
-                  <DockIcon>
-                    {Icon && <Icon className="w-5 h-5" />}
-                  </DockIcon>
-                  <DockLabel>{item.label}</DockLabel>
-                </DockItem>
-              );
-            })}
-          </motion.div>
+          <GuestDockToolbar />
         </motion.div>
       )}
     </AnimatePresence>

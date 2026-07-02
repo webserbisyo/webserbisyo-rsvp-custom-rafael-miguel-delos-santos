@@ -146,7 +146,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
   const ArrivalIcon = isShuttle ? Bus : Compass;
 
   return (
-    <section id="venue" className="pt-24 pb-28 px-4 bg-cream relative">
+    <section id="venue" className="relative isolate overflow-x-clip pt-24 pb-28 px-4 bg-cream">
       {/* Decorative Leaves Wrapper - clips horizontal overflow of large leaves to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}
@@ -157,7 +157,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-12 -left-16 sm:-top-16 sm:-left-24 lg:-top-20 lg:-left-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-24 -left-28 sm:-top-28 sm:-left-36 md:-top-32 md:-left-44 lg:-top-20 lg:-left-32 w-48 sm:w-64 md:w-80 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-45 sm:opacity-55 md:opacity-65 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Decorative Tropical Leaf Asset - Upper Right (Layer 2) - Enlarged significantly and responsive */}
@@ -168,11 +168,11 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-12 -right-16 sm:-top-16 sm:-right-24 lg:-top-20 lg:-right-32 w-56 sm:w-76 md:w-96 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-75 sm:opacity-85 md:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-24 -right-28 sm:-top-28 sm:-right-36 md:-top-32 md:-right-44 lg:-top-20 lg:-right-32 w-48 sm:w-64 md:w-80 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-45 sm:opacity-55 md:opacity-65 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-20">
+      <div className="max-w-6xl mx-auto relative z-30">
         <SectionHeading 
           label="Location" 
           title={venue.venueName || "Venue"} 
@@ -263,18 +263,6 @@ export function VenueSection({ venue }: VenueSectionProps) {
           </div>
         </FadeContent>
       </div>
-
-      {/* Center Flower Bouquet Motif on Divider below Venue section */}
-      <img
-        src="/beach%20assets%20finalized/16.webp"
-        alt=""
-        aria-hidden="true"
-        width={2048}
-        height={2048}
-        decoding="async"
-        className="absolute left-1/2 bottom-0 w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 h-auto object-contain pointer-events-none z-25 select-none transform -translate-x-1/2 translate-y-[55%]"
-      />
     </section>
   );
 }
-

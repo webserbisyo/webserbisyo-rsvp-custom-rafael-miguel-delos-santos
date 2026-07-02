@@ -6,7 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Music4, Play, Pause, Square, X } from "@/client/libs/icons";
 import { parseMusicMeta } from "@/client/utils/music-meta";
 
-export function FloatingMusicBubble() {
+type FloatingMusicBubbleProps = {
+  layout?: "fixed" | "inline";
+};
+
+export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubbleProps) {
   const { playbackState, musicTitle, isPlaying, play, pause, stop } = useAudio();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -16,9 +20,16 @@ export function FloatingMusicBubble() {
   }
 
   const { displayTitle, displayArtist } = parseMusicMeta(musicTitle);
+  const isInline = layout === "inline";
 
   return (
-    <div className="fixed bottom-[5.5rem] right-4 z-[99] flex flex-col items-end pb-[env(safe-area-inset-bottom)] sm:bottom-6 sm:right-6">
+    <div
+      className={
+        isInline
+          ? "relative z-10 flex shrink-0 flex-col items-end"
+          : "fixed bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] right-4 z-50 flex flex-col items-end sm:right-6"
+      }
+    >
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -26,7 +37,11 @@ export function FloatingMusicBubble() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/80 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
+            className={
+              isInline
+                ? "absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/85 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
+                : "mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/80 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
+            }
           >
             <div className="flex justify-between items-start mb-3">
               <div className="flex gap-3 items-center min-w-0">

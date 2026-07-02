@@ -54,11 +54,11 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
   return (
     <section 
       id="reception" 
-      className="pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory relative"
+      className="relative isolate overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory"
     >
       {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
           internally to prevent page-level horizontal scrolling */}
-      <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
+      <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10" aria-hidden="true">
         {/* Decorative Bird Assets — large elegant top-side framing elements, scaled up on desktop */}
         <img
           src="/beach%20assets%20finalized/7.webp"
@@ -67,7 +67,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute top-6 left-4 sm:top-8 sm:left-8 md:top-10 md:left-12 lg:top-12 lg:left-16 xl:top-16 xl:-left-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-[opacity,transform] duration-300"
+          className="absolute hidden h-auto object-contain select-none opacity-45 transition-[opacity,transform] duration-300 lg:block lg:-left-24 lg:-top-4 lg:w-72 xl:-left-16 xl:-top-2 xl:w-80 2xl:left-0 2xl:w-[360px]"
         />
         <img
           src="/beach%20assets%20finalized/8.webp"
@@ -76,7 +76,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute top-6 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 lg:top-12 lg:right-16 xl:top-16 xl:-right-8 w-28 sm:w-40 md:w-56 lg:w-80 xl:w-[380px] 2xl:w-[440px] h-auto object-contain select-none opacity-45 sm:opacity-50 transition-[opacity,transform] duration-300"
+          className="absolute hidden h-auto object-contain select-none opacity-45 transition-[opacity,transform] duration-300 lg:block lg:-right-24 lg:-top-4 lg:w-72 xl:-right-16 xl:-top-2 xl:w-80 2xl:right-0 2xl:w-[360px]"
         />
 
         {/* Decorative Corner Flowers — framing the lower portion of the section with tight compositional coupling */}
@@ -104,7 +104,7 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
       </div>
 
       {/* Main content — centered stack, layered above background elements */}
-      <div className="max-w-2xl mx-auto relative z-20">
+      <div className="max-w-2xl mx-auto relative z-30">
         <SectionHeading
           label="The Party"
           title={reception.receptionLabel || "Wedding Reception"}

@@ -134,24 +134,36 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
             
             /* Responsive Open Transforms via CSS Variables */
             .folder-paper-0 {
-              --paper-open-transform: translate(-155%, -80%) rotate(-12deg) scale(1.15);
+              --paper-open-transform: translate(-124%, -78%) rotate(-9deg) scale(1.0);
             }
             .folder-paper-1 {
-              --paper-open-transform: translate(55%, -80%) rotate(12deg) scale(1.15);
+              --paper-open-transform: translate(24%, -78%) rotate(9deg) scale(1.0);
             }
             .folder-paper-2 {
-              --paper-open-transform: translate(-50%, -110%) rotate(4deg) scale(1.2);
+              --paper-open-transform: translate(-50%, -112%) rotate(3deg) scale(1.16);
             }
             
             @media (max-width: 639px) {
               .folder-paper-0 {
-                --paper-open-transform: translate(-100%, -78%) rotate(-8deg) scale(1.0);
+                --paper-open-transform: translate(-74%, -76%) rotate(-6deg) scale(0.88);
               }
               .folder-paper-1 {
-                --paper-open-transform: translate(0%, -62%) rotate(8deg) scale(1.0);
+                --paper-open-transform: translate(-26%, -64%) rotate(6deg) scale(0.88);
               }
               .folder-paper-2 {
-                --paper-open-transform: translate(-50%, -120%) rotate(0deg) scale(1.1);
+                --paper-open-transform: translate(-50%, -116%) rotate(0deg) scale(1.06);
+              }
+            }
+
+            @media (min-width: 640px) and (max-width: 1023px) {
+              .folder-paper-0 {
+                --paper-open-transform: translate(-96%, -78%) rotate(-7deg) scale(0.94);
+              }
+              .folder-paper-1 {
+                --paper-open-transform: translate(-4%, -72%) rotate(7deg) scale(0.94);
+              }
+              .folder-paper-2 {
+                --paper-open-transform: translate(-50%, -114%) rotate(2deg) scale(1.1);
               }
             }
           `}} />
@@ -184,8 +196,8 @@ const Folder: React.FC<FolderProps> = ({ color = "#5227FF", size = 1, items = []
           ></span>
           {papers.map((item, i) => {
             let sizeClasses = "";
-            if (i === 0) sizeClasses = open ? "w-[85%] h-[95%]" : "w-[70%] h-[80%]";
-            if (i === 1) sizeClasses = open ? "w-[85%] h-[95%]" : "w-[80%] h-[70%]";
+            if (i === 0) sizeClasses = open ? "w-[72%] h-[86%] sm:w-[78%] sm:h-[90%] lg:w-[82%] lg:h-[92%]" : "w-[70%] h-[80%]";
+            if (i === 1) sizeClasses = open ? "w-[72%] h-[86%] sm:w-[78%] sm:h-[90%] lg:w-[82%] lg:h-[92%]" : "w-[80%] h-[70%]";
             if (i === 2) sizeClasses = open ? "w-[100%] h-[95%]" : "w-[90%] h-[60%]";
             const transformStyle = open
               ? `var(--paper-open-transform) translate(${paperOffsets[i].x}px, ${paperOffsets[i].y}px)`

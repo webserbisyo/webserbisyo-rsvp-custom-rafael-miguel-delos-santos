@@ -16,7 +16,9 @@ import type { ClientEventRendererProps } from "@/client/renderer/client-renderer
 import { buildClientViewModel } from "@/client/types/build-client-view-model";
 import { WaveDivider, ScrollProgressBar } from "@/client/components";
 import { AudioProvider } from "@/client/components/audio-context";
-import { FloatingMusicBubble } from "@/client/components/FloatingMusicBubble";
+import { FloatingControlsLayer } from "@/client/components/FloatingControlsLayer";
+import { CountdownToMusicDivider } from "@/client/components/CountdownToMusicDivider";
+import { CenterBouquetDivider } from "@/client/components/CenterBouquetDivider";
 import {
   HeroSection,
   CountdownSection,
@@ -54,7 +56,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <ScrollProgressBar />
         <HeroSection coupleInfo={vm.coupleInfo} ceremony={vm.ceremony} />
         <CountdownSection countdown={vm.countdown} ceremony={vm.ceremony} />
-        <WaveDivider flip className="text-cream bg-[#E8F4F0]" />
+        <CountdownToMusicDivider />
         <MusicSection musicEffects={vm.musicEffects} />
         <WaveDivider flip className="text-[#8EC9BB] bg-[#FDECD0]" />
         <GallerySection />
@@ -62,6 +64,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <CeremonySection ceremony={vm.ceremony} venue={vm.venue} mounted={mounted} />
         <WaveDivider />
         <VenueSection venue={vm.venue} />
+        <CenterBouquetDivider />
         <WaveDivider flip />
         <ReceptionSection reception={vm.reception} ceremony={vm.ceremony} />
         <WaveDivider />
@@ -90,7 +93,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <WaveDivider className="text-cocoa bg-ivory" />
         <ContactSection contactSocials={vm.contactSocials} />
       </main>
-      <FloatingMusicBubble />
+      <FloatingControlsLayer />
     </AudioProvider>
   );
 }

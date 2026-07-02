@@ -55,12 +55,12 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
   return (
     <section 
       id="entourage" 
-      className="relative overflow-x-clip bg-ivory px-4 pt-24 pb-28 sm:py-28 lg:py-32"
+      className="relative isolate overflow-x-clip bg-ivory px-4 pt-24 pb-28 sm:py-28 lg:py-32"
     >
       {/* Gallery-style Global Desktop Shell Layer */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 hidden md:block select-none"
+        className="pointer-events-none absolute inset-0 z-0 hidden lg:block select-none"
       >
         {/* top-left */}
         <img
@@ -70,7 +70,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[-10deg] opacity-90 lg:w-80 xl:w-96"
+          className="absolute left-[max(0rem,calc((100vw-64rem)/2-16rem))] top-8 w-64 rotate-[-10deg] opacity-80 lg:w-72 xl:w-80"
         />
 
         {/* top-right */}
@@ -81,7 +81,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[10deg] opacity-90 lg:w-80 xl:w-96"
+          className="absolute right-[max(0rem,calc((100vw-64rem)/2-16rem))] top-8 w-64 rotate-[10deg] opacity-80 lg:w-72 xl:w-80"
         />
 
         {/* bottom-left */}
@@ -107,7 +107,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-30">
         {/* Section Heading — kept completely clean of background assets on mobile */}
         <SectionHeading label="Wedding Party" title="Entourage" subtitle={entourage.introLine} />
         
@@ -120,7 +120,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                   className="relative mx-auto w-full max-w-5xl py-4 md:py-6 group/row"
                 >
                   {/* Desktop 2-Column Grid / Mobile 1-Column Stack */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
                     {rowGroups.map((g, cardIndex) => {
                       const absoluteIndex = rowIndex * 2 + cardIndex;
                       const isLastCard = absoluteIndex === validGroups.length - 1;
@@ -141,7 +141,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                               width={2048}
                               height={2048}
                               decoding="async"
-                              className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-85 md:hidden ${
+                              className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-85 lg:hidden ${
                                 absoluteIndex % 2 === 0 
                                   ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[absoluteIndex % MOBILE_SHELL_TRANSFORMS.length]}` 
                                   : `-right-8 ${MOBILE_SHELL_TRANSFORMS[absoluteIndex % MOBILE_SHELL_TRANSFORMS.length]}`
@@ -158,7 +158,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                               width={2048}
                               height={2048}
                               decoding="async"
-                              className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-85 md:hidden"
+                            className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-85 lg:hidden"
                             />
                           )}
 

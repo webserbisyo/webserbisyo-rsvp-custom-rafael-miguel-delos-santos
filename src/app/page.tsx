@@ -50,7 +50,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   const useClientRenderer = renderer.mode === "client" && renderer.allowClientRenderer;
 
   return (
-    <ClientPageFrame config={clientConfig} event={result.event}>
+    <ClientPageFrame config={clientConfig} event={result.event} floatingControlsManaged={useClientRenderer}>
       {useClientRenderer ? (
         <ClientEventRenderer config={clientConfig} event={result.event} />
       ) : (

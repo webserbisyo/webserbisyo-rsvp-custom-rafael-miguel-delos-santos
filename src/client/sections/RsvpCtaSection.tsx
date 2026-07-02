@@ -16,7 +16,7 @@ export function RsvpCtaSection() {
   return (
     <section
       id="rsvp"
-      className="relative overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
+      className="relative isolate overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
     >
       {/* Decorative Bird Layer — Airy top corner/side accents */}
       <div
@@ -31,7 +31,7 @@ export function RsvpCtaSection() {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-2 sm:left-4 md:left-8 lg:left-12 xl:left-16 top-6 sm:top-8 w-20 sm:w-32 md:w-44 lg:w-56 xl:w-64 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-100"
+          className="absolute -left-8 sm:-left-12 md:-left-16 lg:left-8 xl:left-12 -top-3 sm:-top-4 md:-top-6 lg:top-4 w-14 sm:w-20 md:w-28 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-55 lg:opacity-90"
         />
 
         {/* Right Bird - Top/Right side, fully visible */}
@@ -42,12 +42,12 @@ export function RsvpCtaSection() {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-2 sm:right-4 md:right-8 lg:right-12 xl:right-16 top-6 sm:top-8 w-20 sm:w-32 md:w-44 lg:w-56 xl:w-64 h-auto object-contain pointer-events-none select-none z-0 rotate-[10deg] opacity-100"
+          className="absolute -right-8 sm:-right-12 md:-right-16 lg:right-8 xl:right-12 -top-3 sm:-top-4 md:-top-6 lg:top-4 w-14 sm:w-20 md:w-28 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none select-none z-0 rotate-[10deg] opacity-55 lg:opacity-90"
         />
       </div>
 
       <FadeContent>
-        <div className="relative z-10 max-w-2xl mx-auto">
+        <div className="relative z-30 max-w-2xl mx-auto">
           <p className="text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-white/70">
             JOIN US
           </p>
