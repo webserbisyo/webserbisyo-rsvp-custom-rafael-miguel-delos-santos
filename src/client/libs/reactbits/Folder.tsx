@@ -61,8 +61,8 @@ const Folder: React.FC<FolderProps> = ({
   );
 
   const folderBackColor = darkenColor(color, 0.08);
-  const paper1 = darkenColor("#ffffff", 0.1);
-  const paper2 = darkenColor("#ffffff", 0.05);
+  const paper1 = "#ffffff";
+  const paper2 = "#fafafa";
   const paper3 = "#ffffff";
 
   const handleClick = () => {
@@ -211,13 +211,15 @@ const Folder: React.FC<FolderProps> = ({
 
         @media (max-width: 639px) {
           .folder-paper-0 {
-            --paper-open-transform: translate(-50%, -300%) rotate(-4deg) scale(1.04);
+            /* Translate -420% = -137px × 4.2 ≈ 575px up; at 1.5× scale cards are ~205px tall,
+               so 575px / (205 × folderScale) leaves clear gaps between cards */
+            --paper-open-transform: translate(-50%, -420%) rotate(-3deg) scale(1.5);
           }
           .folder-paper-1 {
-            --paper-open-transform: translate(-50%, -200%) rotate(4deg) scale(1.04);
+            --paper-open-transform: translate(-50%, -280%) rotate(3deg) scale(1.5);
           }
           .folder-paper-2 {
-            --paper-open-transform: translate(-50%, -100%) rotate(-1deg) scale(1.04);
+            --paper-open-transform: translate(-50%, -140%) rotate(-1deg) scale(1.5);
           }
         }
       `}} />
@@ -242,11 +244,11 @@ const Folder: React.FC<FolderProps> = ({
         aria-label={open ? "Close folder" : "Open folder"}
       >
         <div
-          className="relative w-[180px] h-[144px] rounded-tl-0 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
+          className="relative w-[180px] h-[144px] rounded-tl-none rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
           style={{ backgroundColor: folderBackColor }}
         >
           <span
-            className="absolute z-0 bottom-[98%] left-0 w-[54px] h-[18px] rounded-tl-[5px] rounded-tr-[5px] rounded-bl-0 rounded-br-0"
+            className="absolute z-0 bottom-[calc(100%-1px)] left-0 w-[54px] h-[19px] rounded-tl-[5px] rounded-tr-[5px]"
             style={{ backgroundColor: folderBackColor }}
           ></span>
           {papers.map((item, i) => {

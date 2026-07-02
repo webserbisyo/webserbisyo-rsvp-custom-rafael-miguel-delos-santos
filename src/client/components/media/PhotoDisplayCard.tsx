@@ -52,12 +52,12 @@ export function PhotoDisplayCard({
       {(title || subtitle) && (
         <div className="px-1 pb-0.5 pt-1 text-center truncate">
           {title && (
-            <p className="font-serif italic text-cocoa text-[8px] sm:text-[9px] leading-tight truncate">
+            <p className="font-serif italic text-cocoa text-[10px] sm:text-[9px] leading-tight truncate">
               {title}
             </p>
           )}
           {subtitle && (
-            <p className="mt-0.5 text-[5px] sm:text-[6px] leading-none tracking-widest uppercase text-driftwood truncate">
+            <p className="mt-0.5 text-[6px] sm:text-[6px] leading-none tracking-widest uppercase text-driftwood truncate">
               {subtitle}
             </p>
           )}

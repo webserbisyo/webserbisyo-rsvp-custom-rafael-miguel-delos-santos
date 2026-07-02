@@ -14,7 +14,7 @@ export function CountdownToMusicDivider() {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-0 bottom-0 z-10 w-52 -translate-x-[18%] translate-y-[18%] object-contain pointer-events-none select-none sm:w-64 sm:-translate-x-[22%] sm:translate-y-[24%] md:w-[340px] lg:w-[430px] xl:w-[500px]"
+          className="absolute left-0 bottom-0 z-10 w-56 -translate-x-[10%] translate-y-[8%] object-contain pointer-events-none select-none sm:w-64 sm:-translate-x-[16%] sm:translate-y-[14%] md:w-[340px] lg:w-[430px] xl:w-[500px]"
         />
         <img
           src="/beach%20assets%20finalized/6.webp"
@@ -23,7 +23,7 @@ export function CountdownToMusicDivider() {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-0 bottom-0 z-10 w-52 translate-x-[18%] translate-y-[18%] object-contain pointer-events-none select-none sm:w-64 sm:translate-x-[22%] sm:translate-y-[24%] md:w-[340px] lg:w-[430px] xl:w-[500px]"
+          className="absolute right-0 bottom-0 z-10 w-56 translate-x-[10%] translate-y-[8%] object-contain pointer-events-none select-none sm:w-64 sm:translate-x-[16%] sm:translate-y-[14%] md:w-[340px] lg:w-[430px] xl:w-[500px]"
         />
         <img
           src="/beach%20assets%20finalized/16.webp"
@@ -32,7 +32,7 @@ export function CountdownToMusicDivider() {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-1/2 bottom-0 z-20 w-32 -translate-x-1/2 translate-y-[22%] object-contain pointer-events-none select-none sm:w-40 sm:translate-y-[30%] md:w-52 lg:w-60 xl:w-64"
+          className="absolute left-1/2 bottom-0 z-20 w-36 -translate-x-1/2 translate-y-[10%] object-contain pointer-events-none select-none sm:w-44 sm:translate-y-[18%] md:w-52 lg:w-60 xl:w-64"
         />
       </div>
     </div>

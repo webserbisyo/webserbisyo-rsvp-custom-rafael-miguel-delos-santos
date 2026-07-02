@@ -26,11 +26,12 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
     const updateSize = () => {
       const w = window.innerWidth;
       if (w >= 1024) {
-        setFolderSize(2.0);
+        // Desktop: compact closed folder — 180px base at 1.0× is proportionate
+        setFolderSize(1.0);
       } else if (w >= 768) {
-        setFolderSize(1.6);
+        setFolderSize(1.0);
       } else if (w >= 640) {
-        setFolderSize(1.35);
+        setFolderSize(1.15);
       } else if (w >= 410) {
         setFolderSize(1.2);
       } else if (w >= 360) {
@@ -100,7 +101,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-4 left-0 w-20 sm:-top-6 sm:-left-8 md:-top-8 md:-left-12 lg:-top-16 lg:-left-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-95 sm:opacity-100 transition-all duration-300"
+          className="absolute -top-4 left-0 w-24 sm:-top-6 sm:-left-8 md:-top-8 md:-left-12 lg:-top-16 lg:-left-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
         />
 
         {/* Top-Right Flower (16.webp) */}
@@ -111,7 +112,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-4 right-0 w-20 sm:-top-6 sm:-right-8 md:-top-8 md:-right-12 lg:-top-16 lg:-right-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain rotate-12 opacity-95 sm:opacity-100 transition-all duration-300"
+          className="absolute -top-4 right-0 w-24 sm:-top-6 sm:-right-8 md:-top-8 md:-right-12 lg:-top-16 lg:-right-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
         />
 
         {/* Bottom-Left Flower (16.webp) - Contained bottom shelf/corner */}
@@ -122,7 +123,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute bottom-2 left-2 w-20 sm:bottom-4 sm:left-4 md:-bottom-8 md:-left-12 lg:bottom-0 lg:-left-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
+          className="absolute left-0 bottom-4 w-24 sm:left-[-2rem] sm:bottom-4 sm:w-36 md:left-[-3rem] md:w-44 lg:bottom-0 lg:-left-20 lg:w-[18rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
         />
 
         {/* Bottom-Right Flower (17.webp) - Contained bottom shelf/corner */}
@@ -133,7 +134,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute bottom-2 right-2 w-20 sm:bottom-4 sm:right-4 md:-bottom-8 md:-right-12 lg:bottom-0 lg:-right-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
+          className="absolute right-0 bottom-4 w-24 sm:right-[-2rem] sm:bottom-4 sm:w-36 md:right-[-3rem] md:w-44 lg:bottom-0 lg:-right-20 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
         />
 
         {/* Left Palm Leaf (4.webp) - Desktop/Mobile Side Frame */}
@@ -169,10 +170,17 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         />
 
         {/* Interactive Folder Component */}
-        <div className={`mb-16 sm:mb-16 flex items-end justify-center overflow-visible select-none transition-all duration-500 ease-in-out ${
-          isOpen 
-            ? "h-[480px] mt-44 pb-6 sm:h-56 sm:mt-24 sm:pb-4 md:h-64 md:mt-24 md:pb-4" 
-            : "h-44 mt-24 pb-4 sm:h-56 sm:mt-24 sm:pb-4 md:h-64 md:mt-24 md:pb-4"
+        {/*
+          Stage sizing rationale:
+          - Closed: just tall enough to show folder + tab (144px base). No extra whitespace.
+          - Open mobile: photos scale to 1.5× and stack vertically. Stage must accommodate
+            the full visual height so cards don't overlap the narrative text below.
+          - Open desktop: cards fan sideways (lg transform), needs vertical clearance for fan.
+        */}
+        <div className={`flex items-end justify-center overflow-visible select-none transition-all duration-500 ease-in-out ${
+          isOpen
+            ? "h-[540px] mt-44 mb-28 pb-6 sm:h-72 sm:mt-28 sm:mb-20 sm:pb-4 md:h-80 md:mt-32 md:mb-24 md:pb-4 lg:h-96 lg:mt-32 lg:mb-20 lg:pb-4"
+            : "h-40 mt-20 mb-16 pb-4 sm:h-44 sm:mt-20 sm:mb-14 sm:pb-4 md:h-48 md:mt-22 md:mb-14 md:pb-4 lg:h-52 lg:mt-24 lg:mb-16 lg:pb-4"
         }`}>
           <Folder
             color="#d65f3f"
