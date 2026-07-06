@@ -52,10 +52,6 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
 
               const glassCardClasses = "bg-white/70 backdrop-blur-md border border-sand/40 rounded-[24px] shadow-md shadow-cocoa/5 p-6 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
 
-              // Mobile alternating structure helpers
-              const flexRowClass = isEven ? "flex-row" : "flex-row-reverse";
-              const timePaddingClass = isEven ? "pl-2" : "pr-2";
-              const assetJustifyClass = isEven ? "justify-end" : "justify-start";
 
               return (
                 <div
@@ -71,7 +67,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     className={`absolute left-6 lg:left-1/2 top-[42px] lg:top-1/2 rounded-full bg-coral -translate-x-1/2 lg:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
                   />
 
-                  {/* Mobile and tablet portrait layout */}
+                  {/* Mobile and tablet portrait layout — true single-column, badge always left */}
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -79,14 +75,24 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                     className="lg:hidden w-full pl-16 z-20 py-2 relative"
                   >
-                    <div className={`flex ${flexRowClass} justify-between items-center mb-3 pr-2`}>
-                      <div className={`text-coral font-serif text-2xl tracking-wide ${timePaddingClass} relative z-20`}>
+                    {/* Badge row: time badge always on left, small decorative asset always on right */}
+                    <div className="flex flex-row items-center justify-between mb-3 pr-2">
+                      <div className="text-coral font-serif text-2xl tracking-wide pl-2 relative z-20">
                         <span className="inline-flex rounded-full border border-sand/35 bg-cream/90 px-3 py-1 shadow-sm backdrop-blur-sm">
-                        {formattedTime}
+                          {formattedTime}
                         </span>
                       </div>
-                      <div className={`relative z-10 pointer-events-none select-none flex items-center ${assetJustifyClass}`}>
-                        <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.mobileWidth} h-auto`} />
+                      <div className="relative z-10 pointer-events-none select-none flex items-center justify-end">
+                        <img
+                          src={asset.src}
+                          alt=""
+                          aria-hidden="true"
+                          width={2048}
+                          height={2048}
+                          decoding="async"
+                          loading="lazy"
+                          className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} w-12 sm:w-14 h-auto`}
+                        />
                       </div>
                     </div>
                     <div className={glassCardClasses}>
@@ -108,7 +114,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           className="w-1/2 flex justify-end pr-20 relative z-10"
                         >
                           <div className="absolute left-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
                           </div>
                           <div className="text-coral font-serif text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
                             <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-4 py-1.5 shadow-sm backdrop-blur-sm">
@@ -159,7 +165,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                             </span>
                           </div>
                           <div className="absolute right-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
                           </div>
                         </motion.div>
                       </>

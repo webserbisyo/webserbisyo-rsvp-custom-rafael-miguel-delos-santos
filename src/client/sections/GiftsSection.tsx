@@ -48,7 +48,8 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -left-16 sm:-left-32 md:-left-44 lg:-left-28 -top-8 sm:-top-14 md:-top-20 lg:-top-4 w-36 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
+          className="absolute left-0 sm:-left-8 md:-left-12 lg:-left-16 -top-4 sm:-top-6 md:-top-8 lg:-top-4 w-28 sm:w-36 md:w-44 lg:w-64 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
+          loading="lazy"
         />
 
         {/* Top-Right Flowers (17.png) */}
@@ -59,7 +60,8 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -right-16 sm:-right-32 md:-right-44 lg:-right-28 -top-8 sm:-top-14 md:-top-20 lg:-top-4 w-36 sm:w-40 md:w-48 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[-5deg] opacity-100"
+          className="absolute right-0 sm:-right-8 md:-right-12 lg:-right-16 -top-4 sm:-top-6 md:-top-8 lg:-top-4 w-28 sm:w-36 md:w-44 lg:w-64 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[-5deg] opacity-100"
+          loading="lazy"
         />
 
         {/* Bottom-Left Flowers (17.png) — Raised to ensure visibility above bottom wave divider */}
@@ -70,7 +72,8 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -left-16 sm:-left-20 md:-left-24 lg:-left-28 bottom-6 sm:bottom-8 md:bottom-10 w-40 sm:w-52 md:w-72 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
+          className="absolute left-0 sm:-left-8 md:-left-12 lg:-left-20 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
+          loading="lazy"
         />
 
         {/* Bottom-Right Flowers (16.png) — Raised to ensure visibility above bottom wave divider */}
@@ -81,7 +84,8 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -right-16 sm:-right-20 md:-right-24 lg:-right-28 bottom-6 sm:bottom-8 md:bottom-10 w-40 sm:w-52 md:w-72 lg:w-80 xl:w-96 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-100"
+          className="absolute right-0 sm:-right-8 md:-right-12 lg:-right-20 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-100"
+          loading="lazy"
         />
       </div>
 

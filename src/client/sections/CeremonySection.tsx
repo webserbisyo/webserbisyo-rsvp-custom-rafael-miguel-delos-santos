@@ -94,6 +94,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         width={2048}
         height={2048}
         decoding="async"
+        loading="lazy"
         className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
       />
 
@@ -105,6 +106,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         width={2048}
         height={2048}
         decoding="async"
+        loading="lazy"
         className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
         style={{ transform: "scaleX(-1)" }}
       />
@@ -121,6 +123,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
               width={2048}
               height={2048}
               decoding="async"
+              loading="lazy"
               className="w-24 sm:w-28 h-auto object-contain pointer-events-none z-10 select-none opacity-90"
             />
           </div>

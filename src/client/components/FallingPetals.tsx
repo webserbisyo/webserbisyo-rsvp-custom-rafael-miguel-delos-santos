@@ -72,7 +72,7 @@ function getViewportConfig(width: number, pathname: string): ViewportConfig {
 
   // Desktop
   return {
-    targetCount: isRsvp ? 18 : 44,
+    targetCount: isRsvp ? 18 : 32,
     minSize: isRsvp ? 7 : 9,
     maxSize: isRsvp ? 20 : 26,
     minOpacity: isRsvp ? 0.34 : 0.46,

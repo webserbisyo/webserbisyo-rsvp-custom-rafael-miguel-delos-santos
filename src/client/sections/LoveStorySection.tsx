@@ -8,7 +8,7 @@
  * Enables a controlled, user-friendly blur reveal animation using the pre-existing FadeContent component.
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent, Folder } from "@/client/libs/reactbits";
 import { FolderPhotoCard } from "@/client/components/media/FolderPhotoCard";

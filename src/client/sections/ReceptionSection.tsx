@@ -67,7 +67,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 left-0 -top-2 w-24 opacity-75 sm:left-[-1rem] sm:w-28 sm:opacity-80 md:left-[-2rem] md:w-36 lg:-left-24 lg:-top-4 lg:w-72 lg:opacity-90 xl:-left-16 xl:-top-2 xl:w-80 2xl:left-0 2xl:w-[360px]"
+          loading="lazy"
+          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 left-0 top-0 w-20 opacity-80 sm:left-0 sm:w-28 sm:opacity-85 md:left-0 md:w-36 md:opacity-90 lg:left-0 lg:top-2 lg:w-48 lg:opacity-95 xl:left-2 xl:w-56"
         />
         <img
           src="/beach%20assets%20finalized/8.webp"
@@ -76,7 +77,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 right-0 -top-2 w-24 opacity-75 sm:right-[-1rem] sm:w-28 sm:opacity-80 md:right-[-2rem] md:w-36 lg:-right-24 lg:-top-4 lg:w-72 lg:opacity-90 xl:-right-16 xl:-top-2 xl:w-80 2xl:right-0 2xl:w-[360px]"
+          loading="lazy"
+          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 right-0 top-0 w-20 opacity-80 sm:right-0 sm:w-28 sm:opacity-85 md:right-0 md:w-36 md:opacity-90 lg:right-0 lg:top-2 lg:w-48 lg:opacity-95 xl:right-2 xl:w-56"
         />
 
         {/* Decorative Corner Flowers — framing the lower portion of the section with tight compositional coupling */}
@@ -88,7 +90,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -left-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform transition-[opacity,transform] duration-300"
+          loading="lazy"
+          className="absolute left-0 sm:-left-6 md:-left-8 lg:-left-10 bottom-0 w-28 sm:w-48 md:w-64 lg:w-[300px] xl:w-[360px] h-auto object-contain select-none transform transition-[opacity,transform] duration-300"
         />
 
         {/* Bottom-Right Corner Flower */}
@@ -99,7 +102,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -right-10 bottom-0 w-32 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain select-none transform scale-x-[-1] transition-[opacity,transform] duration-300"
+          loading="lazy"
+          className="absolute right-0 sm:-right-6 md:-right-8 lg:-right-10 bottom-0 w-28 sm:w-48 md:w-64 lg:w-[300px] xl:w-[360px] h-auto object-contain select-none transform scale-x-[-1] transition-[opacity,transform] duration-300"
         />
       </div>
 

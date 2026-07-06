@@ -70,6 +70,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute left-[max(0rem,calc((100vw-64rem)/2-16rem))] top-8 w-64 rotate-[-10deg] opacity-80 lg:w-72 xl:w-80"
         />
 
@@ -81,6 +82,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute right-[max(0rem,calc((100vw-64rem)/2-16rem))] top-8 w-64 rotate-[10deg] opacity-80 lg:w-72 xl:w-80"
         />
 
@@ -92,6 +94,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute bottom-24 left-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[12deg] opacity-90 lg:w-80 xl:w-96"
         />
 
@@ -103,6 +106,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute bottom-24 right-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[-12deg] opacity-90 lg:w-80 xl:w-96"
         />
       </div>
@@ -141,6 +145,7 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                               width={2048}
                               height={2048}
                               decoding="async"
+                              loading="lazy"
                               className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-85 lg:hidden ${
                                 absoluteIndex % 2 === 0 
                                   ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[absoluteIndex % MOBILE_SHELL_TRANSFORMS.length]}` 
@@ -158,7 +163,8 @@ export function EntourageSection({ entourage }: EntourageSectionProps) {
                               width={2048}
                               height={2048}
                               decoding="async"
-                            className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-85 lg:hidden"
+                              loading="lazy"
+                              className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-85 lg:hidden"
                             />
                           )}
 

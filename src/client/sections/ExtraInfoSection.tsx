@@ -61,6 +61,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute left-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[-10deg] opacity-100 lg:w-80 xl:w-96"
         />
 
@@ -72,6 +73,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute right-[max(1rem,calc((100vw-64rem)/2-12rem))] top-24 w-72 rotate-[10deg] opacity-100 lg:w-80 xl:w-96"
         />
 
@@ -83,6 +85,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute bottom-24 left-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[12deg] opacity-100 lg:w-80 xl:w-96"
         />
 
@@ -94,6 +97,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute bottom-24 right-[max(1rem,calc((100vw-64rem)/2-12rem))] w-72 rotate-[-12deg] opacity-100 lg:w-80 xl:w-96"
         />
       </div>
@@ -126,6 +130,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
                     width={2048}
                     height={2048}
                     decoding="async"
+                    loading="lazy"
                     className={`pointer-events-none absolute -bottom-14 z-10 block w-48 h-auto object-contain select-none opacity-100 lg:hidden ${
                       index % 2 === 0 
                         ? `-left-8 ${MOBILE_SHELL_TRANSFORMS[index % MOBILE_SHELL_TRANSFORMS.length]}` 
@@ -143,6 +148,7 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
                     width={2048}
                     height={2048}
                     decoding="async"
+                    loading="lazy"
                     className="pointer-events-none absolute left-1/2 -bottom-20 z-10 w-44 h-auto object-contain -translate-x-1/2 rotate-[6deg] select-none opacity-100 lg:hidden"
                   />
                 )}

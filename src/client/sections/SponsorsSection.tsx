@@ -44,7 +44,7 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 select-none"
       >
-        {/* Left Bird - Top Left Corner */}
+        {/* Left Bird - Top Left Corner — anchored at section top, sized to avoid heading zone */}
         <img
           src="/beach%20assets%20finalized/7.webp"
           alt=""
@@ -52,10 +52,11 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-2 md:left-6 lg:left-10 top-4 md:top-8 w-20 sm:w-24 md:w-48 lg:w-56 xl:w-64 h-auto opacity-95 pointer-events-none select-none z-0 rotate-[-5deg]"
+          loading="lazy"
+          className="absolute left-0 md:left-2 lg:left-6 top-0 w-16 sm:w-20 md:w-28 lg:w-36 xl:w-44 h-auto opacity-90 pointer-events-none select-none z-0 rotate-[-5deg]"
         />
 
-        {/* Right Bird - Top Right Corner */}
+        {/* Right Bird - Top Right Corner — anchored at section top, sized to avoid heading zone */}
         <img
           src="/beach%20assets%20finalized/8.webp"
           alt=""
@@ -63,7 +64,8 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-2 md:right-6 lg:right-10 top-4 md:top-8 w-20 sm:w-24 md:w-48 lg:w-56 xl:w-64 h-auto opacity-95 pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1]"
+          loading="lazy"
+          className="absolute right-0 md:right-2 lg:right-6 top-0 w-16 sm:w-20 md:w-28 lg:w-36 xl:w-44 h-auto opacity-90 pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1]"
         />
       </div>
 
