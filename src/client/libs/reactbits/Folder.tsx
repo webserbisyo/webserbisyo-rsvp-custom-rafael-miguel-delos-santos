@@ -244,11 +244,11 @@ const Folder: React.FC<FolderProps> = ({
         aria-label={open ? "Close folder" : "Open folder"}
       >
         <div
-          className="relative w-[180px] h-[144px] rounded-tl-none rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
+          className="relative w-[180px] h-[144px] sm:w-[220px] sm:h-[176px] md:w-[260px] md:h-[208px] lg:w-[320px] lg:h-[256px] rounded-tl-none rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
           style={{ backgroundColor: folderBackColor }}
         >
           <span
-            className="absolute z-0 bottom-[calc(100%-1px)] left-0 w-[54px] h-[19px] rounded-tl-[5px] rounded-tr-[5px]"
+            className="absolute z-0 bottom-[calc(100%-1px)] left-0 w-[54px] h-[19px] sm:w-[66px] sm:h-[23px] md:w-[78px] md:h-[27px] lg:w-[96px] lg:h-[34px] rounded-tl-[5px] rounded-tr-[5px]"
             style={{ backgroundColor: folderBackColor }}
           ></span>
           {papers.map((item, i) => {

@@ -8,7 +8,7 @@
  * Enables a controlled, user-friendly blur reveal animation using the pre-existing FadeContent component.
  */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent, Folder } from "@/client/libs/reactbits";
 import { FolderPhotoCard } from "@/client/components/media/FolderPhotoCard";
@@ -19,31 +19,8 @@ type LoveStorySectionProps = {
 };
 
 export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
-  const [folderSize, setFolderSize] = useState(1.0);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const updateSize = () => {
-      const w = window.innerWidth;
-      if (w >= 1024) {
-        // Desktop: compact closed folder — 180px base at 1.0× is proportionate
-        setFolderSize(1.0);
-      } else if (w >= 768) {
-        setFolderSize(1.0);
-      } else if (w >= 640) {
-        setFolderSize(1.15);
-      } else if (w >= 410) {
-        setFolderSize(1.2);
-      } else if (w >= 360) {
-        setFolderSize(1.1);
-      } else {
-        setFolderSize(0.95);
-      }
-    };
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+  const folderSize = 1.0;
 
   if (!loveStory) return null;
 
@@ -179,8 +156,8 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         */}
         <div className={`flex items-end justify-center overflow-visible select-none transition-all duration-500 ease-in-out ${
           isOpen
-            ? "h-[540px] mt-44 mb-28 pb-6 sm:h-72 sm:mt-28 sm:mb-20 sm:pb-4 md:h-80 md:mt-32 md:mb-24 md:pb-4 lg:h-96 lg:mt-32 lg:mb-20 lg:pb-4"
-            : "h-40 mt-20 mb-16 pb-4 sm:h-44 sm:mt-20 sm:mb-14 sm:pb-4 md:h-48 md:mt-22 md:mb-14 md:pb-4 lg:h-52 lg:mt-24 lg:mb-16 lg:pb-4"
+            ? "h-[540px] mt-44 mb-28 pb-6 sm:h-[24rem] sm:mt-20 sm:mb-20 sm:pb-4 md:h-[28rem] md:mt-20 md:mb-24 md:pb-4 lg:h-[34rem] lg:mt-24 lg:mb-24 lg:pb-4"
+            : "h-40 mt-20 mb-16 pb-4 sm:h-52 sm:mt-12 sm:mb-14 sm:pb-4 md:h-60 md:mt-12 md:mb-14 md:pb-4 lg:h-72 lg:mt-12 lg:mb-16 lg:pb-4"
         }`}>
           <Folder
             color="#d65f3f"
