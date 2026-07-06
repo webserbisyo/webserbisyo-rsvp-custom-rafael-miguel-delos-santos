@@ -217,83 +217,56 @@ export function GuestbookSection({
                   const isLong = msg.message.length > 180;
                   const isExpanded = expandedMessageId === msg.id;
 
-                  // Mobile: expands inline
-                  const mobileDisplayText = isLong && !isExpanded
-                    ? `${msg.message.slice(0, 175)}...`
-                    : msg.message;
-
-                  // Desktop: always truncated in the grid card unless expanded
-                  const desktopDisplayText = isLong
-                    ? `${msg.message.slice(0, 175)}...`
-                    : msg.message;
-
                   return (
-                    <div
+                    <article
                       key={msg.id}
-                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between items-center text-center"
+                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex h-[13.75rem] sm:h-[14rem] md:h-[14.5rem] flex-col items-center justify-between overflow-hidden text-center"
                     >
                       {/* Upper Part: Message & Inline Toggle */}
-                      <div className="flex flex-col items-center w-full">
-                        {/* Message Body (Mobile) */}
+                      <div className="min-h-0 flex flex-1 flex-col items-center justify-start w-full">
                         {isLong && isExpanded ? (
-                          <div className="block md:hidden max-h-[10rem] overflow-y-auto pr-1 text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center">
-                            &ldquo;{msg.message}&rdquo;
+                          <div className="relative w-full">
+                            <div
+                              ref={scrollContainerRef}
+                              onScroll={handleScroll}
+                              tabIndex={0}
+                              className="guestbook-scrollarea max-h-[5.5rem] md:max-h-[6rem] overflow-y-scroll pr-4 [scrollbar-gutter:stable] text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded"
+                            >
+                              &ldquo;{msg.message}&rdquo;
+                            </div>
+                            {showTopFade && (
+                              <div
+                                className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-6 bg-gradient-to-b from-white/90 to-transparent"
+                                aria-hidden="true"
+                              />
+                            )}
+                            {showBottomFade && (
+                              <div
+                                className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-8 bg-gradient-to-t from-white/95 to-transparent"
+                                aria-hidden="true"
+                              />
+                            )}
                           </div>
                         ) : (
-                          <p className="block md:hidden text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
-                            &ldquo;{mobileDisplayText}&rdquo;
+                          <p
+                            className="text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed line-clamp-3 text-center"
+                            style={{
+                              display: "-webkit-box",
+                              WebkitLineClamp: 3,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                            }}
+                          >
+                            &ldquo;{msg.message}&rdquo;
                           </p>
                         )}
-
-                        {/* Message Body (Desktop/Tablet) */}
-                        <div className="hidden md:block w-full">
-                          {isLong && isExpanded ? (
-                            <div className="relative w-full">
-                              <div
-                                ref={scrollContainerRef}
-                                onScroll={handleScroll}
-                                tabIndex={0}
-                                className="guestbook-scrollarea max-h-[10rem] overflow-y-scroll pr-4 [scrollbar-gutter:stable] text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded"
-                              >
-                                &ldquo;{msg.message}&rdquo;
-                              </div>
-                              {showTopFade && (
-                                <div
-                                  className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-6 bg-gradient-to-b from-white/90 to-transparent"
-                                  aria-hidden="true"
-                               />
-                              )}
-                              {showBottomFade && (
-                                <div
-                                  className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-8 bg-gradient-to-t from-white/95 to-transparent"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </div>
-                          ) : (
-                            <p className="text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
-                              &ldquo;{desktopDisplayText}&rdquo;
-                            </p>
-                          )}
-                        </div>
 
                         {/* Toggle Button directly below the message */}
                         {isLong && (
                           <div className="mt-2">
-                            {/* Mobile Toggle */}
                             <button
                               onClick={() => handleToggle(msg.id)}
-                              className="block md:hidden text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
-                              type="button"
-                              aria-expanded={isExpanded}
-                            >
-                              {isExpanded ? "View less" : "View more"}
-                            </button>
-
-                            {/* Desktop/Tablet Toggle */}
-                            <button
-                              onClick={() => handleToggle(msg.id)}
-                              className="hidden md:block text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
+                              className="text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
                               type="button"
                               aria-expanded={isExpanded}
                             >
@@ -304,7 +277,7 @@ export function GuestbookSection({
                       </div>
 
                       {/* Lower Part: Divider & Name */}
-                      <div className="flex flex-col items-center w-full mt-4">
+                      <div className="shrink-0 flex flex-col items-center w-full mt-4">
                         {/* Centered Premium Flex Divider */}
                         <div className="mb-4 flex w-full items-center justify-center select-none" aria-hidden="true">
                           <span className="h-px w-12 sm:w-16 bg-sand/35" />
@@ -317,7 +290,7 @@ export function GuestbookSection({
                           {msg.name}
                         </span>
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
