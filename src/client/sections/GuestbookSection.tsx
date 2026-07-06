@@ -159,7 +159,8 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute h-auto pointer-events-none select-none z-0 rotate-[-5deg] opacity-75 left-0 top-2 w-24 sm:left-[-1rem] sm:w-28 md:left-[-2rem] md:w-36 lg:left-0 lg:top-2 lg:w-48 xl:left-6 xl:w-56"
+          loading="lazy"
+          className="absolute h-auto pointer-events-none select-none z-0 rotate-[-5deg] opacity-75 left-0 top-2 w-24 sm:left-0 sm:w-28 md:left-0 md:w-36 lg:left-0 lg:top-2 lg:w-48 xl:left-6 xl:w-56"
         />
 
         {/* Right Bird - Top Right Framing */}
@@ -170,7 +171,8 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute h-auto pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1] opacity-75 right-0 top-2 w-24 sm:right-[-1rem] sm:w-28 md:right-[-2rem] md:w-36 lg:right-0 lg:top-2 lg:w-48 xl:right-6 xl:w-56"
+          loading="lazy"
+          className="absolute h-auto pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1] opacity-75 right-0 top-2 w-24 sm:right-0 sm:w-28 md:right-0 md:w-36 lg:right-0 lg:top-2 lg:w-48 xl:right-6 xl:w-56"
         />
 
         {/* Bottom-Left Flower - Anchors the base cleanly with positive bottom offset to prevent clipping */}
@@ -181,6 +183,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute left-0 bottom-4 w-24 sm:left-[-2rem] sm:w-32 md:left-[-3rem] md:w-44 lg:-left-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain rotate-12 pointer-events-none select-none z-0 opacity-100"
         />
 
@@ -192,6 +195,7 @@ export function GuestbookSection({
           width={2048}
           height={2048}
           decoding="async"
+          loading="lazy"
           className="absolute right-0 bottom-4 w-24 sm:right-[-2rem] sm:w-32 md:right-[-3rem] md:w-44 lg:-right-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain -rotate-12 pointer-events-none select-none z-0 opacity-100"
         />
       </div>
@@ -226,14 +230,20 @@ export function GuestbookSection({
                   return (
                     <div
                       key={msg.id}
-                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between items-center h-full text-center"
+                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between items-center text-center"
                     >
                       {/* Upper Part: Message & Inline Toggle */}
                       <div className="flex flex-col items-center w-full">
                         {/* Message Body (Mobile) */}
-                        <p className="block md:hidden text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
-                          &ldquo;{mobileDisplayText}&rdquo;
-                        </p>
+                        {isLong && isExpanded ? (
+                          <div className="block md:hidden max-h-[10rem] overflow-y-auto pr-1 text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed text-center">
+                            &ldquo;{msg.message}&rdquo;
+                          </div>
+                        ) : (
+                          <p className="block md:hidden text-cocoa/90 font-serif italic text-sm sm:text-base leading-relaxed">
+                            &ldquo;{mobileDisplayText}&rdquo;
+                          </p>
+                        )}
 
                         {/* Message Body (Desktop/Tablet) */}
                         <div className="hidden md:block w-full">
