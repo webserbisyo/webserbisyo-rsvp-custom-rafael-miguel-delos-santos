@@ -75,7 +75,7 @@ export function GallerySection() {
 
         {/* Left Side Sticky Group */}
         <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
-          <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] transform translate-x-2 md:translate-x-4 lg:translate-x-8">
+          <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] pl-2 md:pl-4 lg:pl-8">
             <img
               src="/beach%20assets%20finalized/14.webp"
               alt=""
@@ -83,7 +83,8 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
+              loading="lazy"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
             />
             <img
               src="/beach%20assets%20finalized/15.webp"
@@ -92,14 +93,15 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
+              loading="lazy"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
             />
           </div>
         </div>
 
         {/* Right Side Sticky Group */}
         <div className="absolute top-0 bottom-0 right-0 w-0 pointer-events-none">
-          <div className="sticky top-[20vh] right-0 flex flex-col items-end gap-[20vh] transform -translate-x-2 md:-translate-x-4 lg:-translate-x-8">
+          <div className="sticky top-[20vh] right-0 flex flex-col items-end gap-[20vh] pr-2 md:pr-4 lg:pr-8">
             <img
               src="/beach%20assets%20finalized/15.webp"
               alt=""
@@ -107,7 +109,8 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
+              loading="lazy"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
             />
             <img
               src="/beach%20assets%20finalized/14.webp"
@@ -116,7 +119,8 @@ export function GallerySection() {
               width={2048}
               height={2048}
               decoding="async"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500"
+              loading="lazy"
+              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
             />
           </div>
         </div>
