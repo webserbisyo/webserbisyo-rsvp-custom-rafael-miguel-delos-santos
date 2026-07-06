@@ -115,13 +115,26 @@ function normalizeGuestbookMessages(event: PublicEventDto): GuestbookMessage[] {
   const messages = event.publicGuestbookMessages ?? event.guestbookMessages ?? content.publicGuestbookMessages ?? content.guestbookMessages ?? website.publicGuestbookMessages ?? website.guestbookMessages;
   return arrayOfRecords(messages)
     .filter((message) => message.isApproved !== false && stringValue(message.message))
-    .map((message) => ({
-      id: (typeof message.id === "string" || typeof message.id === "number") ? message.id : undefined,
-      name: stringValue(message.name) || undefined,
-      message: stringValue(message.message),
-      createdAt: stringValue(message.createdAt) || undefined,
-      isApproved: message.isApproved === true
-    }));
+    .map((message) => {
+      const guestObj = record(message.guest);
+      const rsvpObj = record(message.rsvp);
+      return {
+        id: (typeof message.id === "string" || typeof message.id === "number") ? message.id : undefined,
+        name: firstString(
+          message.guestName,
+          message.name,
+          message.fullName,
+          message.displayName,
+          message.senderName,
+          message.authorName,
+          guestObj.name,
+          rsvpObj.name
+        ) || undefined,
+        message: stringValue(message.message),
+        createdAt: stringValue(message.createdAt) || undefined,
+        isApproved: message.isApproved === true
+      };
+    });
 }
 
 function normalizeAssets(event: PublicEventDto): Record<string, PublicMediaAsset> {
