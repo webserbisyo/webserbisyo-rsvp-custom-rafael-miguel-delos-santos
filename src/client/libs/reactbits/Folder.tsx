@@ -61,9 +61,6 @@ const Folder: React.FC<FolderProps> = ({
   );
 
   const folderBackColor = darkenColor(color, 0.08);
-  const paper1 = "#ffffff";
-  const paper2 = "#fafafa";
-  const paper3 = "#ffffff";
 
   const handleClick = () => {
     const nextOpen = !open;
@@ -111,9 +108,6 @@ const Folder: React.FC<FolderProps> = ({
   const folderStyle: React.CSSProperties = {
     "--folder-color": color,
     "--folder-back-color": folderBackColor,
-    "--paper-1": paper1,
-    "--paper-2": paper2,
-    "--paper-3": paper3,
   } as React.CSSProperties;
 
   const scaleStyle = { transform: `scale(${size})` };
@@ -153,7 +147,7 @@ const Folder: React.FC<FolderProps> = ({
         
         /* Default closed paper styling and transitions */
         .folder-paper {
-          transform: translate(-50%, 10%);
+          transform: var(--paper-closed-transform, translate(-50%, 10%));
           transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -190,7 +184,7 @@ const Folder: React.FC<FolderProps> = ({
           }
           
           .folder-container.is-closed:hover .folder-paper {
-            transform: translate(-50%, 0%);
+            transform: var(--paper-hover-transform, translate(-50%, 0%));
           }
           
           .folder-container.is-open .folder-paper:hover {
@@ -200,12 +194,18 @@ const Folder: React.FC<FolderProps> = ({
         
         /* Responsive Open Transforms via CSS Variables */
         .folder-paper-0 {
+          --paper-closed-transform: translate(-50%, -10%);
+          --paper-hover-transform: translate(-50%, -20%);
           --paper-open-transform: translate(-132%, -80%) rotate(-12deg) scale(1.15);
         }
         .folder-paper-1 {
+          --paper-closed-transform: translate(-50%, 0%);
+          --paper-hover-transform: translate(-50%, -10%);
           --paper-open-transform: translate(47%, -80%) rotate(12deg) scale(1.15);
         }
         .folder-paper-2 {
+          --paper-closed-transform: translate(-50%, 10%);
+          --paper-hover-transform: translate(-50%, 0%);
           --paper-open-transform: translate(-50%, -110%) rotate(4deg) scale(1.2);
         }
 
@@ -252,10 +252,7 @@ const Folder: React.FC<FolderProps> = ({
             style={{ backgroundColor: folderBackColor }}
           ></span>
           {papers.map((item, i) => {
-            let sizeClasses = "";
-            if (i === 0) sizeClasses = open ? "w-[100%] h-[95%]" : "w-[70%] h-[80%]";
-            if (i === 1) sizeClasses = open ? "w-[100%] h-[95%]" : "w-[80%] h-[70%]";
-            if (i === 2) sizeClasses = open ? "w-[100%] h-[95%]" : "w-[90%] h-[60%]";
+            const sizeClasses = open ? "w-[100%] h-[95%]" : "w-[90%] h-[82%]";
             const transformStyle = open
               ? `var(--paper-open-transform) translate(${paperOffsets[i].x}px, ${paperOffsets[i].y}px)`
               : undefined;
@@ -273,9 +270,9 @@ const Folder: React.FC<FolderProps> = ({
                 className={`absolute bottom-[10%] left-1/2 folder-paper folder-paper-${i} ${sizeClasses} flex items-center justify-center`}
                 style={{
                   ...(!open ? {} : { transform: transformStyle }),
-                  backgroundColor: open ? "transparent" : (i === 0 ? paper1 : i === 1 ? paper2 : paper3),
+                  backgroundColor: "transparent",
                   borderRadius: "10px",
-                  zIndex: open ? (activePaperIndex === i ? 30 : (i === 0 ? 23 : i === 1 ? 24 : 25)) : 20,
+                  zIndex: open ? (activePaperIndex === i ? 30 : (i === 0 ? 23 : i === 1 ? 24 : 25)) : (i === 0 ? 21 : i === 1 ? 22 : 23),
                   backfaceVisibility: "hidden",
                 }}
               >
