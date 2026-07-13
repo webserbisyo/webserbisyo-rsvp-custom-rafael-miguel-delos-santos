@@ -4,14 +4,29 @@ import { useState } from "react";
 import { Menu } from "@/client/libs/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { topNavItems } from "@/client/config/navigation";
+import {
+  clientSectionRegistry,
+  type ClientSectionKey,
+} from "@/client/config/navigation";
 import { SitemapDrawer } from "@/client/components/SitemapDrawer";
 import { scrollToHash } from "@/client/utils/navigation";
 
-export function ClientNav({ config: _config }: { config?: unknown } = {}) {
+export function ClientNav({
+  coupleDisplayName,
+  visibleSectionKeys = [],
+}: {
+  config?: unknown;
+  coupleDisplayName?: string;
+  visibleSectionKeys?: ClientSectionKey[];
+} = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isRsvpPage = pathname === "/rsvp";
+  const visibleSections = visibleSectionKeys.map(
+    (key) => clientSectionRegistry[key],
+  );
+  const topNavItems = visibleSections.filter((section) => section.topNav);
+  const initials = getCoupleInitials(coupleDisplayName);
 
   const getResolvedHref = (href: string) => {
     if (href.startsWith("#")) {
@@ -20,7 +35,10 @@ export function ClientNav({ config: _config }: { config?: unknown } = {}) {
     return href;
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     if (href.startsWith("#")) {
       if (isRsvpPage) {
         return;
@@ -39,8 +57,8 @@ export function ClientNav({ config: _config }: { config?: unknown } = {}) {
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
           {/* Left: Monogram */}
           <div className="flex items-center min-w-[120px]">
-            <Link 
-              href={isRsvpPage ? "/" : "#hero"} 
+            <Link
+              href={isRsvpPage ? "/" : "#hero"}
               onClick={(e) => {
                 if (!isRsvpPage) {
                   e.preventDefault();
@@ -49,21 +67,23 @@ export function ClientNav({ config: _config }: { config?: unknown } = {}) {
               }}
               className="font-serif text-2xl tracking-[0.12em] text-charcoal hover:opacity-80 transition-opacity flex items-center gap-1.5 font-normal"
             >
-              <span>R</span>
-              <span className="text-coral font-serif italic text-3xl font-light leading-none -mt-1 select-none">&</span>
-              <span>I</span>
+              <span>{initials[0]}</span>
+              <span className="text-coral font-serif italic text-3xl font-light leading-none -mt-1 select-none">
+                &
+              </span>
+              <span>{initials[1]}</span>
             </Link>
           </div>
 
           {/* Center: Desktop Links (Secondary Browsing Only) */}
           <ul className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.2em] xl:tracking-[0.25em] text-cocoa/70">
             {topNavItems.map((link) => {
-              const resolvedHref = getResolvedHref(link.href);
+              const resolvedHref = getResolvedHref(link.anchor);
               return (
-                <li key={`${link.label}-${link.href}`}>
-                  <Link 
-                    href={resolvedHref} 
-                    onClick={(e) => handleLinkClick(e, link.href)}
+                <li key={link.key}>
+                  <Link
+                    href={resolvedHref}
+                    onClick={(e) => handleLinkClick(e, link.anchor)}
                     className="hover:text-coral transition-colors py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-coral after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100"
                   >
                     {link.label}
@@ -90,8 +110,20 @@ export function ClientNav({ config: _config }: { config?: unknown } = {}) {
       </nav>
 
       {/* Sitemap Drawer */}
-      <SitemapDrawer isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SitemapDrawer
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        visibleSectionKeys={visibleSectionKeys}
+      />
     </>
   );
 }
 export default ClientNav;
+
+function getCoupleInitials(value?: string) {
+  const names = (value ?? "").split(/\s*&\s*/).filter(Boolean);
+  return [
+    names[0]?.trim().charAt(0).toUpperCase() || "W",
+    names[1]?.trim().charAt(0).toUpperCase() || "S",
+  ] as const;
+}

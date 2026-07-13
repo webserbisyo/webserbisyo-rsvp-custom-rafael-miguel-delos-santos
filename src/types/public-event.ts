@@ -1,23 +1,6 @@
 export type PublicEventStatus = "published" | "unpublished" | "draft" | string;
 
-export type WeddingSectionKey =
-  | "host_info"
-  | "countdown"
-  | "music_effects"
-  | "main_event"
-  | "venue"
-  | "secondary_event"
-  | "timeline_program"
-  | "entourage"
-  | "principal_sponsors"
-  | "attire_motif"
-  | "extra_info"
-  | "gallery"
-  | "rsvp_form"
-  | "gift_details"
-  | "guestbook"
-  | "story_message"
-  | "contact_socials";
+export type { WeddingSectionKey } from "@/lib/event-website-section-contract";
 
 export type PublicRsvpState = {
   enabled?: boolean | null;
@@ -93,6 +76,7 @@ export type PublicMediaAsset = {
 };
 
 export type PublicEventDto = {
+  contractVersion?: number;
   id?: string | null;
   slug?: string | null;
   eventSlug?: string | null;
@@ -111,11 +95,16 @@ export type PublicEventDto = {
   urls?: PublicEventUrls | null;
   formatted?: PublicEventFormatted | null;
   sectionsByKey?: Record<string, unknown> | null;
-  assets?: Record<string, PublicMediaAsset | string | null | undefined> | PublicMediaAsset[] | null;
+  assets?:
+    | Record<string, PublicMediaAsset | string | null | undefined>
+    | PublicMediaAsset[]
+    | null;
   guestbookMessages?: GuestbookMessage[] | null;
   publicGuestbookMessages?: GuestbookMessage[] | null;
   publicUrl?: string | null;
   fallbackUrl?: string | null;
+  savedRevision?: number;
+  publishedRevision?: number;
   [key: string]: unknown;
 };
 
@@ -140,6 +129,7 @@ export type NormalizedSection = {
 };
 
 export type EventWebsiteRenderModel = {
+  contractVersion: number;
   source: "design" | "snapshot" | "live";
   previewMode?: "dashboard";
   eventSlug: string;
@@ -153,6 +143,8 @@ export type EventWebsiteRenderModel = {
   rsvpDeadlineLabel?: string | null;
   timezone?: string | null;
   publicUrl?: string | null;
+  savedRevision: number;
+  publishedRevision: number;
   sections: NormalizedSection[];
   guestbookMessages: GuestbookMessage[];
   assets: Record<string, PublicMediaAsset>;

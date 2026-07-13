@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts",
     "typecheck": "tsc --noEmit",
     "guard:neutral-starter": "node scripts/guard-neutral-starter.mjs",
     "validate": "npm run guard:neutral-starter && npm run typecheck && npm run lint && npm run build",

@@ -10,6 +10,8 @@ const loadPublicEventForRequest = cache(
     eventSlug: string,
     accessToken: string | undefined,
     previewMode: "dashboard" | undefined,
+    previewToken: string | undefined,
+    revision: number | undefined,
     designMode: boolean,
   ) => {
     const resolvedApiBaseUrl = apiBaseUrl || "https://webserbisyo.com";
@@ -26,6 +28,8 @@ const loadPublicEventForRequest = cache(
       apiBaseUrl: resolvedApiBaseUrl,
       eventSlug,
       previewMode,
+      previewToken,
+      revision,
     });
   },
 );
@@ -39,6 +43,8 @@ export async function loadPublicEvent(searchParams?: PreviewQuery) {
     preview.eventSlug,
     preview.accessToken,
     preview.previewMode,
+    preview.previewToken,
+    preview.revision,
     env.designMode,
   );
 }

@@ -1,11 +1,5 @@
-import type { ClientAnchorHref } from "@/client/components/client-nav-utils";
-
-export type ClientNavLinkConfig = {
-  label: string;
-  href: ClientAnchorHref;
-};
-
-export type ClientRsvpHomepageMode = "inline-form" | "compact-form" | "cta-only";
+export type ClientRsvpHomepageMode =
+  "inline-form" | "compact-form" | "cta-only";
 
 export type ClientRendererConfig = {
   mode: "platform" | "client";
@@ -53,9 +47,6 @@ export type ClientConfig = {
     navEnabled: boolean;
     footerEnabled: boolean;
   };
-  nav: {
-    links: readonly ClientNavLinkConfig[];
-  };
   footer: {
     text: string;
   };
@@ -69,60 +60,47 @@ export const clientConfig = {
   mode: "starter",
   renderer: {
     mode: "client",
-    allowClientRenderer: true
+    allowClientRenderer: true,
   } satisfies ClientRendererConfig,
   rsvp: {
     dedicatedPageEnabled: true,
     dedicatedPagePath: "/rsvp",
-    homepageMode: "inline-form"
+    homepageMode: "inline-form",
   },
   identity: {
     displayName: "",
-    subtitle: ""
+    subtitle: "",
   },
   theme: {
     preset: "starter-neutral",
     fonts: {
       heading: "",
-      body: ""
+      body: "",
     },
-    tokens: {}
+    tokens: {},
   },
   layout: {
     navEnabled: true,
-    footerEnabled: false
-  },
-  nav: {
-    links: [
-      { label: "Gallery", href: "#gallery" },
-      { label: "Countdown", href: "#countdown" },
-      { label: "Ceremony", href: "#ceremony" },
-      { label: "Venue", href: "#venue" },
-      { label: "Reception", href: "#reception" },
-      { label: "Timeline", href: "#timeline" },
-      { label: "Entourage", href: "#entourage" },
-      { label: "Attire", href: "#attire" },
-      { label: "Details", href: "#extra-info" }
-    ] satisfies readonly ClientNavLinkConfig[]
+    footerEnabled: false,
   },
   footer: {
-    text: ""
+    text: "",
   },
   sections: {},
   assets: {},
   libs: {
     icons: {
       provider: "lucide-react",
-      importFrom: "@/client/libs/icons"
+      importFrom: "@/client/libs/icons",
     },
     ui: [],
     motion: [],
-    effects: []
+    effects: [],
   },
   responsive: {
     strategy: "mobile-first",
     testWidths: [375, 768, 1280],
     requireNoHorizontalOverflow: true,
-    respectReducedMotion: true
-  } satisfies ClientResponsiveConfig
+    respectReducedMotion: true,
+  } satisfies ClientResponsiveConfig,
 } satisfies ClientConfig;

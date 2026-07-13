@@ -7,11 +7,20 @@ import {
   useSpring,
   useTransform,
   type SpringOptions,
-  AnimatePresence
+  AnimatePresence,
 } from "framer-motion";
-import React, { Children, cloneElement, useEffect, useRef, useState } from "react";
+import React, {
+  Children,
+  cloneElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { dockItems } from "@/client/config/navigation";
+import {
+  clientSectionRegistry,
+  type ClientSectionKey,
+} from "@/client/config/navigation";
 import { scrollToHash } from "@/client/utils/navigation";
 
 // ─── React Bits Dock Sub-Components ───────────────────────────────────
@@ -37,20 +46,24 @@ function DockItem({
   distance,
   magnification,
   baseItemSize,
-  label
+  label,
 }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
 
-  const mouseDistance = useTransform(mouseX, val => {
+  const mouseDistance = useTransform(mouseX, (val) => {
     const rect = ref.current?.getBoundingClientRect() ?? {
       x: 0,
-      width: baseItemSize
+      width: baseItemSize,
     };
     return val - rect.x - baseItemSize / 2;
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  const targetSize = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [baseItemSize, magnification, baseItemSize],
+  );
   const size = useSpring(targetSize, spring);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -65,7 +78,7 @@ function DockItem({
       ref={ref}
       style={{
         width: size,
-        height: size
+        height: size,
       }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
@@ -79,10 +92,13 @@ function DockItem({
       aria-haspopup="true"
       aria-label={typeof label === "string" ? label : undefined}
     >
-      {Children.map(children, child =>
+      {Children.map(children, (child) =>
         React.isValidElement(child)
-          ? cloneElement(child as React.ReactElement<{ isHovered?: MotionValue<number> }>, { isHovered })
-          : child
+          ? cloneElement(
+              child as React.ReactElement<{ isHovered?: MotionValue<number> }>,
+              { isHovered },
+            )
+          : child,
       )}
     </motion.div>
   );
@@ -99,7 +115,7 @@ function DockLabel({ children, className = "", isHovered }: DockLabelProps) {
 
   useEffect(() => {
     if (!isHovered) return;
-    const unsubscribe = isHovered.on("change", latest => {
+    const unsubscribe = isHovered.on("change", (latest) => {
       setIsVisible(latest === 1);
     });
     return () => unsubscribe();
@@ -131,7 +147,11 @@ type DockIconProps = {
 };
 
 function DockIcon({ children, className = "" }: DockIconProps) {
-  return <div className={`flex items-center justify-center ${className}`}>{children}</div>;
+  return (
+    <div className={`flex items-center justify-center ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 // ─── Semantic Floating Dock Wrapper ──────────────────────────────────
@@ -181,12 +201,20 @@ export function useGuestDockVisibility() {
 type GuestDockToolbarProps = {
   className?: string;
   compact?: boolean;
+  visibleSectionKeys: ClientSectionKey[];
 };
 
-export function GuestDockToolbar({ className = "", compact = false }: GuestDockToolbarProps) {
+export function GuestDockToolbar({
+  className = "",
+  compact = false,
+  visibleSectionKeys,
+}: GuestDockToolbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const isRsvpPage = pathname === "/rsvp";
+  const dockItems = visibleSectionKeys
+    .map((key) => clientSectionRegistry[key])
+    .filter((section) => section.dock);
 
   const handleItemClick = (href: string) => {
     if (href === "/rsvp") {
@@ -243,14 +271,14 @@ export function GuestDockToolbar({ className = "", compact = false }: GuestDockT
       role="toolbar"
       aria-label="Guest essentials navigation"
     >
-      {dockItems.map((item, index) => {
+      {dockItems.map((item) => {
         const Icon = item.icon;
-        const isPrimary = item.isPrimary;
+        const isPrimary = item.primary;
 
         return (
           <DockItem
-            key={index}
-            onClick={() => handleItemClick(item.href)}
+            key={item.key}
+            onClick={() => handleItemClick(item.anchor)}
             className={
               isPrimary
                 ? "bg-coral text-white border-coral shadow-[0_0_16px_rgba(201,94,53,0.35)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95"
@@ -264,7 +292,13 @@ export function GuestDockToolbar({ className = "", compact = false }: GuestDockT
             label={item.label}
           >
             <DockIcon>
-              {Icon && <Icon className={compact ? "h-[18px] w-[18px] sm:h-5 sm:w-5" : "w-5 h-5"} />}
+              {Icon && (
+                <Icon
+                  className={
+                    compact ? "h-[18px] w-[18px] sm:h-5 sm:w-5" : "w-5 h-5"
+                  }
+                />
+              )}
             </DockIcon>
             <DockLabel>{item.label}</DockLabel>
           </DockItem>
@@ -274,7 +308,11 @@ export function GuestDockToolbar({ className = "", compact = false }: GuestDockT
   );
 }
 
-export function FloatingGuestDock() {
+export function FloatingGuestDock({
+  visibleSectionKeys,
+}: {
+  visibleSectionKeys: ClientSectionKey[];
+}) {
   const isVisible = useGuestDockVisibility();
 
   return (
@@ -287,7 +325,7 @@ export function FloatingGuestDock() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed bottom-6 left-1/2 z-40 flex items-center pb-[env(safe-area-inset-bottom)] pointer-events-auto"
         >
-          <GuestDockToolbar />
+          <GuestDockToolbar visibleSectionKeys={visibleSectionKeys} />
         </motion.div>
       )}
     </AnimatePresence>

@@ -6,6 +6,7 @@ import { clientConfig, type ClientConfig } from "@/client/client.config";
 import { FallingPetals } from "@/client/components/FallingPetals";
 
 import type { EventWebsiteRenderModel } from "@/types/public-event";
+import { getVisibleClientSectionKeys } from "@/client/client-section-registry";
 
 type ClientPageFrameProps = {
   children: ReactNode;
@@ -14,9 +15,15 @@ type ClientPageFrameProps = {
   floatingControlsManaged?: boolean;
 };
 
-export function ClientPageFrame({ children, config, floatingControlsManaged = false }: ClientPageFrameProps) {
+export function ClientPageFrame({
+  children,
+  config,
+  event,
+  floatingControlsManaged = false,
+}: ClientPageFrameProps) {
   const resolvedConfig = config ?? clientConfig;
   const { footerEnabled, navEnabled } = resolvedConfig.layout;
+  const visibleSectionKeys = event ? getVisibleClientSectionKeys(event) : [];
 
   if (!navEnabled && !footerEnabled) {
     return <>{children}</>;
@@ -24,13 +31,21 @@ export function ClientPageFrame({ children, config, floatingControlsManaged = fa
 
   return (
     <>
-      {navEnabled ? <ClientNav config={resolvedConfig} /> : null}
+      {navEnabled ? (
+        <ClientNav
+          config={resolvedConfig}
+          coupleDisplayName={event?.coupleDisplayName}
+          visibleSectionKeys={visibleSectionKeys}
+        />
+      ) : null}
       <FallingPetals />
       <div className="relative">
         {children}
         {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
       </div>
-      {navEnabled && !floatingControlsManaged ? <FloatingGuestDock /> : null}
+      {navEnabled && !floatingControlsManaged ? (
+        <FloatingGuestDock visibleSectionKeys={visibleSectionKeys} />
+      ) : null}
     </>
   );
 }

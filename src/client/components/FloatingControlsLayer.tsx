@@ -3,10 +3,18 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FloatingMusicBubble } from "@/client/components/FloatingMusicBubble";
-import { GuestDockToolbar, useGuestDockVisibility } from "@/client/components/FloatingGuestDock";
+import {
+  GuestDockToolbar,
+  useGuestDockVisibility,
+} from "@/client/components/FloatingGuestDock";
 import { useAudio } from "@/client/components/audio-context";
+import type { ClientSectionKey } from "@/client/config/navigation";
 
-export function FloatingControlsLayer() {
+export function FloatingControlsLayer({
+  visibleSectionKeys,
+}: {
+  visibleSectionKeys: ClientSectionKey[];
+}) {
   const dockVisible = useGuestDockVisibility();
   const { playbackState } = useAudio();
   const musicVisible = playbackState !== "idle" && playbackState !== "stopped";
@@ -51,6 +59,7 @@ export function FloatingControlsLayer() {
               <GuestDockToolbar
                 compact={musicVisible || isCompactDock}
                 className={musicVisible ? "max-w-[calc(100vw-6rem)]" : ""}
+                visibleSectionKeys={visibleSectionKeys}
               />
             </div>
 

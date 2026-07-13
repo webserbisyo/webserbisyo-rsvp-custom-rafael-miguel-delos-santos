@@ -1,12 +1,21 @@
-import { formatDate, formatDateTime, formatRsvpDeadline, formatTime } from "@/lib/formatters";
+import {
+  formatDate,
+  formatDateTime,
+  formatRsvpDeadline,
+  formatTime,
+} from "@/lib/formatters";
 import type {
   EventWebsiteRenderModel,
   GuestbookMessage,
   NormalizedSection,
   PublicMediaAsset,
   PublicEventDto,
-  PublicEventSection
+  PublicEventSection,
 } from "@/types/public-event";
+import {
+  EVENT_WEBSITE_SECTION_CONTRACT_VERSION,
+  eventWebsiteSectionKeySet,
+} from "@/lib/event-website-section-contract";
 
 type NormalizeInput = {
   event: PublicEventDto;
@@ -16,7 +25,9 @@ type NormalizeInput = {
 };
 
 function record(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
 }
 
 function stringValue(value: unknown): string {
@@ -34,7 +45,9 @@ function arrayOfStrings(value: unknown): string[] {
 
 function arrayOfRecords(value: unknown): Record<string, unknown>[] {
   if (!Array.isArray(value)) return [];
-  return value.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === "object" && !Array.isArray(item)));
+  return value.filter((item): item is Record<string, unknown> =>
+    Boolean(item && typeof item === "object" && !Array.isArray(item)),
+  );
 }
 
 function firstString(...values: unknown[]): string {
@@ -45,14 +58,20 @@ function firstString(...values: unknown[]): string {
   return "";
 }
 
-function sectionFromObject(key: string, value: unknown, enabledOverride?: boolean): NormalizedSection {
+function sectionFromObject(
+  key: string,
+  value: unknown,
+  enabledOverride?: boolean,
+): NormalizedSection {
   const section = record(value);
-  const ownEnabled = boolValue(section.enabled ?? section.isEnabled ?? section.visible);
+  const ownEnabled = boolValue(
+    section.enabled ?? section.isEnabled ?? section.visible,
+  );
   return {
     key,
     title: stringValue(section.title),
     enabled: enabledOverride ?? ownEnabled ?? true,
-    content: record(section.content ?? section.data ?? section)
+    content: record(section.content ?? section.data ?? section),
   };
 }
 
@@ -64,12 +83,23 @@ function normalizeSections(event: PublicEventDto): NormalizedSection[] {
   const contentSections = record(content.sections);
   const websiteSections = record(website.sections);
   const sectionsByKey = record(event.sectionsByKey);
-  const enabledSections = record(layout.enabledSections ?? websiteLayout.enabledSections);
+  const enabledSections = record(
+    layout.enabledSections ?? websiteLayout.enabledSections,
+  );
   const rawSections = event.sections ?? content.sections ?? website.sections;
 
-  if (Array.isArray(event.sections) && event.sections.every((section) => typeof section === "string")) {
+  if (
+    Array.isArray(event.sections) &&
+    event.sections.every((section) => typeof section === "string")
+  ) {
     const order = arrayOfStrings(event.sections);
-    return order.map((key) => sectionFromObject(key, sectionsByKey[key] ?? contentSections[key] ?? websiteSections[key], boolValue(enabledSections[key])));
+    return order.map((key) =>
+      sectionFromObject(
+        key,
+        sectionsByKey[key] ?? contentSections[key] ?? websiteSections[key],
+        boolValue(enabledSections[key]),
+      ),
+    );
   }
 
   if (Array.isArray(rawSections)) {
@@ -77,12 +107,14 @@ function normalizeSections(event: PublicEventDto): NormalizedSection[] {
       .map((section: PublicEventSection) => {
         const key = stringValue(section.key ?? section.type);
         if (!key) return null;
-        const ownEnabled = boolValue(section.enabled ?? section.isEnabled ?? section.visible);
+        const ownEnabled = boolValue(
+          section.enabled ?? section.isEnabled ?? section.visible,
+        );
         const normalized: NormalizedSection = {
           key,
           title: stringValue(section.title) || undefined,
           enabled: boolValue(enabledSections[key]) ?? ownEnabled ?? true,
-          content: record(section.content ?? section.data ?? section)
+          content: record(section.content ?? section.data ?? section),
         };
         return normalized;
       })
@@ -106,38 +138,61 @@ function normalizeSections(event: PublicEventDto): NormalizedSection[] {
                 ? Object.keys(contentSections)
                 : Object.keys(websiteSections);
 
-  return order.map((key) => sectionFromObject(key, sectionsByKey[key] ?? sectionsRecord[key] ?? contentSections[key] ?? websiteSections[key], boolValue(enabledSections[key])));
+  return order.map((key) =>
+    sectionFromObject(
+      key,
+      sectionsByKey[key] ??
+        sectionsRecord[key] ??
+        contentSections[key] ??
+        websiteSections[key],
+      boolValue(enabledSections[key]),
+    ),
+  );
 }
 
 function normalizeGuestbookMessages(event: PublicEventDto): GuestbookMessage[] {
   const content = record(event.content);
   const website = record(event.website ?? event.websiteContent);
-  const messages = event.publicGuestbookMessages ?? event.guestbookMessages ?? content.publicGuestbookMessages ?? content.guestbookMessages ?? website.publicGuestbookMessages ?? website.guestbookMessages;
+  const messages =
+    event.publicGuestbookMessages ??
+    event.guestbookMessages ??
+    content.publicGuestbookMessages ??
+    content.guestbookMessages ??
+    website.publicGuestbookMessages ??
+    website.guestbookMessages;
   return arrayOfRecords(messages)
-    .filter((message) => message.isApproved !== false && stringValue(message.message))
+    .filter(
+      (message) => message.isApproved !== false && stringValue(message.message),
+    )
     .map((message) => {
       const guestObj = record(message.guest);
       const rsvpObj = record(message.rsvp);
       return {
-        id: (typeof message.id === "string" || typeof message.id === "number") ? message.id : undefined,
-        name: firstString(
-          message.guestName,
-          message.name,
-          message.fullName,
-          message.displayName,
-          message.senderName,
-          message.authorName,
-          guestObj.name,
-          rsvpObj.name
-        ) || undefined,
+        id:
+          typeof message.id === "string" || typeof message.id === "number"
+            ? message.id
+            : undefined,
+        name:
+          firstString(
+            message.guestName,
+            message.name,
+            message.fullName,
+            message.displayName,
+            message.senderName,
+            message.authorName,
+            guestObj.name,
+            rsvpObj.name,
+          ) || undefined,
         message: stringValue(message.message),
         createdAt: stringValue(message.createdAt) || undefined,
-        isApproved: message.isApproved === true
+        isApproved: message.isApproved === true,
       };
     });
 }
 
-function normalizeAssets(event: PublicEventDto): Record<string, PublicMediaAsset> {
+function normalizeAssets(
+  event: PublicEventDto,
+): Record<string, PublicMediaAsset> {
   const output: Record<string, PublicMediaAsset> = {};
   const content = record(event.content);
   const assetSource = event.assets ?? content.assets;
@@ -161,7 +216,8 @@ function normalizeAssets(event: PublicEventDto): Record<string, PublicMediaAsset
 
     const asset = record(value) as PublicMediaAsset;
     const url = stringValue(asset.url ?? asset.src);
-    if (url) output[slot] = { ...asset, slot: stringValue(asset.slot) || slot, url };
+    if (url)
+      output[slot] = { ...asset, slot: stringValue(asset.slot) || slot, url };
   }
 
   return output;
@@ -172,22 +228,41 @@ function personName(value: unknown): string {
   return firstString(
     person.displayName,
     person.fullName,
-    [stringValue(person.firstName), stringValue(person.lastName)].filter(Boolean).join(" "),
-    person.name
+    [stringValue(person.firstName), stringValue(person.lastName)]
+      .filter(Boolean)
+      .join(" "),
+    person.name,
   );
 }
 
 function joinedCoupleNames(content: Record<string, unknown>): string {
-  const groomName = firstString(content.groomName, content.groom, personName(content.groom));
-  const brideName = firstString(content.brideName, content.bride, personName(content.bride));
-  return groomName && brideName ? `${groomName} & ${brideName}` : groomName || brideName;
+  const groomName = firstString(
+    content.groomName,
+    content.groom,
+    personName(content.groom),
+  );
+  const brideName = firstString(
+    content.brideName,
+    content.bride,
+    personName(content.bride),
+  );
+  return groomName && brideName
+    ? `${groomName} & ${brideName}`
+    : groomName || brideName;
 }
 
-function normalizeCoupleDisplayName(sections: NormalizedSection[], fallbackTitle: string): string {
+function normalizeCoupleDisplayName(
+  sections: NormalizedSection[],
+  fallbackTitle: string,
+): string {
   const hostInfo = sections.find((section) => section.key === "host_info");
   const content = hostInfo?.content ?? {};
   return (
-    firstString(content.displayAs, record(content.host_info).displayAs, record(content.hostInfo).displayAs) ||
+    firstString(
+      content.displayAs,
+      record(content.host_info).displayAs,
+      record(content.hostInfo).displayAs,
+    ) ||
     joinedCoupleNames(content) ||
     stringValue(content.coupleNames) ||
     stringValue(content.names) ||
@@ -201,10 +276,14 @@ export function normalizePublicEvent({
   event,
   source,
   previewMode,
-  eventSlug
+  eventSlug,
 }: NormalizeInput): EventWebsiteRenderModel {
   const slug = stringValue(event.slug ?? event.eventSlug) || eventSlug;
-  const sections = normalizeSections(event);
+  const sections = normalizeSections(event).filter(
+    (section) =>
+      eventWebsiteSectionKeySet.has(section.key) ||
+      (source === "design" && section.key === "gallery"),
+  );
   const eventTitle = stringValue(event.title ?? event.name);
   const coupleDisplayName = normalizeCoupleDisplayName(sections, eventTitle);
   const title = coupleDisplayName || eventTitle || "WebSerbisyo RSVP Event";
@@ -212,9 +291,15 @@ export function normalizePublicEvent({
   const formatted = record(event.formatted);
   const eventDate = stringValue(event.eventDate ?? event.date);
   const timezone = stringValue(event.timezone) || "Asia/Manila";
-  const rsvpDeadline = stringValue(event.rsvp?.deadline ?? record(event.content).rsvpDeadline);
+  const rsvpDeadline = stringValue(
+    event.rsvp?.deadline ?? record(event.content).rsvpDeadline,
+  );
 
   return {
+    contractVersion:
+      typeof event.contractVersion === "number"
+        ? event.contractVersion
+        : EVENT_WEBSITE_SECTION_CONTRACT_VERSION,
     source,
     previewMode,
     eventSlug: slug,
@@ -222,15 +307,30 @@ export function normalizePublicEvent({
     coupleDisplayName,
     status: event.status,
     eventDate,
-    eventDateLabel: stringValue(formatted.eventDate) || formatDate(eventDate, timezone),
-    eventTimeLabel: stringValue(formatted.eventTime) || formatTime(eventDate, timezone),
-    eventDateTimeLabel: stringValue(formatted.eventDateTime) || formatDateTime(eventDate, timezone),
-    rsvpDeadlineLabel: stringValue(formatted.rsvpDeadline) || formatRsvpDeadline(rsvpDeadline, timezone),
+    eventDateLabel:
+      stringValue(formatted.eventDate) || formatDate(eventDate, timezone),
+    eventTimeLabel:
+      stringValue(formatted.eventTime) || formatTime(eventDate, timezone),
+    eventDateTimeLabel:
+      stringValue(formatted.eventDateTime) ||
+      formatDateTime(eventDate, timezone),
+    rsvpDeadlineLabel:
+      stringValue(formatted.rsvpDeadline) ||
+      formatRsvpDeadline(rsvpDeadline, timezone),
     timezone,
-    publicUrl: stringValue(urls.publicWebsiteUrl ?? event.publicUrl ?? urls.fallbackUrl ?? event.fallbackUrl),
+    publicUrl: stringValue(
+      urls.publicWebsiteUrl ??
+        event.publicUrl ??
+        urls.fallbackUrl ??
+        event.fallbackUrl,
+    ),
+    savedRevision:
+      typeof event.savedRevision === "number" ? event.savedRevision : 0,
+    publishedRevision:
+      typeof event.publishedRevision === "number" ? event.publishedRevision : 0,
     sections,
     guestbookMessages: normalizeGuestbookMessages(event),
     assets: normalizeAssets(event),
-    raw: event
+    raw: event,
   };
 }
