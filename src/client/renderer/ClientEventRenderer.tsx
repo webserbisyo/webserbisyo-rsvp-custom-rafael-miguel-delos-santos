@@ -7,11 +7,9 @@ import {
   getVisibleClientSectionKeys,
   type ClientSectionKey,
 } from "@/client/client-section-registry";
-import { WaveDivider, ScrollProgressBar } from "@/client/components";
+import { ScrollProgressBar, SectionTransition } from "@/client/components";
 import { AudioProvider } from "@/client/components/audio-context";
 import { FloatingControlsLayer } from "@/client/components/FloatingControlsLayer";
-import { CountdownToMusicDivider } from "@/client/components/CountdownToMusicDivider";
-import { CenterBouquetDivider } from "@/client/components/CenterBouquetDivider";
 import {
   HeroSection,
   CountdownSection,
@@ -37,6 +35,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
     (event.raw.renderModel ?? {}) as Record<string, unknown>,
   );
   const visibleSectionKeys = getVisibleClientSectionKeys(event);
+  const visibleSectionKeySet = new Set(visibleSectionKeys);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -51,10 +50,10 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         <ScrollProgressBar />
         {visibleSectionKeys.map((key, index) => (
           <Fragment key={key}>
-            {index > 0
-              ? renderSectionTransition(visibleSectionKeys[index - 1]!, key)
-              : null}
             {renderSection(key)}
+            {visibleSectionKeys[index + 1] ? (
+              <SectionTransition from={key} to={visibleSectionKeys[index + 1]!} />
+            ) : null}
           </Fragment>
         ))}
       </main>
@@ -66,7 +65,10 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
     switch (key) {
       case "host_info":
         return (
-          <HeroSection coupleInfo={vm.coupleInfo} ceremony={vm.ceremony} />
+          <HeroSection
+            coupleInfo={vm.coupleInfo}
+            storyVisible={visibleSectionKeySet.has("story_message")}
+          />
         );
       case "countdown":
         return (
@@ -118,48 +120,4 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
         return <ContactSection contactSocials={vm.contactSocials} />;
     }
   }
-}
-
-function renderSectionTransition(
-  previous: ClientSectionKey,
-  next: ClientSectionKey,
-) {
-  if (previous === "countdown" && next === "music_effects") {
-    return <CountdownToMusicDivider />;
-  }
-
-  if (previous === "venue") {
-    return (
-      <>
-        <CenterBouquetDivider />
-        <WaveDivider flip className="text-cream bg-ivory" />
-      </>
-    );
-  }
-
-  if (previous === "music_effects") {
-    return <WaveDivider flip className="text-[#8EC9BB] bg-[#FDECD0]" />;
-  }
-
-  if (previous === "gallery") {
-    return <WaveDivider className="text-[#FDF6ED] bg-[#EBC485]" />;
-  }
-
-  if (previous === "main_event") {
-    return <WaveDivider className="text-cream bg-ivory" />;
-  }
-
-  if (previous === "extra_info") {
-    return <WaveDivider flip className="text-cream bg-coral" />;
-  }
-
-  if (previous === "rsvp_form") {
-    return <WaveDivider flip className="text-[#8C4520] bg-ivory" />;
-  }
-
-  if (previous === "story_message") {
-    return <WaveDivider className="text-cocoa bg-ivory" />;
-  }
-
-  return <WaveDivider flip={next === "entourage" || next === "attire_motif"} />;
 }

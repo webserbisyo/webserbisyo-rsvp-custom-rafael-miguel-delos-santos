@@ -4,6 +4,7 @@ export { ClientNav } from "@/client/components/ClientNav";
 export { ClientPageFrame } from "@/client/components/ClientPageFrame";
 export { ClientRsvpAnchorLink } from "@/client/components/ClientRsvpAnchorLink";
 export { WaveDivider } from "@/client/components/WaveDivider";
+export { SectionTransition } from "@/client/components/SectionTransition";
 export { SectionHeading } from "@/client/components/SectionHeading";
 export { ScrollProgressBar } from "@/client/components/ScrollProgressBar";
 export { FloatingGuestDock } from "@/client/components/FloatingGuestDock";

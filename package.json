@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts",
+    "test:visual": "playwright test tests/section-transitions.visual.spec.ts",
     "typecheck": "tsc --noEmit",
     "guard:neutral-starter": "node scripts/guard-neutral-starter.mjs",
     "validate": "npm run guard:neutral-starter && npm run typecheck && npm run lint && npm run build",
@@ -41,6 +42,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",

@@ -3,7 +3,11 @@
 export function CountdownToMusicDivider() {
   return (
     <div
-      className="relative z-20 -mt-px h-24 bg-gradient-to-b from-cream via-cream to-[#E8F4F0] sm:h-32 md:h-40 lg:h-44"
+      className="relative z-20 -mt-px h-24 sm:h-32 md:h-40 lg:h-44"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom, var(--section-bg-cream), var(--section-bg-cream), var(--section-bg-seafoam-light))",
+      }}
       aria-hidden="true"
     >
       <div className="absolute inset-x-0 bottom-0 h-[800px] overflow-x-clip pointer-events-none select-none">

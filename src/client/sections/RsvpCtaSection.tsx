@@ -16,7 +16,7 @@ export function RsvpCtaSection() {
   return (
     <section
       id="rsvp"
-      className="relative overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-gradient-to-b from-coral to-[#8C4520]"
+      className="relative overflow-x-clip -mt-px -mb-px py-20 px-4 text-center bg-[linear-gradient(to_bottom,var(--section-bg-coral),var(--section-bg-coral-deep))]"
     >
       {/* Decorative Bird Layer — Airy top corner/side accents */}
       <div

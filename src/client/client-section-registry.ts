@@ -27,6 +27,26 @@ export type ClientSectionKey = WeddingSectionKey | "gallery";
 export type ClientNavigationGroup =
   "Explore" | "Guest Essentials" | "Wedding Info" | "Support";
 
+export type SectionBackgroundToken =
+  | "coral"
+  | "coral-deep"
+  | "cocoa"
+  | "cream"
+  | "gallery-peach"
+  | "gallery-sand"
+  | "ivory"
+  | "seafoam"
+  | "seafoam-light";
+
+export type SectionTransitionVariant = "bouquet" | "gradient" | "none" | "wave";
+
+export type SectionVisualTheme = {
+  background: SectionBackgroundToken;
+  entryBackground?: SectionBackgroundToken;
+  exitBackground?: SectionBackgroundToken;
+  preferredTransition?: SectionTransitionVariant;
+};
+
 export type ClientSectionDescriptor = {
   anchor: string;
   designOnly?: boolean;
@@ -37,6 +57,7 @@ export type ClientSectionDescriptor = {
   label: string;
   primary?: boolean;
   topNav?: boolean;
+  visual: SectionVisualTheme;
 };
 
 export const clientSectionRegistry: Record<
@@ -49,6 +70,7 @@ export const clientSectionRegistry: Record<
     icon: Home,
     key: "host_info",
     label: "Home",
+    visual: { background: "ivory" },
   },
   countdown: {
     anchor: "#countdown",
@@ -57,8 +79,18 @@ export const clientSectionRegistry: Record<
     key: "countdown",
     label: "Countdown",
     topNav: true,
+    visual: { background: "cream", preferredTransition: "gradient" },
   },
-  music_effects: { anchor: "#music", key: "music_effects", label: "Music" },
+  music_effects: {
+    anchor: "#music",
+    key: "music_effects",
+    label: "Music",
+    visual: {
+      background: "seafoam",
+      entryBackground: "seafoam-light",
+      exitBackground: "seafoam",
+    },
+  },
   main_event: {
     anchor: "#ceremony",
     dock: true,
@@ -66,6 +98,7 @@ export const clientSectionRegistry: Record<
     icon: CalendarDays,
     key: "main_event",
     label: "Ceremony",
+    visual: { background: "ivory" },
   },
   venue: {
     anchor: "#venue",
@@ -74,6 +107,7 @@ export const clientSectionRegistry: Record<
     icon: MapPin,
     key: "venue",
     label: "Venue",
+    visual: { background: "cream", preferredTransition: "bouquet" },
   },
   secondary_event: {
     anchor: "#reception",
@@ -82,6 +116,7 @@ export const clientSectionRegistry: Record<
     icon: Utensils,
     key: "secondary_event",
     label: "Reception",
+    visual: { background: "ivory" },
   },
   timeline_program: {
     anchor: "#timeline",
@@ -90,6 +125,7 @@ export const clientSectionRegistry: Record<
     key: "timeline_program",
     label: "Timeline",
     topNav: true,
+    visual: { background: "cream" },
   },
   entourage: {
     anchor: "#entourage",
@@ -97,6 +133,7 @@ export const clientSectionRegistry: Record<
     icon: Users,
     key: "entourage",
     label: "Entourage",
+    visual: { background: "ivory" },
   },
   principal_sponsors: {
     anchor: "#sponsors",
@@ -104,6 +141,7 @@ export const clientSectionRegistry: Record<
     icon: Award,
     key: "principal_sponsors",
     label: "Sponsors",
+    visual: { background: "cream" },
   },
   attire_motif: {
     anchor: "#attire",
@@ -112,6 +150,7 @@ export const clientSectionRegistry: Record<
     icon: Shirt,
     key: "attire_motif",
     label: "Attire",
+    visual: { background: "ivory" },
   },
   extra_info: {
     anchor: "#extra-info",
@@ -120,6 +159,7 @@ export const clientSectionRegistry: Record<
     key: "extra_info",
     label: "Details",
     topNav: true,
+    visual: { background: "cream" },
   },
   rsvp_form: {
     anchor: "/rsvp",
@@ -129,6 +169,11 @@ export const clientSectionRegistry: Record<
     key: "rsvp_form",
     label: "RSVP",
     primary: true,
+    visual: {
+      background: "coral",
+      entryBackground: "coral",
+      exitBackground: "coral-deep",
+    },
   },
   gift_details: {
     anchor: "#gifts",
@@ -136,6 +181,7 @@ export const clientSectionRegistry: Record<
     icon: Gift,
     key: "gift_details",
     label: "Gifts",
+    visual: { background: "ivory" },
   },
   guestbook: {
     anchor: "#guestbook",
@@ -144,6 +190,7 @@ export const clientSectionRegistry: Record<
     key: "guestbook",
     label: "Guestbook",
     topNav: true,
+    visual: { background: "cream" },
   },
   story_message: {
     anchor: "#our-story",
@@ -152,6 +199,7 @@ export const clientSectionRegistry: Record<
     key: "story_message",
     label: "Story",
     topNav: true,
+    visual: { background: "ivory" },
   },
   contact_socials: {
     anchor: "#contact",
@@ -159,6 +207,7 @@ export const clientSectionRegistry: Record<
     icon: Phone,
     key: "contact_socials",
     label: "Contact",
+    visual: { background: "cocoa" },
   },
   gallery: {
     anchor: "#gallery",
@@ -168,6 +217,11 @@ export const clientSectionRegistry: Record<
     key: "gallery",
     label: "Gallery",
     topNav: true,
+    visual: {
+      background: "gallery-peach",
+      entryBackground: "gallery-peach",
+      exitBackground: "gallery-sand",
+    },
   },
 };
 

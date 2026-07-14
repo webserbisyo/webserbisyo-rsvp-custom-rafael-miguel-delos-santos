@@ -68,7 +68,7 @@ export function GallerySection() {
   return (
     <section
        id="gallery"
-       className="relative overflow-x-clip pt-20 pb-20 px-4 bg-gradient-to-b from-[#FDECD0] via-[#F5D5A8] to-[#EBC485]"
+       className="relative overflow-x-clip pt-20 pb-20 px-4 bg-[linear-gradient(to_bottom,var(--section-bg-gallery-peach),var(--section-bg-gallery-mid),var(--section-bg-gallery-sand))]"
      >
        {/* Decorative Sea Elements on Sides - Sticky Track System */}
        <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10 overflow-x-clip">

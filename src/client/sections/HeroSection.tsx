@@ -10,28 +10,20 @@
  * All classNames, motion configs, and asset paths are identical.
  */
 
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { FadeContent } from "@/client/libs/reactbits";
 import { Heart } from "lucide-react";
 import Link from "next/link";
-import { formatDate } from "@/client/utils/formatters";
-import { WaveDivider } from "@/client/components/WaveDivider";
-import type { ClientCoupleInfo, ClientCeremonyData } from "@/client/types/client-view-model";
+import type { ClientCoupleInfo } from "@/client/types/client-view-model";
 
 type HeroSectionProps = {
   coupleInfo: ClientCoupleInfo;
-  ceremony: ClientCeremonyData;
+  storyVisible: boolean;
 };
 
-export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
-  const [mounted, setMounted] = useState(false);
+export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
   const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
 
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, [0, 600], [0, 120]);
@@ -67,13 +59,13 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
 
             {/* Optional Host Line — centered pill above the couple names */}
             {coupleInfo?.hostLine && (
-              <div className="px-6 py-2 rounded-full border border-coral/30 text-coral text-xs font-semibold tracking-[0.2em] uppercase mb-4 bg-[#FDF6ED]/30 backdrop-blur-md text-center">
+              <div className="px-6 py-2 rounded-full border border-coral/30 text-coral text-xs font-semibold tracking-[0.2em] uppercase mb-4 bg-ivory/30 backdrop-blur-md text-center">
                 {coupleInfo.hostLine}
               </div>
             )}
 
             {/* Couple Names Card */}
-            <div className="px-6 py-4 md:px-8 md:py-5 rounded-2xl bg-[#FDF6ED]/40 backdrop-blur-md border border-[#FDF6ED]/25 shadow-soft mb-6 max-w-full">
+            <div className="px-6 py-4 md:px-8 md:py-5 rounded-2xl bg-ivory/40 backdrop-blur-md border border-ivory/25 shadow-soft mb-6 max-w-full">
               <h1 className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 font-serif text-charcoal text-3xl sm:text-4xl md:text-6xl font-medium leading-none">
                 <span>{firstName}</span>
                 <span className="text-coral text-2xl sm:text-3xl md:text-5xl my-1 sm:my-0">❤️</span>
@@ -83,7 +75,7 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
 
             {/* Optional Short Host Message — centered card below names */}
             {coupleInfo?.shortHostMessage && (
-              <div className="w-full max-w-xl px-6 py-4 rounded-xl bg-[#FDF6ED]/35 backdrop-blur-md border border-[#FDF6ED]/20 shadow-soft mb-6 text-center">
+              <div className="w-full max-w-xl px-6 py-4 rounded-xl bg-ivory/35 backdrop-blur-md border border-ivory/20 shadow-soft mb-6 text-center">
                 <p className="text-sm md:text-base leading-relaxed text-charcoal/80">
                   {coupleInfo.shortHostMessage}
                 </p>
@@ -100,21 +92,18 @@ export function HeroSection({ coupleInfo, ceremony }: HeroSectionProps) {
                 <span>Reserve Your Seat</span>
               </Link>
 
-              <a
-                href="#our-story"
-                className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
-              >
-                <span>Our Story</span>
-              </a>
+              {storyVisible ? (
+                <a
+                  href="#our-story"
+                  className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
+                >
+                  <span>Our Story</span>
+                </a>
+              ) : null}
             </div>
 
           </div>
         </FadeContent>
-      </div>
-
-      {/* Wave divider at bottom to cut the image in a wavy shape */}
-      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
-        <WaveDivider className="text-cream" />
       </div>
     </section>
   );

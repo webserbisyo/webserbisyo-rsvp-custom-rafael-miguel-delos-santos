@@ -1,13 +1,17 @@
 "use client";
 
-type CenterBouquetDividerProps = {
-  className?: string;
-};
+import type { SectionBackgroundToken } from "@/client/client-section-registry";
+import { sectionBackgroundCssVariables } from "@/client/section-transitions";
 
-export function CenterBouquetDivider({ className = "bg-cream" }: CenterBouquetDividerProps) {
+export function CenterBouquetDivider({
+  background,
+}: {
+  background: SectionBackgroundToken;
+}) {
   return (
     <div
-      className={`relative z-20 -mt-px -mb-px h-16 overflow-visible sm:h-20 md:h-24 ${className}`}
+      className="relative z-20 -mt-px -mb-px h-16 overflow-visible sm:h-20 md:h-24"
+      style={{ backgroundColor: sectionBackgroundCssVariables[background] }}
       aria-hidden="true"
     >
       <div className="absolute inset-0 z-10 overflow-visible pointer-events-none select-none">

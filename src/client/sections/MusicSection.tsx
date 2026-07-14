@@ -40,7 +40,7 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
   return (
     <section
       id="music"
-      className="py-20 md:py-28 px-4 bg-gradient-to-b from-[#E8F4F0] via-[#C5E5DC] to-[#8EC9BB] text-cocoa text-center relative overflow-hidden"
+      className="py-20 md:py-28 px-4 bg-[linear-gradient(to_bottom,var(--section-bg-seafoam-light),var(--section-bg-seafoam-mid),var(--section-bg-seafoam))] text-cocoa text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
         <SpotlightCard 

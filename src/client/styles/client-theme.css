@@ -41,6 +41,19 @@
   --color-driftwood: #8C6E52;
   --color-shell-pink: #FCD5CE;
 
+  /* Canonical section-edge colors used by section backgrounds and transitions. */
+  --section-bg-ivory: var(--color-ivory);
+  --section-bg-cream: var(--color-cream);
+  --section-bg-seafoam-light: #E8F4F0;
+  --section-bg-seafoam-mid: #C5E5DC;
+  --section-bg-seafoam: #8EC9BB;
+  --section-bg-coral: var(--color-coral);
+  --section-bg-coral-deep: #8C4520;
+  --section-bg-cocoa: var(--color-cocoa);
+  --section-bg-gallery-peach: #FDECD0;
+  --section-bg-gallery-mid: #F5D5A8;
+  --section-bg-gallery-sand: #EBC485;
+
   /* Elevated card shadow tier (gallery, hero CTA) */
   --shadow-card: 0 8px 32px rgba(59, 42, 26, 0.12);
 }
