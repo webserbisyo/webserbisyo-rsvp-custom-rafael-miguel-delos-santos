@@ -198,6 +198,14 @@ export function useGuestDockVisibility() {
   return isVisible;
 }
 
+const DOCK_ORDER: ClientSectionKey[] = [
+  "main_event",      // Ceremony  — CalendarDays
+  "venue",           // Venue     — MapPin
+  "rsvp_form",       // RSVP      — Mail (primary, centered)
+  "secondary_event", // Reception — Utensils
+  "attire_motif",    // Attire    — Shirt
+];
+
 type GuestDockToolbarProps = {
   className?: string;
   compact?: boolean;
@@ -212,9 +220,18 @@ export function GuestDockToolbar({
   const router = useRouter();
   const pathname = usePathname();
   const isRsvpPage = pathname === "/rsvp";
-  const dockItems = visibleSectionKeys
-    .map((key) => clientSectionRegistry[key])
-    .filter((section) => section.dock);
+  const dockItems = DOCK_ORDER
+    .filter((key) => {
+      const descriptor = clientSectionRegistry[key];
+      if (!descriptor) return false;
+      // Required / primary essentials should remain available.
+      if (descriptor.primary || key === "rsvp_form" || key === "main_event" || key === "venue") {
+        return true;
+      }
+      // Optional essentials only show when their section is visible.
+      return visibleSectionKeys.includes(key);
+    })
+    .map((key) => clientSectionRegistry[key]);
 
   const handleItemClick = (href: string) => {
     if (href === "/rsvp") {

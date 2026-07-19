@@ -33,13 +33,26 @@ export function resolveSectionTransition(
   const toTheme = clientSectionRegistry[to].visual;
   const fromBackground = fromTheme.exitBackground ?? fromTheme.background;
   const toBackground = toTheme.entryBackground ?? toTheme.background;
+  const preferred = fromTheme.preferredTransition;
 
-  if (from === "countdown" && to === "music_effects") {
-    return { from, fromBackground, to, toBackground, variant: "gradient" };
+  if (preferred && preferred !== "none") {
+    return {
+      from,
+      fromBackground,
+      to,
+      toBackground,
+      variant: preferred,
+    };
   }
 
-  if (from === "venue" && to === "secondary_event") {
-    return { from, fromBackground, to, toBackground, variant: "bouquet" };
+  if (fromBackground === toBackground) {
+    return {
+      from,
+      fromBackground,
+      to,
+      toBackground,
+      variant: "none",
+    };
   }
 
   return {
@@ -47,7 +60,7 @@ export function resolveSectionTransition(
     fromBackground,
     to,
     toBackground,
-    variant: fromBackground === toBackground ? "none" : "wave",
+    variant: "wave",
   };
 }
 
