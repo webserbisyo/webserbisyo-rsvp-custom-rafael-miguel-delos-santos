@@ -279,10 +279,8 @@ export function normalizePublicEvent({
   eventSlug,
 }: NormalizeInput): EventWebsiteRenderModel {
   const slug = stringValue(event.slug ?? event.eventSlug) || eventSlug;
-  const sections = normalizeSections(event).filter(
-    (section) =>
-      eventWebsiteSectionKeySet.has(section.key) ||
-      (source === "design" && section.key === "gallery"),
+  const sections = normalizeSections(event).filter((section) =>
+    eventWebsiteSectionKeySet.has(section.key),
   );
   const eventTitle = stringValue(event.title ?? event.name);
   const coupleDisplayName = normalizeCoupleDisplayName(sections, eventTitle);

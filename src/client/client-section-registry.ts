@@ -211,7 +211,6 @@ export const clientSectionRegistry: Record<
   },
   gallery: {
     anchor: "#gallery",
-    designOnly: true,
     group: "Explore",
     icon: Image,
     key: "gallery",
@@ -246,13 +245,6 @@ export function getVisibleClientSectionKeys(
     if (requiredSectionSet.has(key)) {
       keys.add(key);
     }
-  }
-
-  if (
-    event.source === "design" &&
-    event.sections.some((section) => section.key === "gallery")
-  ) {
-    keys.add("gallery");
   }
 
   return [
