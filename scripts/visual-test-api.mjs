@@ -8,6 +8,7 @@ const sampleEvent = JSON.parse(
 const optionalSections = [
   "countdown",
   "music_effects",
+  "gallery",
   "secondary_event",
   "timeline_program",
   "entourage",
@@ -51,8 +52,16 @@ function buildEvent(scenario) {
       shortNote: "Deterministic transition fixture",
     },
   };
+  const musicIndex = event.content.layout.sectionOrder.indexOf("music_effects");
+  if (!event.content.layout.sectionOrder.includes("gallery")) {
+    event.content.layout.sectionOrder.splice(musicIndex + 1, 0, "gallery");
+  }
+  event.content.sections.gallery ??= {
+    sectionIntro: "A few moments from our story.",
+    sectionTitle: "Gallery",
+  };
   event.content.layout.enabledSections = Object.fromEntries(
-    Object.keys(event.content.layout.enabledSections).map((key) => [key, !disabled.has(key)]),
+    event.content.layout.sectionOrder.map((key) => [key, !disabled.has(key)]),
   );
 
   return event;

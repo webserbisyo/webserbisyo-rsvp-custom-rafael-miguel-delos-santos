@@ -10,9 +10,9 @@ const viewports = [
 ] as const;
 
 const scenarios = [
-  { disabled: [], name: "all-sections", slug: "all-sections", snapshotPair: ["music_effects", "main_event"] },
-  { disabled: ["music_effects"], name: "music-disabled", slug: "music-disabled", snapshotPair: ["countdown", "main_event"] },
-  { disabled: [], name: "music-reenabled", slug: "music-reenabled", snapshotPair: ["music_effects", "main_event"] },
+  { disabled: [], name: "all-sections", slug: "all-sections", snapshotPair: ["host_info", "countdown"] },
+  { disabled: ["music_effects"], name: "music-disabled", slug: "music-disabled", snapshotPair: ["gallery", "main_event"] },
+  { disabled: [], name: "music-reenabled", slug: "music-reenabled", snapshotPair: ["host_info", "countdown"] },
   { disabled: ["countdown"], name: "countdown-disabled", slug: "countdown-disabled", snapshotPair: ["host_info", "music_effects"] },
   {
     disabled: ["countdown", "music_effects"],
@@ -25,7 +25,7 @@ const scenarios = [
     disabled: ["secondary_event", "timeline_program"],
     name: "reception-and-timeline-disabled",
     slug: "reception-and-timeline-disabled",
-    snapshotPair: ["venue", "entourage"],
+    snapshotPair: ["host_info", "countdown"],
   },
   {
     disabled: ["entourage", "principal_sponsors", "attire_motif"],
@@ -38,6 +38,7 @@ const scenarios = [
     disabled: [
       "countdown",
       "music_effects",
+      "gallery",
       "secondary_event",
       "timeline_program",
       "entourage",
@@ -63,6 +64,7 @@ const sectionKeyById = {
   entourage: "entourage",
   "extra-info": "extra_info",
   gifts: "gift_details",
+  gallery: "gallery",
   guestbook: "guestbook",
   hero: "host_info",
   music: "music_effects",
@@ -78,6 +80,7 @@ const canonicalSectionOrder = [
   "host_info",
   "countdown",
   "music_effects",
+  "gallery",
   "main_event",
   "venue",
   "secondary_event",
@@ -113,6 +116,7 @@ for (const scenario of scenarios) {
         `,
       });
       await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(1_000);
 
       for (const disabledKey of scenario.disabled) {
         const sectionId = Object.entries(sectionKeyById).find(([, key]) => key === disabledKey)?.[0];
@@ -164,19 +168,27 @@ for (const scenario of scenarios) {
 
       if (scenario.name === "all-sections" || scenario.name === "music-reenabled") {
         const musicExit = page.locator(
-          '[data-transition-from="music_effects"][data-transition-to="main_event"]',
+          '[data-transition-from="music_effects"][data-transition-to="gallery"]',
         );
         await expect(musicExit).toHaveAttribute("data-from-background", "seafoam");
-        await expect(musicExit).toHaveAttribute("data-to-background", "ivory");
-        await expect(musicExit.locator("svg")).toHaveCSS("background-color", "rgb(253, 246, 237)");
+        await expect(musicExit).toHaveAttribute("data-to-background", "gallery-peach");
       }
 
       if (scenario.name === "reception-disabled") {
         const venueExit = page.locator(
           '[data-transition-from="venue"][data-transition-to="timeline_program"]',
         );
-        await expect(venueExit).toHaveAttribute("data-transition-variant", "none");
-        await expect(venueExit.locator("img")).toHaveCount(0);
+        await expect(venueExit).toHaveAttribute("data-transition-variant", "bouquet");
+        await expect(venueExit.locator("img")).toHaveCount(1);
+      }
+
+      if (scenario.name === "reception-and-timeline-disabled") {
+        const venueExit = page.locator(
+          '[data-transition-from="venue"][data-transition-to="entourage"]',
+        );
+        await expect(venueExit).toHaveAttribute("data-transition-variant", "bouquet");
+        await expect(venueExit.locator("img")).toHaveCount(1);
+        await expect(venueExit.locator("svg")).toHaveCount(1);
       }
 
       if (scenario.name === "story-disabled") {
@@ -199,6 +211,17 @@ for (const scenario of scenarios) {
         window.scrollTo(0, 0);
       }, transitionMarkup);
       const isolatedTransition = page.locator("[data-section-transition]");
+      const isolatedWave = isolatedTransition.locator("svg");
+      const expectedWaveHeight = viewport.width >= 768 ? 64 : viewport.width >= 640 ? 56 : 48;
+      await expect(isolatedWave).toHaveCount(1);
+      await expect(isolatedWave).toHaveCSS("height", `${expectedWaveHeight}px`);
+      await expect(isolatedWave.locator("path")).toHaveCount(3);
+
+      const isolatedImages = isolatedTransition.locator("img");
+      if ((await isolatedImages.count()) > 0) {
+        await expect(isolatedImages.first()).toHaveJSProperty("complete", true);
+      }
+
       await expect(isolatedTransition).toHaveScreenshot(
         `${scenario.name}-${viewport.name}.png`,
       );

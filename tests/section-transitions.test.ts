@@ -93,7 +93,7 @@ test("adjacent and consecutive disabled sections produce only real visible pairs
   }
 });
 
-test("restoring a section restores its original stable-key neighbors", () => {
+test("section-owned preferences survive optional neighbor changes", () => {
   const withoutMusic = getVisibleClientSectionKeys(renderModel(["music_effects"]));
   assert.deepEqual(
     getVisibleSectionTransitions(withoutMusic).find(
@@ -102,9 +102,9 @@ test("restoring a section restores its original stable-key neighbors", () => {
     {
       from: "countdown",
       fromBackground: "cream",
-      to: "main_event",
-      toBackground: "ivory",
-      variant: "wave",
+      to: "gallery",
+      toBackground: "gallery-peach",
+      variant: "gradient",
     },
   );
 
@@ -112,7 +112,7 @@ test("restoring a section restores its original stable-key neighbors", () => {
   assert.equal(restored[2], "music_effects");
 });
 
-test("special transitions require the exact approved visible pair", () => {
+test("preferred transitions belong to the section, not a specific pair", () => {
   assert.deepEqual(resolveSectionTransition("countdown", "music_effects"), {
     from: "countdown",
     fromBackground: "cream",
@@ -127,14 +127,16 @@ test("special transitions require the exact approved visible pair", () => {
     toBackground: "ivory",
     variant: "bouquet",
   });
-  assert.equal(resolveSectionTransition("venue", "timeline_program").variant, "none");
+  assert.equal(resolveSectionTransition("countdown", "main_event").variant, "gradient");
+  assert.equal(resolveSectionTransition("venue", "timeline_program").variant, "bouquet");
+  assert.equal(resolveSectionTransition("host_info", "main_event").variant, "wave");
 });
 
 test("gradient edges and generic waves resolve exact canonical colors", () => {
   const expectations = [
     ["music_effects", "main_event", "seafoam", "ivory", "wave"],
     ["host_info", "music_effects", "ivory", "seafoam-light", "wave"],
-    ["host_info", "main_event", "ivory", "ivory", "none"],
+    ["host_info", "main_event", "ivory", "ivory", "wave"],
     ["extra_info", "rsvp_form", "cream", "coral", "wave"],
     ["rsvp_form", "guestbook", "coral-deep", "cream", "wave"],
     ["guestbook", "contact_socials", "cream", "cocoa", "wave"],
@@ -150,8 +152,6 @@ test("gradient edges and generic waves resolve exact canonical colors", () => {
 
 test("same-background neighbors never introduce a third color", () => {
   for (const [from, to] of [
-    ["host_info", "main_event"],
-    ["venue", "timeline_program"],
     ["timeline_program", "principal_sponsors"],
     ["gift_details", "story_message"],
   ] as const) {
@@ -159,4 +159,28 @@ test("same-background neighbors never introduce a third color", () => {
     assert.equal(transition.fromBackground, transition.toBackground);
     assert.equal(transition.variant, "none");
   }
+});
+
+test("Gallery participates in exactly one transition on each visible edge", () => {
+  const visible = getVisibleClientSectionKeys(renderModel());
+  assert.equal(visible.indexOf("gallery"), visible.indexOf("music_effects") + 1);
+
+  const transitions = getVisibleSectionTransitions(visible);
+  assert.equal(
+    transitions.filter((transition) => transition.to === "gallery").length,
+    1,
+  );
+  assert.equal(
+    transitions.filter((transition) => transition.from === "gallery").length,
+    1,
+  );
+
+  const withoutGallery = getVisibleClientSectionKeys(renderModel(["gallery"]));
+  assert.equal(withoutGallery.includes("gallery"), false);
+  assert.equal(
+    getVisibleSectionTransitions(withoutGallery).some(
+      (transition) => transition.from === "gallery" || transition.to === "gallery",
+    ),
+    false,
+  );
 });

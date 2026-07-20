@@ -6,6 +6,7 @@ export type WeddingSectionKey =
   | "host_info"
   | "countdown"
   | "music_effects"
+  | "gallery"
   | "main_event"
   | "venue"
   | "secondary_event"
@@ -18,7 +19,6 @@ export type WeddingSectionKey =
   | "gift_details"
   | "guestbook"
   | "story_message"
-  | "gallery"
   | "contact_socials";
 
 export type SectionContractEntry = {
@@ -32,6 +32,7 @@ const canonicalKeys: WeddingSectionKey[] = [
   "host_info",
   "countdown",
   "music_effects",
+  "gallery",
   "main_event",
   "venue",
   "secondary_event",
@@ -44,7 +45,6 @@ const canonicalKeys: WeddingSectionKey[] = [
   "gift_details",
   "guestbook",
   "story_message",
-  "gallery",
   "contact_socials",
 ];
 

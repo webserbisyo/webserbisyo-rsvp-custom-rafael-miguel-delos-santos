@@ -70,7 +70,7 @@ export const clientSectionRegistry: Record<
     icon: Home,
     key: "host_info",
     label: "Home",
-    visual: { background: "ivory" },
+    visual: { background: "ivory", preferredTransition: "wave" },
   },
   countdown: {
     anchor: "#countdown",
@@ -89,6 +89,19 @@ export const clientSectionRegistry: Record<
       background: "seafoam",
       entryBackground: "seafoam-light",
       exitBackground: "seafoam",
+    },
+  },
+  gallery: {
+    anchor: "#gallery",
+    group: "Explore",
+    icon: Image,
+    key: "gallery",
+    label: "Gallery",
+    topNav: true,
+    visual: {
+      background: "gallery-peach",
+      entryBackground: "gallery-peach",
+      exitBackground: "gallery-sand",
     },
   },
   main_event: {
@@ -208,19 +221,6 @@ export const clientSectionRegistry: Record<
     key: "contact_socials",
     label: "Contact",
     visual: { background: "cocoa" },
-  },
-  gallery: {
-    anchor: "#gallery",
-    group: "Explore",
-    icon: Image,
-    key: "gallery",
-    label: "Gallery",
-    topNav: true,
-    visual: {
-      background: "gallery-peach",
-      entryBackground: "gallery-peach",
-      exitBackground: "gallery-sand",
-    },
   },
 };
 

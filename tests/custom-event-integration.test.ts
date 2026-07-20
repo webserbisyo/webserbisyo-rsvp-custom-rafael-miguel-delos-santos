@@ -51,7 +51,7 @@ function renderModel(
 
 test("the section contract has one unique canonical key set", () => {
   const keys = eventWebsiteSectionContract.map((section) => section.key);
-  assert.equal(keys.length, 16);
+  assert.equal(keys.length, 17);
   assert.equal(new Set(keys).size, keys.length);
   assert.equal(
     validatePublicEventContract(apiEvent() as Record<string, unknown>),
@@ -89,17 +89,17 @@ test("one visible registry excludes disabled optional sections and keeps require
   assert.equal(visible.includes("rsvp_form"), true);
 });
 
-test("custom-only gallery is available only in explicit design mode", () => {
+test("Gallery visibility follows its public enabled state", () => {
   const gallery = [{ content: {}, enabled: true, key: "gallery" }];
   assert.equal(
     getVisibleClientSectionKeys(renderModel(gallery)).includes("gallery"),
-    false,
+    true,
   );
   assert.equal(
-    getVisibleClientSectionKeys(renderModel(gallery, "design")).includes(
-      "gallery",
-    ),
-    true,
+    getVisibleClientSectionKeys(
+      renderModel([{ content: {}, enabled: false, key: "gallery" }]),
+    ).includes("gallery"),
+    false,
   );
 });
 
