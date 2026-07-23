@@ -67,17 +67,6 @@ export function WaveDivider({
           }
           fill="currentColor"
         />
-        <path
-          d={
-            isAccent
-              ? "M0,28 C180,54 360,4 540,30 C720,56 900,6 1080,30 C1260,54 1380,18 1440,28"
-              : "M0,18 C180,32 360,8 540,20 C720,33 900,7 1080,20 C1260,31 1380,13 1440,17"
-          }
-          fill="none"
-          stroke="rgba(132, 92, 68, 0.14)"
-          strokeWidth={isAccent ? "1.5" : "1"}
-          vectorEffect="non-scaling-stroke"
-        />
       </svg>
     </div>
   );

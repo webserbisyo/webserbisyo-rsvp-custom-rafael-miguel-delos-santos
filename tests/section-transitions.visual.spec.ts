@@ -139,6 +139,7 @@ for (const scenario of scenarios) {
         ).map((element) => ({
           display: getComputedStyle(element).display,
           from: element.dataset.transitionFrom,
+          pathCount: element.querySelectorAll("svg path").length,
           svgCount: element.querySelectorAll("svg").length,
           to: element.dataset.transitionTo,
           variant: element.dataset.transitionVariant,
@@ -165,6 +166,9 @@ for (const scenario of scenarios) {
           transition.variant === "subtleWave"
         ) {
           expect(transition.svgCount).toBe(1);
+          expect(transition.pathCount).toBe(
+            transition.variant === "imageToSolidWave" ? 2 : 1,
+          );
         }
       }
 
@@ -263,7 +267,9 @@ for (const scenario of scenarios) {
               : 32;
       await expect(isolatedWave).toHaveCount(1);
       await expect(isolatedWave).toHaveCSS("height", `${expectedWaveHeight}px`);
-      await expect(isolatedWave.locator("path")).toHaveCount(2);
+      await expect(isolatedWave.locator("path")).toHaveCount(
+        variant === "imageToSolidWave" ? 2 : 1,
+      );
 
       const isolatedImages = isolatedTransition.locator("img");
       if ((await isolatedImages.count()) > 0) {
