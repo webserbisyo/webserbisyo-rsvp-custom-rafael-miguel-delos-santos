@@ -18,7 +18,7 @@ const scenarios = [
     disabled: ["countdown", "music_effects"],
     name: "countdown-and-music-disabled",
     slug: "countdown-and-music-disabled",
-    snapshotPair: ["main_event", "venue"],
+    snapshotPair: ["host_info", "gallery"],
   },
   { disabled: ["secondary_event"], name: "reception-disabled", slug: "reception-disabled", snapshotPair: ["main_event", "venue"] },
   {
@@ -52,9 +52,16 @@ const scenarios = [
     ],
     name: "all-optional-disabled",
     slug: "all-optional-disabled",
-    snapshotPair: ["main_event", "venue"],
+    snapshotPair: ["host_info", "main_event"],
   },
 ] as const;
+
+const contextualHeroScenarios = new Set([
+  "all-sections",
+  "countdown-disabled",
+  "countdown-and-music-disabled",
+  "all-optional-disabled",
+]);
 
 const sectionKeyById = {
   attire: "attire_motif",
@@ -112,7 +119,7 @@ for (const scenario of scenarios) {
             transition-duration: 0s !important;
           }
           html { scroll-behavior: auto !important; }
-          canvas, [data-scroll-progress] { visibility: hidden !important; }
+          canvas, nextjs-portal, [data-scroll-progress] { visibility: hidden !important; }
         `,
       });
       await page.evaluate(() => document.fonts.ready);
@@ -151,7 +158,12 @@ for (const scenario of scenarios) {
       for (const transition of transitions) {
         if (transition.variant === "none") {
           expect(transition.display).toBe("none");
-        } else if (transition.variant === "wave" || transition.variant === "bouquet") {
+        } else if (
+          transition.variant === "accentBandWave" ||
+          transition.variant === "bouquet" ||
+          transition.variant === "imageToSolidWave" ||
+          transition.variant === "subtleWave"
+        ) {
           expect(transition.svgCount).toBe(1);
         }
       }
@@ -178,16 +190,16 @@ for (const scenario of scenarios) {
         const venueExit = page.locator(
           '[data-transition-from="venue"][data-transition-to="timeline_program"]',
         );
-        await expect(venueExit).toHaveAttribute("data-transition-variant", "bouquet");
-        await expect(venueExit.locator("img")).toHaveCount(1);
+        await expect(venueExit).toHaveAttribute("data-transition-variant", "none");
+        await expect(venueExit.locator("img")).toHaveCount(0);
       }
 
       if (scenario.name === "reception-and-timeline-disabled") {
         const venueExit = page.locator(
           '[data-transition-from="venue"][data-transition-to="entourage"]',
         );
-        await expect(venueExit).toHaveAttribute("data-transition-variant", "bouquet");
-        await expect(venueExit.locator("img")).toHaveCount(1);
+        await expect(venueExit).toHaveAttribute("data-transition-variant", "subtleWave");
+        await expect(venueExit.locator("img")).toHaveCount(0);
         await expect(venueExit.locator("svg")).toHaveCount(1);
       }
 
@@ -201,6 +213,24 @@ for (const scenario of scenarios) {
       );
       await expect(snapshotTransition).toHaveCount(1);
       await expect(snapshotTransition).not.toHaveCSS("display", "none");
+
+      if (snapshotFrom === "host_info" && contextualHeroScenarios.has(scenario.name)) {
+        const transitionBox = await snapshotTransition.boundingBox();
+        expect(transitionBox).not.toBeNull();
+        const clipY = Math.max(0, transitionBox!.y - 160);
+        await expect(page).toHaveScreenshot(
+          `${scenario.name}-${viewport.name}-context.png`,
+          {
+            clip: {
+              x: 0,
+              y: clipY,
+              width: viewport.width,
+              height: Math.min(320, await page.evaluate(() => document.documentElement.scrollHeight) - clipY),
+            },
+          },
+        );
+      }
+
       const transitionMarkup = await snapshotTransition.evaluate(
         (element) => element.outerHTML,
       );
@@ -212,10 +242,28 @@ for (const scenario of scenarios) {
       }, transitionMarkup);
       const isolatedTransition = page.locator("[data-section-transition]");
       const isolatedWave = isolatedTransition.locator("svg");
-      const expectedWaveHeight = viewport.width >= 768 ? 64 : viewport.width >= 640 ? 56 : 48;
+      const variant = await isolatedTransition.getAttribute("data-transition-variant");
+      const expectedWaveHeight =
+        variant === "imageToSolidWave"
+          ? viewport.width >= 768
+            ? 80
+            : viewport.width >= 640
+              ? 64
+              : 56
+          : variant === "accentBandWave"
+            ? viewport.width >= 768
+              ? 60
+              : viewport.width >= 640
+                ? 52
+                : 44
+          : viewport.width >= 768
+            ? 40
+            : viewport.width >= 640
+              ? 36
+              : 32;
       await expect(isolatedWave).toHaveCount(1);
       await expect(isolatedWave).toHaveCSS("height", `${expectedWaveHeight}px`);
-      await expect(isolatedWave.locator("path")).toHaveCount(3);
+      await expect(isolatedWave.locator("path")).toHaveCount(2);
 
       const isolatedImages = isolatedTransition.locator("img");
       if ((await isolatedImages.count()) > 0) {

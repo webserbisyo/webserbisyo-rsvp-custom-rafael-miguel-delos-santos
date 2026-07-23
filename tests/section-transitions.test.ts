@@ -44,6 +44,7 @@ test("every canonical section has one visual theme in the shared registry", () =
   for (const key of canonicalOrder) {
     assert.equal(clientSectionRegistry[key].key, key);
     assert.ok(clientSectionRegistry[key].visual.background);
+    assert.ok(clientSectionRegistry[key].visual.backgroundKind);
   }
 });
 
@@ -93,7 +94,7 @@ test("adjacent and consecutive disabled sections produce only real visible pairs
   }
 });
 
-test("section-owned preferences survive optional neighbor changes", () => {
+test("decorative preferences require a compatible actual destination", () => {
   const withoutMusic = getVisibleClientSectionKeys(renderModel(["music_effects"]));
   assert.deepEqual(
     getVisibleSectionTransitions(withoutMusic).find(
@@ -104,7 +105,7 @@ test("section-owned preferences survive optional neighbor changes", () => {
       fromBackground: "cream",
       to: "gallery",
       toBackground: "gallery-peach",
-      variant: "gradient",
+      variant: "subtleWave",
     },
   );
 
@@ -112,13 +113,13 @@ test("section-owned preferences survive optional neighbor changes", () => {
   assert.equal(restored[2], "music_effects");
 });
 
-test("preferred transitions belong to the section, not a specific pair", () => {
+test("semantic transitions resolve without hard-coded section pairs", () => {
   assert.deepEqual(resolveSectionTransition("countdown", "music_effects"), {
     from: "countdown",
     fromBackground: "cream",
     to: "music_effects",
     toBackground: "seafoam-light",
-    variant: "gradient",
+    variant: "decorativeGradient",
   });
   assert.deepEqual(resolveSectionTransition("venue", "secondary_event"), {
     from: "venue",
@@ -127,19 +128,22 @@ test("preferred transitions belong to the section, not a specific pair", () => {
     toBackground: "ivory",
     variant: "bouquet",
   });
-  assert.equal(resolveSectionTransition("countdown", "main_event").variant, "gradient");
-  assert.equal(resolveSectionTransition("venue", "timeline_program").variant, "bouquet");
-  assert.equal(resolveSectionTransition("host_info", "main_event").variant, "wave");
+  assert.equal(resolveSectionTransition("countdown", "main_event").variant, "subtleWave");
+  assert.equal(resolveSectionTransition("venue", "timeline_program").variant, "none");
+  assert.equal(resolveSectionTransition("host_info", "main_event").variant, "imageToSolidWave");
 });
 
-test("gradient edges and generic waves resolve exact canonical colors", () => {
+test("image, subtle, and accent edges resolve exact canonical colors", () => {
   const expectations = [
-    ["music_effects", "main_event", "seafoam", "ivory", "wave"],
-    ["host_info", "music_effects", "ivory", "seafoam-light", "wave"],
-    ["host_info", "main_event", "ivory", "ivory", "wave"],
-    ["extra_info", "rsvp_form", "cream", "coral", "wave"],
-    ["rsvp_form", "guestbook", "coral-deep", "cream", "wave"],
-    ["guestbook", "contact_socials", "cream", "cocoa", "wave"],
+    ["music_effects", "main_event", "seafoam", "ivory", "subtleWave"],
+    ["host_info", "music_effects", "ivory", "seafoam-light", "imageToSolidWave"],
+    ["host_info", "gallery", "ivory", "gallery-peach", "imageToSolidWave"],
+    ["host_info", "main_event", "ivory", "ivory", "imageToSolidWave"],
+    ["gallery", "main_event", "gallery-sand", "ivory", "subtleWave"],
+    ["main_event", "venue", "ivory", "cream", "subtleWave"],
+    ["extra_info", "rsvp_form", "cream", "coral", "accentBandWave"],
+    ["rsvp_form", "guestbook", "coral-deep", "cream", "accentBandWave"],
+    ["guestbook", "contact_socials", "cream", "cocoa", "accentBandWave"],
   ] as const;
 
   for (const [from, to, fromBackground, toBackground, variant] of expectations) {

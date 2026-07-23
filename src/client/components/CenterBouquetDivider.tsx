@@ -10,7 +10,7 @@ export function CenterBouquetDivider({
 }) {
   return (
     <div
-      className="relative z-20 -mt-px -mb-px h-16 overflow-visible sm:h-20 md:h-24"
+      className="relative z-20 -mb-px -mt-px h-12 overflow-visible sm:h-14 md:h-16"
       style={{ backgroundColor: sectionBackgroundCssVariables[background] }}
       aria-hidden="true"
     >
@@ -22,7 +22,7 @@ export function CenterBouquetDivider({
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-1/2 top-1/2 z-30 w-32 -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none select-none sm:w-40 md:w-48 lg:w-56 xl:w-64"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-30 w-28 -translate-x-1/2 -translate-y-1/2 select-none object-contain sm:w-32 md:w-40 lg:w-48"
         />
       </div>
     </div>

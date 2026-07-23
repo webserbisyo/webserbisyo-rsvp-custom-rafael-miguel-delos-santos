@@ -35,7 +35,17 @@ export function resolveSectionTransition(
   const toBackground = toTheme.entryBackground ?? toTheme.background;
   const preferred = fromTheme.preferredTransition;
 
-  if (preferred && preferred !== "none") {
+  if (fromTheme.backgroundKind === "image") {
+    return {
+      from,
+      fromBackground,
+      to,
+      toBackground,
+      variant: "imageToSolidWave",
+    };
+  }
+
+  if (preferred && toTheme.acceptedEntryTransitions?.includes(preferred)) {
     return {
       from,
       fromBackground,
@@ -55,12 +65,25 @@ export function resolveSectionTransition(
     };
   }
 
+  if (
+    fromTheme.backgroundKind === "accent" ||
+    toTheme.backgroundKind === "accent"
+  ) {
+    return {
+      from,
+      fromBackground,
+      to,
+      toBackground,
+      variant: "accentBandWave",
+    };
+  }
+
   return {
     from,
     fromBackground,
     to,
     toBackground,
-    variant: "wave",
+    variant: "subtleWave",
   };
 }
 

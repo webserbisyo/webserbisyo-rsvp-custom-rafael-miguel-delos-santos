@@ -28,13 +28,36 @@ export function SectionTransition({
   }
 
   return (
-    <div {...dataAttributes}>
-      {transition.variant === "gradient" ? <CountdownToMusicDivider /> : null}
+    <div {...dataAttributes} className="pointer-events-none" aria-hidden="true">
+      {transition.variant === "decorativeGradient" ? (
+        <CountdownToMusicDivider
+          from={transition.fromBackground}
+          to={transition.toBackground}
+        />
+      ) : null}
       {transition.variant === "bouquet" ? (
         <CenterBouquetDivider background={transition.fromBackground} />
       ) : null}
-      {transition.variant === "wave" || transition.variant === "bouquet" ? (
-        <WaveDivider from={transition.fromBackground} to={transition.toBackground} />
+      {transition.variant === "imageToSolidWave" ? (
+        <WaveDivider
+          from={transition.fromBackground}
+          to={transition.toBackground}
+          variant="imageToSolid"
+        />
+      ) : null}
+      {transition.variant === "subtleWave" || transition.variant === "bouquet" ? (
+        <WaveDivider
+          from={transition.fromBackground}
+          to={transition.toBackground}
+          variant="subtle"
+        />
+      ) : null}
+      {transition.variant === "accentBandWave" ? (
+        <WaveDivider
+          from={transition.fromBackground}
+          to={transition.toBackground}
+          variant="accent"
+        />
       ) : null}
     </div>
   );
