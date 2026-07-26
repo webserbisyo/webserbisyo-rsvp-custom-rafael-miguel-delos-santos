@@ -18,12 +18,12 @@ type TimelineSectionProps = {
 };
 
 const ASSET_LOOP = [
-  { src: "/beach%20assets%20finalized/20.webp", opacityClass: "opacity-90", rotateClass: "rotate-[15deg]", desktopWidth: "w-48", mobileWidth: "w-20" },
-  { src: "/beach%20assets%20finalized/2.webp", opacityClass: "opacity-85", rotateClass: "-rotate-12", desktopWidth: "w-56", mobileWidth: "w-24" },
-  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "scale-x-[-1]", desktopWidth: "w-40", mobileWidth: "w-16" },
-  { src: "/beach%20assets%20finalized/21.webp", opacityClass: "opacity-90", rotateClass: "-rotate-[20deg]", desktopWidth: "w-56", mobileWidth: "w-24" },
-  { src: "/beach%20assets%20finalized/3.webp", opacityClass: "opacity-85", rotateClass: "rotate-12", desktopWidth: "w-64", mobileWidth: "w-24" },
-  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "", desktopWidth: "w-40", mobileWidth: "w-16" }
+  { src: "/beach%20assets%20finalized/20.webp", opacityClass: "opacity-90", rotateClass: "rotate-[15deg]", alternatingWidth: "w-28 lg:w-48" },
+  { src: "/beach%20assets%20finalized/2.webp", opacityClass: "opacity-85", rotateClass: "-rotate-12", alternatingWidth: "w-32 lg:w-56" },
+  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "scale-x-[-1]", alternatingWidth: "w-24 lg:w-40" },
+  { src: "/beach%20assets%20finalized/21.webp", opacityClass: "opacity-90", rotateClass: "-rotate-[20deg]", alternatingWidth: "w-32 lg:w-56" },
+  { src: "/beach%20assets%20finalized/3.webp", opacityClass: "opacity-85", rotateClass: "rotate-12", alternatingWidth: "w-32 lg:w-64" },
+  { src: "/beach%20assets%20finalized/19.webp", opacityClass: "opacity-100", rotateClass: "", alternatingWidth: "w-24 lg:w-40" }
 ];
 
 export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
@@ -34,11 +34,11 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
       <div className="max-w-5xl mx-auto relative z-10">
         <SectionHeading label="Wedding Day Timeline" title="The flow of the day" subtitle="So our guests know what to expect — from sunlit arrivals to bonfire farewells." />
 
-        <div className="relative mt-24 max-w-4xl mx-auto pb-12">
+        <div className="relative mt-24 max-w-4xl mx-auto pb-12 sm:max-w-[560px] md:max-w-[760px] lg:max-w-4xl">
           {/* The softened vertical line */}
-          <div className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-sand/20 via-coral/30 to-sand/20 lg:-translate-x-1/2 z-10" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-sand/20 via-coral/30 to-sand/20 md:-translate-x-1/2 z-10" />
 
-          <div className="flex flex-col space-y-12 lg:space-y-0">
+          <div className="flex flex-col space-y-12 md:space-y-0">
             {timelineProgram.items.map((item, i) => {
               const isEven = i % 2 === 0;
               const formattedTime = formatTime(item.time) || item.time;
@@ -50,13 +50,13 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                 ? "w-[18px] h-[18px] ring-8 ring-sand/40"
                 : "w-4 h-4 ring-4 ring-sand/30";
 
-              const glassCardClasses = "bg-white/70 backdrop-blur-md border border-sand/40 rounded-[24px] shadow-md shadow-cocoa/5 p-6 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
+              const glassCardClasses = "bg-white/70 backdrop-blur-md border border-sand/40 rounded-[24px] shadow-md shadow-cocoa/5 p-6 md:p-5 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
 
 
               return (
                 <div
                   key={i}
-                  className="relative flex flex-col lg:flex-row w-full group/row lg:min-h-[220px]"
+                  className="relative flex flex-col md:flex-row w-full group/row md:min-h-[190px] lg:min-h-[220px]"
                 >
                   {/* Timeline Node */}
                   <motion.div
@@ -64,16 +64,16 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                    className={`absolute left-6 lg:left-1/2 top-[42px] lg:top-1/2 rounded-full bg-coral -translate-x-1/2 lg:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
+                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-coral -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
                   />
 
-                  {/* Mobile and tablet portrait layout — true single-column, badge always left */}
+                  {/* Mobile and small-tablet layout — true single-column, badge always left */}
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="lg:hidden w-full pl-16 z-20 py-2 relative"
+                    className="md:hidden w-full pl-16 z-20 py-2 relative"
                   >
                     {/* Badge row: time badge always on left, small decorative asset always on right */}
                     <div className="flex flex-row items-center justify-between mb-3 pr-2">
@@ -91,7 +91,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           height={2048}
                           decoding="async"
                           loading="lazy"
-                          className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} w-12 sm:w-14 h-auto`}
+                          className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} w-12 sm:w-20 h-auto`}
                         />
                       </div>
                     </div>
@@ -101,8 +101,8 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     </div>
                   </motion.div>
 
-                  {/* Desktop Layout */}
-                  <div className="hidden lg:flex w-full items-center py-6">
+                  {/* Compact tablet and full desktop alternating layout */}
+                  <div className="hidden md:flex w-full items-center py-4 lg:py-6">
                     {isEven ? (
                       <>
                         {/* Left Side: Time + Asset */}
@@ -111,13 +111,13 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                          className="w-1/2 flex justify-end pr-20 relative z-10"
+                          className="w-1/2 flex justify-end pr-6 lg:pr-20 relative z-10"
                         >
-                          <div className="absolute left-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
+                          <div className="absolute left-2 lg:left-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.alternatingWidth}`} />
                           </div>
-                          <div className="text-coral font-serif text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
-                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-4 py-1.5 shadow-sm backdrop-blur-sm">
+                          <div className="text-coral font-serif text-[1.35rem] lg:text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
+                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-3 py-1 lg:px-4 lg:py-1.5 shadow-sm backdrop-blur-sm">
                             {formattedTime}
                             </span>
                           </div>
@@ -128,11 +128,11 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ delay: 0.15, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                          className="w-1/2 flex justify-start pl-20 relative z-30"
+                          className="w-1/2 flex justify-start pl-6 lg:pl-20 relative z-30"
                         >
                           <div className={glassCardClasses}>
-                            {title && <h4 className="font-serif text-[1.4rem] text-[#302722] font-semibold mb-3 tracking-wide text-balance">{title}</h4>}
-                            {item.description && <p className="text-[#725d4f] text-base leading-relaxed text-balance">{item.description}</p>}
+                            {title && <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance">{title}</h4>}
+                            {item.description && <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance">{item.description}</p>}
                           </div>
                         </motion.div>
                       </>
@@ -144,11 +144,11 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ delay: 0.15, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                          className="w-1/2 flex justify-end pr-20 relative z-30"
+                          className="w-1/2 flex justify-end pr-6 lg:pr-20 relative z-30"
                         >
                           <div className={glassCardClasses}>
-                            {title && <h4 className="font-serif text-[1.4rem] text-[#302722] font-semibold mb-3 tracking-wide text-balance">{title}</h4>}
-                            {item.description && <p className="text-[#725d4f] text-base leading-relaxed text-balance">{item.description}</p>}
+                            {title && <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance">{title}</h4>}
+                            {item.description && <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance">{item.description}</p>}
                           </div>
                         </motion.div>
                         {/* Right Side: Time + Asset */}
@@ -157,15 +157,15 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                          className="w-1/2 flex justify-start pl-20 relative z-10"
+                          className="w-1/2 flex justify-start pl-6 lg:pl-20 relative z-10"
                         >
-                          <div className="text-coral font-serif text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
-                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-4 py-1.5 shadow-sm backdrop-blur-sm">
+                          <div className="text-coral font-serif text-[1.35rem] lg:text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
+                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-3 py-1 lg:px-4 lg:py-1.5 shadow-sm backdrop-blur-sm">
                             {formattedTime}
                             </span>
                           </div>
-                          <div className="absolute right-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
-                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.desktopWidth}`} />
+                          <div className="absolute right-2 lg:right-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex items-center justify-center">
+                            <img src={asset.src} alt="" aria-hidden="true" width={2048} height={2048} decoding="async" loading="lazy" className={`pointer-events-none select-none object-contain ${asset.opacityClass} ${asset.rotateClass} ${asset.alternatingWidth}`} />
                           </div>
                         </motion.div>
                       </>
