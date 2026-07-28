@@ -15,9 +15,13 @@ export function safePublicCanonicalUrl(value?: string | null): string | undefine
 
 export function buildPageTitle(event?: EventWebsiteRenderModel): string {
   const displayName = event?.coupleDisplayName || event?.title;
-  return displayName ? `${displayName} | Wedding Invitation` : "Rafael & Isabella | Wedding Invitation";
+  return displayName ? `${displayName} | Wedding Invitation` : "Wedding Invitation";
 }
 
-export function buildPageDescription(_event?: EventWebsiteRenderModel): string {
-  return "Join Rafael and Isabella as they celebrate their wedding. View the event details and RSVP online.";
+export function buildPageDescription(event?: EventWebsiteRenderModel): string {
+  const displayName = event?.coupleDisplayName || event?.title;
+  if (!displayName) {
+    return "Join us as we celebrate our wedding. View event details and RSVP online.";
+  }
+  return `Join ${displayName} as they celebrate their wedding. View event details and RSVP online.`;
 }

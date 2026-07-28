@@ -16,6 +16,7 @@ import { FadeContent } from "@/client/libs/reactbits";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 import type { ClientCoupleInfo } from "@/client/types/client-view-model";
+import { templateBranding } from "@/config/template-branding";
 
 type HeroSectionProps = {
   coupleInfo: ClientCoupleInfo;
@@ -44,8 +45,8 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
       <motion.div
         style={{
           y: backgroundY,
-          backgroundImage: "url('/wedding-assets/The-ceremony-arch.webp')",
-          backgroundPosition: "center 40%",
+          backgroundImage: `url('${templateBranding.hero.imagePath}')`,
+          backgroundPosition: templateBranding.hero.websitePosition,
         }}
         className="absolute inset-x-0 bottom-0 top-[74px] z-0 bg-cover bg-no-repeat scale-120 pointer-events-none"
       />

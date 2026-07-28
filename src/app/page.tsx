@@ -5,6 +5,7 @@ import { ClientEventRenderer } from "@/client/renderer";
 import { loadPublicEvent } from "@/app/public-event-loader";
 import { PublicEventPageContent } from "@/components/platform/PublicEventPageContent";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { templateBranding } from "@/config/template-branding";
 import { buildPageDescription, buildPageTitle, safePublicCanonicalUrl } from "@/lib/metadata";
 import { type PreviewQuery } from "@/lib/preview-context";
 
@@ -36,9 +37,9 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
 
   const title = buildPageTitle(result.event);
   const description = buildPageDescription(result.event);
-  const ogImageUrl = `${publicEventUrl}/images/og-preview.png?v=1`;
 
   return {
+    metadataBase: new URL(publicEventUrl),
     title,
     description,
     alternates: shouldNoIndex || !canonical ? undefined : { canonical },
@@ -48,23 +49,12 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       description,
       url: publicEventUrl,
       type: "website",
-      siteName: "WebSerbisyo RSVP",
-      images: [
-        {
-          url: ogImageUrl,
-          secureUrl: ogImageUrl,
-          width: 1200,
-          height: 630,
-          type: "image/png",
-          alt: "Rafael and Isabella wedding invitation",
-        },
-      ],
+      siteName: templateBranding.social.siteName,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrl],
     },
   };
 }
