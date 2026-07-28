@@ -37,6 +37,7 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
 
   const title = buildPageTitle(result.event);
   const description = buildPageDescription(result.event);
+  const ogImageUrl = `${publicEventUrl}/opengraph-image`;
 
   return {
     metadataBase: new URL(publicEventUrl),
@@ -50,11 +51,22 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       url: publicEventUrl,
       type: "website",
       siteName: templateBranding.social.siteName,
+      images: [
+        {
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImageUrl],
     },
   };
 }
