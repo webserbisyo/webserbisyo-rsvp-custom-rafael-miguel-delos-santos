@@ -157,7 +157,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-6 -left-4 sm:-top-16 sm:-left-16 md:-top-20 md:-left-24 lg:-top-20 lg:-left-32 w-28 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-6 left-0 sm:-top-16 sm:-left-16 md:-top-20 md:-left-24 lg:-top-20 lg:-left-32 w-28 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
 
         {/* Decorative Tropical Leaf Asset - Upper Right (Layer 2) - Enlarged significantly and responsive */}
@@ -168,7 +168,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute -top-6 -right-4 sm:-top-16 sm:-right-16 md:-top-20 md:-right-24 lg:-top-20 lg:-right-32 w-28 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
+          className="absolute -top-6 right-0 sm:-top-16 sm:-right-16 md:-top-20 md:-right-24 lg:-top-20 lg:-right-32 w-28 sm:w-56 md:w-72 lg:w-[460px] xl:w-[540px] h-auto object-contain select-none opacity-85 sm:opacity-90 lg:opacity-95 transition-[opacity,transform] duration-300"
         />
       </div>
 
