@@ -75,7 +75,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute left-0 bottom-0 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[20%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-left"
+          className="absolute left-0 -bottom-6 sm:-bottom-8 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[20%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-left"
         />
         <img
           src="/beach%20assets%20finalized/13.webp"
@@ -84,7 +84,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
           width={2048}
           height={2048}
           decoding="async"
-          className="absolute right-0 bottom-0 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[20%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-right"
+          className="absolute right-0 -bottom-6 sm:-bottom-8 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[20%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-right"
         />
 
       </div>

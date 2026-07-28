@@ -17,7 +17,7 @@ export function CountdownToMusicDivider({
     <div
       className="relative z-20 -mt-16 h-32 w-full overflow-x-clip sm:-mt-20 sm:h-36 md:-mt-24 md:h-40"
       style={{
-        backgroundImage: `linear-gradient(to bottom, ${fromColor}, ${fromColor}, ${toColor})`,
+        backgroundImage: `linear-gradient(to bottom, transparent 0%, ${fromColor} 30%, ${toColor} 100%)`,
       }}
       aria-hidden="true"
     >
