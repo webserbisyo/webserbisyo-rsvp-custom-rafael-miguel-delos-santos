@@ -11,7 +11,7 @@
  */
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { FadeContent } from "@/client/libs/reactbits";
 import { Heart } from "lucide-react";
 import Link from "next/link";
@@ -25,10 +25,9 @@ type HeroSectionProps = {
 export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
   const heroRef = useRef<HTMLDivElement>(null);
 
-  const shouldReduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, [0, 600], [0, 120]);
-  const backgroundY = shouldReduceMotion ? 0 : rawY;
+  const backgroundY = useSpring(rawY, { stiffness: 90, damping: 25, mass: 0.4 });
 
   const displayAs = coupleInfo?.displayAs || "Rafael & Isabella";
   const nameParts = displayAs.split(/\s*(?:&|and|❤️|❤)\s*/i);
