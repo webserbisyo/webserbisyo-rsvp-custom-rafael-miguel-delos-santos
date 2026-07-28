@@ -29,7 +29,7 @@ export function CountdownToMusicDivider({
           width={2048}
           height={2048}
           decoding="async"
-          className="pointer-events-none absolute bottom-0 left-0 z-10 w-44 -translate-x-[10%] translate-y-[12%] select-none object-contain sm:w-52 sm:-translate-x-[14%] md:w-64 lg:w-80 xl:w-96"
+          className="pointer-events-none absolute bottom-0 left-0 z-10 w-36 -translate-x-[4%] translate-y-[4%] select-none object-contain sm:w-52 sm:-translate-x-[14%] sm:translate-y-[12%] md:w-64 lg:w-80 xl:w-96"
         />
         <img
           src="/beach%20assets%20finalized/6.webp"
@@ -38,7 +38,7 @@ export function CountdownToMusicDivider({
           width={2048}
           height={2048}
           decoding="async"
-          className="pointer-events-none absolute bottom-0 right-0 z-10 w-44 translate-x-[10%] translate-y-[12%] select-none object-contain sm:w-52 sm:translate-x-[14%] md:w-64 lg:w-80 xl:w-96"
+          className="pointer-events-none absolute bottom-0 right-0 z-10 w-36 translate-x-[4%] translate-y-[4%] select-none object-contain sm:w-52 sm:translate-x-[14%] sm:translate-y-[12%] md:w-64 lg:w-80 xl:w-96"
         />
         <img
           src="/beach%20assets%20finalized/16.webp"

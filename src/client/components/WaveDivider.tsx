@@ -18,7 +18,7 @@ export function WaveDivider({
   if (variant === "imageToSolid") {
     return (
       <div
-        className="relative z-20 -mb-px -mt-14 h-14 w-full overflow-hidden leading-none sm:-mt-16 sm:h-16 md:-mt-20 md:h-20"
+        className="relative z-20 -mb-[2px] -mt-14 h-14 w-full overflow-hidden leading-none sm:-mt-16 sm:h-16 md:-mt-20 md:h-20"
         aria-hidden="true"
       >
         <svg
