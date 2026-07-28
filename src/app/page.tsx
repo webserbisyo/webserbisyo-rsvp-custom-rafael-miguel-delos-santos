@@ -19,19 +19,53 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
   if (result.status !== "available") {
     return {
       title: "Event Unavailable | WebSerbisyo RSVP",
-      description: "This event website is not currently available."
+      description: "This event website is not currently available.",
     };
   }
 
-  const canonical = result.event.previewMode === "dashboard" ? undefined : safePublicCanonicalUrl(result.event.publicUrl);
+  const publicEventUrl =
+    process.env.PUBLIC_EVENT_URL?.replace(/\/+$/, "") ??
+    "https://rafael-and-isabella.rsvp.webserbisyo.com";
+
+  const canonical =
+    result.event.previewMode === "dashboard"
+      ? undefined
+      : (safePublicCanonicalUrl(result.event.publicUrl) ?? publicEventUrl);
   const shouldNoIndex =
     result.event.previewMode === "dashboard" || result.event.raw.visibility === "private";
 
+  const title = buildPageTitle(result.event);
+  const description = buildPageDescription(result.event);
+  const ogImageUrl = `${publicEventUrl}/images/og-preview.png?v=1`;
+
   return {
-    title: buildPageTitle(result.event),
-    description: buildPageDescription(result.event),
+    title,
+    description,
     alternates: shouldNoIndex || !canonical ? undefined : { canonical },
-    robots: shouldNoIndex ? { index: false, follow: false } : undefined
+    robots: shouldNoIndex ? { index: false, follow: false } : undefined,
+    openGraph: {
+      title,
+      description,
+      url: publicEventUrl,
+      type: "website",
+      siteName: "WebSerbisyo RSVP",
+      images: [
+        {
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: "Rafael and Isabella wedding invitation",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
   };
 }
 

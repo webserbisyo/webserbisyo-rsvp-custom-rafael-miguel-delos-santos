@@ -15,10 +15,9 @@ export function safePublicCanonicalUrl(value?: string | null): string | undefine
 
 export function buildPageTitle(event?: EventWebsiteRenderModel): string {
   const displayName = event?.coupleDisplayName || event?.title;
-  return displayName ? `${displayName} | WebSerbisyo RSVP` : "WebSerbisyo RSVP Event";
+  return displayName ? `${displayName} | Wedding Invitation` : "Rafael & Isabella | Wedding Invitation";
 }
 
-export function buildPageDescription(event?: EventWebsiteRenderModel): string {
-  if (!event) return "A public event website powered by WebSerbisyo RSVP.";
-  return `Public event website for ${event.coupleDisplayName || event.title}.`;
+export function buildPageDescription(_event?: EventWebsiteRenderModel): string {
+  return "Join Rafael and Isabella as they celebrate their wedding. View the event details and RSVP online.";
 }
