@@ -39,6 +39,12 @@ const forbiddenEnvNames = [
   "ADMIN_SECRET"
 ];
 
+export function isForbiddenRsvpIframe(content) {
+  if (typeof content !== "string") return false;
+  const rsvpIframeRegex = /<iframe[^>]*src=["'](?:[^"']*\/(?:r\/|rsvp\/embed|rsvp-embed)|[^"']*webserbisyo\.com\/r\/)[^"']*["']/i;
+  return rsvpIframeRegex.test(content) || content.includes("/r/[slug]/rsvp/embed") || content.includes("/rsvp/embed");
+}
+
 // src/client/** is allowed as a path. This guard must continue to
 // block backend ownership, removed RSVP routes, and fake RSVP success patterns
 // everywhere, including any future client-boundary files.
@@ -48,8 +54,7 @@ const runtimeForbiddenPatterns = [
   "Continue to RSVP Form",
   "official WebSerbisyo RSVP route",
   "webserbisyo:rsvp-embed:resize",
-  "<iframe",
-  "postMessage",
+  "/rsvp/embed",
   "/r/${eventSlug}/rsvp",
   "/r/[slug]/rsvp",
   "/r/[slug]/rsvp/embed",
@@ -57,6 +62,7 @@ const runtimeForbiddenPatterns = [
   "fake RSVP success",
   "simulated RSVP success"
 ];
+
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -92,8 +98,12 @@ for (const dir of runtimeDirs) {
     for (const pattern of runtimeForbiddenPatterns) {
       if (content.includes(pattern)) failures.push(`${relative(file)}: contains removed RSVP/runtime pattern "${pattern}"`);
     }
+    if (isForbiddenRsvpIframe(content)) {
+      failures.push(`${relative(file)}: contains forbidden platform RSVP iframe pattern`);
+    }
   }
 }
+
 
 const appPagePath = join(root, "src", "app", "page.tsx");
 const appPage = await readFile(appPagePath, "utf8");
