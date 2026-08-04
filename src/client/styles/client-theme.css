@@ -290,11 +290,30 @@
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-nav {
-  background: var(--wedding-nav-background);
-  border-color: var(--wedding-nav-border);
-  box-shadow: 0 1px 0 rgb(216 183 111 / 10%);
   color: var(--wedding-nav-foreground);
+  transition:
+    background-color var(--wedding-motion-standard) var(--wedding-easing),
+    border-color var(--wedding-motion-standard) var(--wedding-easing),
+    box-shadow var(--wedding-motion-standard) var(--wedding-easing),
+    backdrop-filter var(--wedding-motion-standard) var(--wedding-easing);
 }
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-nav[data-scrolled="false"] {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-nav[data-scrolled="true"] {
+  background: rgb(23 21 18 / 88%);
+  border-bottom: 1px solid var(--wedding-nav-border);
+  box-shadow: 0 8px 24px rgb(23 21 18 / 12%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-nav-links,
 [data-wedding-theme="refined-midnight-garden"] .wedding-nav-menu,

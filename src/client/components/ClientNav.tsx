@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu } from "@/client/libs/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,7 +25,34 @@ export function ClientNav({
 } = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const isRsvpPage = pathname === "/rsvp";
+
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  const isScrolled = !isHomePage || hasScrolled;
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setHasScrolled(true);
+      return;
+    }
+
+    const shouldBeScrolled = window.scrollY > 48;
+    setHasScrolled((current) =>
+      current === shouldBeScrolled ? current : shouldBeScrolled
+    );
+  }, [isHomePage]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (!isHomePage) return;
+
+    const shouldBeScrolled = latest > 48;
+    setHasScrolled((current) =>
+      current === shouldBeScrolled ? current : shouldBeScrolled
+    );
+  });
+
   const visibleSections = visibleSectionKeys.map(
     (key) => clientSectionRegistry[key],
   );
@@ -55,8 +83,10 @@ export function ClientNav({
     <>
       <nav
         aria-label="Client navigation"
-        className="wedding-nav fixed top-0 z-50 w-full border-b backdrop-blur-sm transition-[border-color,box-shadow,background-color] duration-300"
+        data-scrolled={isScrolled ? "true" : "false"}
+        className="wedding-nav fixed top-0 z-50 w-full"
       >
+
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
           {/* Left: Monogram */}
           <div className="flex items-center min-w-[120px]">
