@@ -25,12 +25,8 @@ export function ClientPageFrame({
   const { footerEnabled, navEnabled } = resolvedConfig.layout;
   const visibleSectionKeys = event ? getVisibleClientSectionKeys(event) : [];
 
-  if (!navEnabled && !footerEnabled) {
-    return <>{children}</>;
-  }
-
   return (
-    <>
+    <div className="relative" data-wedding-theme={resolvedConfig.theme.id}>
       {navEnabled ? (
         <ClientNav
           config={resolvedConfig}
@@ -39,13 +35,13 @@ export function ClientPageFrame({
         />
       ) : null}
       <FallingPetals />
-      <div className="relative" data-wedding-theme={resolvedConfig.theme.id}>
+      <div className="relative">
         {children}
         {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
       </div>
       {navEnabled && !floatingControlsManaged ? (
         <FloatingGuestDock visibleSectionKeys={visibleSectionKeys} />
       ) : null}
-    </>
+    </div>
   );
 }

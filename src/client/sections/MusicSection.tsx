@@ -40,11 +40,12 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
   return (
     <section
       id="music"
-      className="py-20 md:py-28 px-4 bg-[linear-gradient(to_bottom,var(--section-bg-seafoam-light),var(--section-bg-seafoam-mid),var(--section-bg-seafoam))] text-cocoa text-center relative overflow-hidden"
+      data-tone="olive"
+      className="wedding-section py-20 md:py-28 px-4 text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
         <SpotlightCard 
-          className="p-8 md:p-12 shadow-soft border border-[#5c4638]/10 text-center bg-[#4a3528]/95 text-cream relative"
+          className="wedding-panel p-8 md:p-12 text-center bg-[color:var(--wedding-surface-dark)] text-[color:var(--wedding-text-on-dark)] relative"
           spotlightColor="rgba(232, 201, 122, 0.20)"
         >
           {/* Eyebrow */}
@@ -100,7 +101,7 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={pause}
-                  className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f9efe3] text-cocoa rounded-full text-xs font-bold uppercase tracking-wider hover:bg-sand transition active:scale-95 shadow-md cursor-pointer shrink-0"
+                  className="wedding-editorial-button flex items-center justify-center gap-2 px-8 py-3 bg-[color:var(--wedding-surface-secondary)] text-[color:var(--wedding-text-primary)] text-xs font-bold uppercase tracking-wider hover:bg-[color:var(--wedding-surface-champagne)] transition active:scale-95 cursor-pointer shrink-0"
                 >
                   <Pause className="w-4 h-4 fill-current" />
                   <span>Pause</span>
@@ -112,7 +113,7 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={play}
-                  className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f9efe3] text-cocoa rounded-full text-xs font-bold uppercase tracking-wider hover:bg-sand transition active:scale-95 shadow-md cursor-pointer shrink-0"
+                  className="wedding-editorial-button flex items-center justify-center gap-2 px-8 py-3 bg-[color:var(--wedding-surface-secondary)] text-[color:var(--wedding-text-primary)] text-xs font-bold uppercase tracking-wider hover:bg-[color:var(--wedding-surface-champagne)] transition active:scale-95 cursor-pointer shrink-0"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>Play Song</span>
@@ -126,7 +127,7 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 onClick={stop}
-                className="flex items-center justify-center gap-2 px-6 py-3 border border-cream/30 text-cream rounded-full text-xs font-bold uppercase tracking-wider hover:bg-cream/10 transition active:scale-95 cursor-pointer shrink-0"
+                  className="flex items-center justify-center gap-2 px-6 py-3 border border-[color:var(--wedding-nav-border)] text-[color:var(--wedding-text-on-dark)] rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[rgb(255_247_233_/_10%)] transition active:scale-95 cursor-pointer shrink-0"
               >
                 <Square className="w-4 h-4 fill-current" />
                 <span>Stop</span>

@@ -85,7 +85,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
   const grid = mounted ? getCalendarMonthGrid(focusDateString) : null;
 
   return (
-    <section id="ceremony" className="relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 bg-ivory overflow-x-clip">
+    <section id="ceremony" data-tone="light" className="wedding-section relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 overflow-x-clip">
       {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
       <img
         src="/beach%20assets%20finalized/17.webp"

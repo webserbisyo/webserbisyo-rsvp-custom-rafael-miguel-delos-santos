@@ -38,6 +38,7 @@ export type ClientConfig = {
   theme: {
     id: string;
     preset: string;
+    monogram?: readonly [string, string];
     fonts: {
       heading: string;
       body: string;
@@ -73,8 +74,9 @@ export const clientConfig = {
     subtitle: "",
   },
   theme: {
-    id: "client-default",
-    preset: "starter-neutral",
+    id: "refined-midnight-garden",
+    preset: "refined-midnight-garden",
+    monogram: ["J", "D"],
     fonts: {
       heading: "",
       body: "",

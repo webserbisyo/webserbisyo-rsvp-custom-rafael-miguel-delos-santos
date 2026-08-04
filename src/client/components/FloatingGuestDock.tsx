@@ -129,7 +129,7 @@ function DockLabel({ children, className = "", isHovered }: DockLabelProps) {
           animate={{ opacity: 1, y: -10 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
-          className={`${className} absolute -top-8 left-1/2 w-fit whitespace-pre rounded-md border border-ivory/20 bg-[#2D1B12] px-2.5 py-1 text-[10px] sm:text-xs font-semibold tracking-wider text-ivory`}
+          className={`wedding-dock-label ${className} absolute -top-8 left-1/2 w-fit whitespace-pre rounded-md border px-2.5 py-1 text-[10px] sm:text-xs font-semibold tracking-wider`}
           role="tooltip"
           style={{ x: "-50%" }}
         >
@@ -283,7 +283,7 @@ export function GuestDockToolbar({
         isHoveredVal.set(1);
         mouseX.set(Infinity);
       }}
-      className={`flex w-fit max-w-full shrink-0 items-end rounded-full border border-ivory/15 bg-[#2D1B12]/80 backdrop-blur-md shadow-2xl ${compact ? "justify-center gap-1.5 px-2 py-2 sm:gap-2 sm:px-3" : "gap-3 px-4 py-2"} ${className}`}
+      className={`wedding-guest-dock flex w-fit max-w-full shrink-0 items-end rounded-full border backdrop-blur-sm ${compact ? "justify-center gap-1.5 px-2 py-2 sm:gap-2 sm:px-3" : "gap-3 px-4 py-2"} ${className}`}
       style={{ height: panelHeight }}
       role="toolbar"
       aria-label="Guest essentials navigation"

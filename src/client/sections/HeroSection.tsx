@@ -17,6 +17,8 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import type { ClientCoupleInfo } from "@/client/types/client-view-model";
 import { templateBranding } from "@/config/template-branding";
+import { ClientMonogram } from "@/client/components/ClientMonogram";
+import { clientConfig } from "@/client/client.config";
 
 type HeroSectionProps = {
   coupleInfo: ClientCoupleInfo;
@@ -34,12 +36,14 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
   const nameParts = displayAs.split(/\s*(?:&|and|❤️|❤)\s*/i);
   const firstName = nameParts[0]?.trim() || "Rafael";
   const lastName = nameParts[1]?.trim() || "Isabella";
+  const fallbackMonogram = [firstName.charAt(0).toUpperCase() || "W", lastName.charAt(0).toUpperCase() || "S"] as const;
 
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative pt-20 pb-16 px-4 text-center overflow-hidden bg-ivory min-h-[95vh] flex flex-col justify-start"
+      data-tone="dark"
+      className="wedding-section relative pt-20 pb-16 px-4 text-center overflow-hidden min-h-[95vh] flex flex-col justify-start"
     >
       {/* Smooth Parallax Background Image */}
       <motion.div
@@ -47,11 +51,15 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
           y: backgroundY,
           backgroundImage: `url('${templateBranding.hero.imagePath}')`,
           backgroundPosition: templateBranding.hero.websitePosition,
+          opacity: "var(--wedding-hero-image-opacity)",
         }}
-        className="absolute inset-x-0 bottom-0 top-[74px] z-0 bg-cover bg-no-repeat scale-120 pointer-events-none"
+        className="absolute inset-0 z-0 bg-cover bg-no-repeat scale-120 pointer-events-none"
       />
       {/* Soft gradient overlay for styling and high text readability */}
-      <div className="absolute inset-x-0 bottom-0 top-[74px] z-[1] bg-gradient-to-b from-black/25 via-[#2D1B12]/15 to-[#2D1B12]/30 pointer-events-none" />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, var(--wedding-hero-overlay-top), var(--wedding-hero-overlay-middle), var(--wedding-hero-overlay-bottom))" }}
+      />
 
       <div className="relative z-20 max-w-4xl mx-auto w-full px-4 mb-4 mt-[42vh] sm:mt-[45vh]">
         <FadeContent>
@@ -60,24 +68,25 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
 
             {/* Optional Host Line — centered pill above the couple names */}
             {coupleInfo?.hostLine && (
-              <div className="px-6 py-2 rounded-full border border-coral/30 text-coral text-xs font-semibold tracking-[0.2em] uppercase mb-4 bg-ivory/30 backdrop-blur-md text-center">
+              <div className="px-6 py-2 rounded-full border border-[var(--wedding-nav-border)] text-[color:var(--wedding-label-on-dark)] text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-center">
                 {coupleInfo.hostLine}
               </div>
             )}
 
             {/* Couple Names Card */}
-            <div className="px-6 py-4 md:px-8 md:py-5 rounded-2xl bg-ivory/40 backdrop-blur-md border border-ivory/25 shadow-soft mb-6 max-w-full">
-              <h1 className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 font-serif text-charcoal text-3xl sm:text-4xl md:text-6xl font-medium leading-none">
+            <div className="px-3 py-4 md:px-6 md:py-5 mb-6 max-w-full">
+              <ClientMonogram initials={clientConfig.theme.monogram ?? fallbackMonogram} withRules className="mb-5" />
+              <h1 className="wedding-display flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-3xl sm:text-4xl md:text-6xl font-medium leading-none">
                 <span>{firstName}</span>
-                <span className="text-coral text-2xl sm:text-3xl md:text-5xl my-1 sm:my-0">❤️</span>
+                <span className="text-[color:var(--wedding-label-on-dark)] text-2xl sm:text-3xl md:text-5xl my-1 sm:my-0">❤️</span>
                 <span>{lastName}</span>
               </h1>
             </div>
 
             {/* Optional Short Host Message — centered card below names */}
             {coupleInfo?.shortHostMessage && (
-              <div className="w-full max-w-xl px-6 py-4 rounded-xl bg-ivory/35 backdrop-blur-md border border-ivory/20 shadow-soft mb-6 text-center">
-                <p className="text-sm md:text-base leading-relaxed text-charcoal/80">
+              <div className="w-full max-w-xl px-6 py-4 border-y border-[var(--wedding-nav-border)] mb-6 text-center">
+                <p className="text-sm md:text-base leading-relaxed text-[color:var(--wedding-text-on-dark-secondary)]">
                   {coupleInfo.shortHostMessage}
                 </p>
               </div>
@@ -87,7 +96,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 w-full max-w-xl">
               <Link
                 href="/rsvp"
-                className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-coral text-white border border-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase shadow-md hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(201,94,53,0.38)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300 ease-out cursor-pointer"
+                className="wedding-editorial-button group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 text-xs font-bold tracking-[0.2em] uppercase active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 transition-all duration-300 ease-out cursor-pointer"
               >
                 <Heart size={14} className="fill-white/20 group-hover:scale-125 group-hover:fill-white transition-transform duration-300 ease-out" />
                 <span>Reserve Your Seat</span>
@@ -96,7 +105,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
               {storyVisible ? (
                 <a
                   href="#our-story"
-                  className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-white/40 text-white bg-transparent rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-[0.97] backdrop-blur-sm transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
+                  className="wedding-hero-secondary group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border text-xs font-bold tracking-[0.2em] uppercase hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
                 >
                   <span>Our Story</span>
                 </a>

@@ -142,8 +142,8 @@ export function ClientRsvpForm({
         <div className="w-14 h-14 bg-[#4f7d5a]/10 text-[#4f7d5a] rounded-full flex items-center justify-center mb-5 text-3xl select-none" aria-hidden="true">
           ✓
         </div>
-        <h2 className="font-serif text-3xl text-[#302722] mb-3">Thank You!</h2>
-        <p className="text-sm text-[#725d4f]/85 max-w-sm leading-relaxed">
+        <h2 className="wedding-display text-3xl text-[color:var(--wedding-text-primary)] mb-3">Thank You!</h2>
+        <p className="text-sm text-[color:var(--wedding-text-secondary)] max-w-sm leading-relaxed">
           Your RSVP has been submitted successfully. We look forward to celebrating with you!
         </p>
       </div>
@@ -163,7 +163,7 @@ export function ClientRsvpForm({
 
         {/* Guest Name */}
         <div className="grid gap-2">
-          <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+          <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
             Guest Name *
           </Label>
           <Input
@@ -172,7 +172,7 @@ export function ClientRsvpForm({
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
             disabled={isSubmitting}
-            className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+            className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
               fieldErrors?.guestName?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
             }`}
           />
@@ -184,7 +184,7 @@ export function ClientRsvpForm({
         {/* Email Address */}
         {(showFullForm || showCompactFields) && rsvpConfig.emailEnabled ? (
           <div className="grid gap-2">
-            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
               Email{rsvpConfig.emailRequired ? " *" : ""}
             </Label>
             <Input
@@ -194,7 +194,7 @@ export function ClientRsvpForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isSubmitting}
-              className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
                 fieldErrors?.email?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
               }`}
             />
@@ -207,7 +207,7 @@ export function ClientRsvpForm({
         {/* Phone Number */}
         {showFullForm && rsvpConfig.phoneEnabled ? (
           <div className="grid gap-2">
-            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
               Phone Number{rsvpConfig.phoneRequired ? " *" : ""}
             </Label>
             <Input
@@ -217,7 +217,7 @@ export function ClientRsvpForm({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               disabled={isSubmitting}
-              className={`w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 ${
+              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
                 fieldErrors?.phone?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
               }`}
             />
@@ -230,7 +230,7 @@ export function ClientRsvpForm({
         {/* Attendance Toggles */}
         {showFullForm ? (
           <div className="grid gap-2">
-            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
               Will you attend? *
             </Label>
             <div className="grid grid-cols-2 gap-4">
@@ -238,7 +238,7 @@ export function ClientRsvpForm({
                 type="button"
                 onClick={() => setAttendanceStatus("attending")}
                 disabled={isSubmitting}
-                className={`w-full py-3.5 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-soft active:scale-[0.97] ${
+                className={`wedding-rsvp-choice w-full py-3.5 border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-[0.97] ${
                   attendanceStatus === "attending"
                     ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
                     : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
@@ -250,7 +250,7 @@ export function ClientRsvpForm({
                 type="button"
                 onClick={() => setAttendanceStatus("not_attending")}
                 disabled={isSubmitting}
-                className={`w-full py-3.5 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-soft active:scale-[0.97] ${
+                className={`wedding-rsvp-choice w-full py-3.5 border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-[0.97] ${
                   attendanceStatus === "not_attending"
                     ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
                     : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
@@ -269,7 +269,7 @@ export function ClientRsvpForm({
         {showFullForm && rsvpConfig.plusOneEnabled && attendanceStatus === "attending" ? (
           <div className="grid gap-4 p-5 bg-[#fffaf1]/30 border border-[rgba(201,114,88,0.1)] rounded-2xl animate-fadeIn">
             <div className="grid gap-2">
-              <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+              <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
                 Companions
               </Label>
               <p className="text-xs text-[#725d4f]/70 mb-1">
@@ -307,7 +307,7 @@ export function ClientRsvpForm({
                         value={companions[index]?.fullName || ""}
                         onChange={(e) => updateCompanion(index, "fullName", e.target.value)}
                         disabled={isSubmitting}
-                        className="w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-2 px-3"
+                        className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-2 px-3"
                       />
                     </div>
                     {rsvpConfig.companionAgeEnabled ? (
@@ -320,7 +320,7 @@ export function ClientRsvpForm({
                           value={companions[index]?.ageLabel || ""}
                           onChange={(e) => updateCompanion(index, "ageLabel", e.target.value)}
                           disabled={isSubmitting}
-                          className="w-full bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-2 px-3"
+                        className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-2 px-3"
                         />
                       </div>
                     ) : null}
@@ -334,7 +334,7 @@ export function ClientRsvpForm({
         {/* Food Allergies */}
         {showFullForm && rsvpConfig.foodAllergiesEnabled ? (
           <div className="grid gap-2">
-            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
               Food Allergies / Dietary Restrictions
             </Label>
             <Textarea
@@ -342,7 +342,7 @@ export function ClientRsvpForm({
               value={dietaryNotes}
               onChange={(e) => setDietaryNotes(e.target.value)}
               disabled={isSubmitting}
-              className="w-full min-h-[100px] bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 resize-none"
+              className="wedding-rsvp-field w-full min-h-[100px] placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 resize-none"
             />
           </div>
         ) : null}
@@ -350,7 +350,7 @@ export function ClientRsvpForm({
         {/* Message to Host */}
         {(showFullForm || showCompactFields) && rsvpConfig.messageToHostEnabled ? (
           <div className="grid gap-2">
-            <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+            <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
               Message to the Couple
             </Label>
             <Textarea
@@ -358,7 +358,7 @@ export function ClientRsvpForm({
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               disabled={isSubmitting}
-              className="w-full min-h-[100px] bg-[#fffaf1]/85 border-[rgba(201,114,88,0.18)] text-[#302722] placeholder-[#725d4f]/55 focus:outline-none focus-visible:outline-none focus:border-[#c97258]/65 focus:ring-2 focus:ring-[#c97258]/15 focus-visible:border-[#c97258]/70 focus-visible:ring-2 focus-visible:ring-[#c97258]/20 focus:bg-white rounded-xl py-3 px-4 transition-all duration-300 resize-none"
+              className="wedding-rsvp-field w-full min-h-[100px] placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 resize-none"
             />
           </div>
         ) : null}
@@ -368,7 +368,7 @@ export function ClientRsvpForm({
           <button
             disabled={isSubmitting}
             type="submit"
-            className="w-full py-4 rounded-full bg-gradient-to-r from-[#b8644a] to-[#c97258] hover:opacity-95 active:scale-[0.98] text-white font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer shadow-[0_16px_34px_rgba(201,114,88,0.32)] hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c97258]/40"
+            className="wedding-rsvp-submit wedding-editorial-button w-full py-4 hover:opacity-95 active:scale-[0.98] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2"
           >
             {isSubmitting ? "Submitting..." : "Submit RSVP"}
           </button>

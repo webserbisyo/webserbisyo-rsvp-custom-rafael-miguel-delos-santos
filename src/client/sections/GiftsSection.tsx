@@ -33,7 +33,8 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
   return (
     <section
       id="gifts"
-      className="relative overflow-x-clip bg-ivory py-24 px-4"
+      data-tone="light"
+      className="wedding-section relative overflow-x-clip py-24 px-4"
     >
       {/* Decorative Floral Layer — Airy corner framing */}
       <div

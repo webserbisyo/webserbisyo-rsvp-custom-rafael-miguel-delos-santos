@@ -30,13 +30,13 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
   if (!timelineProgram?.items?.length) return null;
 
   return (
-    <section id="timeline" className="py-24 px-4 bg-cream overflow-x-hidden relative">
+    <section id="timeline" data-tone="olive" className="wedding-section py-24 px-4 overflow-x-hidden relative">
       <div className="max-w-5xl mx-auto relative z-10">
         <SectionHeading label="Wedding Day Timeline" title="The flow of the day" subtitle="So our guests know what to expect — from sunlit arrivals to bonfire farewells." />
 
         <div className="relative mt-24 max-w-4xl mx-auto pb-12 sm:max-w-[560px] md:max-w-[760px] lg:max-w-4xl">
           {/* The softened vertical line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-sand/20 via-coral/30 to-sand/20 md:-translate-x-1/2 z-10" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-[color:var(--wedding-timeline-line)] opacity-70 md:-translate-x-1/2 z-10" />
 
           <div className="flex flex-col space-y-12 md:space-y-0">
             {timelineProgram.items.map((item, i) => {
@@ -50,7 +50,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                 ? "w-[18px] h-[18px] ring-8 ring-sand/40"
                 : "w-4 h-4 ring-4 ring-sand/30";
 
-              const glassCardClasses = "bg-white/70 backdrop-blur-md border border-sand/40 rounded-[24px] shadow-md shadow-cocoa/5 p-6 md:p-5 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
+              const glassCardClasses = "wedding-timeline-card border p-6 md:p-5 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
 
 
               return (
@@ -64,7 +64,7 @@ export function TimelineSection({ timelineProgram }: TimelineSectionProps) {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-coral -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
+                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-[color:var(--wedding-timeline-marker)] -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
                   />
 
                   {/* Mobile and small-tablet layout — true single-column, badge always left */}

@@ -56,7 +56,7 @@ export function AttireSection({ attireDressCode }: AttireSectionProps) {
   }
 
   return (
-    <section id="attire" className="pt-24 pb-28 md:pb-32 px-4 bg-ivory relative overflow-x-clip">
+    <section id="attire" data-tone="light" className="wedding-section pt-24 pb-28 md:pb-32 px-4 relative overflow-x-clip">
       
       {/* Absolute Decorative Background Layer - Corner Flowers and Desktop-Only Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">

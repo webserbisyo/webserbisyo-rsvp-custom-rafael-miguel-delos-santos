@@ -9,13 +9,16 @@ import {
   type ClientSectionKey,
 } from "@/client/config/navigation";
 import { SitemapDrawer } from "@/client/components/SitemapDrawer";
+import { ClientMonogram } from "@/client/components/ClientMonogram";
+import type { ClientConfig } from "@/client/client.config";
 import { scrollToHash } from "@/client/utils/navigation";
 
 export function ClientNav({
+  config,
   coupleDisplayName,
   visibleSectionKeys = [],
 }: {
-  config?: unknown;
+  config?: ClientConfig;
   coupleDisplayName?: string;
   visibleSectionKeys?: ClientSectionKey[];
 } = {}) {
@@ -52,7 +55,7 @@ export function ClientNav({
     <>
       <nav
         aria-label="Client navigation"
-        className="fixed top-0 z-50 w-full border-b border-cocoa/5 bg-[#FDFBF7]/85 backdrop-blur-md transition-[border-color,box-shadow,background-color] duration-300 shadow-sm"
+        className="wedding-nav fixed top-0 z-50 w-full border-b backdrop-blur-sm transition-[border-color,box-shadow,background-color] duration-300"
       >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
           {/* Left: Monogram */}
@@ -65,18 +68,14 @@ export function ClientNav({
                   scrollToHash("#hero");
                 }
               }}
-              className="font-serif text-2xl tracking-[0.12em] text-charcoal hover:opacity-80 transition-opacity flex items-center gap-1.5 font-normal"
+              className="wedding-nav-monogram hover:opacity-80 transition-opacity flex items-center"
             >
-              <span>{initials[0]}</span>
-              <span className="text-coral font-serif italic text-3xl font-light leading-none -mt-1 select-none">
-                &
-              </span>
-              <span>{initials[1]}</span>
+              <ClientMonogram initials={config?.theme.monogram ?? initials} />
             </Link>
           </div>
 
           {/* Center: Desktop Links (Secondary Browsing Only) */}
-          <ul className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.2em] xl:tracking-[0.25em] text-cocoa/70">
+          <ul className="wedding-nav-links hidden lg:flex items-center justify-center gap-6 xl:gap-8 text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.2em] xl:tracking-[0.25em]">
             {topNavItems.map((link) => {
               const resolvedHref = getResolvedHref(link.anchor);
               return (
@@ -84,7 +83,7 @@ export function ClientNav({
                   <Link
                     href={resolvedHref}
                     onClick={(e) => handleLinkClick(e, link.anchor)}
-                    className="hover:text-coral transition-colors py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-coral after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100"
+                    className="transition-colors py-2 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100"
                   >
                     {link.label}
                   </Link>
@@ -97,10 +96,10 @@ export function ClientNav({
           <div className="flex items-center justify-end min-w-[120px]">
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="group inline-flex items-center gap-2.5 text-cocoa hover:text-coral transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 rounded px-2.5 py-1.5 -mr-2.5"
+              className="wedding-nav-menu group inline-flex items-center gap-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 rounded px-2.5 py-1.5 -mr-2.5"
               aria-label="Open navigation menu"
             >
-              <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-[0.22em] text-cocoa/70 group-hover:text-coral transition-colors mt-0.5">
+              <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-[0.22em] transition-colors mt-0.5">
                 More
               </span>
               <Menu className="h-[26px] w-[26px] stroke-[2.4] transition-transform group-hover:scale-105" />

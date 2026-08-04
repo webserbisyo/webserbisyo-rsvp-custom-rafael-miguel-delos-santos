@@ -54,7 +54,8 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
   return (
     <section 
       id="reception" 
-      className="relative overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4 bg-ivory"
+      data-tone="light"
+      className="wedding-section relative overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4"
     >
       {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
           internally to prevent page-level horizontal scrolling */}

@@ -46,7 +46,8 @@ export function ExtraInfoSection({ extraInfo }: ExtraInfoSectionProps) {
   return (
     <section
       id="extra-info"
-      className="relative overflow-x-clip bg-cream px-4 pt-24 pb-28 sm:py-28 lg:py-32"
+      data-tone="champagne"
+      className="wedding-section relative overflow-x-clip px-4 pt-24 pb-28 sm:py-28 lg:py-32"
     >
       {/* 1. Gallery-style Global Desktop Shell Layer (z-0, hidden lg:block) */}
       <div

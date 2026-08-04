@@ -64,7 +64,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
   ];
 
   return (
-    <section id="countdown" className="relative py-20 md:py-32 px-4 bg-cream pb-24 sm:pb-20 md:pb-32 overflow-x-clip">
+    <section id="countdown" data-tone="champagne" className="wedding-section relative py-20 md:py-32 px-4 pb-24 sm:pb-20 md:pb-32 overflow-x-clip">
       {/* Decorative Background Layer - Coconut Trees & Waves */}
       <div className="absolute inset-x-0 top-0 bottom-0 overflow-x-clip overflow-y-visible pointer-events-none select-none z-10" aria-hidden="true">
         {/* Decorative Coconut Trees on Sides */}
@@ -128,7 +128,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
             return (
               <div
                 key={label}
-                className="rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-6 text-center bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(59,42,26,0.05)] hover:shadow-[0_12px_40px_rgba(201,94,53,0.1)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
+                className="wedding-panel rounded-sm p-2 sm:p-4 md:p-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
               >
                 <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-18 lg:h-22 items-center overflow-hidden">
                   {digits.map((d, i) => (

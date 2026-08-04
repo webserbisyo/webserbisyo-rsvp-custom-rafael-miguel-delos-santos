@@ -146,7 +146,7 @@ export function VenueSection({ venue }: VenueSectionProps) {
   const ArrivalIcon = isShuttle ? Bus : Compass;
 
   return (
-    <section id="venue" className="relative overflow-x-clip pt-24 pb-28 px-4 bg-cream">
+    <section id="venue" data-tone="light" className="wedding-section relative overflow-x-clip pt-24 pb-28 px-4">
       {/* Decorative Leaves Wrapper - clips horizontal overflow of large leaves to prevent page-level horizontal scrolling */}
       <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10">
         {/* Decorative Tropical Leaf Asset - Upper Left (Layer 2) - Enlarged significantly and responsive */}

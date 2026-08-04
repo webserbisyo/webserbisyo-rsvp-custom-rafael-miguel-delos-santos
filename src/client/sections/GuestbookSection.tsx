@@ -147,7 +147,8 @@ export function GuestbookSection({
   return (
     <section
       id="guestbook"
-      className="relative overflow-x-clip bg-cream pt-24 pb-28 md:pb-32 px-4"
+      data-tone="champagne"
+      className="wedding-section relative overflow-x-clip pt-24 pb-28 md:pb-32 px-4"
     >
       {/* 1. Absolute Decorative Background Layer (z-0, pointer-events-none, no lazy loading, opacity-100) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">

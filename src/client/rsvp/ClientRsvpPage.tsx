@@ -11,10 +11,10 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
   const coupleNames = event.coupleDisplayName || event.title || "Rafael & Isabella";
 
   return (
-    <div className="min-h-[100dvh] bg-[#fffaf1] bg-gradient-to-br from-[#fffaf1] via-[#f8efe3] to-[#fffaf1] pt-28 pb-32 px-4 md:px-8 flex items-center justify-center relative overflow-hidden">
+    <div className="wedding-rsvp-shell min-h-[100dvh] pt-28 pb-32 px-4 md:px-8 flex items-center justify-center relative overflow-hidden">
       {/* 1. Terracotta/Coral Sunset Glow in Background */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,rgba(201,114,88,0.22)_0%,rgba(248,239,227,0.1)_50%,transparent_75%)] pointer-events-none -z-10 select-none" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,rgb(216_183_111_/_16%)_0%,rgb(23_21_18_/_8%)_50%,transparent_75%)] pointer-events-none -z-10 select-none"
         aria-hidden="true" 
       />
 
@@ -72,20 +72,20 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
 
         {/* 3. Single Focused Glass RSVP Card Container (Z-10, overlays flowers) */}
         <div 
-          className="relative z-10 w-full rounded-[2rem] border border-sand/40 bg-white/65 p-8 md:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_28px_80px_rgba(63,45,35,0.16)] backdrop-blur-md flex flex-col items-center animate-fadeIn"
+          className="wedding-rsvp-card relative z-10 w-full border p-8 md:p-12 flex flex-col items-center animate-fadeIn"
         >
           {/* Minimal Top Identity */}
           <div className="text-center mb-8 w-full">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#c97258] mb-2">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[color:var(--wedding-label-on-light)] mb-2">
               Wedding RSVP
             </p>
-            <h1 className="font-serif text-3xl md:text-4xl font-normal tracking-wide text-[#302722]">
+            <h1 className="wedding-display text-3xl md:text-4xl font-normal tracking-wide text-[color:var(--wedding-text-primary)]">
               {coupleNames}
             </h1>
             <div className="mt-4 flex w-full items-center justify-center select-none" aria-hidden="true">
-              <span className="h-px w-10 bg-sand/35" />
-              <span className="mx-2.5 text-[10px] text-[#c97258]/70">✦</span>
-              <span className="h-px w-10 bg-sand/35" />
+              <span className="h-px w-10 bg-[color:var(--wedding-accent-line)] opacity-60" />
+              <span className="mx-2.5 text-[10px] text-[color:var(--wedding-label-on-light)]">✦</span>
+              <span className="h-px w-10 bg-[color:var(--wedding-accent-line)] opacity-60" />
             </div>
           </div>
 

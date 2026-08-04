@@ -1,5 +1,21 @@
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-wedding-body, var(--font-sans));
+}
+
+.wedding-display {
+  font-family: var(--font-wedding-display, var(--font-serif));
+}
+
+.wedding-body {
+  font-family: var(--font-wedding-body, var(--font-sans));
+}
+
+.wedding-monogram-initial {
+  font-family: var(--font-wedding-monogram, var(--font-serif));
+}
+
+.wedding-monogram-ampersand {
+  font-family: var(--font-wedding-script, var(--font-serif));
 }
 
 h1,

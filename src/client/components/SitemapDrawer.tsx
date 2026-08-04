@@ -108,7 +108,7 @@ export function SitemapDrawer({
       onOpenChange={(open) => !open && onClose()}
       direction="right"
     >
-      <DrawerContent className="bg-[#FDFBF7] border-l border-sand/30 shadow-2xl">
+      <DrawerContent className="wedding-drawer border-l">
         {/* Header */}
         <DrawerHeader className="relative border-b border-sand/25 pb-5">
           <DrawerTitle>Sitemap</DrawerTitle>
@@ -118,7 +118,7 @@ export function SitemapDrawer({
 
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full border border-cocoa/10 text-cocoa hover:text-coral hover:border-coral hover:bg-coral/[0.04] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40"
+            className="wedding-drawer-close absolute top-5 right-5 p-2 rounded-full border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2"
             aria-label="Close navigation menu"
           >
             <X size={18} />
@@ -139,7 +139,7 @@ export function SitemapDrawer({
                 variants={groupVariants}
                 className="flex flex-col gap-3"
               >
-                <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-coral border-b border-sand/20 pb-1.5">
+                <h4 className="wedding-drawer-heading text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] border-b pb-1.5">
                   {group.title}
                 </h4>
 
@@ -151,10 +151,10 @@ export function SitemapDrawer({
                         <Link
                           href={getResolvedHref(item.anchor)}
                           onClick={(e) => handleLinkClick(e, item.anchor)}
-                          className="group flex items-center gap-3 py-2 px-3 text-sm sm:text-[0.95rem] text-cocoa/85 hover:text-coral hover:bg-coral/[0.04] border border-transparent hover:border-coral/10 hover:shadow-[0_2px_8px_rgba(201,94,53,0.05)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 rounded-xl -mx-2"
+                          className="wedding-drawer-link group flex items-center gap-3 py-2 px-3 text-sm sm:text-[0.95rem] border border-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 rounded-[4px] -mx-2"
                         >
                           {Icon && (
-                            <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-driftwood/60 group-hover:text-coral transition-colors shrink-0" />
+                            <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5 transition-colors shrink-0" />
                           )}
                           <span className="font-medium truncate">
                             {item.label}

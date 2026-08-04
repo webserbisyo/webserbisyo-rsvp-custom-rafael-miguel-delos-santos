@@ -1,28 +1,35 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Poppins } from "next/font/google";
+import { Bodoni_Moda, Italiana, Manrope, MonteCarlo } from "next/font/google";
 import { PwaRegister } from "@/components/pwa-register";
 import "@/styles/globals.css";
 
-const playfair = Playfair_Display({
+const bodoni = Bodoni_Moda({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-bodoni",
   display: "swap",
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-manrope",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const poppins = Poppins({
+const italiana = Italiana({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-italiana",
   display: "swap",
-  weight: ["400", "600", "700", "800"],
+  weight: "400",
+});
+
+const montecarlo = MonteCarlo({
+  subsets: ["latin"],
+  variable: "--font-montecarlo",
+  display: "swap",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${bodoni.variable} ${manrope.variable} ${italiana.variable} ${montecarlo.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <PwaRegister />
         {children}

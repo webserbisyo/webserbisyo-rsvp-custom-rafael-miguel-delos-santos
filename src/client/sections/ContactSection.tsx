@@ -31,7 +31,7 @@ export function ContactSection({ contactSocials }: ContactSectionProps) {
   const hasSocials = hasFacebook || hasInstagram || hasTikTok;
 
   return (
-    <section id="contact" className="pt-8 pb-28 md:pt-10 md:pb-36 px-4 bg-cocoa text-cream relative overflow-x-clip">
+    <section id="contact" data-tone="dark" className="wedding-section pt-8 pb-28 md:pt-10 md:pb-36 px-4 relative overflow-x-clip">
       <div className="max-w-5xl mx-auto relative z-10">
         <AnimatedContent>
           {/* Dynamically balanced grid layout based on whether socials are present */}

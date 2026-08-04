@@ -67,7 +67,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
   ));
 
   return (
-    <section id="our-story" className="relative overflow-x-clip py-24 md:py-32 px-4 bg-ivory text-center animate-fade-in">
+    <section id="our-story" data-tone="light" className="wedding-section relative overflow-x-clip py-24 md:py-32 px-4 text-center animate-fade-in">
       {/* Absolute Decorative Background Layer - Corner Flowers and Palm Leaves (z-0) */}
       <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
         {/* Top-Left Flower (17.webp) */}
@@ -159,8 +159,10 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
             ? "h-[540px] mt-44 mb-28 pb-6 sm:h-[24rem] sm:mt-20 sm:mb-20 sm:pb-4 md:h-[28rem] md:mt-20 md:mb-24 md:pb-4 lg:h-[34rem] lg:mt-24 lg:mb-24 lg:pb-4"
             : "h-40 mt-20 mb-16 pb-4 sm:h-52 sm:mt-12 sm:mb-14 sm:pb-4 md:h-60 md:mt-12 md:mb-14 md:pb-4 lg:h-72 lg:mt-12 lg:mb-16 lg:pb-4"
         }`}>
+          {/* Folder derives a darker shade in JavaScript, so it needs a parseable
+              client-theme value instead of a CSS variable string. */}
           <Folder
-            color="#d65f3f"
+            color="#4F5A46"
             size={folderSize}
             items={folderItems}
             className="mx-auto"

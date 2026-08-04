@@ -37,7 +37,8 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
   return (
     <section 
       id="sponsors" 
-      className="relative overflow-x-clip bg-cream px-4 py-24 sm:py-28 lg:py-32"
+      data-tone="light"
+      className="wedding-section relative overflow-x-clip px-4 py-24 sm:py-28 lg:py-32"
     >
       {/* Decorative Bird Layer — Exactly two bird PNGs as top-corner accents */}
       <div
