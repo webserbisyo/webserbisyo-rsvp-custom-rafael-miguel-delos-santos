@@ -39,7 +39,7 @@ export function ClientPageFrame({
         />
       ) : null}
       <FallingPetals />
-      <div className="relative">
+      <div className="relative" data-wedding-theme={resolvedConfig.theme.id}>
         {children}
         {footerEnabled ? <ClientFooter config={resolvedConfig} /> : null}
       </div>

@@ -36,6 +36,7 @@ export type ClientConfig = {
     subtitle: string;
   };
   theme: {
+    id: string;
     preset: string;
     fonts: {
       heading: string;
@@ -72,6 +73,7 @@ export const clientConfig = {
     subtitle: "",
   },
   theme: {
+    id: "client-default",
     preset: "starter-neutral",
     fonts: {
       heading: "",

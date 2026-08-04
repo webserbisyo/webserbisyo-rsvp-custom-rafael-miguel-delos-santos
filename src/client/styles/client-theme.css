@@ -5,7 +5,7 @@
    Loaded LAST in globals.css so these values win the cascade.
    ============================================================ */
 
-:root {
+[data-wedding-theme="client-default"] {
   /* Starter token names — overridden with beach values */
   --background: #FDF6ED;
   --surface: #FFFFFF;
@@ -56,6 +56,35 @@
 
   /* Elevated card shadow tier (gallery, hero CTA) */
   --shadow-card: 0 8px 32px rgba(59, 42, 26, 0.12);
+
+  /* Stage-one semantic values intentionally preserve the existing Rafael
+     rendering. A client theme changes these values, not component code. */
+  --wedding-page-background: #FDF6ED;
+  --wedding-surface-ivory: #FDF6ED;
+  --wedding-surface-secondary: #FFFFFF;
+  --wedding-surface-champagne: #FFF3E4;
+  --wedding-surface-champagne-deep: #E8C97A;
+  --wedding-surface-dark: #3B2A1A;
+  --wedding-surface-olive: #7A9E7E;
+  --wedding-surface-olive-deep: #4A3528;
+  --wedding-text-primary: #3B2A1A;
+  --wedding-text-secondary: #725D4F;
+  --wedding-text-tertiary: #8C6E52;
+  --wedding-text-on-dark: #FFF3E4;
+  --wedding-text-on-dark-secondary: #F1E8D8;
+  --wedding-text-on-dark-tertiary: #D8BF9F;
+  --wedding-label-on-light: #C95E35;
+  --wedding-label-on-dark: #E8C97A;
+  --wedding-accent-line: #E8C97A;
+  --wedding-divider: #E8D5B7;
+  --wedding-panel-border: #E8D5B7;
+  --wedding-control-border: rgba(201, 114, 88, 0.18);
+  --wedding-focus-ring: #C95E35;
+  --wedding-timeline-line: #E8C97A;
+  --wedding-timeline-marker: #C95E35;
+  --wedding-timeline-marker-foreground: #FFFFFF;
+  --wedding-shadow-panel: 0 4px 24px rgba(59, 42, 26, 0.08);
+  --wedding-shadow-floating: 0 12px 28px rgba(59, 42, 26, 0.14);
 }
 
 @keyframes gradient-shift {
