@@ -20,6 +20,7 @@ import { useState, useRef, useEffect } from "react";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientGuestbookData } from "@/client/types/client-view-model";
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
 import type { GuestbookMessage } from "@/types/public-event";
 import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
 
@@ -39,7 +40,6 @@ interface DisplayMessage {
 export function GuestbookSection({
   guestbook,
   guestbookMessages,
-  eventSource
 }: GuestbookSectionProps) {
   const [expandedMessageId, setExpandedMessageId] = useState<string | number | null>(null);
   const [showAllMessages, setShowAllMessages] = useState(false);
@@ -265,14 +265,14 @@ export function GuestbookSection({
                         {/* Toggle Button directly below the message */}
                         {isLong && (
                           <div className="mt-2">
-                            <button
+                            <WeddingButton
+                              variant="ghost"
+                              size="sm"
                               onClick={() => handleToggle(msg.id)}
-                              className="text-coral hover:text-cocoa text-xs font-bold uppercase tracking-wider underline focus:outline-none transition-colors cursor-pointer"
-                              type="button"
                               aria-expanded={isExpanded}
                             >
                               {isExpanded ? "View less" : "View more"}
-                            </button>
+                            </WeddingButton>
                           </div>
                         )}
                       </div>
@@ -305,13 +305,13 @@ export function GuestbookSection({
                       : `Showing ${INITIAL_VISIBLE_MESSAGES} of ${sortedMessages.length} messages`
                     }
                   </span>
-                  <button
+                  <WeddingButton
+                    variant="secondary"
+                    size="md"
                     onClick={handleSectionToggle}
-                    className="group px-6 py-3 rounded-full border border-coral text-coral hover:bg-coral/[0.04] active:scale-95 transition-all duration-300 font-bold text-xs uppercase tracking-widest cursor-pointer shadow-[0_4px_12px_rgba(201,94,53,0.08)] hover:shadow-[0_8px_20px_rgba(201,94,53,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/40"
-                    type="button"
                   >
                     {showAllMessages ? "View Less" : "View More Messages"}
-                  </button>
+                  </WeddingButton>
                 </div>
               )}
             </div>

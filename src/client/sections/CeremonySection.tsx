@@ -247,12 +247,10 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                   <hr className="border-t border-sand/20" />
 
                   {/* Timing details */}
-                  <div 
-                    role="button"
-                    tabIndex={0}
+                  <button
+                    type="button"
                     onClick={() => setCalendarFocus("ceremony")}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setCalendarFocus("ceremony"); }}
-                    className={`flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "ceremony" ? "bg-cream/50" : "hover:bg-cream/30"}`}
+                    className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "ceremony" ? "bg-cream/50" : "hover:bg-cream/30"}`}
                   >
                     <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
                       <Clock3 className="size-6" />
@@ -269,7 +267,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                         {mounted ? formatDate(ceremony.eventDate) : ""}
                       </p>
                     </div>
-                  </div>
+                  </button>
 
                   {/* Minimal Venue details */}
                   {venue && venue.venueName && (
@@ -286,12 +284,10 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
 
                   {/* RSVP Deadline details */}
                   {ceremony.rsvpDeadline && (
-                    <div 
-                      role="button"
-                      tabIndex={0}
+                    <button
+                      type="button"
                       onClick={() => setCalendarFocus("deadline")}
-                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setCalendarFocus("deadline"); }}
-                      className={`flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "deadline" ? "bg-shell-pink/20" : "hover:bg-shell-pink/10"}`}
+                      className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "deadline" ? "bg-shell-pink/20" : "hover:bg-shell-pink/10"}`}
                     >
                       <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
                         <Heart className="size-6 fill-current text-coral/70" />
@@ -320,7 +316,7 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                           )
                         ) : null}
                       </div>
-                    </div>
+                    </button>
                   )}
                   
                 </div>

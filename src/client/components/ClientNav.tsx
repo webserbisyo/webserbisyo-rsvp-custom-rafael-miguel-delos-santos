@@ -33,15 +33,10 @@ export function ClientNav({
   const isScrolled = !isHomePage || hasScrolled;
 
   useEffect(() => {
-    if (!isHomePage) {
+    if (isHomePage && window.scrollY > 48) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasScrolled(true);
-      return;
     }
-
-    const shouldBeScrolled = window.scrollY > 48;
-    setHasScrolled((current) =>
-      current === shouldBeScrolled ? current : shouldBeScrolled
-    );
   }, [isHomePage]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {

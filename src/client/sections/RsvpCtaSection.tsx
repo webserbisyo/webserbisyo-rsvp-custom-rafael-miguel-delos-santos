@@ -8,7 +8,6 @@
  * No data props needed — static content.
  */
 
-import { motion } from "framer-motion";
 import { FadeContent } from "@/client/libs/reactbits";
 import Link from "next/link";
 import { WeddingButton } from "@/client/components/ui/WeddingButton";

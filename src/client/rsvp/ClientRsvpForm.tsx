@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { appendPrivateAccessToken, normalizePrivateAccessToken } from "@/lib/private-access";
+import { normalizePrivateAccessToken } from "@/lib/private-access";
 import type { EventWebsiteRenderModel, NormalizedSection } from "@/types/public-event";
 import { submitPublicRsvp, type PublicRsvpPayload } from "./submit-rsvp";
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
 import { Input } from "@/client/components/ui/input";
 import { Textarea } from "@/client/components/ui/textarea";
 import { Label } from "@/client/components/ui/label";
@@ -43,8 +44,6 @@ const defaultRsvpConfig: StarterRsvpConfig = {
 };
 
 export function ClientRsvpForm({
-  dedicatedPageEnabled,
-  dedicatedPagePath,
   event,
   mode,
 }: ClientRsvpFormProps) {
@@ -238,11 +237,9 @@ export function ClientRsvpForm({
                 type="button"
                 onClick={() => setAttendanceStatus("attending")}
                 disabled={isSubmitting}
-                className={`wedding-rsvp-choice w-full py-3.5 border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-[0.97] ${
-                  attendanceStatus === "attending"
-                    ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
-                    : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
-                }`}
+                aria-pressed={attendanceStatus === "attending"}
+                data-selected={attendanceStatus === "attending"}
+                className="wedding-choice w-full py-3.5 text-xs font-bold uppercase tracking-wider"
               >
                 Yes, Attending
               </button>
@@ -250,11 +247,9 @@ export function ClientRsvpForm({
                 type="button"
                 onClick={() => setAttendanceStatus("not_attending")}
                 disabled={isSubmitting}
-                className={`wedding-rsvp-choice w-full py-3.5 border font-bold text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-[0.97] ${
-                  attendanceStatus === "not_attending"
-                    ? "bg-[#c97258] text-white border-[#c97258] shadow-[0_4px_12px_rgba(201,114,88,0.2)]"
-                    : "bg-[#fffaf1]/85 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#c97258]/40 hover:-translate-y-0.5"
-                }`}
+                aria-pressed={attendanceStatus === "not_attending"}
+                data-selected={attendanceStatus === "not_attending"}
+                className="wedding-choice w-full py-3.5 text-xs font-bold uppercase tracking-wider"
               >
                 Declining
               </button>
@@ -282,11 +277,9 @@ export function ClientRsvpForm({
                     type="button"
                     onClick={() => setCompanionCount(index)}
                     disabled={isSubmitting}
-                    className={`flex-1 py-2.5 rounded-lg border text-xs font-bold transition-all duration-300 cursor-pointer active:scale-[0.97] ${
-                      companionCount === index
-                        ? "bg-[#b8644a] text-white border-[#b8644a]"
-                        : "bg-[#fffaf1]/50 text-[#725d4f] border-[rgba(201,114,88,0.18)] hover:border-[#b8644a]/40 hover:-translate-y-0.5"
-                    }`}
+                    aria-pressed={companionCount === index}
+                    data-selected={companionCount === index}
+                    className="wedding-choice flex-1 py-2.5 text-xs font-bold"
                   >
                     {index === 0 ? "Just me" : `Me + ${index}`}
                   </button>
@@ -365,13 +358,15 @@ export function ClientRsvpForm({
 
         {/* Submit Button */}
         <div className="mt-4">
-          <button
+          <WeddingButton
             disabled={isSubmitting}
             type="submit"
-            className="wedding-rsvp-submit wedding-editorial-button w-full py-4 hover:opacity-95 active:scale-[0.98] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2"
+            variant="primary"
+            size="lg"
+            className="w-full"
           >
             {isSubmitting ? "Submitting..." : "Submit RSVP"}
-          </button>
+          </WeddingButton>
         </div>
       </form>
     </div>

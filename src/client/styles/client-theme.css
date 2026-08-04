@@ -418,64 +418,11 @@
     transform 200ms ease-out;
 }
 
-[data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta,
-[data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button {
-  background: var(--wedding-label-on-dark);
-  border: 1px solid var(--wedding-label-on-dark);
+[data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary {
+  background: var(--wedding-button-secondary-bg);
+  border: 1px solid var(--wedding-button-secondary-border);
   border-radius: var(--wedding-button-radius);
-  color: var(--wedding-surface-dark);
-  box-shadow: none;
-  transition:
-    background-color 200ms ease-out,
-    border-color 200ms ease-out,
-    color 200ms ease-out,
-    box-shadow 200ms ease-out,
-    transform 200ms ease-out;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button:hover {
-    background: #E8DDC7;
-    border-color: #D8B76F;
-    color: #171512;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 22px rgb(23 21 18 / 18%);
-  }
-
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary-cta:hover {
-    background: rgb(216 183 111 / 13%);
-    border-color: #D8B76F;
-    color: #FFF7E9;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 22px rgb(23 21 18 / 18%);
-  }
-}
-
-[data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta:active,
-[data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary-cta:active,
-[data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary:active,
-[data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button:active {
-  transform: translateY(0) scale(0.98);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary-cta,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary-cta:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button:hover,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-primary-cta:active,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary-cta:active,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-secondary:active,
-  [data-wedding-theme="refined-midnight-garden"] .wedding-section[data-tone="dark"] .wedding-editorial-button:active {
-    transform: none !important;
-    transition: background-color 200ms ease-out, border-color 200ms ease-out, color 200ms ease-out !important;
-  }
+  color: var(--wedding-button-secondary-fg);
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-rsvp-shell {

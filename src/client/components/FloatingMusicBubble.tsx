@@ -5,6 +5,7 @@ import { useAudio } from "./audio-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music4, Play, Pause, Square, X } from "@/client/libs/icons";
 import { parseMusicMeta } from "@/client/utils/music-meta";
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
 type FloatingMusicBubbleProps = {
   layout?: "fixed" | "inline";
@@ -64,6 +65,7 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setIsExpanded(false)}
                 className="text-cocoa/40 hover:text-cocoa p-1 rounded-full hover:bg-[#E6D5C3]/20 transition"
                 aria-label="Minimize player"
@@ -76,32 +78,38 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
 
             <div className="flex gap-2 justify-center">
               {isPlaying ? (
-                <button
+                <WeddingButton
+                  variant="primary"
+                  size="sm"
                   onClick={pause}
-                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(201,94,53,0.3)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300"
+                  type="button"
                 >
                   <Pause className="w-3.5 h-3.5 fill-current" />
                   <span>Pause</span>
-                </button>
+                </WeddingButton>
               ) : (
-                <button
+                <WeddingButton
+                  variant="primary"
+                  size="sm"
                   onClick={play}
-                  className="flex items-center justify-center gap-1.5 px-4 py-2 bg-coral text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(201,94,53,0.3)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300"
+                  type="button"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
                   <span>Play</span>
-                </button>
+                </WeddingButton>
               )}
-              <button
+              <WeddingButton
+                variant="secondary"
+                size="sm"
+                type="button"
                 onClick={() => {
                   stop();
                   setIsExpanded(false);
                 }}
-                className="flex items-center justify-center gap-1.5 px-4 py-2 border border-cocoa/15 text-cocoa/80 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#E6D5C3]/20 transition active:scale-95"
               >
                 <Square className="w-3.5 h-3.5 fill-current" />
                 <span>Stop</span>
-              </button>
+              </WeddingButton>
             </div>
           </motion.div>
         )}
@@ -109,11 +117,12 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
 
       {/* Main floating bubble trigger */}
       <motion.button
+        type="button"
         layout
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsExpanded((prev) => !prev)}
-        className="w-14 h-14 rounded-full bg-coral hover:bg-coral hover:brightness-105 hover:shadow-[0_8px_24px_rgba(201,94,53,0.35)] text-white flex items-center justify-center shadow-soft relative group cursor-pointer transition-all duration-300"
+        className="w-14 h-14 rounded-full bg-[color:var(--wedding-control-primary-bg)] text-[color:var(--wedding-control-primary-fg)] shadow-[0_8px_24px_rgb(216_183_111_/_35%)] hover:brightness-105 flex items-center justify-center relative group cursor-pointer transition-all duration-300"
         aria-label="Wedding song controls"
       >
         <AnimatePresence mode="wait">
@@ -146,4 +155,5 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
     </div>
   );
 }
+
 export default FloatingMusicBubble;

@@ -12,6 +12,8 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientGiftOption } from "@/client/types/client-view-model";
 
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
+
 type GiftsSectionProps = {
   giftDetails: {
     sectionIntro?: string;
@@ -159,14 +161,17 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
                       )}
 
                       {opt.linkUrl && (
-                        <a
-                          href={opt.linkUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block mt-4 text-coral hover:text-[#8C4520] text-sm font-semibold tracking-wide hover:underline transition-colors"
-                        >
-                          {opt.linkLabel || "View Details"} ✦
-                        </a>
+                        <div className="mt-4">
+                          <WeddingButton asChild variant="ghost" size="sm">
+                            <a
+                              href={opt.linkUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {opt.linkLabel || "View Details"} ✦
+                            </a>
+                          </WeddingButton>
+                        </div>
                       )}
                     </div>
                   </div>
