@@ -269,6 +269,11 @@
   font-weight: 400;
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-nav .wedding-monogram-initial {
+  font-family: var(--font-wedding-display), Georgia, serif;
+  font-weight: 500;
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-monogram-ampersand {
   font-family: var(--font-wedding-script);
   font-size: 1.55em;
@@ -276,6 +281,22 @@
   line-height: 0.7;
   margin: 0 -0.04em;
 }
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-nav .wedding-monogram-ampersand {
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+@media (max-height: 620px) {
+  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-content {
+    transform: translateY(0);
+  }
+
+  [data-wedding-theme="refined-midnight-garden"] .wedding-hero-name {
+    font-size: clamp(2.15rem, 7vw, 3.5rem);
+  }
+}
+
 
 [data-wedding-theme="refined-midnight-garden"] .client-monogram--hero {
   gap: 0.26em;
