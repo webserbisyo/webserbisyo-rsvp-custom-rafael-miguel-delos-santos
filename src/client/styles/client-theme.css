@@ -431,6 +431,11 @@
   color: var(--wedding-text-primary);
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer [data-vaul-no-drag] {
+  -webkit-overflow-scrolling: touch;
+}
+
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-drawer :is([data-vaul-drawer-title], [data-vaul-drawer-description]) {
   color: var(--wedding-text-primary);
 }

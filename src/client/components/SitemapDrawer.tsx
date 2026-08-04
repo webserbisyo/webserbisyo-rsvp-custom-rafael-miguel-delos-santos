@@ -110,7 +110,7 @@ export function SitemapDrawer({
     >
       <DrawerContent className="wedding-drawer border-l">
         {/* Header */}
-        <DrawerHeader className="relative border-b border-sand/25 pb-5">
+        <DrawerHeader className="flex-none relative border-b border-sand/25 pb-5">
           <DrawerTitle>Sitemap</DrawerTitle>
           <DrawerDescription>
             Explore all the details of our wedding celebration
@@ -130,7 +130,8 @@ export function SitemapDrawer({
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex-1 px-6 py-6 flex flex-col justify-center select-none"
+          data-vaul-no-drag
+          className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-6 py-6 pb-[calc(2rem+env(safe-area-inset-bottom))] select-none"
         >
           <div className="flex flex-col gap-6">
             {sitemapGroups.map((group) => (
