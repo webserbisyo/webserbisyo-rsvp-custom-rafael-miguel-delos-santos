@@ -81,7 +81,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 w-full max-w-xl">
               <Link
                 href="/rsvp"
-                className="wedding-editorial-button group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 text-xs font-bold tracking-[0.2em] uppercase active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 transition-all duration-300 ease-out cursor-pointer"
+                className="wedding-editorial-button wedding-hero-primary-cta group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 text-xs font-bold tracking-[0.2em] uppercase focus-visible:outline-none focus-visible:ring-2 cursor-pointer"
               >
                 <Heart
                   size={14}
@@ -93,7 +93,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
               {storyVisible ? (
                 <a
                   href="#our-story"
-                  className="wedding-hero-secondary group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border text-xs font-bold tracking-[0.2em] uppercase hover:scale-[1.03] active:scale-[0.97] transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-out cursor-pointer"
+                  className="wedding-hero-secondary wedding-hero-secondary-cta group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border text-xs font-bold tracking-[0.2em] uppercase focus-visible:outline-none focus-visible:ring-2 cursor-pointer"
                 >
                   <span>Our Story</span>
                 </a>
