@@ -101,11 +101,55 @@
   --wedding-nav-muted: #CFC0AA;
   --wedding-nav-border: rgb(216 183 111 / 24%);
   --wedding-rsvp-page-background: #171512;
-  --wedding-rsvp-surface: #FBF8F2;
-  --wedding-rsvp-field: #F6F1E8;
-  --wedding-rsvp-field-foreground: #1F1C18;
-  --wedding-rsvp-field-border: #D8C8A9;
-  --wedding-rsvp-field-focus: #72501B;
+  --wedding-rsvp-surface: #1E1C18;
+  --wedding-rsvp-field: #2A2621;
+  --wedding-rsvp-field-border: rgb(216 183 111 / 24%);
+  --wedding-rsvp-field-foreground: #FFF7E9;
+  --wedding-rsvp-field-focus: #D8B76F;
+
+  /* Semantic Button System Tokens */
+  --wedding-button-radius: 4px;
+  --wedding-button-motion-duration: 200ms;
+  --wedding-button-shadow-hover: 0 8px 22px rgb(23 21 18 / 18%);
+  --wedding-button-focus-ring: var(--wedding-label-on-dark);
+
+  /* Primary Button Tokens (Gold Fill) */
+  --wedding-button-primary-bg: var(--wedding-label-on-dark);
+  --wedding-button-primary-fg: var(--wedding-surface-dark);
+  --wedding-button-primary-border: var(--wedding-label-on-dark);
+  --wedding-button-primary-hover-bg: #E8DDC7;
+  --wedding-button-primary-hover-fg: #171512;
+  --wedding-button-primary-hover-border: #D8B76F;
+
+  /* Secondary Button Tokens (Light Context Defaults) */
+  --wedding-button-secondary-bg: transparent;
+  --wedding-button-secondary-fg: #1F1C18;
+  --wedding-button-secondary-border: rgb(154 123 69 / 48%);
+  --wedding-button-secondary-hover-bg: rgb(216 183 111 / 16%);
+  --wedding-button-secondary-hover-fg: #1F1C18;
+  --wedding-button-secondary-hover-border: #9A7B45;
+
+  /* Ghost Action Tokens */
+  --wedding-button-ghost-bg: transparent;
+  --wedding-button-ghost-fg: var(--wedding-label-on-dark);
+  --wedding-button-ghost-hover-bg: rgb(216 183 111 / 10%);
+
+  /* Stateful Form Choice Tokens */
+  --wedding-choice-bg: rgb(255 250 241 / 85%);
+  --wedding-choice-fg: #1F1C18;
+  --wedding-choice-border: rgb(216 183 111 / 28%);
+  --wedding-choice-hover-bg: rgb(216 183 111 / 16%);
+  --wedding-choice-selected-bg: var(--wedding-label-on-dark);
+  --wedding-choice-selected-fg: var(--wedding-surface-dark);
+  --wedding-choice-selected-border: var(--wedding-label-on-dark);
+
+  /* Floating Utility Tokens */
+  --wedding-control-primary-bg: var(--wedding-label-on-dark);
+  --wedding-control-primary-fg: var(--wedding-surface-dark);
+  --wedding-control-secondary-bg: rgb(45 27 18 / 60%);
+  --wedding-control-secondary-fg: rgb(255 247 233 / 95%);
+  --wedding-control-border: rgb(255 247 233 / 15%);
+
   --wedding-rsvp-selected: #171512;
   --wedding-rsvp-selected-foreground: #FFF7E9;
   --wedding-rsvp-submit: #171512;
