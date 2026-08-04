@@ -6,8 +6,18 @@ export function safePublicCanonicalUrl(value?: string | null): string | undefine
   try {
     const url = new URL(value);
     const hostname = url.hostname.toLowerCase();
-    if (hostname.endsWith(".vercel.app") || hostname === "localhost" || hostname === "127.0.0.1") return undefined;
+    if (
+      hostname.endsWith(".vercel.app") ||
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname.startsWith("192.168.") ||
+      hostname.startsWith("10.") ||
+      /^172\.(1[6-9]|2[0-9]|3[01])\./.test(hostname)
+    ) {
+      return undefined;
+    }
     return url.toString();
+
   } catch {
     return undefined;
   }

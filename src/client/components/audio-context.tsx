@@ -33,7 +33,30 @@ export function extractYoutubeId(url: string): string | null {
   return match && match[2].length === 11 ? match[2] : null;
 }
 
+export function getSafeYoutubeOrigin(origin?: string | null): string | null {
+  if (!origin) return null;
+  try {
+    const url = new URL(origin);
+    // HTTPS origins (production domain, Vercel preview, etc.) are safe for YouTube iframe API
+    if (url.protocol === "https:") {
+      return url.origin;
+    }
+    // HTTP localhost / 127.0.0.1 origins are explicitly supported by YouTube iframe API
+    if (
+      url.protocol === "http:" &&
+      (url.hostname === "localhost" || url.hostname === "127.0.0.1")
+    ) {
+      return url.origin;
+    }
+    // Omit origin query parameter for plain-HTTP private or numeric IP origins (e.g. http://192.168.68.111:3000)
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export function AudioProvider({ children }: { children: React.ReactNode }) {
+
   const [musicLink, setMusicLink] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
   const [shortNote, setShortNote] = useState("");
@@ -232,10 +255,25 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const renderHiddenPlayer = () => {
     if (sourceType !== "youtube" || !youtubeId) return null;
 
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
-    // autoplay=0: we control playback via postMessage, not autoplay.
-    // playsinline=1: required for iOS Safari to allow inline audio playback.
-    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&autoplay=0&controls=0&rel=0&playsinline=1&origin=${encodeURIComponent(origin)}&playlist=${youtubeId}&loop=1`;
+    const currentOrigin = typeof window !== "undefined" ? window.location.origin : "";
+    const safeOrigin = getSafeYoutubeOrigin(currentOrigin);
+
+    const params = new URLSearchParams({
+      enablejsapi: "1",
+      autoplay: "0",
+      controls: "0",
+      rel: "0",
+      playsinline: "1",
+      playlist: youtubeId,
+      loop: "1",
+    });
+
+    if (safeOrigin) {
+      params.set("origin", safeOrigin);
+    }
+
+    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?${params.toString()}`;
+
 
     return (
       <div
