@@ -19,6 +19,8 @@ import { parseMusicMeta } from "@/client/utils/music-meta";
 import { Play, Pause, Square, Music4 } from "@/client/libs/icons";
 import type { ClientMusicData } from "@/client/types/client-view-model";
 
+import { weddingButtonVariants } from "@/client/components/ui/WeddingButton";
+
 type MusicSectionProps = {
   musicEffects: ClientMusicData;
 };
@@ -44,7 +46,7 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
       className="wedding-section py-20 md:py-28 px-4 text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
-        <SpotlightCard 
+        <SpotlightCard
           className="wedding-panel p-8 md:p-12 text-center bg-[color:var(--wedding-surface-dark)] text-[color:var(--wedding-text-on-dark)] relative"
           spotlightColor="rgba(232, 201, 122, 0.20)"
         >
@@ -97,11 +99,12 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
               {isPlaying ? (
                 <motion.button
                   key="pause-btn"
+                  type="button"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={pause}
-                  className="wedding-editorial-button flex items-center justify-center gap-2 px-8 py-3 bg-[color:var(--wedding-surface-secondary)] text-[color:var(--wedding-text-primary)] text-xs font-bold uppercase tracking-wider hover:bg-[color:var(--wedding-surface-champagne)] transition active:scale-95 cursor-pointer shrink-0"
+                  className={weddingButtonVariants({ variant: "primary", size: "md", className: "shrink-0" })}
                 >
                   <Pause className="w-4 h-4 fill-current" />
                   <span>Pause</span>
@@ -109,11 +112,12 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
               ) : (
                 <motion.button
                   key="play-btn"
+                  type="button"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={play}
-                  className="wedding-editorial-button flex items-center justify-center gap-2 px-8 py-3 bg-[color:var(--wedding-surface-secondary)] text-[color:var(--wedding-text-primary)] text-xs font-bold uppercase tracking-wider hover:bg-[color:var(--wedding-surface-champagne)] transition active:scale-95 cursor-pointer shrink-0"
+                  className={weddingButtonVariants({ variant: "primary", size: "md", className: "shrink-0" })}
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>Play Song</span>
@@ -123,11 +127,12 @@ export function MusicSection({ musicEffects }: MusicSectionProps) {
 
             {(playbackState === "playing" || playbackState === "paused") && (
               <motion.button
+                type="button"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 onClick={stop}
-                  className="flex items-center justify-center gap-2 px-6 py-3 border border-[color:var(--wedding-nav-border)] text-[color:var(--wedding-text-on-dark)] rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[rgb(255_247_233_/_10%)] transition active:scale-95 cursor-pointer shrink-0"
+                className={weddingButtonVariants({ variant: "secondary", size: "md", className: "shrink-0" })}
               >
                 <Square className="w-4 h-4 fill-current" />
                 <span>Stop</span>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { FadeContent } from "@/client/libs/reactbits";
 import { Heart } from "lucide-react";
@@ -8,14 +7,14 @@ import Link from "next/link";
 import type { ClientCoupleInfo } from "@/client/types/client-view-model";
 import { templateBranding } from "@/config/template-branding";
 
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
+
 type HeroSectionProps = {
   coupleInfo: ClientCoupleInfo;
   storyVisible: boolean;
 };
 
 export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
-  const heroRef = useRef<HTMLDivElement>(null);
-
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, [0, 600], [0, 120]);
   const backgroundY = useSpring(rawY, { stiffness: 90, damping: 25, mass: 0.4 });
@@ -24,7 +23,6 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
 
   return (
     <section
-      ref={heroRef}
       id="hero"
       data-tone="dark"
       className="wedding-section relative pt-24 pb-20 px-4 text-center overflow-hidden min-h-[95vh] min-h-[95svh] flex flex-col justify-center items-center"
@@ -79,24 +77,22 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 w-full max-w-xl">
-              <Link
-                href="/rsvp"
-                className="wedding-editorial-button wedding-hero-primary-cta group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 text-xs font-bold tracking-[0.2em] uppercase focus-visible:outline-none focus-visible:ring-2 cursor-pointer"
-              >
-                <Heart
-                  size={14}
-                  className="fill-white/20 group-hover:scale-125 group-hover:fill-white transition-transform duration-300 ease-out"
-                />
-                <span>Reserve Your Seat</span>
-              </Link>
+              <WeddingButton asChild variant="primary" size="lg" className="w-full sm:w-auto">
+                <Link href="/rsvp" className="group">
+                  <Heart
+                    size={14}
+                    className="fill-white/20 group-hover:scale-125 group-hover:fill-white transition-transform duration-300 ease-out"
+                  />
+                  <span>Reserve Your Seat</span>
+                </Link>
+              </WeddingButton>
 
               {storyVisible ? (
-                <a
-                  href="#our-story"
-                  className="wedding-hero-secondary wedding-hero-secondary-cta group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border text-xs font-bold tracking-[0.2em] uppercase focus-visible:outline-none focus-visible:ring-2 cursor-pointer"
-                >
-                  <span>Our Story</span>
-                </a>
+                <WeddingButton asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+                  <a href="#our-story">
+                    <span>Our Story</span>
+                  </a>
+                </WeddingButton>
               ) : null}
             </div>
           </div>

@@ -30,6 +30,8 @@ import { MapPin, Clock3, Sparkles, ExternalLink } from "@/client/libs/icons";
 import { formatTime, formatDate } from "@/client/utils/formatters";
 import type { ClientReceptionData, ClientCeremonyData } from "@/client/types/client-view-model";
 
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
+
 type ReceptionSectionProps = {
   reception: ClientReceptionData;
   ceremony?: ClientCeremonyData;
@@ -184,15 +186,17 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
           {/* CTA Button — centered below the card */}
           {hasMapLink && (
             <div className="mt-8 flex justify-center relative z-30">
-              <a
-                href={reception.googleMapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_10px_28px_rgba(201,94,53,0.38)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300 ease-out cursor-pointer"
-              >
-                <span>Get Directions</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-              </a>
+              <WeddingButton asChild variant="primary" size="md">
+                <a
+                  href={reception.googleMapsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5"
+                >
+                  <span>Get Directions</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                </a>
+              </WeddingButton>
             </div>
           )}
         </FadeContent>

@@ -13,6 +13,7 @@ import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, ExternalLink, Bus, Pin, Compass } from "@/client/libs/icons";
 import type { ClientVenueData } from "@/client/types/client-view-model";
+import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
 type VenueSectionProps = {
   venue: ClientVenueData;
@@ -247,15 +248,17 @@ export function VenueSection({ venue }: VenueSectionProps) {
               {/* Map CTA Button below the card */}
               {externalMapsLink && (
                 <div className="mt-8 flex justify-center w-full">
-                  <a 
-                    href={externalMapsLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-coral hover:bg-coral hover:brightness-105 hover:-translate-y-0.5 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-[0_10px_28px_rgba(201,94,53,0.38)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/40 focus-visible:ring-offset-2 transition-all duration-300 ease-out cursor-pointer"
-                  >
-                    <span>Open in Google Maps</span>
-                    <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-                  </a>
+                  <WeddingButton asChild variant="primary" size="md">
+                    <a
+                      href={externalMapsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-2.5"
+                    >
+                      <span>Open in Google Maps</span>
+                      <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                    </a>
+                  </WeddingButton>
                 </div>
               )}
             </div>
