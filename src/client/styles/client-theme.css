@@ -97,7 +97,7 @@
   --wedding-hero-base: #171512;
   --wedding-hero-image-opacity: 0.68;
   --wedding-hero-overlay-top: rgb(23 21 18 / 45%);
-  --wedding-hero-overlay-middle: rgb(23 21 18 / 16%);
+  --wedding-hero-overlay-middle: rgb(23 21 18 / 38%);
   --wedding-hero-overlay-bottom: rgb(23 21 18 / 52%);
   --wedding-nav-background: rgb(23 21 18 / 82%);
   --wedding-nav-foreground: #FFF7E9;
@@ -309,6 +309,11 @@
   box-shadow: var(--wedding-shadow-panel) !important;
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-hero-name {
+  font-weight: 600;
+  text-shadow: 0 2px 16px rgb(23 21 18 / 75%), 0 1px 4px rgb(0 0 0 / 80%);
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-hero-message-text {
   font-family: var(--font-wedding-display);
   font-size: clamp(1.85rem, 3.5vw, 2.75rem);
@@ -318,7 +323,7 @@
   color: var(--wedding-text-on-dark);
   text-align: center;
   text-wrap: balance;
-  text-shadow: 0 2px 14px rgb(23 21 18 / 65%);
+  text-shadow: 0 2px 16px rgb(23 21 18 / 75%), 0 1px 4px rgb(0 0 0 / 80%);
 }
 
 [data-wedding-theme="refined-midnight-garden"] .client-monogram {
@@ -399,6 +404,10 @@
 }
 
 @media (min-width: 768px) {
+  [data-wedding-theme="refined-midnight-garden"] {
+    --wedding-hero-overlay-middle: rgb(23 21 18 / 28%);
+  }
+
   [data-wedding-theme="refined-midnight-garden"] .client-monogram--footer {
     align-items: flex-start;
   }

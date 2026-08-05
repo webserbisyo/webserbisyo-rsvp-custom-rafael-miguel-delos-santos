@@ -60,7 +60,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
             {/* Couple Names Card */}
             {displayAs ? (
               <div className="px-3 py-2 mb-4 max-w-full">
-                <h1 className="wedding-display wedding-hero-name max-w-[min(100%,64rem)] text-balance text-[clamp(2.5rem,6vw,4.75rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[color:var(--wedding-text-on-dark)]">
+                <h1 className="wedding-display wedding-hero-name max-w-[min(100%,64rem)] text-balance text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.08] tracking-[-0.025em] text-[color:var(--wedding-text-on-dark)]">
                   {displayAs}
                 </h1>
               </div>
