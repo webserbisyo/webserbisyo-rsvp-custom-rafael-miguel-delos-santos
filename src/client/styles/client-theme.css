@@ -293,13 +293,14 @@
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-hero-message-text {
   font-family: var(--font-wedding-display);
-  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
   font-style: italic;
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.25;
   color: var(--wedding-text-on-dark);
   text-align: center;
-  text-shadow: 0 2px 12px rgb(23 21 18 / 60%);
+  text-wrap: balance;
+  text-shadow: 0 2px 14px rgb(23 21 18 / 65%);
 }
 
 [data-wedding-theme="refined-midnight-garden"] .client-monogram {

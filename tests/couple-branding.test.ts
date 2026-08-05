@@ -79,6 +79,10 @@ test("contract: client-theme.css defines .wedding-hero-message-text and HeroSect
     "client-theme.css must define .wedding-hero-message-text"
   );
   assert.ok(
+    css.includes("clamp(1.85rem, 3.5vw, 2.75rem)"),
+    ".wedding-hero-message-text must use clamp(1.85rem, 3.5vw, 2.75rem)"
+  );
+  assert.ok(
     heroTsx.includes('className="wedding-hero-message-text"'),
     "HeroSection.tsx must use wedding-hero-message-text className"
   );
