@@ -129,16 +129,16 @@ export function GallerySection() {
 
       <div className="max-w-2xl mx-auto relative z-30">
         <div className="text-center mb-14">
-          <p className="text-xs font-bold tracking-[0.25em] uppercase mb-3 text-[#3B2A1A]/85">
+          <p className="wedding-section-label text-xs font-bold tracking-[0.25em] uppercase mb-3 text-[color:var(--wedding-label-on-light)]">
             Our Memories
           </p>
-          <h2 className="font-serif text-[#3B2A1A] text-3xl md:text-4xl font-medium mb-3">
+          <h2 className="wedding-display wedding-section-title wedding-section-title--compact mb-3">
             A Story in Frames
           </h2>
-          <div className="flex items-center justify-center gap-3 mt-5 text-[#3B2A1A]/40">
-            <div className="h-px w-12 bg-[#3B2A1A]/20" />
-            <span className="text-[#C95E35]">✦</span>
-            <div className="h-px w-12 bg-[#3B2A1A]/20" />
+          <div className="flex items-center justify-center gap-3 mt-5 text-[color:var(--wedding-accent-line)] opacity-60">
+            <div className="h-px w-12 bg-[color:var(--wedding-accent-line)] opacity-40" />
+            <span className="text-[color:var(--wedding-label-on-light)]">✦</span>
+            <div className="h-px w-12 bg-[color:var(--wedding-accent-line)] opacity-40" />
           </div>
         </div>
 

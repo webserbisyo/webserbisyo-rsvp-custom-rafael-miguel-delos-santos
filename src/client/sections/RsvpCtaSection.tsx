@@ -48,10 +48,10 @@ export function RsvpCtaSection() {
 
       <FadeContent>
         <div className="relative z-30 max-w-2xl mx-auto">
-          <p className="text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-white/70">
+          <p className="wedding-section-label text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-[color:var(--wedding-label-on-dark)]">
             JOIN US
           </p>
-          <h2 className="font-serif text-white text-3xl md:text-4xl lg:text-5xl font-medium tracking-wide mb-6">
+          <h2 className="wedding-display wedding-section-title mb-6">
             Confirm Your Attendance
           </h2>
           <p className="text-sm md:text-base leading-relaxed max-w-md mx-auto mb-8 text-white/95">

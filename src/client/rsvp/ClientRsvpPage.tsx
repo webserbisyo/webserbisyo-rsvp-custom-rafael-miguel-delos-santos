@@ -79,7 +79,7 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[color:var(--wedding-label-on-light)] mb-2">
               Wedding RSVP
             </p>
-            <h1 className="wedding-display text-3xl md:text-4xl font-normal tracking-wide text-[color:var(--wedding-text-primary)]">
+            <h1 className="wedding-display wedding-page-title">
               {coupleNames}
             </h1>
             <div className="mt-4 flex w-full items-center justify-center select-none" aria-hidden="true">

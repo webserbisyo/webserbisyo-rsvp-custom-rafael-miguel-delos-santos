@@ -108,7 +108,18 @@
   --wedding-rsvp-field: #2A2621;
   --wedding-rsvp-field-border: rgb(216 183 111 / 24%);
   --wedding-rsvp-field-foreground: #FFF7E9;
-  --wedding-rsvp-field-focus: #D8B76F;
+  /* Central Public Typography Scale */
+  --wedding-type-section-title-size: clamp(2.65rem, 5.8vw, 4.75rem);
+  --wedding-type-section-title-weight: 600;
+  --wedding-type-section-title-line-height: 0.98;
+  --wedding-type-section-title-tracking: -0.035em;
+
+  --wedding-type-section-title-compact-size: clamp(2.15rem, 4.4vw, 3.5rem);
+  --wedding-type-section-title-long-size: clamp(2.35rem, 4.8vw, 4rem);
+
+  --wedding-type-page-title-size: clamp(2.5rem, 5.2vw, 4.25rem);
+
+  --wedding-type-numeric-display-size: clamp(2.4rem, 7.5vw, 5.5rem);
 
   /* Semantic Button System Tokens */
   --wedding-button-radius: 4px;
@@ -213,18 +224,38 @@
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-title {
   font-family: var(--font-wedding-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: var(--wedding-type-section-title-size);
   font-style: normal;
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.035em;
+  font-weight: var(--wedding-type-section-title-weight);
+  line-height: var(--wedding-type-section-title-line-height);
+  letter-spacing: var(--wedding-type-section-title-tracking);
+  text-wrap: balance;
+  color: var(--wedding-text-primary);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-section-title--compact {
+  font-size: var(--wedding-type-section-title-compact-size);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-section-title--long {
+  font-size: var(--wedding-type-section-title-long-size);
+  max-width: min(100%, 62rem);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-page-title {
+  font-family: var(--font-wedding-display);
+  font-size: var(--wedding-type-page-title-size);
+  font-style: normal;
+  font-weight: var(--wedding-type-section-title-weight);
+  line-height: var(--wedding-type-section-title-line-height);
+  letter-spacing: var(--wedding-type-section-title-tracking);
   text-wrap: balance;
   color: var(--wedding-text-primary);
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-numeric-display {
   font-family: var(--font-wedding-display);
-  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-size: var(--wedding-type-numeric-display-size);
   font-style: normal;
   font-weight: 500;
   line-height: 1;

@@ -16,11 +16,19 @@ export function SectionHeading({
   label,
   title,
   subtitle,
+  scale = "standard",
 }: {
   label?: string;
   title: string;
   subtitle?: string;
+  scale?: "standard" | "compact" | "long";
 }) {
+  const scaleClass = {
+    standard: "",
+    compact: "wedding-section-title--compact",
+    long: "wedding-section-title--long",
+  }[scale];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -38,7 +46,7 @@ export function SectionHeading({
           <div className="h-px w-10 bg-[color:var(--wedding-accent-line)] opacity-70" />
         </div>
       )}
-      <h2 className="wedding-display wedding-section-title mb-4">
+      <h2 className={`wedding-display wedding-section-title ${scaleClass} mb-4`.trim()}>
         {title}
       </h2>
       {subtitle && (
