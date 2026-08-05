@@ -8,7 +8,7 @@ type ClientRsvpPageProps = {
 };
 
 export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
-  const coupleNames = event.coupleDisplayName || event.title || "Rafael & Isabella";
+  const coupleNames = event.coupleDisplayName || event.title || "";
 
   return (
     <div className="wedding-rsvp-shell min-h-[100dvh] pt-28 pb-32 px-4 md:px-8 flex items-center justify-center relative overflow-hidden">

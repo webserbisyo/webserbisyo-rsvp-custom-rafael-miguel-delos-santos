@@ -13,6 +13,7 @@ import type {
   ClientExtraInfoItem,
   ClientGiftOption,
 } from "./client-view-model";
+import { deriveCoupleBranding } from "../utils/derive-couple-branding";
 
 /** Safe accessor — returns a sub-object or empty object. */
 function obj(source: Record<string, unknown>, key: string): Record<string, unknown> {
@@ -49,7 +50,15 @@ export function buildClientViewModel(raw: Record<string, unknown>): ClientViewMo
   const loveStoryRaw = obj(raw, "loveStory");
   const contactRaw = obj(raw, "contactSocials");
 
+  const branding = deriveCoupleBranding({
+    partnerOneName: str(coupleInfoRaw, "groomName"),
+    partnerTwoName: str(coupleInfoRaw, "brideName"),
+    displayAs: str(coupleInfoRaw, "displayAs"),
+    weddingDate: str(ceremonyRaw, "eventDate"),
+  });
+
   return {
+    branding,
     coupleInfo: {
       displayAs: str(coupleInfoRaw, "displayAs") ?? "",
       hostLine: str(coupleInfoRaw, "hostLine"),

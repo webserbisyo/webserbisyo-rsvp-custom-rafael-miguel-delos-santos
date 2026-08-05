@@ -10,6 +10,12 @@
 
 // ─── Section Sub-Models ──────────────────────────────────────────────
 
+export type ClientBrandingData = {
+  monogram: readonly [string, string] | null;
+  coupleLabel: string;
+  copyrightYear: string;
+};
+
 export type ClientCoupleInfo = {
   displayAs: string;
   hostLine?: string;
@@ -119,6 +125,7 @@ export type ClientSponsorData = {
 // ─── Top-Level View Model ────────────────────────────────────────────
 
 export type ClientViewModel = {
+  branding: ClientBrandingData;
   coupleInfo: ClientCoupleInfo;
   ceremony: ClientCeremonyData;
   venue: ClientVenueData;
