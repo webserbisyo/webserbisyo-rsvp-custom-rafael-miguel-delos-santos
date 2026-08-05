@@ -19,10 +19,11 @@ export function ClientMonogram({
   if (!monogram) {
     if (variant === "footer" && coupleLabel) {
       return (
-        <span className={`client-monogram client-monogram--footer flex flex-col items-center md:items-start select-none ${className}`.trim()} {...props}>
-          <span className="text-xs tracking-[0.2em] uppercase text-cream/70 font-semibold mt-2">
-            {coupleLabel}
-          </span>
+        <span
+          className={`client-monogram client-monogram--footer ${className}`.trim()}
+          {...props}
+        >
+          <span className="wedding-monogram-subtitle">{coupleLabel}</span>
         </span>
       );
     }
@@ -31,33 +32,20 @@ export function ClientMonogram({
 
   const [initial1, initial2] = monogram;
 
-  if (variant === "footer") {
-    return (
-      <span className={`client-monogram client-monogram--footer flex flex-col items-center md:items-start select-none ${className}`.trim()} {...props}>
-        <span className="font-serif text-4xl md:text-5xl tracking-wide text-cream" aria-hidden="true">
-          <span className="wedding-monogram-initial">{initial1}</span>{" "}
-          <span className="text-coral font-sans wedding-monogram-ampersand">&amp;</span>{" "}
-          <span className="wedding-monogram-initial">{initial2}</span>
-        </span>
-        {coupleLabel ? (
-          <span className="text-xs tracking-[0.2em] uppercase text-cream/70 font-semibold mt-2">
-            {coupleLabel}
-          </span>
-        ) : null}
-      </span>
-    );
-  }
-
-  // Nav variant (compact header)
   return (
     <span
-      className={`client-monogram client-monogram--nav wedding-nav-monogram ${className}`.trim()}
-      aria-hidden="true"
+      className={`client-monogram client-monogram--${variant} ${className}`.trim()}
       {...props}
     >
-      <span className="wedding-monogram-initial">{initial1}</span>
-      <span className="wedding-monogram-ampersand">&amp;</span>
-      <span className="wedding-monogram-initial">{initial2}</span>
+      <span className="wedding-monogram-glyphs" aria-hidden="true">
+        <span className="wedding-monogram-initial">{initial1}</span>
+        <span className="wedding-monogram-ampersand">&amp;</span>
+        <span className="wedding-monogram-initial">{initial2}</span>
+      </span>
+
+      {variant === "footer" && coupleLabel ? (
+        <span className="wedding-monogram-subtitle">{coupleLabel}</span>
+      ) : null}
     </span>
   );
 }

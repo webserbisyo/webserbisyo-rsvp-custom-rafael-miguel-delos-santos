@@ -105,3 +105,27 @@ test("contract: ContactSection and ClientMonogram contain no stale hardcoded cli
   assert.ok(!monogramTsx.includes('["J", "D"]'), "ClientMonogram must not default to hardcoded J & D");
   assert.ok(!configTs.includes('monogram: ["J", "D"]'), "client.config.ts must not default to hardcoded J & D");
 });
+
+test("contract: ClientMonogram uses clean serif structure and excludes script/overlap CSS", async () => {
+  const fs = await import("node:fs/promises");
+  const monogramTsx = await fs.readFile(
+    new URL("../src/client/components/ClientMonogram.tsx", import.meta.url),
+    "utf-8"
+  );
+  const css = await fs.readFile(
+    new URL("../src/client/styles/client-theme.css", import.meta.url),
+    "utf-8"
+  );
+
+  assert.ok(monogramTsx.includes("wedding-monogram-glyphs"), "ClientMonogram must render wedding-monogram-glyphs span");
+  assert.ok(monogramTsx.includes("wedding-monogram-initial"), "ClientMonogram must render wedding-monogram-initial span");
+  assert.ok(monogramTsx.includes("wedding-monogram-ampersand"), "ClientMonogram must render wedding-monogram-ampersand span");
+  assert.ok(monogramTsx.includes("wedding-monogram-subtitle"), "ClientMonogram must render wedding-monogram-subtitle span");
+
+  assert.ok(!monogramTsx.includes("text-coral"), "ClientMonogram must not use legacy text-coral utility class");
+
+  assert.ok(!css.includes(".wedding-monogram-ampersand {\n  font-family: var(--font-wedding-script)"), "Monogram ampersand must not use script font");
+  assert.ok(!css.includes("margin: 0 -0.04em;"), "Monogram ampersand must not use negative margin overlap");
+  assert.ok(css.includes(".client-monogram--nav"), ".client-monogram--nav must be defined in theme CSS");
+  assert.ok(css.includes(".client-monogram--footer"), ".client-monogram--footer must be defined in theme CSS");
+});
