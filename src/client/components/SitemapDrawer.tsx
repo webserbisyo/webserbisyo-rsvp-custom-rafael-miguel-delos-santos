@@ -68,6 +68,37 @@ export function SitemapDrawer({
   const isRsvpPage = pathname === "/rsvp";
   const sitemapGroups = buildSitemapGroups(visibleSectionKeys);
 
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [showScrollFade, setShowScrollFade] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !isOpen) return;
+
+    const checkScroll = () => {
+      const hasOverflow = el.scrollHeight > el.clientHeight;
+      const isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8;
+      setShowScrollFade(hasOverflow && !isAtBottom);
+    };
+
+    checkScroll();
+
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll, { passive: true });
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(checkScroll);
+      observer.observe(el);
+    }
+
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+      observer?.disconnect();
+    };
+  }, [isOpen]);
+
   const getResolvedHref = (href: string) => {
     if (href.startsWith("#")) {
       return isRsvpPage ? `/${href}` : href;
@@ -108,7 +139,7 @@ export function SitemapDrawer({
       onOpenChange={(open) => !open && onClose()}
       direction="right"
     >
-      <DrawerContent className="wedding-drawer border-l">
+      <DrawerContent className="wedding-drawer border-l relative overflow-hidden flex flex-col">
         {/* Header */}
         <DrawerHeader className="flex-none relative border-b border-sand/25 pb-5">
           <DrawerTitle>Sitemap</DrawerTitle>
@@ -127,11 +158,12 @@ export function SitemapDrawer({
 
         {/* Content - Compact Sitemap Grid */}
         <motion.div
+          ref={scrollRef}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           data-vaul-no-drag
-          className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-6 py-6 pb-[calc(2rem+env(safe-area-inset-bottom))] select-none"
+          className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-6 py-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] select-none"
         >
           <div className="flex flex-col gap-6">
             {sitemapGroups.map((group) => (
@@ -169,6 +201,14 @@ export function SitemapDrawer({
             ))}
           </div>
         </motion.div>
+
+        {/* Stateful Scroll Affordance Fade */}
+        {showScrollFade && (
+          <div
+            className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[color:var(--wedding-drawer-surface)] to-transparent pointer-events-none z-10 transition-opacity duration-200"
+            aria-hidden="true"
+          />
+        )}
       </DrawerContent>
     </Drawer>
   );
