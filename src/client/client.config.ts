@@ -76,7 +76,6 @@ export const clientConfig = {
   theme: {
     id: "refined-midnight-garden",
     preset: "refined-midnight-garden",
-    monogram: ["J", "D"],
     fonts: {
       heading: "",
       body: "",

@@ -9,13 +9,18 @@
 
 import { Mail, Phone } from "lucide-react";
 import { AnimatedContent } from "@/client/libs/reactbits";
-import type { ClientContactData } from "@/client/types/client-view-model";
+import type { ClientContactData, ClientBrandingData } from "@/client/types/client-view-model";
+import { ClientMonogram } from "@/client/components/ClientMonogram";
+import { deriveCoupleBranding } from "@/client/utils/derive-couple-branding";
 
 type ContactSectionProps = {
   contactSocials: ClientContactData;
+  branding?: ClientBrandingData;
 };
 
-export function ContactSection({ contactSocials }: ContactSectionProps) {
+export function ContactSection({ contactSocials, branding }: ContactSectionProps) {
+  const resolvedBranding = branding ?? deriveCoupleBranding();
+
   // Use props if available, otherwise fallback to the approved values
   const email = contactSocials?.email || "official.musika.ph@gmail.com";
   const phone = contactSocials?.contactNumber || "09776441419";
@@ -39,12 +44,11 @@ export function ContactSection({ contactSocials }: ContactSectionProps) {
             
             {/* Left Column: Couple Initials */}
             <div className="flex flex-col items-center md:items-start select-none">
-              <span className="font-serif text-4xl md:text-5xl tracking-wide text-cream">
-                R <span className="text-coral font-sans">&amp;</span> I
-              </span>
-              <span className="text-xs tracking-[0.2em] uppercase text-cream/70 font-semibold mt-2">
-                Rafael &amp; Isabella
-              </span>
+              <ClientMonogram
+                variant="footer"
+                monogram={resolvedBranding.monogram}
+                coupleLabel={resolvedBranding.coupleLabel}
+              />
             </div>
 
             {/* Middle Column: Contact Details */}
@@ -145,7 +149,10 @@ export function ContactSection({ contactSocials }: ContactSectionProps) {
           <div className="w-full h-px bg-cream/10 my-8"></div>
           
           <div className="text-center text-xs text-cream/60 tracking-wider flex flex-col gap-1.5">
-            <p>© 2027 Rafael &amp; Isabella. All rights reserved.</p>
+            <p>
+              © {resolvedBranding.copyrightYear}
+              {resolvedBranding.coupleLabel ? ` ${resolvedBranding.coupleLabel}` : ""}. All rights reserved.
+            </p>
             <p>
               Custom RSVP by{" "}
               <a

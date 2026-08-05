@@ -117,7 +117,12 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
       case "story_message":
         return <LoveStorySection loveStory={vm.loveStory} />;
       case "contact_socials":
-        return <ContactSection contactSocials={vm.contactSocials} />;
+        return (
+          <ContactSection
+            contactSocials={vm.contactSocials}
+            branding={vm.branding}
+          />
+        );
     }
   }
 }

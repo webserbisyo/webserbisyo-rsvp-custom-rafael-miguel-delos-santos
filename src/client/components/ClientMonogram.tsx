@@ -1,24 +1,63 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-type ClientMonogramProps = ComponentPropsWithoutRef<"span"> & {
-  initials: readonly [string, string];
-  withRules?: boolean;
+export type ClientMonogramVariant = "nav" | "footer";
+
+export type ClientMonogramProps = ComponentPropsWithoutRef<"span"> & {
+  monogram?: readonly [string, string] | null;
+  coupleLabel?: string;
+  variant?: ClientMonogramVariant;
 };
 
-/** Presentational only: client-configured initials with an event-derived fallback supplied by callers. */
 export function ClientMonogram({
-  initials,
-  withRules = false,
+  monogram,
+  coupleLabel,
+  variant = "nav",
   className = "",
   ...props
 }: ClientMonogramProps) {
+  // If no valid monogram initials exist
+  if (!monogram) {
+    if (variant === "footer" && coupleLabel) {
+      return (
+        <span className={`client-monogram client-monogram--footer flex flex-col items-center md:items-start select-none ${className}`.trim()} {...props}>
+          <span className="text-xs tracking-[0.2em] uppercase text-cream/70 font-semibold mt-2">
+            {coupleLabel}
+          </span>
+        </span>
+      );
+    }
+    return null;
+  }
+
+  const [initial1, initial2] = monogram;
+
+  if (variant === "footer") {
+    return (
+      <span className={`client-monogram client-monogram--footer flex flex-col items-center md:items-start select-none ${className}`.trim()} {...props}>
+        <span className="font-serif text-4xl md:text-5xl tracking-wide text-cream" aria-hidden="true">
+          <span className="wedding-monogram-initial">{initial1}</span>{" "}
+          <span className="text-coral font-sans wedding-monogram-ampersand">&amp;</span>{" "}
+          <span className="wedding-monogram-initial">{initial2}</span>
+        </span>
+        {coupleLabel ? (
+          <span className="text-xs tracking-[0.2em] uppercase text-cream/70 font-semibold mt-2">
+            {coupleLabel}
+          </span>
+        ) : null}
+      </span>
+    );
+  }
+
+  // Nav variant (compact header)
   return (
-    <span className={`client-monogram ${withRules ? "client-monogram--hero" : ""} ${className}`.trim()} {...props}>
-      {withRules ? <span className="client-monogram__rule" aria-hidden="true" /> : null}
-      <span className="wedding-monogram-initial">{initials[0]}</span>
-      <span className="wedding-monogram-ampersand" aria-hidden="true">&amp;</span>
-      <span className="wedding-monogram-initial">{initials[1]}</span>
-      {withRules ? <span className="client-monogram__rule" aria-hidden="true" /> : null}
+    <span
+      className={`client-monogram client-monogram--nav wedding-nav-monogram ${className}`.trim()}
+      aria-hidden="true"
+      {...props}
+    >
+      <span className="wedding-monogram-initial">{initial1}</span>
+      <span className="wedding-monogram-ampersand">&amp;</span>
+      <span className="wedding-monogram-initial">{initial2}</span>
     </span>
   );
 }

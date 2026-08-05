@@ -12,16 +12,20 @@ import {
 import { SitemapDrawer } from "@/client/components/SitemapDrawer";
 import { ClientMonogram } from "@/client/components/ClientMonogram";
 import type { ClientConfig } from "@/client/client.config";
+import type { ClientBrandingData } from "@/client/types/client-view-model";
+import { deriveCoupleBranding } from "@/client/utils/derive-couple-branding";
 import { scrollToHash } from "@/client/utils/navigation";
 
 export function ClientNav({
   config,
   coupleDisplayName,
   visibleSectionKeys = [],
+  branding,
 }: {
   config?: ClientConfig;
   coupleDisplayName?: string;
   visibleSectionKeys?: ClientSectionKey[];
+  branding?: ClientBrandingData;
 } = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -31,6 +35,9 @@ export function ClientNav({
   const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
   const isScrolled = !isHomePage || hasScrolled;
+
+  const resolvedBranding =
+    branding ?? deriveCoupleBranding({ displayAs: coupleDisplayName });
 
   useEffect(() => {
     if (isHomePage && window.scrollY > 48) {
@@ -52,7 +59,6 @@ export function ClientNav({
     (key) => clientSectionRegistry[key],
   );
   const topNavItems = visibleSections.filter((section) => section.topNav);
-  const initials = getCoupleInitials(coupleDisplayName);
 
   const getResolvedHref = (href: string) => {
     if (href.startsWith("#")) {
@@ -74,6 +80,10 @@ export function ClientNav({
     }
   };
 
+  const homeLabel = resolvedBranding.coupleLabel
+    ? `${resolvedBranding.coupleLabel} wedding website`
+    : "Wedding website home";
+
   return (
     <>
       <nav
@@ -94,8 +104,13 @@ export function ClientNav({
                 }
               }}
               className="wedding-nav-monogram hover:opacity-80 transition-opacity flex items-center"
+              aria-label={homeLabel}
             >
-              <ClientMonogram initials={config?.theme.monogram ?? initials} />
+              <ClientMonogram
+                variant="nav"
+                monogram={resolvedBranding.monogram}
+                coupleLabel={resolvedBranding.coupleLabel}
+              />
             </Link>
           </div>
 
@@ -142,12 +157,5 @@ export function ClientNav({
     </>
   );
 }
-export default ClientNav;
 
-function getCoupleInitials(value?: string) {
-  const names = (value ?? "").split(/\s*&\s*/).filter(Boolean);
-  return [
-    names[0]?.trim().charAt(0).toUpperCase() || "W",
-    names[1]?.trim().charAt(0).toUpperCase() || "S",
-  ] as const;
-}
+export default ClientNav;
