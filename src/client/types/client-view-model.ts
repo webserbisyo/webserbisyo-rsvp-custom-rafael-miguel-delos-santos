@@ -73,12 +73,18 @@ export type ClientEntourageGroup = {
   names: string;
 };
 
+export type ClientAttireSwatch = {
+  name: string;
+  hex: string;
+};
+
 export type ClientAttireData = {
   title?: string;
   shortNote?: string;
   sectionIntro?: string;
   dressCodeNote?: string;
   colorMotifNote?: string;
+  palette?: ClientAttireSwatch[];
 };
 
 export type ClientExtraInfoItem = {
