@@ -130,7 +130,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
                 key={label}
                 className="wedding-panel rounded-sm p-2 sm:p-4 md:p-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
               >
-                <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-18 lg:h-22 items-center overflow-hidden">
+                <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-20 lg:h-24 items-center overflow-hidden">
                   {digits.map((d, i) => (
                     <div key={i} className="h-full flex items-center overflow-hidden">
                       <AnimatePresence mode="popLayout">
