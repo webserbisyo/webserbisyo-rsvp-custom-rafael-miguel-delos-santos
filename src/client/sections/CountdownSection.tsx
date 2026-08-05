@@ -90,28 +90,28 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
       </div>
 
       <div className="relative z-30 max-w-4xl mx-auto transform -translate-y-6 md:-translate-y-12">
-        <div className="mx-auto mb-8 sm:mb-12 flex flex-row items-center justify-center gap-4 sm:gap-10 text-[#5c4638]">
-          <div className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-[#5c4638]">
+        <div className="mx-auto mb-8 sm:mb-12 flex flex-row items-center justify-center gap-4 sm:gap-10 text-[color:var(--wedding-text-secondary)]">
+          <div className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-[color:var(--wedding-text-secondary)]">
             {weekday}
           </div>
 
-          <div className="h-16 sm:h-24 w-px bg-[#d45f3f]/40" />
+          <div className="h-16 sm:h-24 w-px bg-[color:var(--wedding-accent-line)]/40" />
 
           <div className="flex min-w-[76px] sm:min-w-[100px] flex-col items-center leading-none">
-            <span className="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-[0.2em] text-[#d45f3f]">
+            <span className="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-[0.2em] text-[color:var(--wedding-label-on-light)]">
               {month}
             </span>
-            <span className="font-poppins text-5xl sm:text-6xl md:text-7xl font-extrabold text-[#302722] my-2 sm:my-3 tracking-tight">
+            <span className="wedding-display text-5xl sm:text-6xl md:text-7xl font-semibold text-[color:var(--wedding-text-primary)] my-2 sm:my-3 tracking-tight">
               {dayNum}
             </span>
-            <span className="text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] text-[#5c4638]">
+            <span className="text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] text-[color:var(--wedding-text-secondary)]">
               {yearNum}
             </span>
           </div>
 
-          <div className="h-16 sm:h-24 w-px bg-[#d45f3f]/40" />
+          <div className="h-16 sm:h-24 w-px bg-[color:var(--wedding-accent-line)]/40" />
 
-          <div className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-[#5c4638]">
+          <div className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-[color:var(--wedding-text-secondary)]">
             {timeStr}
           </div>
         </div>
@@ -140,7 +140,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 30, opacity: 0 }}
                           transition={{ duration: 0.35, ease: "easeInOut" }}
-                          className="font-poppins text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-coral block tracking-tight"
+                          className="wedding-numeric-display block"
                         >
                           {mounted ? d : "0"}
                         </motion.span>
@@ -148,7 +148,7 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
                     </div>
                   ))}
                 </div>
-                <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[#725d4f]">{label}</p>
+                <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">{label}</p>
               </div>
             );
           })}

@@ -38,7 +38,7 @@ export function SectionHeading({
           <div className="h-px w-10 bg-[color:var(--wedding-accent-line)] opacity-70" />
         </div>
       )}
-      <h2 className="wedding-display wedding-section-title text-4xl md:text-5xl font-semibold mb-4">
+      <h2 className="wedding-display wedding-section-title mb-4">
         {title}
       </h2>
       {subtitle && (

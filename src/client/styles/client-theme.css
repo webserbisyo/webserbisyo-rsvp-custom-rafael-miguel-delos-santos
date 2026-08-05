@@ -212,7 +212,25 @@
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-title {
+  font-family: var(--font-wedding-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
   color: var(--wedding-text-primary);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-numeric-display {
+  font-family: var(--font-wedding-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--wedding-text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-subtitle {
