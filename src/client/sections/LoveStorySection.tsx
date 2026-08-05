@@ -29,28 +29,28 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
   const sectionIntro = loveStory.sectionIntro?.trim() || "A little story about how our journey began.";
   const storyBody = loveStory.storyBody?.trim();
 
-  // The three wedding photos as Folder items, ordered for center/focus on The-arrival-moment.webp
+  // The three wedding photos as Folder items (Groom -> Bride -> Couple)
   const folderPhotos = [
     {
-      src: "/wedding-assets/male-solo-landscape.webp",
-      alt: "Rafael before the ceremony",
+      src: "/wedding-assets/dianne/dianne-gallery-03-groom.webp",
+      alt: "Portrait of Novio in a refined garden setting",
       title: "The Groom",
-      subtitle: "RAFAEL SOLO",
-      aspectRatio: 1376 / 768,
+      subtitle: "NOVIO SOLO",
+      aspectRatio: 0.85,
     },
     {
-      src: "/wedding-assets/female-solo-landscape.webp",
-      alt: "Isabella before the ceremony",
+      src: "/wedding-assets/dianne/dianne-gallery-02-bride.webp",
+      alt: "Portrait of Dianne in a refined garden setting",
       title: "The Bride",
-      subtitle: "ISABELLA SOLO",
-      aspectRatio: 1376 / 768,
+      subtitle: "DIANNE SOLO",
+      aspectRatio: 0.85,
     },
     {
-      src: "/wedding-assets/The-arrival-moment.webp",
-      alt: "Rafael and Isabella by the sea",
+      src: "/wedding-assets/dianne/dianne-gallery-04-silhouette.webp",
+      alt: "Dianne and Novio together in a romantic evening portrait",
       title: "Our Story",
-      subtitle: "BY THE SEA",
-      aspectRatio: 1376 / 768,
+      subtitle: "DIANNE & NOVIO",
+      aspectRatio: 2752 / 1536,
     },
   ];
 
@@ -68,74 +68,6 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
 
   return (
     <section id="our-story" data-tone="light" className="wedding-section relative overflow-x-clip py-24 md:py-32 px-4 text-center animate-fade-in">
-      {/* Absolute Decorative Background Layer - Corner Flowers and Palm Leaves (z-0) */}
-      <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
-        {/* Top-Left Flower (17.webp) */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute -top-4 left-0 w-24 sm:-top-6 sm:-left-8 md:-top-8 md:-left-12 lg:-top-16 lg:-left-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
-        />
-
-        {/* Top-Right Flower (16.webp) */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute -top-4 right-0 w-24 sm:-top-6 sm:-right-8 md:-top-8 md:-right-12 lg:-top-16 lg:-right-20 sm:w-36 md:w-44 lg:w-[18rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
-        />
-
-        {/* Bottom-Left Flower (16.webp) - Contained bottom shelf/corner */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-0 bottom-4 w-24 sm:left-[-2rem] sm:bottom-4 sm:w-36 md:left-[-3rem] md:w-44 lg:bottom-0 lg:-left-20 lg:w-[18rem] h-auto object-contain rotate-12 opacity-100 transition-all duration-300"
-        />
-
-        {/* Bottom-Right Flower (17.webp) - Contained bottom shelf/corner */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute right-0 bottom-4 w-24 sm:right-[-2rem] sm:bottom-4 sm:w-36 md:right-[-3rem] md:w-44 lg:bottom-0 lg:-right-20 lg:w-[18rem] h-auto object-contain -rotate-12 opacity-100 transition-all duration-300"
-        />
-
-        {/* Left Palm Leaf (4.webp) - Desktop/Mobile Side Frame */}
-        <img
-          src="/beach%20assets%20finalized/4.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute top-1/2 -translate-y-1/2 left-[-2rem] sm:left-[-3rem] md:left-[-4rem] lg:left-[-2rem] xl:left-[-3rem] w-[8rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
-        />
-
-        {/* Right Palm Leaf (5.webp) - Desktop/Mobile Side Frame */}
-        <img
-          src="/beach%20assets%20finalized/5.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute top-1/2 -translate-y-1/2 right-[-2rem] sm:right-[-3rem] md:right-[-4rem] lg:right-[-2rem] xl:right-[-3rem] w-[8rem] sm:w-[11rem] md:w-[14rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 transition-[opacity,transform] duration-300"
-        />
-      </div>
 
 
       <div className="max-w-3xl mx-auto relative z-30">

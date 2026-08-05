@@ -18,40 +18,46 @@ import { ScrollStack, ScrollStackItem } from "@/client/libs/reactbits";
 
 const GALLERY_PHOTOS = [
   {
-    src: "/wedding-assets/The-ceremony-arch.webp",
+    src: "/wedding-assets/dianne/dianne-gallery-01-ceremony.webp",
     caption: "The Ceremony Arch",
-    location: "Beachfront Setup",
+    location: "Garden Ceremony Setup",
     orientation: "landscape",
+    alt: "Dianne and Novio wedding ceremony arch in a refined garden setting",
   },
   {
-    src: "/wedding-assets/female-solor-portrait.webp",
-    caption: "The Beautiful Bride",
-    location: "Isabella Solo",
+    src: "/wedding-assets/dianne/dianne-gallery-02-bride.webp",
+    caption: "The Bride",
+    location: "Dianne Solo Portrait",
     orientation: "portrait",
+    alt: "Portrait of Dianne in her wedding gown",
   },
   {
-    src: "/wedding-assets/male-solo-porttrait.webp",
-    caption: "The Dashing Groom",
-    location: "Rafael Solo",
+    src: "/wedding-assets/dianne/dianne-gallery-03-groom.webp",
+    caption: "The Groom",
+    location: "Novio Solo Portrait",
     orientation: "portrait",
+    alt: "Portrait of Novio on the wedding day",
   },
   {
-    src: "/wedding-assets/Sunset-silhouette.webp",
-    caption: "Sunset Silhouette",
-    location: "Golden Hour Beach",
+    src: "/wedding-assets/dianne/dianne-gallery-04-silhouette.webp",
+    caption: "Midnight Silhouette",
+    location: "Dramatic Evening Scene",
     orientation: "landscape",
+    alt: "Dramatic evening silhouette of Dianne and Novio",
   },
   {
-    src: "/wedding-assets/The-table-venue-detail.webp",
-    caption: "Reception Details",
-    location: "Table Settings",
+    src: "/wedding-assets/dianne/dianne-gallery-05-toast.webp",
+    caption: "Reception Toast",
+    location: "Garden Reception",
     orientation: "landscape",
+    alt: "Dianne and Novio at a candlelit garden reception toast",
   },
   {
-    src: "/wedding-assets/The-table-venue-detail2.webp",
-    caption: "Floral & Decor",
-    location: "Dinner Setup",
+    src: "/wedding-assets/dianne/dianne-gallery-06-table.webp",
+    caption: "Intimate Table Setting",
+    location: "Dinner Ambience",
     orientation: "landscape",
+    alt: "Intimate reception table moment with elegant floral styling",
   },
 ];
 
@@ -68,64 +74,9 @@ export function GallerySection() {
   return (
     <section
        id="gallery"
-       data-tone="champagne"
+       data-tone="warm"
        className="wedding-section relative overflow-x-clip pt-20 pb-20 px-4"
      >
-       {/* Decorative Sea Elements on Sides - Sticky Track System */}
-       <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-10 overflow-x-clip">
-
-        {/* Left Side Sticky Group */}
-        <div className="absolute top-0 bottom-0 left-0 w-0 pointer-events-none">
-          <div className="sticky top-[15vh] left-0 flex flex-col gap-[20vh] pl-2 md:pl-4 lg:pl-8">
-            <img
-              src="/beach%20assets%20finalized/14.webp"
-              alt=""
-              aria-hidden="true"
-              width={2048}
-              height={2048}
-              decoding="async"
-              loading="lazy"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[15deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
-            />
-            <img
-              src="/beach%20assets%20finalized/15.webp"
-              alt=""
-              aria-hidden="true"
-              width={2048}
-              height={2048}
-              decoding="async"
-              loading="lazy"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[20deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
-            />
-          </div>
-        </div>
-
-        {/* Right Side Sticky Group */}
-        <div className="absolute top-0 bottom-0 right-0 w-0 pointer-events-none">
-          <div className="sticky top-[20vh] right-0 flex flex-col items-end gap-[20vh] pr-2 md:pr-4 lg:pr-8">
-            <img
-              src="/beach%20assets%20finalized/15.webp"
-              alt=""
-              aria-hidden="true"
-              width={2048}
-              height={2048}
-              decoding="async"
-              loading="lazy"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform rotate-[45deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
-            />
-            <img
-              src="/beach%20assets%20finalized/14.webp"
-              alt=""
-              aria-hidden="true"
-              width={2048}
-              height={2048}
-              decoding="async"
-              loading="lazy"
-              className="w-20 sm:w-28 md:w-36 lg:w-52 xl:w-60 h-auto object-contain max-w-none transform -rotate-[30deg] opacity-70 lg:opacity-90 select-none transition-transform duration-500 will-change-transform"
-            />
-          </div>
-        </div>
-      </div>
 
       <div className="max-w-2xl mx-auto relative z-30">
         <div className="text-center mb-14">
@@ -158,7 +109,7 @@ export function GallerySection() {
                     {mounted && (
                       <img
                         src={photo.src}
-                        alt={photo.caption}
+                        alt={photo.alt}
                         decoding="async"
                         className="w-full h-full object-cover rounded-sm hover:scale-105 transition-transform duration-500"
                       />

@@ -8,6 +8,7 @@ type FolderPhotoCardProps = {
   title?: string;
   subtitle?: string;
   aspectRatio?: number;
+  fit?: "contain" | "cover";
   loading?: "lazy" | "eager";
 };
 
@@ -17,6 +18,7 @@ export function FolderPhotoCard({
   title,
   subtitle,
   aspectRatio,
+  fit = "cover",
   loading = "eager",
 }: FolderPhotoCardProps) {
   return (
@@ -27,7 +29,7 @@ export function FolderPhotoCard({
         title={title}
         subtitle={subtitle}
         aspectRatio={aspectRatio}
-        fit="contain"
+        fit={fit}
         variant="folder"
         loading={loading}
         className="max-h-full max-w-full"
