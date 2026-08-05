@@ -15,10 +15,9 @@ export function parseMusicMeta(title?: string): {
   displayArtist: string;
 } {
   const fallbackTitle = "Our Wedding Song";
-  const fallbackArtist = "Wedding Ambience";
 
   if (!title) {
-    return { displayTitle: fallbackTitle, displayArtist: fallbackArtist };
+    return { displayTitle: fallbackTitle, displayArtist: "" };
   }
 
   if (title.includes(" - ")) {
@@ -37,5 +36,5 @@ export function parseMusicMeta(title?: string): {
     };
   }
 
-  return { displayTitle: title, displayArtist: fallbackArtist };
+  return { displayTitle: title, displayArtist: "" };
 }
