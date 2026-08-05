@@ -4,7 +4,6 @@
  * RsvpCtaSection
  *
  * Full-width gradient CTA block linking to the /rsvp page.
- * Extracted from ClientEventRenderer.tsx lines 908–932.
  * No data props needed — static content.
  */
 
@@ -17,52 +16,36 @@ export function RsvpCtaSection() {
     <section
       id="rsvp"
       data-tone="dark"
-      className="wedding-section relative overflow-x-clip py-24 px-4 text-center text-white"
+      className="wedding-section relative overflow-x-clip -mt-px -mb-px py-20 px-4 text-center"
     >
-      {/* Background Image Layer with Gradient Overlay */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+      {/* Decorative Bird Layer — Airy top corner/side accents */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 select-none"
+      >
+        {/* Left Bird - Top/Left side, fully visible */}
         <img
-          src="/beach%20assets%20finalized/6.webp"
+          src="/beach%20assets%20finalized/7.webp"
           alt=""
           aria-hidden="true"
           width={2048}
           height={2048}
           decoding="async"
-          loading="lazy"
-          className="w-full h-full object-cover object-center pointer-events-none select-none opacity-80"
-        />
-        {/* Soft dark vignette overlay to ensure text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1410]/70 via-[#1C1410]/50 to-[#1C1410]/75" />
-      </div>
-
-      {/* Foreground Flowers Layer — Frame the top and bottom of the CTA section */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 select-none">
-        {/* Top-Right Corner Flower (17.png) */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute -right-4 sm:-right-8 -top-6 sm:-top-10 w-32 sm:w-48 md:w-60 h-auto object-contain pointer-events-none select-none z-10 opacity-90 rotate-[10deg]"
+          className="absolute left-0 sm:left-[-1rem] md:left-[-2rem] lg:left-8 xl:left-12 -top-3 sm:-top-4 md:-top-6 lg:top-4 w-28 sm:w-32 md:w-36 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-90"
         />
 
-        {/* Bottom-Left Corner Flower (16.png) */}
+        {/* Right Bird - Top/Right side, fully visible */}
         <img
-          src="/beach%20assets%20finalized/16.webp"
+          src="/beach%20assets%20finalized/8.webp"
           alt=""
           aria-hidden="true"
           width={2048}
           height={2048}
           decoding="async"
-          loading="lazy"
-          className="absolute -left-4 sm:-left-8 -bottom-6 sm:-bottom-10 w-32 sm:w-48 md:w-60 h-auto object-contain pointer-events-none select-none z-10 opacity-90 rotate-[-10deg]"
+          className="absolute right-0 sm:right-[-1rem] md:right-[-2rem] lg:right-8 xl:right-12 -top-3 sm:-top-4 md:-top-6 lg:top-4 w-28 sm:w-32 md:w-36 lg:w-52 xl:w-60 h-auto object-contain pointer-events-none select-none z-0 rotate-[10deg] opacity-90"
         />
       </div>
 
-      {/* Content Stack */}
       <FadeContent>
         <div className="relative z-30 max-w-2xl mx-auto">
           <p className="text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-white/70">
