@@ -11,6 +11,10 @@ type PhotoDisplayCardProps = {
   subtitle?: string;
   aspectRatio?: number;
   fit?: PhotoFit;
+  focalPoint?: {
+    x: number;
+    y: number;
+  };
   variant?: "folder" | "gallery" | "hero" | "card";
   loading?: "lazy" | "eager";
   className?: string;
@@ -23,6 +27,7 @@ export function PhotoDisplayCard({
   subtitle,
   aspectRatio,
   fit = "contain",
+  focalPoint,
   loading = "lazy",
   className = "",
 }: PhotoDisplayCardProps) {
@@ -42,6 +47,7 @@ export function PhotoDisplayCard({
           src={src}
           alt={alt}
           fit={fit}
+          focalPoint={focalPoint}
           variant="folder-paper"
           loading={loading}
           className="h-full w-full rounded-sm"

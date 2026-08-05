@@ -37,6 +37,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       title: "The Groom",
       subtitle: "NOVIO SOLO",
       aspectRatio: 0.85,
+      focalPoint: { x: 50, y: 15 },
     },
     {
       src: "/wedding-assets/dianne/dianne-gallery-02-bride.webp",
@@ -44,6 +45,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       title: "The Bride",
       subtitle: "DIANNE SOLO",
       aspectRatio: 0.85,
+      focalPoint: { x: 50, y: 15 },
     },
     {
       src: "/wedding-assets/dianne/dianne-gallery-04-silhouette.webp",
@@ -51,6 +53,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       title: "Our Story",
       subtitle: "DIANNE & NOVIO",
       aspectRatio: 2752 / 1536,
+      focalPoint: { x: 50, y: 50 },
     },
   ];
 
@@ -62,6 +65,7 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
       title={photo.title}
       subtitle={photo.subtitle}
       aspectRatio={photo.aspectRatio}
+      focalPoint={photo.focalPoint}
       loading="eager"
     />
   ));

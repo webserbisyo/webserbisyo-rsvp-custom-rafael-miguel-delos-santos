@@ -133,3 +133,34 @@ test("contract: ClientMonogram uses clean serif structure and excludes script/ov
   assert.ok(css.includes(".client-monogram--nav"), ".client-monogram--nav must be defined in theme CSS");
   assert.ok(css.includes(".client-monogram--footer"), ".client-monogram--footer must be defined in theme CSS");
 });
+
+test("contract: LoveStorySection, FolderPhotoCard, and PhotoDisplayCard support and forward focalPoint data", async () => {
+  const fs = await import("node:fs/promises");
+  const folderCardTsx = await fs.readFile(
+    new URL("../src/client/components/media/FolderPhotoCard.tsx", import.meta.url),
+    "utf-8"
+  );
+  const displayCardTsx = await fs.readFile(
+    new URL("../src/client/components/media/PhotoDisplayCard.tsx", import.meta.url),
+    "utf-8"
+  );
+  const templatePhotoTsx = await fs.readFile(
+    new URL("../src/client/components/media/TemplatePhoto.tsx", import.meta.url),
+    "utf-8"
+  );
+  const loveStoryTsx = await fs.readFile(
+    new URL("../src/client/sections/LoveStorySection.tsx", import.meta.url),
+    "utf-8"
+  );
+
+  assert.ok(folderCardTsx.includes("focalPoint?:"), "FolderPhotoCardProps must define optional focalPoint prop");
+  assert.ok(folderCardTsx.includes("focalPoint={focalPoint}"), "FolderPhotoCard must forward focalPoint to PhotoDisplayCard");
+
+  assert.ok(displayCardTsx.includes("focalPoint?:"), "PhotoDisplayCardProps must define optional focalPoint prop");
+  assert.ok(displayCardTsx.includes("focalPoint={focalPoint}"), "PhotoDisplayCard must forward focalPoint to TemplatePhoto");
+
+  assert.ok(templatePhotoTsx.includes("style.objectPosition = `${focalPoint.x}% ${focalPoint.y}%`"), "TemplatePhoto must compute objectPosition style when focalPoint is provided");
+
+  assert.ok(loveStoryTsx.includes("focalPoint: { x: 50, y: 15 }"), "LoveStorySection must configure focalPoint for Groom and Bride cards");
+  assert.ok(loveStoryTsx.includes("focalPoint={photo.focalPoint}"), "LoveStorySection must pass photo.focalPoint to FolderPhotoCard");
+});
