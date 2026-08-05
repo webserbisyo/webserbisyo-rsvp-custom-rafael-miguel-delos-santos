@@ -288,6 +288,17 @@
   box-shadow: var(--wedding-shadow-panel) !important;
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-hero-message-text {
+  font-family: var(--font-wedding-display);
+  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--wedding-text-on-dark);
+  text-align: center;
+  text-shadow: 0 2px 12px rgb(23 21 18 / 60%);
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-monogram-initial {
   color: var(--wedding-text-on-dark);
 }

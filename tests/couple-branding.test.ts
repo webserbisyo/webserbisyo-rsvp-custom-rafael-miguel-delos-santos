@@ -62,3 +62,46 @@ test("deriveCoupleBranding: extracts 4-digit year from ISO date strings", () => 
   });
   assert.strictEqual(result.copyrightYear, "2028");
 });
+
+test("contract: client-theme.css defines .wedding-hero-message-text and HeroSection consumes it", async () => {
+  const fs = await import("node:fs/promises");
+  const css = await fs.readFile(
+    new URL("../src/client/styles/client-theme.css", import.meta.url),
+    "utf-8"
+  );
+  const heroTsx = await fs.readFile(
+    new URL("../src/client/sections/HeroSection.tsx", import.meta.url),
+    "utf-8"
+  );
+
+  assert.ok(
+    css.includes(".wedding-hero-message-text"),
+    "client-theme.css must define .wedding-hero-message-text"
+  );
+  assert.ok(
+    heroTsx.includes('className="wedding-hero-message-text"'),
+    "HeroSection.tsx must use wedding-hero-message-text className"
+  );
+});
+
+test("contract: ContactSection and ClientMonogram contain no stale hardcoded client identity", async () => {
+  const fs = await import("node:fs/promises");
+  const contactTsx = await fs.readFile(
+    new URL("../src/client/sections/ContactSection.tsx", import.meta.url),
+    "utf-8"
+  );
+  const monogramTsx = await fs.readFile(
+    new URL("../src/client/components/ClientMonogram.tsx", import.meta.url),
+    "utf-8"
+  );
+  const configTs = await fs.readFile(
+    new URL("../src/client/client.config.ts", import.meta.url),
+    "utf-8"
+  );
+
+  assert.ok(!contactTsx.includes("Rafael"), "ContactSection must not contain hardcoded Rafael");
+  assert.ok(!contactTsx.includes("Isabella"), "ContactSection must not contain hardcoded Isabella");
+  assert.ok(!contactTsx.includes("R & I"), "ContactSection must not contain hardcoded R & I");
+  assert.ok(!monogramTsx.includes('["J", "D"]'), "ClientMonogram must not default to hardcoded J & D");
+  assert.ok(!configTs.includes('monogram: ["J", "D"]'), "client.config.ts must not default to hardcoded J & D");
+});

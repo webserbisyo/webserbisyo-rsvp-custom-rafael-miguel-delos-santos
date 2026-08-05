@@ -69,7 +69,7 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
             {/* Optional Short Host Message — centered card below names */}
             {coupleInfo?.shortHostMessage && (
               <div className="wedding-hero-message mt-4 mb-7 w-full max-w-xl border-y border-[var(--wedding-nav-border)] px-5 py-3 text-center">
-                <p className="font-serif italic text-base sm:text-lg leading-relaxed text-[color:var(--wedding-text-on-dark-secondary)]">
+                <p className="wedding-hero-message-text">
                   {coupleInfo.shortHostMessage}
                 </p>
               </div>
