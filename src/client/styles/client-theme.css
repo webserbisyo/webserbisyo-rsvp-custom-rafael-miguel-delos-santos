@@ -167,6 +167,13 @@
   --wedding-music-disc-center-surface: #f9efe3;
   --wedding-music-disc-icon-foreground: #1c1410;
 
+  --wedding-drawer-overlay: rgb(23 21 18 / 50%);
+  --wedding-drawer-surface: var(--wedding-surface-ivory);
+  --wedding-drawer-text: var(--wedding-text-primary);
+  --wedding-drawer-muted: var(--wedding-text-secondary);
+  --wedding-drawer-border: var(--wedding-divider);
+  --wedding-drawer-accent: var(--wedding-label-on-light);
+
   --wedding-rsvp-selected: #171512;
   --wedding-rsvp-selected-foreground: #fff7e9;
   --wedding-rsvp-submit: #171512;
@@ -908,33 +915,50 @@
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-drawer-heading {
-  color: var(--wedding-label-on-light);
-  border-color: var(--wedding-divider);
+  color: var(--wedding-drawer-accent, var(--wedding-label-on-light));
+  border-color: var(--wedding-drawer-border, var(--wedding-divider));
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link {
-  color: var(--wedding-text-secondary);
+  color: var(--wedding-drawer-text, var(--wedding-text-primary));
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link:hover {
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link svg {
+  color: var(--wedding-drawer-muted, var(--wedding-text-secondary));
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link:hover,
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link:focus-visible {
   background: var(--wedding-surface-champagne);
-  border-color: var(--wedding-divider);
-  color: var(--wedding-text-primary);
-  box-shadow: none;
+  color: var(--wedding-drawer-accent, var(--wedding-label-on-light));
 }
 
-[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link svg,
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link:hover svg,
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link:focus-visible svg {
+  color: var(--wedding-drawer-accent, var(--wedding-label-on-light));
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-link-label::after {
+  background: var(--wedding-drawer-accent, var(--wedding-label-on-light));
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close {
-  color: var(--wedding-label-on-light);
+  color: var(--wedding-drawer-muted, var(--wedding-text-secondary));
+  border-color: var(--wedding-drawer-border, var(--wedding-divider));
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close {
-  border-color: var(--wedding-control-border);
-}
-
-[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close:hover {
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close:hover,
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close:focus-visible {
   background: var(--wedding-surface-champagne);
-  border-color: var(--wedding-accent-line);
+  border-color: var(--wedding-drawer-accent, var(--wedding-label-on-light));
+  color: var(--wedding-drawer-accent, var(--wedding-label-on-light));
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-drawer-close:active {
+  transform: scale(0.95);
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-timeline-card {

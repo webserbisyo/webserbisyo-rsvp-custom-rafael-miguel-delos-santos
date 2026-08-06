@@ -27,7 +27,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-[70] bg-[#2D1B12]/40 backdrop-blur-sm", className)}
+    className={cn("fixed inset-0 z-[70] bg-[color:var(--wedding-drawer-overlay,rgb(23_21_18_/_50%))] backdrop-blur-sm", className)}
     {...props}
   />
 ));
@@ -42,7 +42,7 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-y-0 right-0 z-[70] flex h-screen h-[100dvh] max-h-[100dvh] w-full sm:w-[480px] sm:max-w-[94vw] flex-col border-l border-sand/30 bg-[#FDFBF7] shadow-2xl overflow-hidden focus:outline-none",
+        "fixed inset-y-0 right-0 z-[70] flex h-screen h-[100dvh] max-h-[100dvh] w-full sm:w-[480px] sm:max-w-[94vw] flex-col border-l border-[color:var(--wedding-drawer-border,var(--wedding-divider))] bg-[color:var(--wedding-drawer-surface,var(--wedding-surface-ivory))] shadow-2xl overflow-hidden focus:outline-none",
         className
       )}
       {...props}
@@ -82,7 +82,7 @@ const DrawerTitle = React.forwardRef<
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      "text-2xl sm:text-[1.65rem] font-semibold font-serif text-cocoa leading-none tracking-tight",
+      "text-2xl sm:text-[1.65rem] font-semibold font-serif text-[color:var(--wedding-drawer-text,var(--wedding-text-primary))] leading-none tracking-tight",
       className
     )}
     {...props}
@@ -96,7 +96,7 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}
-    className={cn("text-sm sm:text-[0.9rem] text-driftwood mt-1.5", className)}
+    className={cn("text-sm sm:text-[0.9rem] text-[color:var(--wedding-drawer-muted,var(--wedding-text-secondary))] mt-1.5", className)}
     {...props}
   />
 ));

@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
-import { X } from "@/client/libs/icons";
+import { X, ChevronDown } from "@/client/libs/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -68,6 +68,41 @@ export function SitemapDrawer({
   const isRsvpPage = pathname === "/rsvp";
   const sitemapGroups = buildSitemapGroups(visibleSectionKeys);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [hasMoreBelow, setHasMoreBelow] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const hasOverflow = el.scrollHeight > el.clientHeight;
+    const isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 16;
+    setHasMoreBelow(hasOverflow && !isAtBottom);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let rafId: number;
+    const updateScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        checkScroll();
+      });
+    };
+
+    updateScroll();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", updateScroll, { passive: true });
+    }
+    window.addEventListener("resize", updateScroll, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      if (el) el.removeEventListener("scroll", updateScroll);
+      window.removeEventListener("resize", updateScroll);
+    };
+  }, [isOpen, checkScroll]);
+
   const getResolvedHref = (href: string) => {
     if (href.startsWith("#")) {
       return isRsvpPage ? `/${href}` : href;
@@ -110,7 +145,7 @@ export function SitemapDrawer({
     >
       <DrawerContent className="wedding-drawer border-l">
         {/* Header */}
-        <DrawerHeader className="flex-none relative border-b border-sand/25 pb-5">
+        <DrawerHeader className="flex-none relative border-b border-[color:var(--wedding-drawer-border,var(--wedding-divider))] pb-5">
           <DrawerTitle>Sitemap</DrawerTitle>
           <DrawerDescription>
             Explore all the details of our wedding celebration
@@ -118,7 +153,7 @@ export function SitemapDrawer({
 
           <button
             onClick={onClose}
-            className="wedding-drawer-close absolute top-5 right-5 p-2 rounded-full border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2"
+            className="wedding-drawer-close absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--wedding-drawer-accent,var(--wedding-label-on-light))]"
             aria-label="Close navigation menu"
           >
             <X size={18} />
@@ -127,6 +162,7 @@ export function SitemapDrawer({
 
         {/* Content - Compact Sitemap Grid */}
         <motion.div
+          ref={scrollRef}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -152,12 +188,12 @@ export function SitemapDrawer({
                         <Link
                           href={getResolvedHref(item.anchor)}
                           onClick={(e) => handleLinkClick(e, item.anchor)}
-                          className="wedding-drawer-link group flex items-center gap-3 py-2 px-3 text-sm sm:text-[0.95rem] border border-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 rounded-[4px] -mx-2"
+                          className="wedding-drawer-link group flex items-center gap-3 min-h-[44px] py-2 px-3 text-sm sm:text-[0.95rem] border border-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--wedding-drawer-accent,var(--wedding-label-on-light))] rounded-lg -mx-2.5 active:bg-cream/60"
                         >
                           {Icon && (
-                            <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5 transition-colors shrink-0" />
+                            <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5 transition-colors shrink-0 group-hover:scale-105" />
                           )}
-                          <span className="font-medium truncate">
+                          <span className="wedding-drawer-link-label font-medium truncate relative py-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-200 group-hover:after:origin-bottom-left group-hover:after:scale-x-100">
                             {item.label}
                           </span>
                         </Link>
@@ -169,6 +205,16 @@ export function SitemapDrawer({
             ))}
           </div>
         </motion.div>
+
+        {/* Mobile Scroll Overflow Indicator */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[color:var(--wedding-drawer-surface,var(--wedding-surface-ivory))] via-[color:var(--wedding-drawer-surface,var(--wedding-surface-ivory))]/80 to-transparent flex items-end justify-center pb-2.5 transition-opacity duration-300 ${
+            isOpen && hasMoreBelow ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <ChevronDown className="w-4 h-4 text-[color:var(--wedding-drawer-accent,var(--wedding-label-on-light))]" />
+        </div>
       </DrawerContent>
     </Drawer>
   );
