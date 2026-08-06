@@ -19,20 +19,35 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import type { ClientAttireData } from "@/client/types/client-view-model";
-import type { SectionSurface } from "@/client/client-section-registry";
 
 type AttireSectionProps = {
   attireDressCode: ClientAttireData;
-  surface: SectionSurface;
 };
 
-export function AttireSection({
-  attireDressCode,
-  surface,
-}: AttireSectionProps) {
+const COLOR_PALETTE = [
+  { name: "Sand", hex: "#E8C97A" },
+  { name: "Taupe", hex: "#B0A496" },
+  { name: "Sage Green", hex: "#7A9E7E" },
+  { name: "Dusty Blue", hex: "#9AB8C2" },
+  { name: "Shell Pink", hex: "#FCD5CE" },
+];
+
+export function AttireSection({ attireDressCode }: AttireSectionProps) {
   if (!attireDressCode) return null;
 
-  const displayColorMotif = attireDressCode.colorMotifNote || "";
+  // Format the color motif note at the presentation layer to resolve the ivory contradiction
+  const rawMotif = attireDressCode.colorMotifNote || "";
+  let displayColorMotif = rawMotif;
+  
+  if (rawMotif.toLowerCase().includes("ivory")) {
+    // Replace Ivory with Taupe
+    displayColorMotif = displayColorMotif.replace(/Ivory/gi, "Taupe");
+    
+    // If it's the exact old motif, replace the end to add Shell Pink
+    if (displayColorMotif.toLowerCase().includes("dusty blue") && !displayColorMotif.toLowerCase().includes("shell pink")) {
+      displayColorMotif = displayColorMotif.replace(/and\s+Dusty\s+Blue/i, "Dusty Blue, and Shell Pink");
+    }
+  }
 
   // Complete the cut-off intro text if present
   let displayIntro = attireDressCode.sectionIntro || "";
@@ -40,22 +55,128 @@ export function AttireSection({
     displayIntro = `${displayIntro.trim()} the bride.`;
   }
 
-  const palette = attireDressCode.palette || [];
-
   return (
-    <section
-      id="attire"
-      data-tone={surface}
-      className="wedding-section pt-24 pb-28 md:pb-32 px-4 relative overflow-x-clip"
-    >
+    <section id="attire" data-tone="light" className="wedding-section pt-24 pb-28 md:pb-32 px-4 relative overflow-x-clip">
+      
+      {/* Absolute Decorative Background Layer - Corner Flowers and Desktop-Only Palm Leaves (z-0) */}
+      <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
+        
+        {/* Top-Left Flower (17.webp) */}
+        <img
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -left-10 sm:-top-12 sm:-left-12 md:-top-16 md:-left-16 lg:-top-20 lg:-left-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Top-Right Flower (16.webp) */}
+        <img
+          src="/beach%20assets%20finalized/16.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -top-10 -right-10 sm:-top-12 sm:-right-12 md:-top-16 md:-right-16 lg:-top-20 lg:-right-20 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Bottom-Left Flower (16.webp) - Tucked behind lower card area with positive bottom offset */}
+        <img
+          src="/beach%20assets%20finalized/16.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -left-10 bottom-2 sm:-left-12 sm:bottom-4 md:-left-16 md:bottom-6 lg:-left-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Bottom-Right Flower (17.webp) - Tucked behind lower card area with positive bottom offset */}
+        <img
+          src="/beach%20assets%20finalized/17.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute -right-10 bottom-2 sm:-right-12 sm:bottom-4 md:-right-16 md:bottom-6 lg:-right-20 lg:bottom-8 w-[9rem] sm:w-[12rem] md:w-[16rem] lg:w-[19rem] h-auto object-contain -rotate-12 opacity-100 transition-[opacity,transform] duration-300"
+        />
+
+        {/* Desktop-Only Left Palm Leaf (4.webp) - Framed to the outermost left screen edge */}
+        <img
+          src="/beach%20assets%20finalized/4.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:left-[-2rem] xl:left-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 hidden lg:block"
+        />
+
+        {/* Desktop-Only Right Palm Leaf (5.webp) - Framed to the outermost right screen edge */}
+        <img
+          src="/beach%20assets%20finalized/5.webp"
+          alt=""
+          aria-hidden="true"
+          width={2048}
+          height={2048}
+          decoding="async"
+          className="absolute lg:top-[40%] xl:top-[42%] -translate-y-1/2 lg:right-[-2rem] xl:right-[-3rem] lg:w-[20rem] xl:w-[24rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 hidden lg:block"
+        />
+      </div>
+
       {/* Content Layer (z-10) - Kept at max-w-4xl for the approved scale */}
       <div className="max-w-4xl mx-auto flex flex-col items-center relative z-30">
+        
         {/* Heading */}
-        <SectionHeading
-          label="Dress Code"
-          title={attireDressCode.title || "Attire"}
-          subtitle={attireDressCode.shortNote}
+        <SectionHeading 
+          label="Dress Code" 
+          title={attireDressCode.title || "Attire"} 
+          subtitle={attireDressCode.shortNote} 
         />
+
+        {/* Featured Attire Illustration & Framing Leaves Wrapper */}
+        <div className="relative w-full flex justify-center mb-10 select-none">
+          
+          {/* Mobile/Tablet Left Side Palm Leaf (4.png) - Aligned to frame the illustration, hidden on desktop */}
+          <img
+            src="/beach%20assets%20finalized/4.webp"
+            alt=""
+            aria-hidden="true"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute left-[-2rem] sm:left-[-3rem] md:left-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 lg:hidden"
+          />
+
+          {/* Mobile/Tablet Right Side Palm Leaf (5.png) - Aligned to frame the illustration, hidden on desktop */}
+          <img
+            src="/beach%20assets%20finalized/5.webp"
+            alt=""
+            aria-hidden="true"
+            width={2048}
+            height={2048}
+            decoding="async"
+            className="absolute right-[-2rem] sm:right-[-3rem] md:right-[-4rem] top-1/2 -translate-y-1/2 w-[7rem] sm:w-[11rem] md:w-[14rem] h-auto object-contain opacity-100 z-0 pointer-events-none select-none transition-[opacity,transform] duration-300 lg:hidden"
+          />
+
+          {/* Soft warm radial glow backdrop */}
+          <div className="absolute inset-0 m-auto w-[80%] h-[80%] rounded-full bg-gradient-to-tr from-coral/10 via-sand/15 to-transparent blur-3xl pointer-events-none z-0" />
+          
+          {/* Main Attire Image - Strictly preserved approved visual scale */}
+          <img
+            src="/beach%20assets%20finalized/attire.webp"
+            alt="Tropical formal attire examples"
+            width={2752}
+            height={1536}
+            decoding="async"
+            className="relative z-10 w-[92vw] max-w-[420px] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[760px] h-auto object-contain pointer-events-none"
+            draggable={false}
+          />
+        </div>
 
         {/* Standalone Guideline Paragraph */}
         {displayIntro && (
@@ -66,8 +187,8 @@ export function AttireSection({
 
         {/* Compact Dress Code Spotlight Glassmorphism Card */}
         <AnimatedContent>
-          <SpotlightCard
-            className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[color:var(--wedding-shadow-panel)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
+          <SpotlightCard 
+            className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
             spotlightColor="rgba(232, 201, 122, 0.16)"
           >
             {/* Dress Code Title / Note */}
@@ -76,7 +197,7 @@ export function AttireSection({
                 {attireDressCode.dressCodeNote}
               </h3>
             )}
-
+            
             {/* Color Motif Note Text */}
             {displayColorMotif && (
               <p className="text-coral text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold mb-6">
@@ -84,33 +205,26 @@ export function AttireSection({
               </p>
             )}
 
-            {palette.length > 0 && (
-              <>
-                {/* Subtle Divider */}
-                <div className="h-px w-20 bg-sand/30 mx-auto mb-6" />
+            {/* Subtle Divider */}
+            <div className="h-px w-20 bg-sand/30 mx-auto mb-6" />
 
-                {/* Color Palette Chips */}
-                <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
-                  {palette.map((color) => (
-                    <div
-                      key={color.name}
-                      className="flex flex-col items-center group select-none"
-                    >
-                      <div
-                        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-sand/30 shadow-sm transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: color.hex }}
-                        aria-label={`Color swatch: ${color.name}`}
-                      />
-                      <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#725d4f] mt-2 uppercase">
-                        {color.name}
-                      </span>
-                    </div>
-                  ))}
+            {/* Color Palette Chips */}
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+              {COLOR_PALETTE.map((color) => (
+                <div key={color.name} className="flex flex-col items-center group select-none">
+                  <div
+                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-sand/30 shadow-sm transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#725d4f] mt-2 uppercase">
+                    {color.name}
+                  </span>
                 </div>
-              </>
-            )}
+              ))}
+            </div>
           </SpotlightCard>
         </AnimatedContent>
+
       </div>
     </section>
   );

@@ -3,9 +3,12 @@
 /**
  * MusicSection
  *
- * Clean SpotlightCard container vinyl disc music player without WEBP collage assets.
- * Play/pause/stop controls, spinning vinyl disc, and centered card layout.
- * Integrated with centralized surface role architecture.
+ * Vinyl disc music player with SpotlightCard, play/pause/stop controls,
+ * and animated visual states.
+ * Extracted from ClientEventRenderer.tsx lines 182–316.
+ *
+ * All classNames, vinyl animation, SpotlightCard usage, and button
+ * animations are identical to the original.
  */
 
 import { useEffect } from "react";
@@ -15,40 +18,32 @@ import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { parseMusicMeta } from "@/client/utils/music-meta";
 import { Play, Pause, Square, Music4 } from "@/client/libs/icons";
 import type { ClientMusicData } from "@/client/types/client-view-model";
-import type { SectionSurface } from "@/client/client-section-registry";
+
 import { weddingButtonVariants } from "@/client/components/ui/WeddingButton";
 
 type MusicSectionProps = {
   musicEffects: ClientMusicData;
-  surface: SectionSurface;
 };
 
-export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
-  const { playbackState, isPlaying, play, pause, stop, setMusicData } =
-    useAudio();
+export function MusicSection({ musicEffects }: MusicSectionProps) {
+  const { playbackState, isPlaying, play, pause, stop, setMusicData } = useAudio();
 
   // Register track details with audio context
   useEffect(() => {
     if (musicEffects?.musicLink) {
-      setMusicData(
-        musicEffects.musicLink,
-        musicEffects.musicTitle || "",
-        musicEffects.shortNote || "",
-      );
+      setMusicData(musicEffects.musicLink, musicEffects.musicTitle || "", musicEffects.shortNote || "");
     }
   }, [musicEffects, setMusicData]);
 
   if (!musicEffects?.musicLink) return null;
 
-  const { displayTitle, displayArtist } = parseMusicMeta(
-    musicEffects.musicTitle,
-  );
+  const { displayTitle, displayArtist } = parseMusicMeta(musicEffects.musicTitle);
 
   return (
     <section
       id="music"
-      data-tone={surface}
-      className="wedding-section relative py-20 md:py-28 px-4 text-center overflow-hidden"
+      data-tone="olive"
+      className="wedding-section py-20 md:py-28 px-4 text-center relative overflow-hidden"
     >
       <div className="max-w-md mx-auto relative z-10">
         <SpotlightCard
@@ -79,7 +74,7 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
               <div className="absolute inset-6 rounded-full border border-cream/5 pointer-events-none" />
 
               {/* Center Label */}
-              <div className="w-10 h-10 rounded-full wedding-music-disc-center flex items-center justify-center shadow-inner">
+              <div className="w-10 h-10 rounded-full bg-[#f9efe3] flex items-center justify-center text-cocoa shadow-inner">
                 <Music4 className="w-4 h-4" />
               </div>
             </motion.div>
@@ -89,20 +84,13 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
           <h3 className="font-serif text-3xl font-medium mb-1 truncate text-[#f9efe3]">
             {displayTitle}
           </h3>
-          {displayArtist ? (
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-coral mb-6">
-              {displayArtist}
-            </p>
-          ) : (
-            <div className="mb-4" />
-          )}
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-coral mb-6">
+            {displayArtist}
+          </p>
 
           {/* Short Note */}
           <p className="text-sm italic text-cream/70 max-w-xs mx-auto mb-8 font-serif leading-relaxed">
-            &ldquo;
-            {musicEffects.shortNote ||
-              "A song that reminds us of our journey together."}
-            &rdquo;
+            &ldquo;{musicEffects.shortNote || "A song that reminds us of our journey together."}&rdquo;
           </p>
 
           {/* Controls */}
@@ -112,17 +100,11 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
                 <motion.button
                   key="pause-btn"
                   type="button"
-                  aria-label="Pause Music"
-                  aria-pressed="true"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={pause}
-                  className={weddingButtonVariants({
-                    variant: "primary",
-                    size: "md",
-                    className: "shrink-0",
-                  })}
+                  className={weddingButtonVariants({ variant: "primary", size: "md", className: "shrink-0" })}
                 >
                   <Pause className="w-4 h-4 fill-current" />
                   <span>Pause</span>
@@ -131,24 +113,14 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
                 <motion.button
                   key="play-btn"
                   type="button"
-                  aria-label={playbackState === "paused" ? "Resume Music" : "Play Music"}
-                  aria-pressed="false"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={play}
-                  className={weddingButtonVariants({
-                    variant: "primary",
-                    size: "md",
-                    className: "shrink-0",
-                  })}
+                  className={weddingButtonVariants({ variant: "primary", size: "md", className: "shrink-0" })}
                 >
                   <Play className="w-4 h-4 fill-current" />
-                  <span>
-                    {playbackState === "paused"
-                      ? "Resume"
-                      : musicEffects.playButtonLabel || "Play Song"}
-                  </span>
+                  <span>Play Song</span>
                 </motion.button>
               )}
             </AnimatePresence>
@@ -156,16 +128,11 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
             {(playbackState === "playing" || playbackState === "paused") && (
               <motion.button
                 type="button"
-                aria-label="Stop Music"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 onClick={stop}
-                className={weddingButtonVariants({
-                  variant: "secondary",
-                  size: "md",
-                  className: "shrink-0",
-                })}
+                className={weddingButtonVariants({ variant: "secondary", size: "md", className: "shrink-0" })}
               >
                 <Square className="w-4 h-4 fill-current" />
                 <span>Stop</span>
