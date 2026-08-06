@@ -117,6 +117,13 @@
   --wedding-rsvp-choice-text: var(--wedding-text-primary);
   --wedding-rsvp-choice-selected-bg: var(--wedding-text-primary);
   --wedding-rsvp-choice-selected-text: #fff7e9;
+  --wedding-attire-card-surface: var(--wedding-surface-secondary);
+  --wedding-attire-card-border: var(--wedding-divider);
+  --wedding-attire-card-heading: var(--wedding-text-primary);
+  --wedding-attire-card-muted: var(--wedding-text-secondary);
+  --wedding-attire-accent: var(--wedding-label-on-light);
+  --wedding-attire-swatch-border: var(--wedding-control-border);
+  --wedding-attire-swatch-label: var(--wedding-text-secondary);
   /* Central Public Typography Scale */
   --wedding-type-section-title-size: clamp(2.65rem, 5.8vw, 4.75rem);
   --wedding-type-section-title-weight: 600;

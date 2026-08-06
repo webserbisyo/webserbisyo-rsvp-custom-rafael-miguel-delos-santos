@@ -4,20 +4,12 @@
  * AttireSection
  *
  * Dress code and color motif display.
- * Phase 5 Polish & Correction Pass:
- * - Fixed bottom-right flower copy-paste typo (changed lg:-left-20 to lg:-right-20) to display the bottom-right flower.
- * - Implemented responsive palm leaf framing:
- *   - Mobile/Tablet: Smaller leaves remain inside the attire image wrapper (w-[7rem] to md:w-[14rem]), hidden on desktop (lg:hidden).
- *   - Desktop: Larger leaves render at the section-level background (hidden lg:block), positioned at the outermost screen sides
- *     (lg:left-[-2rem] / lg:right-[-2rem]) and vertically aligned with the illustration area (lg:top-[40%]).
- * - All decorative PNGs render at original visual quality (opacity-100, no filters/blurs).
- * - Main attire image size is strictly preserved at the restored approved scale.
- * - Shitted bottom flowers to positive bottom offsets to prevent layout clipping and increased section bottom padding to prevent overlaps.
  */
 
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
-import { SpotlightCard } from "@/client/components/SpotlightCard";
+import { AttireColorSwatch } from "@/client/components/attire/AttireColorSwatch";
+import { clientConfig } from "@/client/client.config";
 import type { ClientAttireData } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
 
@@ -26,12 +18,12 @@ type AttireSectionProps = {
   surface: SectionSurface;
 };
 
-const COLOR_PALETTE = [
-  { name: "Sand", hex: "#E8C97A" },
-  { name: "Taupe", hex: "#B0A496" },
-  { name: "Sage Green", hex: "#7A9E7E" },
-  { name: "Dusty Blue", hex: "#9AB8C2" },
-  { name: "Shell Pink", hex: "#FCD5CE" },
+const DEFAULT_PALETTE = [
+  { label: "Champagne", color: "#D8C8A9" },
+  { label: "Muted Gold", color: "#9A7B45" },
+  { label: "Sage Olive", color: "#7A836B" },
+  { label: "Warm Taupe", color: "#A99583" },
+  { label: "Cocoa Black", color: "#3A302A" },
 ];
 
 export function AttireSection({
@@ -40,31 +32,19 @@ export function AttireSection({
 }: AttireSectionProps) {
   if (!attireDressCode) return null;
 
-  // Format the color motif note at the presentation layer to resolve the ivory contradiction
-  const rawMotif = attireDressCode.colorMotifNote || "";
-  let displayColorMotif = rawMotif;
-
-  if (rawMotif.toLowerCase().includes("ivory")) {
-    // Replace Ivory with Taupe
-    displayColorMotif = displayColorMotif.replace(/Ivory/gi, "Taupe");
-
-    // If it's the exact old motif, replace the end to add Shell Pink
-    if (
-      displayColorMotif.toLowerCase().includes("dusty blue") &&
-      !displayColorMotif.toLowerCase().includes("shell pink")
-    ) {
-      displayColorMotif = displayColorMotif.replace(
-        /and\s+Dusty\s+Blue/i,
-        "Dusty Blue, and Shell Pink",
-      );
-    }
-  }
-
   // Complete the cut-off intro text if present
   let displayIntro = attireDressCode.sectionIntro || "";
   if (displayIntro.trim().endsWith("reserved for")) {
     displayIntro = `${displayIntro.trim()} the bride.`;
   }
+
+  // Retrieve client-local attire palette
+  const configuredPalette =
+    (clientConfig.sections as { attire?: { palette?: Array<{ label: string; color: string }> } })
+      ?.attire?.palette;
+  const palette = configuredPalette && configuredPalette.length > 0
+    ? configuredPalette
+    : DEFAULT_PALETTE;
 
   return (
     <section
@@ -72,7 +52,7 @@ export function AttireSection({
       data-tone={surface}
       className="wedding-section pt-24 pb-28 md:pb-32 px-4 relative overflow-x-clip"
     >
-      {/* Content Layer (z-10) - Kept at max-w-4xl for the approved scale */}
+      {/* Content Layer (z-10) */}
       <div className="max-w-4xl mx-auto flex flex-col items-center relative z-30">
         {/* Heading */}
         <SectionHeading
@@ -83,52 +63,40 @@ export function AttireSection({
 
         {/* Standalone Guideline Paragraph */}
         {displayIntro && (
-          <p className="text-[#725d4f] text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-opacity duration-300">
+          <p className="text-[color:var(--wedding-attire-card-muted,#443d35)] text-center text-sm md:text-base leading-relaxed max-w-2xl mt-4 mb-12 px-4 relative z-10 transition-opacity duration-300">
             {displayIntro}
           </p>
         )}
 
-        {/* Compact Dress Code Spotlight Glassmorphism Card */}
+        {/* Compact Warm Ivory Dress Code Card */}
         <AnimatedContent>
-          <SpotlightCard
-            className="w-full max-w-2xl bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-3xl text-center shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-            spotlightColor="rgba(232, 201, 122, 0.16)"
-          >
+          <div className="w-full max-w-2xl bg-[color:var(--wedding-attire-card-surface,#fbf8f2)] border border-[color:var(--wedding-attire-card-border,#d8c8a9)] p-6 sm:p-8 rounded-3xl text-center shadow-floating transition-[border-color,box-shadow] duration-500">
             {/* Dress Code Title / Note */}
             {attireDressCode.dressCodeNote && (
-              <h3 className="font-serif text-2xl md:text-3xl text-[#302722] font-semibold mb-2">
+              <h3 className="font-serif text-2xl md:text-3xl text-[color:var(--wedding-attire-card-heading,#1f1c18)] font-semibold mb-2">
                 {attireDressCode.dressCodeNote}
               </h3>
             )}
 
-            {/* Color Motif Note Text */}
-            {displayColorMotif && (
-              <p className="text-coral text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold mb-6">
-                {displayColorMotif}
-              </p>
-            )}
+            {/* Clean Category Subtitle */}
+            <p className="text-[color:var(--wedding-attire-accent,#72501b)] text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold mb-6">
+              SUGGESTED GUEST COLORS
+            </p>
 
             {/* Subtle Divider */}
-            <div className="h-px w-20 bg-sand/30 mx-auto mb-6" />
+            <div className="h-px w-20 bg-[color:var(--wedding-attire-card-border,#d8c8a9)] mx-auto mb-6 opacity-60" />
 
-            {/* Color Palette Chips */}
-            <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
-              {COLOR_PALETTE.map((color) => (
-                <div
-                  key={color.name}
-                  className="flex flex-col items-center group select-none"
-                >
-                  <div
-                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-sand/30 shadow-sm transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: color.hex }}
-                  />
-                  <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#725d4f] mt-2 uppercase">
-                    {color.name}
-                  </span>
-                </div>
+            {/* Color Palette Swatches */}
+            <div className="flex flex-wrap justify-center gap-y-6 gap-x-4 sm:gap-y-8 sm:gap-x-6 max-w-lg mx-auto">
+              {palette.map((item) => (
+                <AttireColorSwatch
+                  key={item.label}
+                  label={item.label}
+                  color={item.color}
+                />
               ))}
             </div>
-          </SpotlightCard>
+          </div>
         </AnimatedContent>
       </div>
     </section>

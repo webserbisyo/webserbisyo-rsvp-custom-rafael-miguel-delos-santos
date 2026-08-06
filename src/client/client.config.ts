@@ -58,6 +58,19 @@ export type ClientConfig = {
   responsive: ClientResponsiveConfig;
 };
 
+export type ClientAttireConfigItem = {
+  label: string;
+  color: string;
+};
+
+export const DIANNE_ATTIRE_PALETTE: ClientAttireConfigItem[] = [
+  { label: "Champagne", color: "#D8C8A9" },
+  { label: "Muted Gold", color: "#9A7B45" },
+  { label: "Sage Olive", color: "#7A836B" },
+  { label: "Warm Taupe", color: "#A99583" },
+  { label: "Cocoa Black", color: "#3A302A" },
+];
+
 export const clientConfig = {
   mode: "starter",
   renderer: {
@@ -89,7 +102,11 @@ export const clientConfig = {
   footer: {
     text: "",
   },
-  sections: {},
+  sections: {
+    attire: {
+      palette: DIANNE_ATTIRE_PALETTE,
+    },
+  },
   assets: {},
   libs: {
     icons: {
