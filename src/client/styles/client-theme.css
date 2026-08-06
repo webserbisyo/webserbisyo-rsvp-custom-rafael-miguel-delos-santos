@@ -164,6 +164,9 @@
   --wedding-control-secondary-fg: rgb(255 247 233 / 95%);
   --wedding-control-border: rgb(255 247 233 / 15%);
 
+  --wedding-music-disc-center-surface: #f9efe3;
+  --wedding-music-disc-icon-foreground: #1c1410;
+
   --wedding-rsvp-selected: #171512;
   --wedding-rsvp-selected-foreground: #fff7e9;
   --wedding-rsvp-submit: #171512;
@@ -279,6 +282,16 @@
   color: var(--wedding-text-primary);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+/* Scoped !important is required on .wedding-music-disc-icon to override the broad
+   .wedding-section[data-tone="dark"] :is(.text-cocoa, ...) theme override. */
+[data-wedding-theme="refined-midnight-garden"] .wedding-music-disc-center {
+  background-color: var(--wedding-music-disc-center-surface);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-music-disc-icon {
+  color: var(--wedding-music-disc-icon-foreground) !important;
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-subtitle {

@@ -2,12 +2,13 @@
  * Music Metadata Parser
  *
  * Extracts display title and artist from a combined music title string.
- * Duplicated logic previously lived in both MusicEffectsSection (inside
- * ClientEventRenderer.tsx) and FloatingMusicBubble.tsx.
  *
- * Supports two formats:
+ * Supports formats:
  *   "Title - Artist"
  *   "Title by Artist"
+ *
+ * Returns an empty displayArtist when no artist delimiter is present,
+ * ensuring no false artist text is fabricated.
  */
 
 export function parseMusicMeta(title?: string): {
@@ -15,27 +16,28 @@ export function parseMusicMeta(title?: string): {
   displayArtist: string;
 } {
   const fallbackTitle = "Our Wedding Song";
-  const fallbackArtist = "Wedding Ambience";
 
-  if (!title) {
-    return { displayTitle: fallbackTitle, displayArtist: fallbackArtist };
+  if (!title || !title.trim()) {
+    return { displayTitle: fallbackTitle, displayArtist: "" };
   }
 
-  if (title.includes(" - ")) {
-    const parts = title.split(" - ");
+  const trimmedTitle = title.trim();
+
+  if (trimmedTitle.includes(" - ")) {
+    const parts = trimmedTitle.split(" - ");
     return {
       displayTitle: parts[0].trim(),
-      displayArtist: parts[1].trim(),
+      displayArtist: parts.slice(1).join(" - ").trim(),
     };
   }
 
-  if (title.includes(" by ")) {
-    const parts = title.split(" by ");
+  if (trimmedTitle.includes(" by ")) {
+    const parts = trimmedTitle.split(" by ");
     return {
       displayTitle: parts[0].trim(),
-      displayArtist: parts[1].trim(),
+      displayArtist: parts.slice(1).join(" by ").trim(),
     };
   }
 
-  return { displayTitle: title, displayArtist: fallbackArtist };
+  return { displayTitle: trimmedTitle, displayArtist: "" };
 }
