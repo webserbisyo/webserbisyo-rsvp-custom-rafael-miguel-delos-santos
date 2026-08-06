@@ -79,12 +79,14 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--wedding-browser-surface, #171512);
 }
 
 @layer base {
   body {
     margin: 0;
-    background: var(--color-ivory);
+    min-height: 100%;
+    background-color: inherit;
     color: var(--color-cocoa);
     overflow-x: hidden;
   }

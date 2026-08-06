@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Italiana, Manrope, MonteCarlo } from "next/font/google";
 import { PwaRegister } from "@/components/pwa-register";
+import { WEDDING_BROWSER_THEME_COLOR } from "@/config/browser-theme";
 import "@/styles/globals.css";
 
 const bodoni = Bodoni_Moda({
@@ -32,6 +33,10 @@ const montecarlo = MonteCarlo({
   weight: "400",
 });
 
+export const viewport: Viewport = {
+  themeColor: WEDDING_BROWSER_THEME_COLOR,
+};
+
 export const metadata: Metadata = {
   title: "WebSerbisyo RSVP Event",
   description: "A public event website powered by WebSerbisyo RSVP.",
@@ -47,7 +52,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${manrope.variable} ${italiana.variable} ${montecarlo.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${bodoni.variable} ${manrope.variable} ${italiana.variable} ${montecarlo.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      style={
+        {
+          "--wedding-browser-surface": WEDDING_BROWSER_THEME_COLOR,
+          backgroundColor: WEDDING_BROWSER_THEME_COLOR,
+        } as React.CSSProperties
+      }
+    >
       <body>
         <PwaRegister />
         {children}
