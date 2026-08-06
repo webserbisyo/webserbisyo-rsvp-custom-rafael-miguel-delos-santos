@@ -149,13 +149,11 @@ export function ClientRsvpForm({
     );
   }
 
-  const isSubmitting = status === "submitting";
-
-  return (
+  const isSubmitting = status === "submitting";  return (
     <div className="w-full">
       <form id="rsvp-form" onSubmit={handleSubmit} className="grid gap-6">
         {globalError ? (
-          <div className="rounded-xl bg-[#a84f45]/10 border border-[#a84f45]/20 p-4 text-sm text-[#a84f45]">
+          <div className="rounded-xl bg-[color:var(--wedding-status-error-bg,rgba(168,79,69,0.1))] border border-[color:var(--wedding-status-error-border,rgba(168,79,69,0.2))] p-4 text-sm text-[color:var(--wedding-status-error,#a84f45)]">
             {globalError}
           </div>
         ) : null}
@@ -171,12 +169,12 @@ export function ClientRsvpForm({
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
             disabled={isSubmitting}
-            className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
-              fieldErrors?.guestName?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+            className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-rsvp-field-placeholder,var(--wedding-text-tertiary))] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
+              fieldErrors?.guestName?.[0] ? "border-[color:var(--wedding-status-error,#a84f45)] bg-[color:var(--wedding-status-error-bg,rgba(168,79,69,0.05))]" : ""
             }`}
           />
           {fieldErrors?.guestName?.[0] && (
-            <span className="text-xs text-[#a84f45]">{fieldErrors.guestName[0]}</span>
+            <span className="text-xs text-[color:var(--wedding-status-error,#a84f45)]">{fieldErrors.guestName[0]}</span>
           )}
         </div>
 
@@ -193,12 +191,12 @@ export function ClientRsvpForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isSubmitting}
-              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
-                fieldErrors?.email?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-rsvp-field-placeholder,var(--wedding-text-tertiary))] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
+                fieldErrors?.email?.[0] ? "border-[color:var(--wedding-status-error,#a84f45)] bg-[color:var(--wedding-status-error-bg,rgba(168,79,69,0.05))]" : ""
               }`}
             />
             {fieldErrors?.email?.[0] && (
-              <span className="text-xs text-[#a84f45]">{fieldErrors.email[0]}</span>
+              <span className="text-xs text-[color:var(--wedding-status-error,#a84f45)]">{fieldErrors.email[0]}</span>
             )}
           </div>
         ) : null}
@@ -216,12 +214,12 @@ export function ClientRsvpForm({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               disabled={isSubmitting}
-              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
-                fieldErrors?.phone?.[0] ? "border-[#a84f45] bg-[#a84f45]/5" : ""
+              className={`wedding-rsvp-field w-full placeholder-[color:var(--wedding-rsvp-field-placeholder,var(--wedding-text-tertiary))] focus:outline-none focus-visible:outline-none py-3 px-4 transition-all duration-300 ${
+                fieldErrors?.phone?.[0] ? "border-[color:var(--wedding-status-error,#a84f45)] bg-[color:var(--wedding-status-error-bg,rgba(168,79,69,0.05))]" : ""
               }`}
             />
             {fieldErrors?.phone?.[0] && (
-              <span className="text-xs text-[#a84f45]">{fieldErrors.phone[0]}</span>
+              <span className="text-xs text-[color:var(--wedding-status-error,#a84f45)]">{fieldErrors.phone[0]}</span>
             )}
           </div>
         ) : null}
@@ -255,19 +253,19 @@ export function ClientRsvpForm({
               </button>
             </div>
             {fieldErrors?.attendanceStatus ? (
-              <span className="text-xs text-[#a84f45]">{fieldErrors.attendanceStatus[0]}</span>
+              <span className="text-xs text-[color:var(--wedding-status-error,#a84f45)]">{fieldErrors.attendanceStatus[0]}</span>
             ) : null}
           </div>
         ) : null}
 
         {/* Companions (Conditional) */}
         {showFullForm && rsvpConfig.plusOneEnabled && attendanceStatus === "attending" ? (
-          <div className="grid gap-4 p-5 bg-[#fffaf1]/30 border border-[rgba(201,114,88,0.1)] rounded-2xl animate-fadeIn">
+          <div className="wedding-rsvp-companion-card grid gap-4 p-5 rounded-2xl border transition-colors duration-300 animate-fadeIn">
             <div className="grid gap-2">
               <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
                 Companions
               </Label>
-              <p className="text-xs text-[#725d4f]/70 mb-1">
+              <p className="text-xs text-[color:var(--wedding-rsvp-muted,var(--wedding-text-secondary))] mb-1">
                 You may bring up to {rsvpConfig.companionLimit} companion{rsvpConfig.companionLimit === 1 ? "" : "s"}.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -290,9 +288,9 @@ export function ClientRsvpForm({
             {rsvpConfig.companionNameEnabled && companionCount > 0 ? (
               <div className="grid gap-4 mt-2">
                 {Array.from({ length: companionCount }, (_, index) => (
-                  <div key={index} className="grid gap-3 p-4 bg-white/50 border border-[rgba(201,114,88,0.12)] rounded-xl">
+                  <div key={index} className="grid gap-3 p-4 bg-white/80 border border-[color:var(--wedding-divider)] rounded-xl">
                     <div className="grid gap-2">
-                      <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+                      <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
                         Companion {index + 1} Name
                       </Label>
                       <Input
@@ -300,12 +298,12 @@ export function ClientRsvpForm({
                         value={companions[index]?.fullName || ""}
                         onChange={(e) => updateCompanion(index, "fullName", e.target.value)}
                         disabled={isSubmitting}
-                        className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-2 px-3"
+                        className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-rsvp-field-placeholder,var(--wedding-text-tertiary))] focus:outline-none focus-visible:outline-none py-2 px-3"
                       />
                     </div>
                     {rsvpConfig.companionAgeEnabled ? (
                       <div className="grid gap-2">
-                        <Label className="text-xs font-semibold uppercase tracking-wider text-[#725d4f]">
+                        <Label className="wedding-rsvp-label text-xs font-semibold uppercase tracking-wider">
                           Companion {index + 1} Age
                         </Label>
                         <Input
@@ -313,7 +311,7 @@ export function ClientRsvpForm({
                           value={companions[index]?.ageLabel || ""}
                           onChange={(e) => updateCompanion(index, "ageLabel", e.target.value)}
                           disabled={isSubmitting}
-                        className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-text-tertiary)] focus:outline-none focus-visible:outline-none py-2 px-3"
+                          className="wedding-rsvp-field w-full placeholder-[color:var(--wedding-rsvp-field-placeholder,var(--wedding-text-tertiary))] focus:outline-none focus-visible:outline-none py-2 px-3"
                         />
                       </div>
                     ) : null}
