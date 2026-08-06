@@ -11,12 +11,17 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import type { ClientSponsorData } from "@/client/types/client-view-model";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 type SponsorsSectionProps = {
   principalSponsors: ClientSponsorData;
+  surface: SectionSurface;
 };
 
-export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
+export function SponsorsSection({
+  principalSponsors,
+  surface,
+}: SponsorsSectionProps) {
   if (!principalSponsors?.names) return null;
 
   // Robust parsing to split names by both commas and newlines, trim whitespace, and filter empty strings
@@ -35,48 +40,18 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
   const rightColumn = isMultiColumn ? namesList.slice(half) : [];
 
   return (
-    <section 
-      id="sponsors" 
-      data-tone="light"
+    <section
+      id="sponsors"
+      data-tone={surface}
       className="wedding-section relative overflow-x-clip px-4 py-24 sm:py-28 lg:py-32"
     >
-      {/* Decorative Bird Layer — Exactly two bird PNGs as top-corner accents */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 select-none"
-      >
-        {/* Left Bird - Top Left Corner — anchored at section top, sized to avoid heading zone */}
-        <img
-          src="/beach%20assets%20finalized/7.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute left-0 md:left-2 lg:left-6 top-0 w-16 sm:w-20 md:w-28 lg:w-36 xl:w-44 h-auto opacity-90 pointer-events-none select-none z-0 rotate-[-5deg]"
-        />
-
-        {/* Right Bird - Top Right Corner — anchored at section top, sized to avoid heading zone */}
-        <img
-          src="/beach%20assets%20finalized/8.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute right-0 md:right-2 lg:right-6 top-0 w-16 sm:w-20 md:w-28 lg:w-36 xl:w-44 h-auto opacity-90 pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1]"
-        />
-      </div>
-
       <div className="max-w-3xl mx-auto text-center relative z-10">
-        <SectionHeading 
-          label="Principal Sponsors" 
-          title="With the guidance of" 
-          subtitle={principalSponsors.introLine} 
+        <SectionHeading
+          label="Principal Sponsors"
+          title="With the guidance of"
+          subtitle={principalSponsors.introLine}
         />
-        
+
         {isMultiColumn ? (
           /* Desktop 2-Column Grid / Mobile 1-Column Stack for 3+ Sponsors */
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8 relative z-10">
@@ -90,8 +65,8 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
             >
               <ul className="space-y-3">
                 {leftColumn.map((name, i) => (
-                  <li 
-                    key={i} 
+                  <li
+                    key={i}
                     className="font-serif text-cocoa text-lg md:text-xl font-medium tracking-wide"
                   >
                     {name}
@@ -105,13 +80,17 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{
+                delay: 0.1,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center relative z-20 h-full flex flex-col justify-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md"
             >
               <ul className="space-y-3">
                 {rightColumn.map((name, i) => (
-                  <li 
-                    key={i} 
+                  <li
+                    key={i}
                     className="font-serif text-cocoa text-lg md:text-xl font-medium tracking-wide"
                   >
                     {name}
@@ -132,8 +111,8 @@ export function SponsorsSection({ principalSponsors }: SponsorsSectionProps) {
             >
               <ul className="space-y-3">
                 {namesList.map((name, i) => (
-                  <li 
-                    key={i} 
+                  <li
+                    key={i}
                     className="font-serif text-cocoa text-lg md:text-xl font-medium tracking-wide"
                   >
                     {name}

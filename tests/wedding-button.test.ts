@@ -55,14 +55,14 @@ test("client-theme.css contains all required semantic button and choice CSS rule
   }
 });
 
-test("RsvpCtaSection references bird assets and omits ocean/floral replacements", () => {
+test("RsvpCtaSection renders cleanly and omits decorative WEBP assets", () => {
   const rsvpCtaPath = path.join(process.cwd(), "src/client/sections/RsvpCtaSection.tsx");
   const sectionContent = fs.readFileSync(rsvpCtaPath, "utf-8");
 
-  assert.ok(sectionContent.includes("7.webp"), "RsvpCtaSection must include left bird asset (7.webp)");
-  assert.ok(sectionContent.includes("8.webp"), "RsvpCtaSection must include right bird asset (8.webp)");
-
+  assert.ok(!sectionContent.includes("7.webp"), "RsvpCtaSection must not include left bird asset (7.webp)");
+  assert.ok(!sectionContent.includes("8.webp"), "RsvpCtaSection must not include right bird asset (8.webp)");
   assert.ok(!sectionContent.includes("6.webp"), "RsvpCtaSection must not include ocean background (6.webp)");
   assert.ok(!sectionContent.includes("16.webp"), "RsvpCtaSection must not include floral corner asset (16.webp)");
   assert.ok(!sectionContent.includes("17.webp"), "RsvpCtaSection must not include floral corner asset (17.webp)");
+  assert.ok(!sectionContent.includes("beach assets finalized"), "RsvpCtaSection must not include old beach assets finalized directory path");
 });

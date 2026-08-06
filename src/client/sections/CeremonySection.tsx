@@ -14,17 +14,29 @@ import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { FadeContent } from "@/client/libs/reactbits";
 import { formatDate, formatTime } from "@/client/utils/formatters";
 import { Clock3, MapPin, Heart } from "@/client/libs/icons";
-import type { ClientCeremonyData, ClientVenueData } from "@/client/types/client-view-model";
+import type {
+  ClientCeremonyData,
+  ClientVenueData,
+} from "@/client/types/client-view-model";
 import { motion, AnimatePresence } from "framer-motion";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 type CeremonySectionProps = {
   ceremony: ClientCeremonyData;
   venue?: ClientVenueData;
   mounted: boolean;
+  surface: SectionSurface;
 };
 
-export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionProps) {
-  const [calendarFocus, setCalendarFocus] = useState<"ceremony" | "deadline">("ceremony");
+export function CeremonySection({
+  ceremony,
+  venue,
+  mounted,
+  surface,
+}: CeremonySectionProps) {
+  const [calendarFocus, setCalendarFocus] = useState<"ceremony" | "deadline">(
+    "ceremony",
+  );
 
   if (!ceremony) return null;
 
@@ -51,14 +63,22 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
 
     if (ceremony.eventDate) {
       const wDate = new Date(`${ceremony.eventDate}T00:00:00`);
-      if (!isNaN(wDate.getTime()) && wDate.getFullYear() === year && wDate.getMonth() === month) {
+      if (
+        !isNaN(wDate.getTime()) &&
+        wDate.getFullYear() === year &&
+        wDate.getMonth() === month
+      ) {
         weddingDayNumber = wDate.getDate();
       }
     }
 
     if (ceremony.rsvpDeadline) {
       const rsvpDate = new Date(ceremony.rsvpDeadline); // Using raw time string for correct date fallback
-      if (!isNaN(rsvpDate.getTime()) && rsvpDate.getFullYear() === year && rsvpDate.getMonth() === month) {
+      if (
+        !isNaN(rsvpDate.getTime()) &&
+        rsvpDate.getFullYear() === year &&
+        rsvpDate.getMonth() === month
+      ) {
         rsvpDayNumber = rsvpDate.getDate();
       }
     }
@@ -81,75 +101,23 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
     };
   };
 
-  const focusDateString = calendarFocus === "ceremony" ? ceremony.eventDate : (ceremony.rsvpDeadline ? ceremony.rsvpDeadline.split("T")[0] : ceremony.eventDate);
+  const focusDateString =
+    calendarFocus === "ceremony"
+      ? ceremony.eventDate
+      : ceremony.rsvpDeadline
+        ? ceremony.rsvpDeadline.split("T")[0]
+        : ceremony.eventDate;
   const grid = mounted ? getCalendarMonthGrid(focusDateString) : null;
 
   return (
-    <section id="ceremony" data-tone="light" className="wedding-section relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 overflow-x-clip">
-      {/* Decorative Plumeria Flower bottom-left (Layer 2) - Enlarged and responsive */}
-      <img
-        src="/beach%20assets%20finalized/17.webp"
-        alt=""
-        aria-hidden="true"
-        width={2048}
-        height={2048}
-        decoding="async"
-        loading="lazy"
-        className="absolute -left-10 bottom-4 sm:left-4 sm:bottom-6 lg:left-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
-      />
-
-      {/* Decorative Plumeria Flower bottom-right (Layer 2) - Mirror flipped, enlarged, and responsive */}
-      <img
-        src="/beach%20assets%20finalized/17.webp"
-        alt=""
-        aria-hidden="true"
-        width={2048}
-        height={2048}
-        decoding="async"
-        loading="lazy"
-        className="absolute -right-10 bottom-4 sm:right-4 sm:bottom-6 lg:right-8 lg:bottom-8 w-44 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] h-auto object-contain pointer-events-none z-10 select-none opacity-90 sm:opacity-95 md:opacity-100 transition-[opacity,transform] duration-300 block"
-        style={{ transform: "scaleX(-1)" }}
-      />
-
+    <section
+      id="ceremony"
+      data-tone={surface}
+      className="wedding-section relative pt-20 pb-40 sm:pb-48 lg:py-24 px-4 overflow-x-clip"
+    >
       <div className="relative z-30 max-w-4xl mx-auto">
-        {/* Heading container with symmetrical framing lanterns (Layer 2) */}
+        {/* Heading container */}
         <div className="relative max-w-2xl mx-auto">
-          {/* Centered mobile lantern - beautifully sized on mobile (Layer 2) */}
-          <div className="flex justify-center mb-6 sm:hidden">
-            <img
-              src="/beach%20assets%20finalized/19.webp"
-              alt=""
-              aria-hidden="true"
-              width={2048}
-              height={2048}
-              decoding="async"
-              loading="lazy"
-              className="w-24 sm:w-28 h-auto object-contain pointer-events-none z-10 select-none opacity-90"
-            />
-          </div>
-
-          {/* Left candle lantern - balanced sweet-spot sizing with framing offsets */}
-          <img
-            src="/beach%20assets%20finalized/19.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute lg:-left-48 xl:-left-56 top-1/2 -translate-y-1/2 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
-          />
-
-          {/* Right candle lantern - balanced sweet-spot sizing with framing offsets */}
-          <img
-            src="/beach%20assets%20finalized/19.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute lg:-right-48 xl:-right-56 top-1/2 -translate-y-1/2 lg:w-48 xl:w-56 h-auto object-contain pointer-events-none z-10 select-none opacity-100 transition-[opacity,transform] duration-300 hidden lg:block"
-          />
-
           <SectionHeading
             label="The Main Event"
             title={ceremony.eventLabel || "Wedding Ceremony"}
@@ -160,7 +128,6 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
         <FadeContent>
           {/* Balanced 50/50 split on desktop */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch mt-8">
-            
             {/* Left side: Calendar Grid Visualizer with soft glass / translucent styling */}
             <div className="flex justify-center items-stretch">
               <div className="relative flex flex-col justify-center bg-cream/80 backdrop-blur-md border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-card w-full select-none overflow-hidden transform hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
@@ -178,11 +145,14 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                         {grid ? `${grid.monthName} ${grid.year}` : "Month Year"}
                       </span>
                     </div>
-                    
+
                     {/* Weekdays header */}
                     <div className="grid grid-cols-7 gap-1 sm:gap-3 text-center mb-3">
                       {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
-                        <span key={idx} className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase">
+                        <span
+                          key={idx}
+                          className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase"
+                        >
                           {day}
                         </span>
                       ))}
@@ -190,50 +160,60 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
 
                     {/* Day grid */}
                     <div className="grid grid-cols-7 gap-y-3 sm:gap-y-4 gap-x-1 sm:gap-x-3 text-center text-sm sm:text-base">
-                      {grid ? (
-                        grid.cells.map((dayNum, idx) => {
-                          if (dayNum === null) {
-                            return <span key={`empty-${idx}`} className="block h-9 w-9 sm:h-10 sm:w-10 mx-auto" />;
-                          }
+                      {grid
+                        ? grid.cells.map((dayNum, idx) => {
+                            if (dayNum === null) {
+                              return (
+                                <span
+                                  key={`empty-${idx}`}
+                                  className="block h-9 w-9 sm:h-10 sm:w-10 mx-auto"
+                                />
+                              );
+                            }
 
-                          const isWeddingDay = dayNum === grid.weddingDay;
-                          const isRsvpDay = dayNum === grid.rsvpDay;
+                            const isWeddingDay = dayNum === grid.weddingDay;
+                            const isRsvpDay = dayNum === grid.rsvpDay;
 
-                          return (
-                            <div key={`day-${dayNum}`} className="relative flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 mx-auto">
-                              {isWeddingDay ? (
-                                <div className="absolute inset-0 bg-coral text-white font-bold rounded-full flex items-center justify-center shadow-md">
-                                  {dayNum}
-                                </div>
-                              ) : isRsvpDay ? (
-                                <div className="absolute inset-0 border-2 border-coral border-dashed rounded-full flex items-center justify-center font-medium text-coral">
-                                  {dayNum}
-                                </div>
-                              ) : (
-                                <span className="text-cocoa font-medium">{dayNum}</span>
-                              )}
-                            </div>
-                          );
-                        })
-                      ) : (
-                        Array.from({ length: 35 }).map((_, idx) => (
-                          <span key={`skeleton-${idx}`} className="block h-9 w-9 sm:h-10 sm:w-10 bg-cocoa/5 rounded-full mx-auto" />
-                        ))
-                      )}
+                            return (
+                              <div
+                                key={`day-${dayNum}`}
+                                className="relative flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 mx-auto"
+                              >
+                                {isWeddingDay ? (
+                                  <div className="absolute inset-0 bg-coral text-white font-bold rounded-full flex items-center justify-center shadow-md">
+                                    {dayNum}
+                                  </div>
+                                ) : isRsvpDay ? (
+                                  <div className="absolute inset-0 border-2 border-coral border-dashed rounded-full flex items-center justify-center font-medium text-coral">
+                                    {dayNum}
+                                  </div>
+                                ) : (
+                                  <span className="text-cocoa font-medium">
+                                    {dayNum}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })
+                        : Array.from({ length: 35 }).map((_, idx) => (
+                            <span
+                              key={`skeleton-${idx}`}
+                              className="block h-9 w-9 sm:h-10 sm:w-10 bg-cocoa/5 rounded-full mx-auto"
+                            />
+                          ))}
                     </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
             </div>
-            
+
             {/* Right side: Details Panel with soft glass / translucent styling */}
             <div className="flex">
-              <SpotlightCard 
+              <SpotlightCard
                 className="w-full h-full bg-white/80 backdrop-blur-md border border-sand/30 p-6 sm:p-8 rounded-3xl flex flex-col justify-center shadow-soft text-left"
                 spotlightColor="rgba(232, 201, 122, 0.16)"
               >
                 <div className="space-y-6">
-                  
                   {/* Title & Kicker */}
                   <div>
                     <h3 className="font-serif text-2xl text-[#302722] font-semibold mb-1">
@@ -256,11 +236,14 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                       <Clock3 className="size-6" />
                     </div>
                     <div className="mt-1">
-                      <h4 className="font-serif text-base font-semibold text-cocoa">Timing & Hours</h4>
+                      <h4 className="font-serif text-base font-semibold text-cocoa">
+                        Timing & Hours
+                      </h4>
                       {ceremony.eventTime && (
                         <p className="text-sm text-coral font-medium mt-1">
                           Starts at {formatTime(ceremony.eventTime)}
-                          {ceremony.endTime && ` - ${formatTime(ceremony.endTime)}`}
+                          {ceremony.endTime &&
+                            ` - ${formatTime(ceremony.endTime)}`}
                         </p>
                       )}
                       <p className="text-xs text-[#725d4f] mt-1">
@@ -276,8 +259,12 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                         <MapPin className="size-6" />
                       </div>
                       <div className="mt-1">
-                        <h4 className="font-serif text-base font-semibold text-cocoa">Location</h4>
-                        <p className="text-sm text-cocoa mt-1">{venue.venueName}</p>
+                        <h4 className="font-serif text-base font-semibold text-cocoa">
+                          Location
+                        </h4>
+                        <p className="text-sm text-cocoa mt-1">
+                          {venue.venueName}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -293,15 +280,22 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                         <Heart className="size-6 fill-current text-coral/70" />
                       </div>
                       <div className="mt-1">
-                        <h4 className="font-serif text-base font-semibold text-cocoa">RSVP Deadline</h4>
+                        <h4 className="font-serif text-base font-semibold text-cocoa">
+                          RSVP Deadline
+                        </h4>
                         {mounted ? (
                           ceremony.rsvpDeadline.includes("T") ? (
                             <>
                               <p className="text-sm text-coral font-medium mt-1">
-                                Kindly respond by {formatTime(ceremony.rsvpDeadline.split("T")[1])}
+                                Kindly respond by{" "}
+                                {formatTime(
+                                  ceremony.rsvpDeadline.split("T")[1],
+                                )}
                               </p>
                               <p className="text-xs text-[#725d4f] mt-1">
-                                {formatDate(ceremony.rsvpDeadline.split("T")[0])}
+                                {formatDate(
+                                  ceremony.rsvpDeadline.split("T")[0],
+                                )}
                               </p>
                             </>
                           ) : (
@@ -318,11 +312,9 @@ export function CeremonySection({ ceremony, venue, mounted }: CeremonySectionPro
                       </div>
                     </button>
                   )}
-                  
                 </div>
               </SpotlightCard>
             </div>
-            
           </div>
         </FadeContent>
       </div>

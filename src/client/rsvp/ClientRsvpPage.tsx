@@ -18,57 +18,8 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
         aria-hidden="true" 
       />
 
-      {/* 2. RSVP Card Wrapper with 4 Corner Flowers */}
+      {/* 2. RSVP Card Wrapper */}
       <div className="relative w-full max-w-[580px] my-12 flex flex-col items-center">
-        {/* Decorative Corner Flowers (Z-0, pointer-events-none, positioned relative to card wrapper) */}
-        <div 
-          aria-hidden="true" 
-          className="pointer-events-none absolute inset-0 z-0 select-none"
-        >
-          {/* Top-Left Flower (17.webp) */}
-          <img
-            src="/beach%20assets%20finalized/17.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute -left-8 -top-8 sm:-left-12 sm:-top-12 md:-left-16 md:-top-16 w-[130px] sm:w-[180px] md:w-[240px] h-auto object-contain rotate-[15deg] opacity-70 md:opacity-85 pointer-events-none select-none"
-          />
-
-          {/* Top-Right Flower (16.webp - Mirrored) */}
-          <img
-            src="/beach%20assets%20finalized/16.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute -right-8 -top-8 sm:-right-12 sm:-top-12 md:-right-16 md:-top-16 w-[130px] sm:w-[180px] md:w-[240px] h-auto object-contain -rotate-[15deg] scale-x-[-1] opacity-70 md:opacity-85 pointer-events-none select-none"
-          />
-
-          {/* Bottom-Left Flower (16.webp - Mirrored) */}
-          <img
-            src="/beach%20assets%20finalized/16.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute -left-10 -bottom-10 sm:-left-16 sm:-bottom-16 md:-left-20 md:-bottom-20 w-[160px] sm:w-[220px] md:w-[320px] h-auto object-contain rotate-[40deg] scale-x-[-1] opacity-80 md:opacity-95 pointer-events-none select-none"
-          />
-
-          {/* Bottom-Right Flower (17.webp) */}
-          <img
-            src="/beach%20assets%20finalized/17.webp"
-            alt=""
-            aria-hidden="true"
-            width={2048}
-            height={2048}
-            decoding="async"
-            className="absolute -right-10 -bottom-10 sm:-right-16 sm:-bottom-16 md:-right-20 md:-bottom-20 w-[160px] sm:w-[220px] md:w-[320px] h-auto object-contain -rotate-[40deg] opacity-80 md:opacity-95 pointer-events-none select-none"
-          />
-        </div>
 
         {/* 3. Single Focused Glass RSVP Card Container (Z-10, overlays flowers) */}
         <div 

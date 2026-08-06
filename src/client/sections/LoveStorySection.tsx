@@ -13,12 +13,17 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { FadeContent, Folder } from "@/client/libs/reactbits";
 import { FolderPhotoCard } from "@/client/components/media/FolderPhotoCard";
 import type { ClientLoveStoryData } from "@/client/types/client-view-model";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 type LoveStorySectionProps = {
   loveStory: ClientLoveStoryData;
+  surface: SectionSurface;
 };
 
-export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
+export function LoveStorySection({
+  loveStory,
+  surface,
+}: LoveStorySectionProps) {
   const [isOpen, setIsOpen] = useState(false);
   const folderSize = 1.0;
 
@@ -26,7 +31,9 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
 
   const sectionEyebrow = "LOVE STORY";
   const sectionHeading = loveStory.storyTitle?.trim() || "Our Story";
-  const sectionIntro = loveStory.sectionIntro?.trim() || "A little story about how our journey began.";
+  const sectionIntro =
+    loveStory.sectionIntro?.trim() ||
+    "A little story about how our journey began.";
   const storyBody = loveStory.storyBody?.trim();
 
   // The three wedding photos as Folder items (Groom -> Bride -> Couple)
@@ -71,9 +78,11 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
   ));
 
   return (
-    <section id="our-story" data-tone="light" className="wedding-section relative overflow-x-clip py-24 md:py-32 px-4 text-center animate-fade-in">
-
-
+    <section
+      id="our-story"
+      data-tone={surface}
+      className="wedding-section relative overflow-x-clip py-24 md:py-32 px-4 text-center animate-fade-in"
+    >
       <div className="max-w-3xl mx-auto relative z-30">
         {/* Main Section Heading Group */}
         <SectionHeading
@@ -90,11 +99,13 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
             the full visual height so cards don't overlap the narrative text below.
           - Open desktop: cards fan sideways (lg transform), needs vertical clearance for fan.
         */}
-        <div className={`flex items-end justify-center overflow-visible select-none transition-all duration-500 ease-in-out ${
-          isOpen
-            ? "h-[540px] mt-44 mb-28 pb-6 sm:h-[24rem] sm:mt-20 sm:mb-20 sm:pb-4 md:h-[28rem] md:mt-20 md:mb-24 md:pb-4 lg:h-[34rem] lg:mt-24 lg:mb-24 lg:pb-4"
-            : "h-40 mt-20 mb-16 pb-4 sm:h-52 sm:mt-12 sm:mb-14 sm:pb-4 md:h-60 md:mt-12 md:mb-14 md:pb-4 lg:h-72 lg:mt-12 lg:mb-16 lg:pb-4"
-        }`}>
+        <div
+          className={`flex items-end justify-center overflow-visible select-none transition-all duration-500 ease-in-out ${
+            isOpen
+              ? "h-[540px] mt-44 mb-28 pb-6 sm:h-[24rem] sm:mt-20 sm:mb-20 sm:pb-4 md:h-[28rem] md:mt-20 md:mb-24 md:pb-4 lg:h-[34rem] lg:mt-24 lg:mb-24 lg:pb-4"
+              : "h-40 mt-20 mb-16 pb-4 sm:h-52 sm:mt-12 sm:mb-14 sm:pb-4 md:h-60 md:mt-12 md:mb-14 md:pb-4 lg:h-72 lg:mt-12 lg:mb-16 lg:pb-4"
+          }`}
+        >
           {/* Folder derives a darker shade in JavaScript, so it needs a parseable
               client-theme value instead of a CSS variable string. */}
           <Folder
@@ -110,7 +121,12 @@ export function LoveStorySection({ loveStory }: LoveStorySectionProps) {
         {/* Story Narrative Content */}
         <div className="mt-8 sm:mt-12">
           {storyBody ? (
-            <FadeContent blur={true} duration={0.8} delay={0.1} threshold={0.05}>
+            <FadeContent
+              blur={true}
+              duration={0.8}
+              delay={0.1}
+              threshold={0.05}
+            >
               {/* Romantic Narrative Body */}
               <p className="text-cocoa/90 font-serif italic text-base sm:text-lg md:text-xl leading-8 md:leading-9 whitespace-pre-line text-center">
                 {storyBody}

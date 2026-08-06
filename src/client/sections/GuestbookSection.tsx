@@ -9,10 +9,6 @@
  * - Centered card content containing only: message, flex divider, and guest name.
  * - Complete removal of relationship badges.
  * - Inline expand/collapse toggle for long messages (exceeding 180 characters).
- * - Background decoration framing copying the SponsorsSection bird treatment (7.webp and 8.webp).
- * - Bottom-left and bottom-right corner flowers (17.webp and 16.webp) with positive bottom offsets to avoid clipping.
- * - Increased bottom padding on the section wrapper to avoid flower-card overlaps.
- * - Complete removal of the old side palm leaves to prevent asset overcrowding.
  * - Gated mock data that only displays in development when NEXT_PUBLIC_USE_MOCK_GUESTBOOK is true and real messages are absent.
  */
 
@@ -23,11 +19,13 @@ import type { ClientGuestbookData } from "@/client/types/client-view-model";
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
 import type { GuestbookMessage } from "@/types/public-event";
 import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 type GuestbookSectionProps = {
   guestbook: ClientGuestbookData;
   guestbookMessages?: GuestbookMessage[];
   eventSource?: "design" | "snapshot" | "live";
+  surface: SectionSurface;
 };
 
 interface DisplayMessage {
@@ -40,8 +38,11 @@ interface DisplayMessage {
 export function GuestbookSection({
   guestbook,
   guestbookMessages,
+  surface,
 }: GuestbookSectionProps) {
-  const [expandedMessageId, setExpandedMessageId] = useState<string | number | null>(null);
+  const [expandedMessageId, setExpandedMessageId] = useState<
+    string | number | null
+  >(null);
   const [showAllMessages, setShowAllMessages] = useState(false);
   const [showTopFade, setShowTopFade] = useState(false);
   const [showBottomFade, setShowBottomFade] = useState(false);
@@ -90,24 +91,26 @@ export function GuestbookSection({
       id: msg.id ?? `guestbook-${idx}`,
       name: msg.name?.trim() || "A Guest",
       message: msg.message!.trim(),
-      createdAt: msg.createdAt ?? undefined
+      createdAt: msg.createdAt ?? undefined,
     }));
 
   // Map mock messages to the same card model, preserving their custom IDs and timestamps
-  const mockDisplayMessages: DisplayMessage[] = MOCK_GUESTBOOK_MESSAGES.map((msg) => ({
-    id: msg.id,
-    name: msg.name,
-    message: msg.message,
-    createdAt: msg.createdAt
-  }));
+  const mockDisplayMessages: DisplayMessage[] = MOCK_GUESTBOOK_MESSAGES.map(
+    (msg) => ({
+      id: msg.id,
+      name: msg.name,
+      message: msg.message,
+      createdAt: msg.createdAt,
+    }),
+  );
 
   // Resolve active dataset based on environment gating
   const messagesToRender =
     realMessages.length > 0
       ? realDisplayMessages
       : canShowMockMessages
-      ? mockDisplayMessages
-      : [];
+        ? mockDisplayMessages
+        : [];
 
   // Sort messages newest first based on createdAt
   const sortedMessages = [...messagesToRender].sort((a, b) => {
@@ -119,7 +122,7 @@ export function GuestbookSection({
 
     if (hasA && hasB) return timeB - timeA;
     if (hasA) return -1; // A has timestamp, place it before B (which has none)
-    if (hasB) return 1;  // B has timestamp, place it before A (which has none)
+    if (hasB) return 1; // B has timestamp, place it before A (which has none)
     return 0; // Keep original order if both are missing timestamps
   });
 
@@ -147,66 +150,18 @@ export function GuestbookSection({
   return (
     <section
       id="guestbook"
-      data-tone="champagne"
+      data-tone={surface}
       className="wedding-section relative overflow-x-clip pt-24 pb-28 md:pb-32 px-4"
     >
-      {/* 1. Absolute Decorative Background Layer (z-0, pointer-events-none, no lazy loading, opacity-100) */}
-      <div className="absolute inset-0 pointer-events-none z-0 select-none" aria-hidden="true">
-        {/* Left Bird - Top Left Framing */}
-        <img
-          src="/beach%20assets%20finalized/7.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute h-auto pointer-events-none select-none z-0 rotate-[-5deg] opacity-75 left-0 top-2 w-24 sm:left-0 sm:w-28 md:left-0 md:w-36 lg:left-0 lg:top-2 lg:w-48 xl:left-6 xl:w-56"
-        />
-
-        {/* Right Bird - Top Right Framing */}
-        <img
-          src="/beach%20assets%20finalized/8.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute h-auto pointer-events-none select-none z-0 rotate-[5deg] scale-x-[-1] opacity-75 right-0 top-2 w-24 sm:right-0 sm:w-28 md:right-0 md:w-36 lg:right-0 lg:top-2 lg:w-48 xl:right-6 xl:w-56"
-        />
-
-        {/* Bottom-Left Flower - Anchors the base cleanly with positive bottom offset to prevent clipping */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute left-0 bottom-4 w-24 sm:left-[-2rem] sm:w-32 md:left-[-3rem] md:w-44 lg:-left-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain rotate-12 pointer-events-none select-none z-0 opacity-100"
-        />
-
-        {/* Bottom-Right Flower - Anchors the base cleanly with positive bottom offset to prevent clipping */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute right-0 bottom-4 w-24 sm:right-[-2rem] sm:w-32 md:right-[-3rem] md:w-44 lg:-right-20 lg:bottom-8 lg:w-[19rem] h-auto object-contain -rotate-12 pointer-events-none select-none z-0 opacity-100"
-        />
-      </div>
-
       {/* 2. Main Content Wrapper (z-10) */}
       <div className="max-w-5xl mx-auto text-center relative z-30">
         <SectionHeading
           label="Guestbook"
           title={guestbook.sectionTitle || "A Note from Our Guests"}
-          subtitle={guestbook.sectionIntro || "Heartfelt notes shared by the people celebrating with us."}
+          subtitle={
+            guestbook.sectionIntro ||
+            "Heartfelt notes shared by the people celebrating with us."
+          }
         />
 
         <AnimatedContent>
@@ -280,7 +235,10 @@ export function GuestbookSection({
                       {/* Lower Part: Divider & Name */}
                       <div className="shrink-0 flex flex-col items-center w-full mt-4">
                         {/* Centered Premium Flex Divider */}
-                        <div className="mb-4 flex w-full items-center justify-center select-none" aria-hidden="true">
+                        <div
+                          className="mb-4 flex w-full items-center justify-center select-none"
+                          aria-hidden="true"
+                        >
                           <span className="h-px w-12 sm:w-16 bg-sand/35" />
                           <span className="mx-3 text-xs text-coral/65">✦</span>
                           <span className="h-px w-12 sm:w-16 bg-sand/35" />
@@ -300,10 +258,9 @@ export function GuestbookSection({
               {sortedMessages.length > INITIAL_VISIBLE_MESSAGES && (
                 <div className="mt-12 flex flex-col items-center gap-3">
                   <span className="text-xs text-driftwood/75 font-medium tracking-wide">
-                    {showAllMessages 
-                      ? `Showing all ${sortedMessages.length} messages` 
-                      : `Showing ${INITIAL_VISIBLE_MESSAGES} of ${sortedMessages.length} messages`
-                    }
+                    {showAllMessages
+                      ? `Showing all ${sortedMessages.length} messages`
+                      : `Showing ${INITIAL_VISIBLE_MESSAGES} of ${sortedMessages.length} messages`}
                   </span>
                   <WeddingButton
                     variant="secondary"
@@ -320,7 +277,8 @@ export function GuestbookSection({
             <div className="max-w-2xl mx-auto mt-12">
               <div className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-3xl p-8 sm:p-10 text-center shadow-soft">
                 <p className="text-cocoa/85 font-serif italic text-base sm:text-lg leading-relaxed">
-                  {guestbook.emptyStateMessage || "This space will soon be filled with kind words and blessings from loved ones."}
+                  {guestbook.emptyStateMessage ||
+                    "This space will soon be filled with kind words and blessings from loved ones."}
                 </p>
               </div>
             </div>

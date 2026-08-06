@@ -11,6 +11,7 @@
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientGiftOption } from "@/client/types/client-view-model";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
@@ -20,9 +21,10 @@ type GiftsSectionProps = {
     giftNote?: string;
     options: ClientGiftOption[];
   };
+  surface: SectionSurface;
 };
 
-export function GiftsSection({ giftDetails }: GiftsSectionProps) {
+export function GiftsSection({ giftDetails, surface }: GiftsSectionProps) {
   if (!giftDetails) return null;
 
   const hasOptions = giftDetails.options && giftDetails.options.length > 0;
@@ -35,68 +37,11 @@ export function GiftsSection({ giftDetails }: GiftsSectionProps) {
   return (
     <section
       id="gifts"
-      data-tone="light"
+      data-tone={surface}
       className="wedding-section relative overflow-x-clip py-24 px-4"
     >
-      {/* Decorative Floral Layer — Airy corner framing */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 select-none"
-      >
-        {/* Top-Left Flowers (16.png) */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-0 sm:-left-8 md:-left-12 lg:-left-16 -top-4 sm:-top-6 md:-top-8 lg:-top-4 w-28 sm:w-36 md:w-44 lg:w-64 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
-          loading="lazy"
-        />
-
-        {/* Top-Right Flowers (17.png) */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute right-0 sm:-right-8 md:-right-12 lg:-right-16 -top-4 sm:-top-6 md:-top-8 lg:-top-4 w-28 sm:w-36 md:w-44 lg:w-64 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[-5deg] opacity-100"
-          loading="lazy"
-        />
-
-        {/* Bottom-Left Flowers (17.png) — Raised to ensure visibility above bottom wave divider */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-0 sm:-left-8 md:-left-12 lg:-left-20 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[5deg] opacity-100"
-          loading="lazy"
-        />
-
-        {/* Bottom-Right Flowers (16.png) — Raised to ensure visibility above bottom wave divider */}
-        <img
-          src="/beach%20assets%20finalized/16.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute right-0 sm:-right-8 md:-right-12 lg:-right-20 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain pointer-events-none select-none z-0 rotate-[-10deg] opacity-100"
-          loading="lazy"
-        />
-      </div>
-
       <div className="relative z-30 max-w-5xl mx-auto">
-        <SectionHeading
-          label="Gifts"
-          title="Gift Registry"
-        />
+        <SectionHeading label="Gifts" title="Gift Registry" />
 
         <AnimatedContent>
           {giftDetails.sectionIntro && (

@@ -15,6 +15,7 @@
 
 import { useState, useEffect } from "react";
 import { ScrollStack, ScrollStackItem } from "@/client/libs/reactbits";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 const GALLERY_PHOTOS = [
   {
@@ -61,9 +62,19 @@ const GALLERY_PHOTOS = [
   },
 ];
 
-const GALLERY_ROTATIONS = ["-1.5deg", "1.2deg", "-0.8deg", "1.5deg", "-1.2deg", "0.8deg", "-1.8deg", "1deg", "-0.5deg"];
+const GALLERY_ROTATIONS = [
+  "-1.5deg",
+  "1.2deg",
+  "-0.8deg",
+  "1.5deg",
+  "-1.2deg",
+  "0.8deg",
+  "-1.8deg",
+  "1deg",
+  "-0.5deg",
+];
 
-export function GallerySection() {
+export function GallerySection({ surface }: { surface: SectionSurface }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -73,11 +84,10 @@ export function GallerySection() {
 
   return (
     <section
-       id="gallery"
-       data-tone="warm"
-       className="wedding-section relative overflow-x-clip pt-20 pb-20 px-4"
-     >
-
+      id="gallery"
+      data-tone={surface}
+      className="wedding-section relative overflow-x-clip pt-20 pb-20 px-4"
+    >
       <div className="max-w-2xl mx-auto relative z-30">
         <div className="text-center mb-14">
           <p className="wedding-section-label text-xs font-bold tracking-[0.25em] uppercase mb-3 text-[color:var(--wedding-label-on-light)]">
@@ -88,7 +98,9 @@ export function GallerySection() {
           </h2>
           <div className="flex items-center justify-center gap-3 mt-5 text-[color:var(--wedding-accent-line)] opacity-60">
             <div className="h-px w-12 bg-[color:var(--wedding-accent-line)] opacity-40" />
-            <span className="text-[color:var(--wedding-label-on-light)]">✦</span>
+            <span className="text-[color:var(--wedding-label-on-light)]">
+              ✦
+            </span>
             <div className="h-px w-12 bg-[color:var(--wedding-accent-line)] opacity-40" />
           </div>
         </div>
@@ -102,10 +114,12 @@ export function GallerySection() {
                   className="bg-white border-2 border-white rounded p-3 pb-14 mx-auto shadow-card relative transition-[border-color,box-shadow] duration-300"
                   style={{
                     transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
-                    maxWidth: isPortrait ? "390px" : "520px"
+                    maxWidth: isPortrait ? "390px" : "520px",
                   }}
                 >
-                  <div className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}>
+                  <div
+                    className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}
+                  >
                     {mounted && (
                       <img
                         src={photo.src}
@@ -116,8 +130,12 @@ export function GallerySection() {
                     )}
                   </div>
                   <div className="absolute bottom-3 left-0 right-0 text-center px-3">
-                    <p className="font-serif italic text-cocoa text-base mb-0.5">{photo.caption}</p>
-                    <p className="text-[0.65rem] tracking-widest uppercase text-driftwood">{photo.location}</p>
+                    <p className="font-serif italic text-cocoa text-base mb-0.5">
+                      {photo.caption}
+                    </p>
+                    <p className="text-[0.65rem] tracking-widest uppercase text-driftwood">
+                      {photo.location}
+                    </p>
                   </div>
                 </div>
               </ScrollStackItem>

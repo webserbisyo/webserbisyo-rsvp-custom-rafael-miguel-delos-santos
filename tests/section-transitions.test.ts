@@ -1,14 +1,13 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import {
   clientSectionRegistry,
   getVisibleClientSectionKeys,
   type ClientSectionKey,
+  type SectionSurface,
 } from "../src/client/client-section-registry";
-import {
-  getVisibleSectionTransitions,
-  resolveSectionTransition,
-} from "../src/client/section-transitions";
 import {
   EVENT_WEBSITE_SECTION_CONTRACT_VERSION,
   eventWebsiteSectionContract,
@@ -16,11 +15,10 @@ import {
 import type { EventWebsiteRenderModel } from "../src/types/public-event";
 
 const canonicalOrder = eventWebsiteSectionContract.map((entry) => entry.key);
-const optionalKeys = eventWebsiteSectionContract
-  .filter((entry) => entry.visibility === "optional")
-  .map((entry) => entry.key);
 
-function renderModel(disabled: ClientSectionKey[] = []): EventWebsiteRenderModel {
+function renderModel(
+  disabled: ClientSectionKey[] = [],
+): EventWebsiteRenderModel {
   return {
     assets: {},
     contractVersion: EVENT_WEBSITE_SECTION_CONTRACT_VERSION,
@@ -40,151 +38,269 @@ function renderModel(disabled: ClientSectionKey[] = []): EventWebsiteRenderModel
   };
 }
 
-test("every canonical section has one visual theme in the shared registry", () => {
-  for (const key of canonicalOrder) {
-    assert.equal(clientSectionRegistry[key].key, key);
-    assert.ok(clientSectionRegistry[key].visual.background);
-    assert.ok(clientSectionRegistry[key].visual.backgroundKind);
-  }
-});
-
-test("visible pairs preserve canonical keys and always total N minus one", () => {
-  const visible = getVisibleClientSectionKeys(renderModel());
-  const transitions = getVisibleSectionTransitions(visible);
-
-  assert.deepEqual(visible, canonicalOrder);
-  assert.equal(transitions.length, visible.length - 1);
-  transitions.forEach((transition, index) => {
-    assert.equal(transition.from, visible[index]);
-    assert.equal(transition.to, visible[index + 1]);
-  });
-});
-
-test("each disabled optional section is excluded before neighbor resolution", () => {
-  for (const key of optionalKeys) {
-    const visible = getVisibleClientSectionKeys(renderModel([key]));
-    const transitions = getVisibleSectionTransitions(visible);
-
-    assert.equal(visible.includes(key), false, key);
-    assert.equal(transitions.length, visible.length - 1, key);
-    assert.equal(
-      transitions.some((transition) => transition.from === key || transition.to === key),
-      false,
-      key,
-    );
-  }
-});
-
-test("adjacent and consecutive disabled sections produce only real visible pairs", () => {
-  for (const disabled of [
-    ["secondary_event", "timeline_program"],
-    ["entourage", "principal_sponsors", "attire_motif"],
-    optionalKeys,
-  ] as ClientSectionKey[][]) {
-    const visible = getVisibleClientSectionKeys(renderModel(disabled));
-    const transitions = getVisibleSectionTransitions(visible);
-
-    assert.equal(transitions.length, visible.length - 1);
-    assert.equal(
-      transitions.some((transition) =>
-        disabled.includes(transition.from) || disabled.includes(transition.to),
-      ),
-      false,
-    );
-  }
-});
-
-test("decorative preferences require a compatible actual destination", () => {
-  const withoutMusic = getVisibleClientSectionKeys(renderModel(["music_effects"]));
-  assert.deepEqual(
-    getVisibleSectionTransitions(withoutMusic).find(
-      (transition) => transition.from === "countdown",
-    ),
-    {
-      from: "countdown",
-      fromBackground: "cream",
-      to: "gallery",
-      toBackground: "gallery-peach",
-      variant: "subtleWave",
-    },
+test("WaveDivider and SectionTransition component files are completely removed from filesystem", () => {
+  const waveDividerPath = path.join(
+    process.cwd(),
+    "src/client/components/WaveDivider.tsx",
+  );
+  const sectionTransitionPath = path.join(
+    process.cwd(),
+    "src/client/components/SectionTransition.tsx",
+  );
+  const sectionTransitionsHelperPath = path.join(
+    process.cwd(),
+    "src/client/section-transitions.ts",
   );
 
-  const restored = getVisibleClientSectionKeys(renderModel());
-  assert.equal(restored[2], "music_effects");
-});
-
-test("semantic transitions resolve without hard-coded section pairs", () => {
-  assert.deepEqual(resolveSectionTransition("countdown", "music_effects"), {
-    from: "countdown",
-    fromBackground: "cream",
-    to: "music_effects",
-    toBackground: "seafoam-light",
-    variant: "decorativeGradient",
-  });
-  assert.deepEqual(resolveSectionTransition("venue", "secondary_event"), {
-    from: "venue",
-    fromBackground: "cream",
-    to: "secondary_event",
-    toBackground: "ivory",
-    variant: "bouquet",
-  });
-  assert.equal(resolveSectionTransition("countdown", "main_event").variant, "subtleWave");
-  assert.equal(resolveSectionTransition("venue", "timeline_program").variant, "none");
-  assert.equal(resolveSectionTransition("host_info", "main_event").variant, "imageToSolidWave");
-});
-
-test("image, subtle, and accent edges resolve exact canonical colors", () => {
-  const expectations = [
-    ["music_effects", "main_event", "seafoam", "ivory", "subtleWave"],
-    ["host_info", "music_effects", "ivory", "seafoam-light", "imageToSolidWave"],
-    ["host_info", "gallery", "ivory", "gallery-peach", "imageToSolidWave"],
-    ["host_info", "main_event", "ivory", "ivory", "imageToSolidWave"],
-    ["gallery", "main_event", "gallery-sand", "ivory", "subtleWave"],
-    ["main_event", "venue", "ivory", "cream", "subtleWave"],
-    ["extra_info", "rsvp_form", "cream", "coral", "accentBandWave"],
-    ["rsvp_form", "guestbook", "coral-deep", "cream", "accentBandWave"],
-    ["guestbook", "contact_socials", "cream", "cocoa", "accentBandWave"],
-  ] as const;
-
-  for (const [from, to, fromBackground, toBackground, variant] of expectations) {
-    const transition = resolveSectionTransition(from, to);
-    assert.equal(transition.fromBackground, fromBackground);
-    assert.equal(transition.toBackground, toBackground);
-    assert.equal(transition.variant, variant);
-  }
-});
-
-test("same-background neighbors never introduce a third color", () => {
-  for (const [from, to] of [
-    ["timeline_program", "principal_sponsors"],
-    ["gift_details", "story_message"],
-  ] as const) {
-    const transition = resolveSectionTransition(from, to);
-    assert.equal(transition.fromBackground, transition.toBackground);
-    assert.equal(transition.variant, "none");
-  }
-});
-
-test("Gallery participates in exactly one transition on each visible edge", () => {
-  const visible = getVisibleClientSectionKeys(renderModel());
-  assert.equal(visible.indexOf("gallery"), visible.indexOf("music_effects") + 1);
-
-  const transitions = getVisibleSectionTransitions(visible);
   assert.equal(
-    transitions.filter((transition) => transition.to === "gallery").length,
-    1,
-  );
-  assert.equal(
-    transitions.filter((transition) => transition.from === "gallery").length,
-    1,
-  );
-
-  const withoutGallery = getVisibleClientSectionKeys(renderModel(["gallery"]));
-  assert.equal(withoutGallery.includes("gallery"), false);
-  assert.equal(
-    getVisibleSectionTransitions(withoutGallery).some(
-      (transition) => transition.from === "gallery" || transition.to === "gallery",
-    ),
+    fs.existsSync(waveDividerPath),
     false,
+    "WaveDivider.tsx must not exist",
+  );
+  assert.equal(
+    fs.existsSync(sectionTransitionPath),
+    false,
+    "SectionTransition.tsx must not exist",
+  );
+  assert.equal(
+    fs.existsSync(sectionTransitionsHelperPath),
+    false,
+    "section-transitions.ts must not exist",
+  );
+});
+
+test("client-section-registry contains no wave or transition fields or types", () => {
+  for (const key of canonicalOrder) {
+    const descriptor =
+      clientSectionRegistry[key as keyof typeof clientSectionRegistry];
+    assert.ok(descriptor, `Descriptor for ${key} must exist`);
+    assert.ok(descriptor.surface, `Surface for ${key} must exist`);
+    assert.equal(
+      "preferredTransition" in descriptor,
+      false,
+      `preferredTransition must not exist on ${key}`,
+    );
+    assert.equal(
+      "acceptedEntryTransitions" in descriptor,
+      false,
+      `acceptedEntryTransitions must not exist on ${key}`,
+    );
+    assert.equal(
+      "entryBackground" in descriptor,
+      false,
+      `entryBackground must not exist on ${key}`,
+    );
+    assert.equal(
+      "exitBackground" in descriptor,
+      false,
+      `exitBackground must not exist on ${key}`,
+    );
+  }
+});
+
+test("ClientEventRenderer contains no SectionTransition or wave divider imports or rendering", () => {
+  const rendererPath = path.join(
+    process.cwd(),
+    "src/client/renderer/ClientEventRenderer.tsx",
+  );
+  const content = fs.readFileSync(rendererPath, "utf-8");
+
+  assert.equal(
+    content.includes("SectionTransition"),
+    false,
+    "ClientEventRenderer must not import or render SectionTransition",
+  );
+  assert.equal(
+    content.includes("WaveDivider"),
+    false,
+    "ClientEventRenderer must not import or render WaveDivider",
+  );
+});
+
+test("client-theme.css contains no wave height or section transition aliases", () => {
+  const cssPath = path.join(
+    process.cwd(),
+    "src/client/styles/client-theme.css",
+  );
+  const cssContent = fs.readFileSync(cssPath, "utf-8");
+
+  assert.equal(
+    cssContent.includes("--section-bg-ivory"),
+    false,
+    "--section-bg-ivory alias must be removed",
+  );
+  assert.equal(
+    cssContent.includes("--section-bg-seafoam"),
+    false,
+    "--section-bg-seafoam alias must be removed",
+  );
+  assert.equal(
+    cssContent.includes("--section-bg-coral"),
+    false,
+    "--section-bg-coral alias must be removed",
+  );
+  assert.equal(
+    cssContent.includes("--section-bg-gallery-peach"),
+    false,
+    "--section-bg-gallery-peach alias must be removed",
+  );
+});
+
+test("section ordering and visibility remain intact without transition wrappers", () => {
+  const visible = getVisibleClientSectionKeys(renderModel());
+  assert.deepEqual(visible, canonicalOrder);
+});
+
+const ALLOWED_SURFACES: Set<SectionSurface> = new Set([
+  "photo",
+  "light",
+  "warm",
+  "olive",
+  "dark",
+]);
+
+const APPROVED_SURFACE_SEQUENCE: Record<ClientSectionKey, SectionSurface> = {
+  host_info: "dark",
+  countdown: "warm",
+  music_effects: "olive",
+  gallery: "warm",
+  main_event: "light",
+  venue: "warm",
+  secondary_event: "light",
+  timeline_program: "olive",
+  entourage: "light",
+  principal_sponsors: "warm",
+  attire_motif: "light",
+  extra_info: "warm",
+  rsvp_form: "dark",
+  gift_details: "light",
+  guestbook: "warm",
+  story_message: "light",
+  contact_socials: "dark",
+};
+
+test("registry surfaces use only valid semantic surface roles", () => {
+  for (const key of canonicalOrder) {
+    const surface = clientSectionRegistry[key as ClientSectionKey].surface;
+    assert.ok(
+      ALLOWED_SURFACES.has(surface),
+      `Section ${key} surface "${surface}" is not a valid semantic surface role`,
+    );
+  }
+});
+
+test("registry surfaces match the approved hybrid surface sequence exactly", () => {
+  for (const key of canonicalOrder) {
+    const expected = APPROVED_SURFACE_SEQUENCE[key as ClientSectionKey];
+    const actual = clientSectionRegistry[key as ClientSectionKey].surface;
+    assert.equal(
+      actual,
+      expected,
+      `Section ${key} surface must be "${expected}", got "${actual}"`,
+    );
+  }
+});
+
+test("Ceremony, Venue, and Reception no longer form a three-section same-surface run", () => {
+  const ceremonySurface = clientSectionRegistry.main_event.surface;
+  const venueSurface = clientSectionRegistry.venue.surface;
+  const receptionSurface = clientSectionRegistry.secondary_event.surface;
+
+  const isTripleSame =
+    ceremonySurface === venueSurface && venueSurface === receptionSurface;
+  assert.equal(
+    isTripleSame,
+    false,
+    "Ceremony, Venue, and Reception must not all share the same surface role",
+  );
+});
+
+test("Entourage, Sponsors, and Attire no longer form a three-section same-surface run", () => {
+  const entourageSurface = clientSectionRegistry.entourage.surface;
+  const sponsorsSurface = clientSectionRegistry.principal_sponsors.surface;
+  const attireSurface = clientSectionRegistry.attire_motif.surface;
+
+  const isTripleSame =
+    entourageSurface === sponsorsSurface && sponsorsSurface === attireSurface;
+  assert.equal(
+    isTripleSame,
+    false,
+    "Entourage, Sponsors, and Attire must not all share the same surface role",
+  );
+});
+
+test("section components do not hardcode manual surface role literals", () => {
+  const sectionsDir = path.join(process.cwd(), "src/client/sections");
+  const files = fs.readdirSync(sectionsDir).filter((f) => f.endsWith(".tsx"));
+
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(sectionsDir, file), "utf-8");
+    const matches = content.match(
+      /data-tone=["'](light|warm|olive|dark|photo)["']/g,
+    );
+    assert.equal(
+      matches,
+      null,
+      `File ${file} must not hardcode data-tone literal, found: ${matches?.join(", ")}`,
+    );
+  }
+});
+
+test("ClientEventRenderer applies surface prop centrally from registry", () => {
+  const rendererPath = path.join(
+    process.cwd(),
+    "src/client/renderer/ClientEventRenderer.tsx",
+  );
+  const content = fs.readFileSync(rendererPath, "utf-8");
+
+  assert.ok(
+    content.includes("clientSectionRegistry[key].surface"),
+    "ClientEventRenderer must read surface from clientSectionRegistry[key].surface",
+  );
+  assert.ok(
+    content.includes("surface={surface}"),
+    "ClientEventRenderer must pass surface={surface} to section components",
+  );
+});
+
+test("ClientFooter uses centralized dark surface CSS variable", () => {
+  const footerPath = path.join(
+    process.cwd(),
+    "src/client/components/ClientFooter.tsx",
+  );
+  const content = fs.readFileSync(footerPath, "utf-8");
+
+  assert.ok(
+    content.includes("var(--wedding-surface-dark)"),
+    "ClientFooter must use var(--wedding-surface-dark)",
+  );
+});
+
+test("client-theme.css defines rules for all 5 semantic surface roles", () => {
+  const cssPath = path.join(
+    process.cwd(),
+    "src/client/styles/client-theme.css",
+  );
+  const content = fs.readFileSync(cssPath, "utf-8");
+
+  assert.ok(
+    content.includes('data-tone="photo"'),
+    "CSS must define rule for data-tone=photo",
+  );
+  assert.ok(
+    content.includes('data-tone="light"'),
+    "CSS must define rule for data-tone=light",
+  );
+  assert.ok(
+    content.includes('data-tone="warm"'),
+    "CSS must define rule for data-tone=warm",
+  );
+  assert.ok(
+    content.includes('data-tone="olive"'),
+    "CSS must define rule for data-tone=olive",
+  );
+  assert.ok(
+    content.includes('data-tone="dark"'),
+    "CSS must define rule for data-tone=dark",
   );
 });

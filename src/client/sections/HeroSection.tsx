@@ -6,25 +6,35 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import type { ClientCoupleInfo } from "@/client/types/client-view-model";
 import { templateBranding } from "@/config/template-branding";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
 type HeroSectionProps = {
   coupleInfo: ClientCoupleInfo;
   storyVisible: boolean;
+  surface: SectionSurface;
 };
 
-export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
+export function HeroSection({
+  coupleInfo,
+  storyVisible,
+  surface,
+}: HeroSectionProps) {
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, [0, 600], [0, 120]);
-  const backgroundY = useSpring(rawY, { stiffness: 90, damping: 25, mass: 0.4 });
+  const backgroundY = useSpring(rawY, {
+    stiffness: 90,
+    damping: 25,
+    mass: 0.4,
+  });
 
   const displayAs = coupleInfo?.displayAs?.trim() || "Rafael & Isabella";
 
   return (
     <section
       id="hero"
-      data-tone="dark"
+      data-tone={surface}
       className="wedding-section relative pt-24 pb-20 px-4 text-center overflow-hidden min-h-[95vh] min-h-[95svh] flex flex-col justify-center items-center"
     >
       {/* Smooth Parallax Background Image */}
@@ -77,7 +87,12 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 w-full max-w-xl">
-              <WeddingButton asChild variant="primary" size="lg" className="w-full sm:w-auto">
+              <WeddingButton
+                asChild
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
                 <Link href="/rsvp" className="group">
                   <Heart
                     size={14}
@@ -88,7 +103,12 @@ export function HeroSection({ coupleInfo, storyVisible }: HeroSectionProps) {
               </WeddingButton>
 
               {storyVisible ? (
-                <WeddingButton asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+                <WeddingButton
+                  asChild
+                  variant="secondary"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                >
                   <a href="#our-story">
                     <span>Our Story</span>
                   </a>

@@ -28,16 +28,25 @@ import { FadeContent } from "@/client/libs/reactbits";
 import { SpotlightCard } from "@/client/components/SpotlightCard";
 import { MapPin, Clock3, Sparkles, ExternalLink } from "@/client/libs/icons";
 import { formatTime, formatDate } from "@/client/utils/formatters";
-import type { ClientReceptionData, ClientCeremonyData } from "@/client/types/client-view-model";
+import type {
+  ClientReceptionData,
+  ClientCeremonyData,
+} from "@/client/types/client-view-model";
+import type { SectionSurface } from "@/client/client-section-registry";
 
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
 type ReceptionSectionProps = {
   reception: ClientReceptionData;
   ceremony?: ClientCeremonyData;
+  surface: SectionSurface;
 };
 
-export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps) {
+export function ReceptionSection({
+  reception,
+  ceremony,
+  surface,
+}: ReceptionSectionProps) {
   if (!reception) return null;
 
   const hasTimeRange = reception.startTime || reception.endTime;
@@ -54,62 +63,11 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
     : "";
 
   return (
-    <section 
-      id="reception" 
-      data-tone="light"
+    <section
+      id="reception"
+      data-tone={surface}
       className="wedding-section relative overflow-x-clip pt-32 pb-24 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 px-4"
     >
-      {/* Decorative Assets Wrapper - clips horizontal overflow of large assets 
-          internally to prevent page-level horizontal scrolling */}
-      <div className="absolute inset-0 overflow-x-clip pointer-events-none z-10" aria-hidden="true">
-        {/* Decorative Bird Assets — large elegant top-side framing elements, scaled up on desktop */}
-        <img
-          src="/beach%20assets%20finalized/7.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 left-0 top-0 w-20 opacity-80 sm:left-0 sm:w-28 sm:opacity-85 md:left-0 md:w-36 md:opacity-90 lg:left-0 lg:top-2 lg:w-48 lg:opacity-95 xl:left-2 xl:w-56"
-        />
-        <img
-          src="/beach%20assets%20finalized/8.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute h-auto object-contain select-none transition-[opacity,transform] duration-300 right-0 top-0 w-20 opacity-80 sm:right-0 sm:w-28 sm:opacity-85 md:right-0 md:w-36 md:opacity-90 lg:right-0 lg:top-2 lg:w-48 lg:opacity-95 xl:right-2 xl:w-56"
-        />
-
-        {/* Decorative Corner Flowers — framing the lower portion of the section with tight compositional coupling */}
-        {/* Bottom-Left Corner Flower */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute left-0 sm:-left-6 md:-left-8 lg:-left-10 bottom-0 w-28 sm:w-48 md:w-64 lg:w-[300px] xl:w-[360px] h-auto object-contain select-none transform transition-[opacity,transform] duration-300"
-        />
-
-        {/* Bottom-Right Corner Flower */}
-        <img
-          src="/beach%20assets%20finalized/17.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          loading="lazy"
-          className="absolute right-0 sm:-right-6 md:-right-8 lg:-right-10 bottom-0 w-28 sm:w-48 md:w-64 lg:w-[300px] xl:w-[360px] h-auto object-contain select-none transform scale-x-[-1] transition-[opacity,transform] duration-300"
-        />
-      </div>
-
       {/* Main content — centered stack, layered above background elements */}
       <div className="max-w-2xl mx-auto relative z-30">
         <SectionHeading
@@ -151,7 +109,9 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                     <Clock3 className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-serif text-base font-semibold text-cocoa">Time</h4>
+                    <h4 className="font-serif text-base font-semibold text-cocoa">
+                      Time
+                    </h4>
                     {derivedDate && (
                       <p className="text-[#725d4f] text-sm md:text-base mt-1.5 font-medium leading-relaxed">
                         {derivedDate}
@@ -173,7 +133,9 @@ export function ReceptionSection({ reception, ceremony }: ReceptionSectionProps)
                     <Sparkles className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-serif text-base font-semibold text-cocoa">Note</h4>
+                    <h4 className="font-serif text-base font-semibold text-cocoa">
+                      Note
+                    </h4>
                     <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                       {reception.receptionNote}
                     </p>

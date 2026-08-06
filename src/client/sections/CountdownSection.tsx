@@ -14,14 +14,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { formatTime } from "@/client/utils/formatters";
-import type { ClientCountdownData, ClientCeremonyData } from "@/client/types/client-view-model";
+import type {
+  ClientCountdownData,
+  ClientCeremonyData,
+} from "@/client/types/client-view-model";
+
+import type { SectionSurface } from "@/client/client-section-registry";
 
 type CountdownSectionProps = {
   countdown: ClientCountdownData;
   ceremony: ClientCeremonyData;
+  surface: SectionSurface;
 };
 
-export function CountdownSection({ countdown, ceremony }: CountdownSectionProps) {
+export function CountdownSection({
+  countdown,
+  ceremony,
+  surface,
+}: CountdownSectionProps) {
   const getTimeLeft = () => {
     const target = ceremony?.eventDate
       ? new Date(`${ceremony.eventDate}T${ceremony.eventTime || "16:00"}:00`)
@@ -37,15 +47,30 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
 
   const dateStr = ceremony?.eventDate || "2027-04-19";
   const [yStr, mStr, dStr] = dateStr.split("-");
-  const dateObj = new Date(Date.UTC(Number(yStr) || 2027, (Number(mStr) || 4) - 1, Number(dStr) || 19));
-  const weekday = dateObj.toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
-  const month = dateObj.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
+  const dateObj = new Date(
+    Date.UTC(Number(yStr) || 2027, (Number(mStr) || 4) - 1, Number(dStr) || 19),
+  );
+  const weekday = dateObj.toLocaleDateString("en-US", {
+    weekday: "long",
+    timeZone: "UTC",
+  });
+  const month = dateObj.toLocaleDateString("en-US", {
+    month: "short",
+    timeZone: "UTC",
+  });
   const dayNum = (Number(dStr) || 19).toString();
   const yearNum = yStr || "2027";
-  const timeStr = ceremony?.eventTime ? formatTime(ceremony.eventTime) : "4:00 PM";
+  const timeStr = ceremony?.eventTime
+    ? formatTime(ceremony.eventTime)
+    : "4:00 PM";
 
   const [mounted, setMounted] = useState(false);
-  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [time, setTime] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -64,32 +89,12 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
   ];
 
   return (
-    <section id="countdown" data-tone="champagne" className="wedding-section relative py-20 md:py-32 px-4 pb-24 sm:pb-20 md:pb-32 overflow-x-clip">
-      {/* Decorative Background Layer - Coconut Trees & Waves */}
-      <div className="absolute inset-x-0 top-0 bottom-0 overflow-x-clip overflow-y-visible pointer-events-none select-none z-10" aria-hidden="true">
-        {/* Decorative Coconut Trees on Sides */}
-        <img
-          src="/beach%20assets%20finalized/12.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute left-0 -bottom-6 sm:-bottom-8 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform -translate-x-[20%] sm:-translate-x-[45%] lg:-translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-left"
-        />
-        <img
-          src="/beach%20assets%20finalized/13.webp"
-          alt=""
-          aria-hidden="true"
-          width={2048}
-          height={2048}
-          decoding="async"
-          className="absolute right-0 -bottom-6 sm:-bottom-8 w-44 sm:w-64 md:w-80 lg:w-[450px] xl:w-[550px] h-auto object-contain pointer-events-none z-10 transform translate-x-[20%] sm:translate-x-[45%] lg:translate-x-[35%] select-none opacity-100 transition-[opacity,transform] duration-300 origin-bottom-right"
-        />
-
-      </div>
-
-      <div className="relative z-30 max-w-4xl mx-auto transform -translate-y-6 md:-translate-y-12">
+    <section
+      id="countdown"
+      data-tone={surface}
+      className="wedding-section relative py-20 md:py-32 px-4 pb-24 sm:pb-20 md:pb-32 overflow-x-clip"
+    >
+      <div className="relative z-30 max-w-4xl mx-auto">
         <div className="mx-auto mb-8 sm:mb-12 flex flex-row items-center justify-center gap-4 sm:gap-10 text-[color:var(--wedding-text-secondary)]">
           <div className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-[color:var(--wedding-text-secondary)]">
             {weekday}
@@ -132,7 +137,10 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
               >
                 <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-20 lg:h-24 items-center overflow-hidden">
                   {digits.map((d, i) => (
-                    <div key={i} className="h-full flex items-center overflow-hidden">
+                    <div
+                      key={i}
+                      className="h-full flex items-center overflow-hidden"
+                    >
                       <AnimatePresence mode="popLayout">
                         <motion.span
                           key={`${label}-${i}-${d}`}
@@ -148,7 +156,9 @@ export function CountdownSection({ countdown, ceremony }: CountdownSectionProps)
                     </div>
                   ))}
                 </div>
-                <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">{label}</p>
+                <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">
+                  {label}
+                </p>
               </div>
             );
           })}

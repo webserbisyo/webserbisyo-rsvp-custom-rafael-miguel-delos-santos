@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAudio } from "./audio-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music4, Play, Pause, Square, X } from "@/client/libs/icons";
@@ -14,6 +14,24 @@ type FloatingMusicBubbleProps = {
 export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubbleProps) {
   const { playbackState, musicTitle, isPlaying, play, pause, stop } = useAudio();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMusicSectionVisible, setIsMusicSectionVisible] = useState(false);
+
+  // Recede floating bubble when main #music section is in viewport
+  useEffect(() => {
+    const musicSec = document.querySelector("#music");
+    if (!musicSec) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setIsMusicSectionVisible(entry.isIntersecting && entry.intersectionRatio >= 0.3);
+      },
+      { threshold: [0, 0.3, 0.6] }
+    );
+
+    observer.observe(musicSec);
+    return () => observer.disconnect();
+  }, []);
 
   // Do not render anything if music hasn't started yet
   if (playbackState === "idle" || playbackState === "stopped") {
@@ -28,7 +46,9 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
       className={
         isInline
           ? "relative z-10 flex shrink-0 flex-col items-end"
-          : "fixed bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] right-4 z-50 flex flex-col items-end sm:right-6"
+          : `fixed bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] right-4 z-50 flex flex-col items-end sm:right-6 transition-opacity duration-300 ${
+              isMusicSectionVisible ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`
       }
     >
       <AnimatePresence>

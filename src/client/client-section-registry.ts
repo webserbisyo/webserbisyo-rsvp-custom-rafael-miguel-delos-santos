@@ -27,34 +27,20 @@ export type ClientSectionKey = WeddingSectionKey | "gallery";
 export type ClientNavigationGroup =
   "Explore" | "Guest Essentials" | "Wedding Info" | "Support";
 
-export type SectionBackgroundToken =
-  | "coral"
-  | "coral-deep"
-  | "cocoa"
-  | "cream"
-  | "gallery-peach"
-  | "gallery-sand"
-  | "ivory"
-  | "seafoam"
-  | "seafoam-light";
-
-export type SectionBackgroundKind = "accent" | "gradient" | "image" | "solid";
-export type SectionDecorativeTransition = "bouquet" | "decorativeGradient";
-export type SectionTransitionVariant =
-  | "accentBandWave"
-  | SectionDecorativeTransition
-  | "imageToSolidWave"
-  | "none"
-  | "subtleWave";
-
-export type SectionVisualTheme = {
-  acceptedEntryTransitions?: SectionDecorativeTransition[];
-  background: SectionBackgroundToken;
-  backgroundKind: SectionBackgroundKind;
-  entryBackground?: SectionBackgroundToken;
-  exitBackground?: SectionBackgroundToken;
-  preferredTransition?: SectionDecorativeTransition;
-};
+/**
+ * Semantic section surface roles.
+ *
+ * These five roles are the ONLY valid section surfaces.
+ * All theme overrides resolve through these roles.
+ * No raw colors, legacy aliases, or per-section hardcoded backgrounds are permitted.
+ *
+ * - photo  : Hero image background (no solid fill needed)
+ * - light  : Primary warm-ivory editorial surface
+ * - warm   : Champagne-highlighted accent surface
+ * - olive  : Deep green feature/interlude surface
+ * - dark   : Soft-black CTA and closing surface
+ */
+export type SectionSurface = "photo" | "light" | "warm" | "olive" | "dark";
 
 export type ClientSectionDescriptor = {
   anchor: string;
@@ -66,7 +52,7 @@ export type ClientSectionDescriptor = {
   label: string;
   primary?: boolean;
   topNav?: boolean;
-  visual: SectionVisualTheme;
+  surface: SectionSurface;
 };
 
 export const clientSectionRegistry: Record<
@@ -79,8 +65,9 @@ export const clientSectionRegistry: Record<
     icon: Home,
     key: "host_info",
     label: "Home",
-    visual: { background: "ivory", backgroundKind: "image" },
+    surface: "dark",
   },
+
   countdown: {
     anchor: "#countdown",
     group: "Explore",
@@ -88,23 +75,13 @@ export const clientSectionRegistry: Record<
     key: "countdown",
     label: "Countdown",
     topNav: true,
-    visual: {
-      background: "cream",
-      backgroundKind: "solid",
-      preferredTransition: "decorativeGradient",
-    },
+    surface: "warm",
   },
   music_effects: {
     anchor: "#music",
     key: "music_effects",
     label: "Music",
-    visual: {
-      background: "seafoam",
-      backgroundKind: "gradient",
-      acceptedEntryTransitions: ["decorativeGradient"],
-      entryBackground: "seafoam-light",
-      exitBackground: "seafoam",
-    },
+    surface: "olive",
   },
   gallery: {
     anchor: "#gallery",
@@ -113,12 +90,7 @@ export const clientSectionRegistry: Record<
     key: "gallery",
     label: "Gallery",
     topNav: true,
-    visual: {
-      background: "gallery-peach",
-      backgroundKind: "gradient",
-      entryBackground: "gallery-peach",
-      exitBackground: "gallery-sand",
-    },
+    surface: "warm",
   },
   main_event: {
     anchor: "#ceremony",
@@ -127,7 +99,7 @@ export const clientSectionRegistry: Record<
     icon: CalendarDays,
     key: "main_event",
     label: "Ceremony",
-    visual: { background: "ivory", backgroundKind: "solid" },
+    surface: "light",
   },
   venue: {
     anchor: "#venue",
@@ -136,11 +108,7 @@ export const clientSectionRegistry: Record<
     icon: MapPin,
     key: "venue",
     label: "Venue",
-    visual: {
-      background: "cream",
-      backgroundKind: "solid",
-      preferredTransition: "bouquet",
-    },
+    surface: "warm",
   },
   secondary_event: {
     anchor: "#reception",
@@ -149,11 +117,7 @@ export const clientSectionRegistry: Record<
     icon: Utensils,
     key: "secondary_event",
     label: "Reception",
-    visual: {
-      acceptedEntryTransitions: ["bouquet"],
-      background: "ivory",
-      backgroundKind: "solid",
-    },
+    surface: "light",
   },
   timeline_program: {
     anchor: "#timeline",
@@ -162,7 +126,7 @@ export const clientSectionRegistry: Record<
     key: "timeline_program",
     label: "Timeline",
     topNav: true,
-    visual: { background: "cream", backgroundKind: "solid" },
+    surface: "olive",
   },
   entourage: {
     anchor: "#entourage",
@@ -170,7 +134,7 @@ export const clientSectionRegistry: Record<
     icon: Users,
     key: "entourage",
     label: "Entourage",
-    visual: { background: "ivory", backgroundKind: "solid" },
+    surface: "light",
   },
   principal_sponsors: {
     anchor: "#sponsors",
@@ -178,7 +142,7 @@ export const clientSectionRegistry: Record<
     icon: Award,
     key: "principal_sponsors",
     label: "Sponsors",
-    visual: { background: "cream", backgroundKind: "solid" },
+    surface: "warm",
   },
   attire_motif: {
     anchor: "#attire",
@@ -187,7 +151,7 @@ export const clientSectionRegistry: Record<
     icon: Shirt,
     key: "attire_motif",
     label: "Attire",
-    visual: { background: "ivory", backgroundKind: "solid" },
+    surface: "light",
   },
   extra_info: {
     anchor: "#extra-info",
@@ -196,7 +160,7 @@ export const clientSectionRegistry: Record<
     key: "extra_info",
     label: "Details",
     topNav: true,
-    visual: { background: "cream", backgroundKind: "solid" },
+    surface: "warm",
   },
   rsvp_form: {
     anchor: "/rsvp",
@@ -206,12 +170,7 @@ export const clientSectionRegistry: Record<
     key: "rsvp_form",
     label: "RSVP",
     primary: true,
-    visual: {
-      background: "coral",
-      backgroundKind: "accent",
-      entryBackground: "coral",
-      exitBackground: "coral-deep",
-    },
+    surface: "dark",
   },
   gift_details: {
     anchor: "#gifts",
@@ -219,7 +178,7 @@ export const clientSectionRegistry: Record<
     icon: Gift,
     key: "gift_details",
     label: "Gifts",
-    visual: { background: "ivory", backgroundKind: "solid" },
+    surface: "light",
   },
   guestbook: {
     anchor: "#guestbook",
@@ -228,7 +187,7 @@ export const clientSectionRegistry: Record<
     key: "guestbook",
     label: "Guestbook",
     topNav: true,
-    visual: { background: "cream", backgroundKind: "solid" },
+    surface: "warm",
   },
   story_message: {
     anchor: "#our-story",
@@ -237,7 +196,7 @@ export const clientSectionRegistry: Record<
     key: "story_message",
     label: "Story",
     topNav: true,
-    visual: { background: "ivory", backgroundKind: "solid" },
+    surface: "light",
   },
   contact_socials: {
     anchor: "#contact",
@@ -245,7 +204,7 @@ export const clientSectionRegistry: Record<
     icon: Phone,
     key: "contact_socials",
     label: "Contact",
-    visual: { background: "cocoa", backgroundKind: "accent" },
+    surface: "dark",
   },
 };
 
