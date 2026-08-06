@@ -32,6 +32,8 @@ import {
   ContactSection,
 } from "@/client/sections";
 
+import { SectionFloralPatternContext } from "@/client/components/SectionFloralPatternContext";
+
 export function ClientEventRenderer({ event }: ClientEventRendererProps) {
   const vm = buildClientViewModel(
     (event.raw.renderModel ?? {}) as Record<string, unknown>,
@@ -39,6 +41,10 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
   const visibleSectionKeys = getVisibleClientSectionKeys(event);
   const visibleSectionKeySet = new Set(visibleSectionKeys);
   const [mounted, setMounted] = useState(false);
+
+  const eligibleVisibleKeys = visibleSectionKeys.filter(
+    (key) => key !== "host_info",
+  );
 
   useEffect(() => {
     // The ceremony calendar decoration depends on browser-only layout measurements.
@@ -50,9 +56,19 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
     <AudioProvider>
       <main className="flex min-h-screen w-full flex-col text-cocoa">
         <ScrollProgressBar />
-        {visibleSectionKeys.map((key) => (
-          <Fragment key={key}>{renderSection(key)}</Fragment>
-        ))}
+        {visibleSectionKeys.map((key) => {
+          if (key === "host_info") {
+            return <Fragment key={key}>{renderSection(key)}</Fragment>;
+          }
+          const eligibleIndex = eligibleVisibleKeys.indexOf(key);
+          const variant =
+            eligibleIndex % 2 === 0 ? "garden-blooms" : "botanical-vines";
+          return (
+            <SectionFloralPatternContext key={key} variant={variant}>
+              {renderSection(key)}
+            </SectionFloralPatternContext>
+          );
+        })}
       </main>
       <FloatingControlsLayer visibleSectionKeys={visibleSectionKeys} />
     </AudioProvider>

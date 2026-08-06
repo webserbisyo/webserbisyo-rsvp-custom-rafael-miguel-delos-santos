@@ -209,6 +209,12 @@
   --wedding-surface-warm: var(--wedding-surface-champagne);
 
   --shadow-card: var(--wedding-shadow-panel);
+
+  /* Semantic Floral Pattern Surface Washes (Tuned for clear visibility) */
+  --wedding-pattern-wash-light: rgb(246 241 232 / 91%);
+  --wedding-pattern-wash-warm: rgb(232 221 199 / 92%);
+  --wedding-pattern-wash-olive: rgb(53 64 50 / 92%);
+  --wedding-pattern-wash-dark: rgb(23 21 18 / 91%);
 }
 
 /* Tone ownership is presentation-only and keeps dark surfaces from inheriting
@@ -223,24 +229,62 @@
   .wedding-section[data-tone="light"] {
   background: var(--wedding-surface-ivory) !important;
   color: var(--wedding-text-primary);
+  --wedding-section-pattern-wash: var(--wedding-pattern-wash-light);
 }
 
 [data-wedding-theme="refined-midnight-garden"]
   .wedding-section[data-tone="warm"] {
   background: var(--wedding-surface-warm) !important;
   color: var(--wedding-text-primary);
+  --wedding-section-pattern-wash: var(--wedding-pattern-wash-warm);
 }
 
 [data-wedding-theme="refined-midnight-garden"]
   .wedding-section[data-tone="dark"] {
   background: var(--wedding-surface-dark) !important;
   color: var(--wedding-text-on-dark);
+  --wedding-section-pattern-wash: var(--wedding-pattern-wash-dark);
 }
 
 [data-wedding-theme="refined-midnight-garden"]
   .wedding-section[data-tone="olive"] {
   background: var(--wedding-surface-olive-deep) !important;
   color: var(--wedding-text-on-dark);
+  --wedding-section-pattern-wash: var(--wedding-pattern-wash-olive);
+}
+
+/* Variant-specific visibility compensation for naturally lighter botanical-vines line art */
+[data-wedding-theme="refined-midnight-garden"]
+  .wedding-section-pattern-context[data-floral-pattern="botanical-vines"]
+  .wedding-section[data-tone="light"] {
+  --wedding-section-pattern-wash: rgb(246 241 232 / 89%);
+}
+
+[data-wedding-theme="refined-midnight-garden"]
+  .wedding-section-pattern-context[data-floral-pattern="botanical-vines"]
+  .wedding-section[data-tone="warm"] {
+  --wedding-section-pattern-wash: rgb(232 221 199 / 90%);
+}
+
+/* Central Alternating Floral Section Trace Overlay System */
+[data-wedding-theme="refined-midnight-garden"]
+  .wedding-section-pattern-context
+  .wedding-section {
+  background-image:
+    linear-gradient(
+      var(--wedding-section-pattern-wash, rgb(246 241 232 / 91%)),
+      var(--wedding-section-pattern-wash, rgb(246 241 232 / 91%))
+    ),
+    var(--wedding-section-pattern-image) !important;
+  background-size:
+    100% 100%,
+    cover !important;
+  background-position:
+    center center,
+    center top !important;
+  background-repeat:
+    no-repeat,
+    no-repeat !important;
 }
 
 [data-wedding-theme="refined-midnight-garden"]
