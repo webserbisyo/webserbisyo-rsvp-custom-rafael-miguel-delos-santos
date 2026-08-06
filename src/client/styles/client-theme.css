@@ -294,6 +294,10 @@
   color: var(--wedding-music-disc-icon-foreground) !important;
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-venue-pin-shadow {
+  filter: drop-shadow(0 4px 8px rgb(23 21 18 / 22%));
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-subtitle {
   color: var(--wedding-text-secondary);
 }

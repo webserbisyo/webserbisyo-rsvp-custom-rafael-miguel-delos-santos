@@ -216,7 +216,7 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
                 <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)]">
                   {/* Decorative Pin Overlay attached to the border */}
                   <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
-                    <Pin className="w-11 h-11 text-coral fill-current drop-shadow-[0_3px_6px_rgba(201,94,53,0.45)]" />
+                    <Pin className="w-11 h-11 text-coral fill-current wedding-venue-pin-shadow" />
                   </div>
 
                   {/* Map Container */}
