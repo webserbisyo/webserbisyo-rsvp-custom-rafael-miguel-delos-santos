@@ -11,7 +11,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { formatTime } from "@/client/utils/formatters";
 import type {
@@ -32,6 +32,8 @@ export function CountdownSection({
   ceremony,
   surface,
 }: CountdownSectionProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   const getTimeLeft = () => {
     const target = ceremony?.eventDate
       ? new Date(`${ceremony.eventDate}T${ceremony.eventTime || "16:00"}:00`)
@@ -127,34 +129,45 @@ export function CountdownSection({
           subtitle={countdown?.shortNote}
         />
 
-        <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 mt-12 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mt-12 max-w-4xl mx-auto">
           {units.map(({ label, value }) => {
-            const digits = String(value).padStart(2, "0").split("");
+            const formattedValue = mounted
+              ? String(value).padStart(label === "Days" && value >= 100 ? 3 : 2, "0")
+              : "00";
             return (
               <div
                 key={label}
-                className="wedding-panel rounded-sm p-2 sm:p-4 md:p-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
+                className="wedding-panel min-w-0 rounded-sm p-3 sm:p-4 md:px-4 md:py-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
               >
-                <div className="flex justify-center gap-0.5 h-10 sm:h-14 md:h-20 lg:h-24 items-center overflow-hidden">
-                  {digits.map((d, i) => (
-                    <div
-                      key={i}
-                      className="h-full flex items-center overflow-hidden"
+                <div className="relative flex justify-center items-center h-14 sm:h-16 md:h-20 lg:h-24 overflow-hidden w-full px-1">
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.span
+                      key={`${label}-${formattedValue}`}
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : { y: -12, opacity: 0 }
+                      }
+                      animate={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { y: 0, opacity: 1 }
+                      }
+                      exit={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : { y: 12, opacity: 0 }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0.1 }
+                          : { duration: 0.25, ease: "easeOut" }
+                      }
+                      className="wedding-numeric-display wedding-countdown-number block whitespace-nowrap tabular-nums text-center"
                     >
-                      <AnimatePresence mode="popLayout">
-                        <motion.span
-                          key={`${label}-${i}-${d}`}
-                          initial={{ y: -30, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: 30, opacity: 0 }}
-                          transition={{ duration: 0.35, ease: "easeInOut" }}
-                          className="wedding-numeric-display block"
-                        >
-                          {mounted ? d : "0"}
-                        </motion.span>
-                      </AnimatePresence>
-                    </div>
-                  ))}
+                      {formattedValue}
+                    </motion.span>
+                  </AnimatePresence>
                 </div>
                 <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">
                   {label}
@@ -167,3 +180,5 @@ export function CountdownSection({
     </section>
   );
 }
+
+

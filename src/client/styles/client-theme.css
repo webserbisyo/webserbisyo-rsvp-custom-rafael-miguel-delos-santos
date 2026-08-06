@@ -269,6 +269,18 @@
   font-variant-numeric: tabular-nums;
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-countdown-number {
+  font-family: var(--font-wedding-display);
+  font-size: clamp(1.8rem, 5.2vw, 4.5rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--wedding-text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-section-subtitle {
   color: var(--wedding-text-secondary);
 }
