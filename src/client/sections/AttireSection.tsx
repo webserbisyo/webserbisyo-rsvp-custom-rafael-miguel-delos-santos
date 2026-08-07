@@ -13,6 +13,7 @@ import { AttireColorSwatch } from "@/client/components/attire/AttireColorSwatch"
 import { clientConfig } from "@/client/client.config";
 import type { ClientAttireData } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type AttireSectionProps = {
   attireDressCode: ClientAttireData;
@@ -99,32 +100,54 @@ export function AttireSection({
 
         {/* Compact Warm Ivory Dress Code Card */}
         <AnimatedContent className="w-full max-w-2xl mx-auto">
-          <div className="w-full bg-[color:var(--wedding-attire-card-surface,#fbf8f2)] border border-[color:var(--wedding-attire-card-border,#d8c8a9)] p-4 sm:p-6 rounded-3xl text-center shadow-floating transition-[border-color,box-shadow] duration-500">
-            {/* Dress Code Title / Note */}
-            {attireDressCode.dressCodeNote && (
-              <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-[color:var(--wedding-attire-card-heading,#1f1c18)] font-semibold mb-1">
-                {attireDressCode.dressCodeNote}
-              </h3>
-            )}
+          <div className="relative overflow-visible">
+            <div className="w-full relative z-10 overflow-hidden bg-[color:var(--wedding-attire-card-surface,#fbf8f2)] border border-[color:var(--wedding-attire-card-border,#d8c8a9)] p-4 sm:p-6 rounded-3xl text-center shadow-floating transition-[border-color,box-shadow] duration-500">
+              {/* Dress Code Title / Note */}
+              {attireDressCode.dressCodeNote && (
+                <h3 className="relative z-20 font-serif text-xl sm:text-2xl md:text-3xl text-[color:var(--wedding-attire-card-heading,#1f1c18)] font-semibold mb-1">
+                  {attireDressCode.dressCodeNote}
+                </h3>
+              )}
 
-            {/* Clean Category Subtitle */}
-            <p className="text-[color:var(--wedding-attire-accent,#72501b)] text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] font-semibold mb-3">
-              SUGGESTED GUEST COLORS
-            </p>
+              {/* Clean Category Subtitle */}
+              <p className="relative z-20 text-[color:var(--wedding-attire-accent,#72501b)] text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] font-semibold mb-3">
+                SUGGESTED GUEST COLORS
+              </p>
 
-            {/* Subtle Divider */}
-            <div className="h-px w-16 sm:w-20 bg-[color:var(--wedding-attire-card-border,#d8c8a9)] mx-auto mb-4 opacity-60" />
+              {/* Subtle Divider */}
+              <div className="h-px w-16 sm:w-20 bg-[color:var(--wedding-attire-card-border,#d8c8a9)] mx-auto mb-4 opacity-60" />
 
-            {/* Color Palette Swatches (One horizontal row of 5 equal columns) */}
-            <div className="grid grid-cols-5 gap-1 sm:gap-3 w-full max-w-xl mx-auto items-start">
-              {palette.map((item) => (
-                <AttireColorSwatch
-                  key={item.label}
-                  label={item.label}
-                  color={item.color}
-                />
-              ))}
+              {/* Color Palette Swatches (One horizontal row of 5 equal columns) */}
+              <div className="relative z-20 grid grid-cols-5 gap-1 sm:gap-3 w-full max-w-xl mx-auto items-start">
+                {palette.map((item) => (
+                  <AttireColorSwatch
+                    key={item.label}
+                    label={item.label}
+                    color={item.color}
+                  />
+                ))}
+              </div>
             </div>
+
+            {/* Paired top-corner framing: top-left sprig + top-right sprig */}
+            <WeddingDecoration
+              family="frame-corner"
+              orientation="left"
+              position="top-left"
+              size="small"
+              tone="light"
+              placementMode="edge-overlap"
+              className="wedding-decoration--target-attire"
+            />
+            <WeddingDecoration
+              family="frame-corner"
+              orientation="right"
+              position="top-right"
+              size="small"
+              tone="light"
+              placementMode="edge-overlap"
+              className="wedding-decoration--target-attire"
+            />
           </div>
         </AnimatedContent>
       </div>

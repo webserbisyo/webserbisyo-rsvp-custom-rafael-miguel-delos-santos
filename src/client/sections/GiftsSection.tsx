@@ -12,6 +12,7 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientGiftOption } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
 
@@ -73,52 +74,75 @@ export function GiftsSection({ giftDetails, surface }: GiftsSectionProps) {
                       : "w-full"
                   }
                 >
-                  <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-3xl p-7 sm:p-8 text-center shadow-soft hover:border-sand/60 transition-[border-color,box-shadow] duration-300 relative z-20 flex flex-col justify-between h-full">
-                    {/* Top Section — Text details */}
-                    <div className="mb-6">
-                      <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium mb-2">
-                        {opt.title}
-                      </h4>
-                      {opt.description && (
-                        <p className="text-driftwood text-sm max-w-xs mx-auto text-balance">
-                          {opt.description}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Bottom Section — Functional QR plate and actions */}
-                    <div className="flex flex-col items-center justify-end mt-auto">
-                      {opt.image?.url && (
-                        <div className="w-full">
-                          {/* Solid White QR Plate for phone scan contrast */}
-                          <div className="bg-white border border-sand/20 rounded-2xl p-4 shadow-sm flex items-center justify-center mx-auto w-full max-w-[260px]">
-                            <img
-                              src={opt.image.url}
-                              alt={opt.image.alt || opt.title}
-                              decoding="async"
-                              className="w-full max-w-[220px] h-auto object-contain pointer-events-none select-none opacity-100"
-                            />
-                          </div>
-                          <p className="mt-4 text-[10px] sm:text-xs uppercase tracking-[0.18em] text-cocoa/55 font-semibold select-none">
-                            SCAN TO SEND YOUR GIFT
+                  <div className="relative overflow-visible">
+                    <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-3xl p-7 sm:p-8 text-center shadow-soft hover:border-sand/60 transition-[border-color,box-shadow] duration-300 relative z-10 flex flex-col justify-between h-full">
+                      {/* Top Section — Text details */}
+                      <div className="mb-6 relative z-20">
+                        <h4 className="font-serif text-xl md:text-2xl text-cocoa font-medium mb-2">
+                          {opt.title}
+                        </h4>
+                        {opt.description && (
+                          <p className="text-driftwood text-sm max-w-xs mx-auto text-balance">
+                            {opt.description}
                           </p>
-                        </div>
-                      )}
+                        )}
+                      </div>
 
-                      {opt.linkUrl && (
-                        <div className="mt-4">
-                          <WeddingButton asChild variant="ghost" size="sm">
-                            <a
-                              href={opt.linkUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {opt.linkLabel || "View Details"} ✦
-                            </a>
-                          </WeddingButton>
-                        </div>
-                      )}
+                      {/* Bottom Section — Functional QR plate and actions */}
+                      <div className="flex flex-col items-center justify-end mt-auto relative z-20">
+                        {opt.image?.url && (
+                          <div className="w-full">
+                            {/* Solid White QR Plate for phone scan contrast */}
+                            <div className="bg-white border border-sand/20 rounded-2xl p-4 shadow-sm flex items-center justify-center mx-auto w-full max-w-[260px]">
+                              <img
+                                src={opt.image.url}
+                                alt={opt.image.alt || opt.title}
+                                decoding="async"
+                                className="w-full max-w-[220px] h-auto object-contain pointer-events-none select-none opacity-100"
+                              />
+                            </div>
+                            <p className="mt-4 text-[10px] sm:text-xs uppercase tracking-[0.18em] text-cocoa/55 font-semibold select-none">
+                              SCAN TO SEND YOUR GIFT
+                            </p>
+                          </div>
+                        )}
+
+                        {opt.linkUrl && (
+                          <div className="mt-4">
+                            <WeddingButton asChild variant="ghost" size="sm">
+                              <a
+                                href={opt.linkUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {opt.linkLabel || "View Details"} ✦
+                              </a>
+                            </WeddingButton>
+                          </div>
+                        )}
+                      </div>
                     </div>
+
+                    {/* Top-left native sprig */}
+                    <WeddingDecoration
+                      family="frame-corner"
+                      orientation="left"
+                      position="top-left"
+                      size="small"
+                      tone="light"
+                      placementMode="edge-overlap"
+                      className="wedding-decoration--target-gifts"
+                    />
+                    {/* Top-right native sprig */}
+                    <WeddingDecoration
+                      family="frame-corner"
+                      orientation="right"
+                      position="top-right"
+                      size="small"
+                      tone="light"
+                      placementMode="edge-overlap"
+                      className="wedding-decoration--target-gifts"
+                    />
                   </div>
                 </div>
               ))}

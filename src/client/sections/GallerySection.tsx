@@ -16,6 +16,7 @@
 import { useState, useEffect } from "react";
 import { ScrollStack, ScrollStackItem } from "@/client/libs/reactbits";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 const GALLERY_PHOTOS = [
   {
@@ -108,34 +109,56 @@ export function GallerySection({ surface }: { surface: SectionSurface }) {
         <ScrollStack>
           {GALLERY_PHOTOS.map((photo, i) => {
             const isPortrait = photo.orientation === "portrait";
+
             return (
               <ScrollStackItem key={i}>
-                <div
-                  className="bg-white border-2 border-white rounded p-3 pb-14 mx-auto shadow-card relative transition-[border-color,box-shadow] duration-300"
-                  style={{
-                    transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
-                    maxWidth: isPortrait ? "390px" : "520px",
-                  }}
-                >
+                <div className="relative overflow-visible mx-auto" style={{ maxWidth: isPortrait ? "390px" : "520px" }}>
                   <div
-                    className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}
+                    className="bg-white border-2 border-white rounded p-3 pb-14 shadow-card relative transition-[border-color,box-shadow] duration-300 overflow-visible z-10"
+                    style={{
+                      transform: `rotate(${GALLERY_ROTATIONS[i % GALLERY_ROTATIONS.length]})`,
+                    }}
                   >
-                    {mounted && (
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        decoding="async"
-                        className="w-full h-full object-cover rounded-sm hover:scale-105 transition-transform duration-500"
-                      />
-                    )}
-                  </div>
-                  <div className="absolute bottom-3 left-0 right-0 text-center px-3">
-                    <p className="font-serif italic text-cocoa text-base mb-0.5">
-                      {photo.caption}
-                    </p>
-                    <p className="text-[0.65rem] tracking-widest uppercase text-driftwood">
-                      {photo.location}
-                    </p>
+                    <div
+                      className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}
+                    >
+                      {mounted && (
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          decoding="async"
+                          className="w-full h-full object-cover rounded-sm hover:scale-105 transition-transform duration-500"
+                        />
+                      )}
+                    </div>
+                    <div className="absolute bottom-3 left-0 right-0 text-center px-3 z-20">
+                      <p className="font-serif italic text-cocoa text-base mb-0.5">
+                        {photo.caption}
+                      </p>
+                      <p className="text-[0.65rem] tracking-widest uppercase text-driftwood">
+                        {photo.location}
+                      </p>
+                    </div>
+
+                    {/* Diagonal pair: top-left sprig + bottom-right flourish - anchored to rotated white frame */}
+                    <WeddingDecoration
+                      family="frame-corner"
+                      orientation="left"
+                      position="top-left"
+                      size="small"
+                      tone="light"
+                      placementMode="edge-overlap"
+                      className="wedding-decoration--target-gallery"
+                    />
+                    <WeddingDecoration
+                      family="card-edge"
+                      orientation="right"
+                      position="bottom-right"
+                      size="small"
+                      tone="light"
+                      placementMode="edge-overlap"
+                      className="wedding-decoration--target-gallery"
+                    />
                   </div>
                 </div>
               </ScrollStackItem>

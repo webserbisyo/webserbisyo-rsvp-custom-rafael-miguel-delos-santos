@@ -20,6 +20,7 @@ import type {
 } from "@/client/types/client-view-model";
 import { motion, AnimatePresence } from "framer-motion";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type CeremonySectionProps = {
   ceremony: ClientCeremonyData;
@@ -126,195 +127,217 @@ export function CeremonySection({
         </div>
 
         <FadeContent>
-          {/* Balanced 50/50 split on desktop */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch mt-8">
-            {/* Left side: Calendar Grid Visualizer with soft glass / translucent styling */}
-            <div className="flex justify-center items-stretch">
-              <div className="relative flex flex-col justify-center bg-cream/80 backdrop-blur-md border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-card w-full select-none overflow-hidden transform hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={grid ? `${grid.monthName}-${grid.year}` : "skeleton"}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Month & Year header */}
-                    <div className="text-center mb-6">
-                      <span className="font-serif text-xl sm:text-2xl font-semibold text-[#302722] block">
-                        {grid ? `${grid.monthName} ${grid.year}` : "Month Year"}
-                      </span>
-                    </div>
-
-                    {/* Weekdays header */}
-                    <div className="grid grid-cols-7 gap-1 sm:gap-3 text-center mb-3">
-                      {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
-                        <span
-                          key={idx}
-                          className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase"
-                        >
-                          {day}
+          <div className="relative overflow-visible">
+            {/* Balanced 50/50 split on desktop */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch mt-8">
+              {/* Left side: Calendar Grid Visualizer with soft glass / translucent styling */}
+              <div className="flex justify-center items-stretch">
+                <div className="relative flex flex-col justify-center bg-cream/80 backdrop-blur-md border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-card w-full select-none overflow-hidden transform hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={grid ? `${grid.monthName}-${grid.year}` : "skeleton"}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* Month & Year header */}
+                      <div className="text-center mb-6">
+                        <span className="font-serif text-xl sm:text-2xl font-semibold text-[#302722] block">
+                          {grid ? `${grid.monthName} ${grid.year}` : "Month Year"}
                         </span>
-                      ))}
-                    </div>
+                      </div>
 
-                    {/* Day grid */}
-                    <div className="grid grid-cols-7 gap-y-3 sm:gap-y-4 gap-x-1 sm:gap-x-3 text-center text-sm sm:text-base">
-                      {grid
-                        ? grid.cells.map((dayNum, idx) => {
-                            if (dayNum === null) {
+                      {/* Weekdays header */}
+                      <div className="grid grid-cols-7 gap-1 sm:gap-3 text-center mb-3">
+                        {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase"
+                          >
+                            {day}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Day grid */}
+                      <div className="grid grid-cols-7 gap-y-3 sm:gap-y-4 gap-x-1 sm:gap-x-3 text-center text-sm sm:text-base">
+                        {grid
+                          ? grid.cells.map((dayNum, idx) => {
+                              if (dayNum === null) {
+                                return (
+                                  <span
+                                    key={`empty-${idx}`}
+                                    className="block h-9 w-9 sm:h-10 sm:w-10 mx-auto"
+                                  />
+                                );
+                              }
+
+                              const isWeddingDay = dayNum === grid.weddingDay;
+                              const isRsvpDay = dayNum === grid.rsvpDay;
+
                               return (
-                                <span
-                                  key={`empty-${idx}`}
-                                  className="block h-9 w-9 sm:h-10 sm:w-10 mx-auto"
-                                />
+                                <div
+                                  key={`day-${dayNum}`}
+                                  className="relative flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 mx-auto"
+                                >
+                                  {isWeddingDay ? (
+                                    <div className="absolute inset-0 bg-coral text-white font-bold rounded-full flex items-center justify-center shadow-md">
+                                      {dayNum}
+                                    </div>
+                                  ) : isRsvpDay ? (
+                                    <div className="absolute inset-0 border-2 border-coral border-dashed rounded-full flex items-center justify-center font-medium text-coral">
+                                      {dayNum}
+                                    </div>
+                                  ) : (
+                                    <span className="text-cocoa font-medium">
+                                      {dayNum}
+                                    </span>
+                                  )}
+                                </div>
                               );
-                            }
+                            })
+                          : Array.from({ length: 35 }).map((_, idx) => (
+                              <span
+                                key={`skeleton-${idx}`}
+                                className="block h-9 w-9 sm:h-10 sm:w-10 bg-cocoa/5 rounded-full mx-auto"
+                              />
+                            ))}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
 
-                            const isWeddingDay = dayNum === grid.weddingDay;
-                            const isRsvpDay = dayNum === grid.rsvpDay;
-
-                            return (
-                              <div
-                                key={`day-${dayNum}`}
-                                className="relative flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 mx-auto"
-                              >
-                                {isWeddingDay ? (
-                                  <div className="absolute inset-0 bg-coral text-white font-bold rounded-full flex items-center justify-center shadow-md">
-                                    {dayNum}
-                                  </div>
-                                ) : isRsvpDay ? (
-                                  <div className="absolute inset-0 border-2 border-coral border-dashed rounded-full flex items-center justify-center font-medium text-coral">
-                                    {dayNum}
-                                  </div>
-                                ) : (
-                                  <span className="text-cocoa font-medium">
-                                    {dayNum}
-                                  </span>
-                                )}
-                              </div>
-                            );
-                          })
-                        : Array.from({ length: 35 }).map((_, idx) => (
-                            <span
-                              key={`skeleton-${idx}`}
-                              className="block h-9 w-9 sm:h-10 sm:w-10 bg-cocoa/5 rounded-full mx-auto"
-                            />
-                          ))}
+              {/* Right side: Details Panel with soft glass / translucent styling */}
+              <div className="flex">
+                <SpotlightCard
+                  className="w-full h-full bg-white/80 backdrop-blur-md border border-sand/30 p-6 sm:p-8 rounded-3xl flex flex-col justify-center shadow-soft text-left"
+                  spotlightColor="rgba(232, 201, 122, 0.16)"
+                >
+                  <div className="space-y-6 relative z-20">
+                    {/* Title & Kicker */}
+                    <div>
+                      <h3 className="font-serif text-2xl text-[#302722] font-semibold mb-1">
+                        Save Our Date
+                      </h3>
+                      <p className="text-xs text-[#725d4f] uppercase tracking-widest font-semibold">
+                        We can&apos;t wait to celebrate with you
+                      </p>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+
+                    <hr className="border-t border-sand/20" />
+
+                    {/* Timing details */}
+                    <button
+                      type="button"
+                      onClick={() => setCalendarFocus("ceremony")}
+                      className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "ceremony" ? "bg-cream/50" : "hover:bg-cream/30"}`}
+                    >
+                      <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
+                        <Clock3 className="size-6" />
+                      </div>
+                      <div className="mt-1">
+                        <h4 className="font-serif text-base font-semibold text-cocoa">
+                          Timing & Hours
+                        </h4>
+                        {ceremony.eventTime && (
+                          <p className="text-sm text-coral font-medium mt-1">
+                            Starts at {formatTime(ceremony.eventTime)}
+                            {ceremony.endTime &&
+                              ` - ${formatTime(ceremony.endTime)}`}
+                          </p>
+                        )}
+                        <p className="text-xs text-[#725d4f] mt-1">
+                          {mounted ? formatDate(ceremony.eventDate) : ""}
+                        </p>
+                      </div>
+                    </button>
+
+                    {/* Minimal Venue details */}
+                    {venue && venue.venueName && (
+                      <div className="flex gap-4 items-start p-3 -mx-3">
+                        <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
+                          <MapPin className="size-6" />
+                        </div>
+                        <div className="mt-1">
+                          <h4 className="font-serif text-base font-semibold text-cocoa">
+                            Location
+                          </h4>
+                          <p className="text-sm text-cocoa mt-1">
+                            {venue.venueName}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* RSVP Deadline details */}
+                    {ceremony.rsvpDeadline && (
+                      <button
+                        type="button"
+                        onClick={() => setCalendarFocus("deadline")}
+                        className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "deadline" ? "bg-shell-pink/20" : "hover:bg-shell-pink/10"}`}
+                      >
+                        <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
+                          <Heart className="size-6 fill-current text-coral/70" />
+                        </div>
+                        <div className="mt-1">
+                          <h4 className="font-serif text-base font-semibold text-cocoa">
+                            RSVP Deadline
+                          </h4>
+                          {mounted ? (
+                            ceremony.rsvpDeadline.includes("T") ? (
+                              <>
+                                <p className="text-sm text-coral font-medium mt-1">
+                                  Kindly respond by{" "}
+                                  {formatTime(
+                                    ceremony.rsvpDeadline.split("T")[1],
+                                  )}
+                                </p>
+                                <p className="text-xs text-[#725d4f] mt-1">
+                                  {formatDate(
+                                    ceremony.rsvpDeadline.split("T")[0],
+                                  )}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="text-sm text-coral font-medium mt-1">
+                                  Kindly respond by
+                                </p>
+                                <p className="text-xs text-[#725d4f] mt-1">
+                                  {formatDate(ceremony.rsvpDeadline)}
+                                </p>
+                              </>
+                            )
+                          ) : null}
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                </SpotlightCard>
               </div>
             </div>
 
-            {/* Right side: Details Panel with soft glass / translucent styling */}
-            <div className="flex">
-              <SpotlightCard
-                className="w-full h-full bg-white/80 backdrop-blur-md border border-sand/30 p-6 sm:p-8 rounded-3xl flex flex-col justify-center shadow-soft text-left"
-                spotlightColor="rgba(232, 201, 122, 0.16)"
-              >
-                <div className="space-y-6">
-                  {/* Title & Kicker */}
-                  <div>
-                    <h3 className="font-serif text-2xl text-[#302722] font-semibold mb-1">
-                      Save Our Date
-                    </h3>
-                    <p className="text-xs text-[#725d4f] uppercase tracking-widest font-semibold">
-                      We can&apos;t wait to celebrate with you
-                    </p>
-                  </div>
-
-                  <hr className="border-t border-sand/20" />
-
-                  {/* Timing details */}
-                  <button
-                    type="button"
-                    onClick={() => setCalendarFocus("ceremony")}
-                    className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "ceremony" ? "bg-cream/50" : "hover:bg-cream/30"}`}
-                  >
-                    <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
-                      <Clock3 className="size-6" />
-                    </div>
-                    <div className="mt-1">
-                      <h4 className="font-serif text-base font-semibold text-cocoa">
-                        Timing & Hours
-                      </h4>
-                      {ceremony.eventTime && (
-                        <p className="text-sm text-coral font-medium mt-1">
-                          Starts at {formatTime(ceremony.eventTime)}
-                          {ceremony.endTime &&
-                            ` - ${formatTime(ceremony.endTime)}`}
-                        </p>
-                      )}
-                      <p className="text-xs text-[#725d4f] mt-1">
-                        {mounted ? formatDate(ceremony.eventDate) : ""}
-                      </p>
-                    </div>
-                  </button>
-
-                  {/* Minimal Venue details */}
-                  {venue && venue.venueName && (
-                    <div className="flex gap-4 items-start p-3 -mx-3">
-                      <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
-                        <MapPin className="size-6" />
-                      </div>
-                      <div className="mt-1">
-                        <h4 className="font-serif text-base font-semibold text-cocoa">
-                          Location
-                        </h4>
-                        <p className="text-sm text-cocoa mt-1">
-                          {venue.venueName}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* RSVP Deadline details */}
-                  {ceremony.rsvpDeadline && (
-                    <button
-                      type="button"
-                      onClick={() => setCalendarFocus("deadline")}
-                      className={`w-full text-left flex gap-4 items-start p-3 -mx-3 rounded-xl transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-coral/50 ${calendarFocus === "deadline" ? "bg-shell-pink/20" : "hover:bg-shell-pink/10"}`}
-                    >
-                      <div className="w-12 h-12 bg-cream rounded-2xl text-coral border border-sand/20 flex-shrink-0 flex items-center justify-center">
-                        <Heart className="size-6 fill-current text-coral/70" />
-                      </div>
-                      <div className="mt-1">
-                        <h4 className="font-serif text-base font-semibold text-cocoa">
-                          RSVP Deadline
-                        </h4>
-                        {mounted ? (
-                          ceremony.rsvpDeadline.includes("T") ? (
-                            <>
-                              <p className="text-sm text-coral font-medium mt-1">
-                                Kindly respond by{" "}
-                                {formatTime(
-                                  ceremony.rsvpDeadline.split("T")[1],
-                                )}
-                              </p>
-                              <p className="text-xs text-[#725d4f] mt-1">
-                                {formatDate(
-                                  ceremony.rsvpDeadline.split("T")[0],
-                                )}
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <p className="text-sm text-coral font-medium mt-1">
-                                Kindly respond by
-                              </p>
-                              <p className="text-xs text-[#725d4f] mt-1">
-                                {formatDate(ceremony.rsvpDeadline)}
-                              </p>
-                            </>
-                          )
-                        ) : null}
-                      </div>
-                    </button>
-                  )}
-                </div>
-              </SpotlightCard>
-            </div>
+            {/* Diagonal pair: top-left sprig + bottom-right flourish */}
+            <WeddingDecoration
+              family="frame-corner"
+              orientation="left"
+              position="top-left"
+              size="medium"
+              tone="light"
+              placementMode="edge-overlap"
+              className="wedding-decoration--target-ceremony"
+            />
+            <WeddingDecoration
+              family="card-edge"
+              orientation="right"
+              position="bottom-right"
+              size="medium"
+              tone="light"
+              placementMode="edge-overlap"
+              className="wedding-decoration--target-ceremony"
+            />
           </div>
         </FadeContent>
       </div>

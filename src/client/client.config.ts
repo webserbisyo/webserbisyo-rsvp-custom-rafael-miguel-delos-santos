@@ -53,9 +53,54 @@ export type ClientConfig = {
     text: string;
   };
   sections: Record<string, unknown>;
+  componentFlorals?: ComponentFloralDecorationsConfig;
   assets: Record<string, unknown>;
   libs: ClientLibsConfig;
   responsive: ClientResponsiveConfig;
+};
+
+export type ComponentFloralAssetSpec = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+export type ComponentFloralDecorationsConfig = {
+  frameCorner: {
+    left: ComponentFloralAssetSpec;
+    right: ComponentFloralAssetSpec;
+  };
+  cardEdge: {
+    left: ComponentFloralAssetSpec;
+    right: ComponentFloralAssetSpec;
+  };
+};
+
+export const DIANNE_COMPONENT_FLORAL_DECORATIONS: ComponentFloralDecorationsConfig = {
+  frameCorner: {
+    left: {
+      src: "/images/decoration/dianne/frame-corner-sprig-left.webp",
+      width: 1254,
+      height: 1254,
+    },
+    right: {
+      src: "/images/decoration/dianne/frame-corner-sprig-right.webp",
+      width: 1254,
+      height: 1254,
+    },
+  },
+  cardEdge: {
+    left: {
+      src: "/images/decoration/dianne/card-edge-flourish-left.webp",
+      width: 1254,
+      height: 1254,
+    },
+    right: {
+      src: "/images/decoration/dianne/card-edge-flourish-right.webp",
+      width: 1254,
+      height: 1254,
+    },
+  },
 };
 
 export type ClientAttireConfigItem = {
@@ -122,6 +167,7 @@ export const clientConfig = {
       palette: DIANNE_ATTIRE_PALETTE,
     },
   },
+  componentFlorals: DIANNE_COMPONENT_FLORAL_DECORATIONS,
   assets: {},
   libs: {
     icons: {

@@ -15,6 +15,7 @@ import { MapPin, ExternalLink, Bus, Pin, Compass } from "@/client/libs/icons";
 import type { ClientVenueData } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
 import { WeddingButton } from "@/client/components/ui/WeddingButton";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type VenueSectionProps = {
   venue: ClientVenueData;
@@ -213,26 +214,48 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
             {/* Right Column: Framed Map Picture Card + CTA */}
             <div className="flex flex-col items-center">
               {embedUrl ? (
-                <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)]">
-                  {/* Decorative Pin Overlay attached to the border */}
-                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
-                    <Pin className="w-11 h-11 text-coral fill-current wedding-venue-pin-shadow" />
+                <div className="relative overflow-visible w-full">
+                  <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)] overflow-hidden">
+                    {/* Decorative Pin Overlay attached to the border */}
+                    <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
+                      <Pin className="w-11 h-11 text-coral fill-current wedding-venue-pin-shadow" />
+                    </div>
+
+                    {/* Map Container */}
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#e5e3df] border border-sand/10">
+                      <iframe
+                        key={embedUrl}
+                        src={embedUrl}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="absolute inset-0 z-0"
+                      ></iframe>
+                    </div>
                   </div>
 
-                  {/* Map Container */}
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#e5e3df] border border-sand/10">
-                    <iframe
-                      key={embedUrl}
-                      src={embedUrl}
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className="absolute inset-0 z-0"
-                    ></iframe>
-                  </div>
+                  {/* Diagonal pair: top-right sprig + bottom-left flourish */}
+                  <WeddingDecoration
+                    family="frame-corner"
+                    orientation="right"
+                    position="top-right"
+                    size="medium"
+                    tone="warm"
+                    placementMode="edge-overlap"
+                    className="wedding-decoration--target-venue"
+                  />
+                  <WeddingDecoration
+                    family="card-edge"
+                    orientation="left"
+                    position="bottom-left"
+                    size="medium"
+                    tone="warm"
+                    placementMode="edge-overlap"
+                    className="wedding-decoration--target-venue"
+                  />
                 </div>
               ) : null}
 

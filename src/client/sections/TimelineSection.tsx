@@ -12,6 +12,7 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { formatTime } from "@/client/utils/formatters";
 import type { ClientTimelineItem } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type TimelineSectionProps = {
   timelineProgram: { items: ClientTimelineItem[] };
@@ -19,7 +20,7 @@ type TimelineSectionProps = {
 };
 
 const glassCardClasses =
-  "wedding-timeline-card border p-6 md:p-5 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-30";
+  "wedding-timeline-card border p-6 md:p-5 lg:p-8 w-full max-w-[420px] hover:-translate-y-1 transition-transform duration-500 relative group/card z-10";
 
 export function TimelineSection({
   timelineProgram,
@@ -91,17 +92,28 @@ export function TimelineSection({
                         </span>
                       </div>
                     </div>
-                    <div className={glassCardClasses}>
-                      {title && (
-                        <h4 className="font-serif text-xl text-[#302722] font-semibold mb-2 tracking-wide text-balance">
-                          {title}
-                        </h4>
-                      )}
-                      {item.description && (
-                        <p className="text-[#725d4f] text-sm leading-relaxed text-balance">
-                          {item.description}
-                        </p>
-                      )}
+                    <div className="relative overflow-visible max-w-[420px] w-full">
+                      <div className={glassCardClasses}>
+                        {title && (
+                          <h4 className="font-serif text-xl text-[#302722] font-semibold mb-2 tracking-wide text-balance relative z-20">
+                            {title}
+                          </h4>
+                        )}
+                        {item.description && (
+                          <p className="text-[#725d4f] text-sm leading-relaxed text-balance relative z-20">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                      <WeddingDecoration
+                        family={isEven ? "frame-corner" : "card-edge"}
+                        orientation={isEven ? "right" : "left"}
+                        position={isEven ? "top-right" : "bottom-left"}
+                        size="small"
+                        tone="light"
+                        placementMode="edge-overlap"
+                        className="wedding-decoration--target-timeline"
+                      />
                     </div>
                   </motion.div>
 
@@ -139,17 +151,28 @@ export function TimelineSection({
                           }}
                           className="w-1/2 flex justify-start pl-6 lg:pl-20 relative z-30"
                         >
-                          <div className={glassCardClasses}>
-                            {title && (
-                              <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance">
-                                {title}
-                              </h4>
-                            )}
-                            {item.description && (
-                              <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance">
-                                {item.description}
-                              </p>
-                            )}
+                          <div className="relative overflow-visible max-w-[420px] w-full">
+                            <div className={glassCardClasses}>
+                              {title && (
+                                <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance relative z-20">
+                                  {title}
+                                </h4>
+                              )}
+                              {item.description && (
+                                <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance relative z-20">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                            <WeddingDecoration
+                              family="frame-corner"
+                              orientation="right"
+                              position="top-right"
+                              size="small"
+                              tone="light"
+                              placementMode="edge-overlap"
+                              className="wedding-decoration--target-timeline"
+                            />
                           </div>
                         </motion.div>
                       </>
@@ -167,17 +190,28 @@ export function TimelineSection({
                           }}
                           className="w-1/2 flex justify-end pr-6 lg:pr-20 relative z-30"
                         >
-                          <div className={glassCardClasses}>
-                            {title && (
-                              <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance">
-                                {title}
-                              </h4>
-                            )}
-                            {item.description && (
-                              <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance">
-                                {item.description}
-                              </p>
-                            )}
+                          <div className="relative overflow-visible max-w-[420px] w-full flex justify-end">
+                            <div className={glassCardClasses}>
+                              {title && (
+                                <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance relative z-20">
+                                  {title}
+                                </h4>
+                              )}
+                              {item.description && (
+                                <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance relative z-20">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                            <WeddingDecoration
+                              family="frame-corner"
+                              orientation="left"
+                              position="top-left"
+                              size="small"
+                              tone="light"
+                              placementMode="edge-overlap"
+                              className="wedding-decoration--target-timeline"
+                            />
                           </div>
                         </motion.div>
                         {/* Right Side: Time */}

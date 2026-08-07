@@ -34,6 +34,24 @@
   --error: #a84f45;
   --shadow-soft: 0 8px 24px rgb(23 21 18 / 8%);
 
+  /* Component Floral Decorations */
+  --wedding-decoration-card-edge-sm: clamp(80px, 10vw, 115px);
+  --wedding-decoration-card-edge-md: clamp(110px, 14vw, 155px);
+  --wedding-decoration-card-edge-lg: clamp(150px, 18vw, 205px);
+
+  --wedding-decoration-frame-corner-sm: clamp(110px, 14vw, 150px);
+  --wedding-decoration-frame-corner-md: clamp(140px, 18vw, 190px);
+  --wedding-decoration-frame-corner-lg: clamp(170px, 22vw, 240px);
+
+  --wedding-decoration-opacity-light: 1;
+  --wedding-decoration-opacity-warm: 1;
+  --wedding-decoration-opacity-olive: 1;
+  --wedding-decoration-opacity-dark: 1;
+
+  --wedding-decoration-edge-offset: -6px;
+  --wedding-decoration-corner-offset: -6px;
+  --wedding-decoration-edge-offset-overlap: -32px;
+
   /* Legacy aliases retained for existing component utilities. */
   --color-ivory: #f6f1e8;
   --color-cream: #fbf8f2;
@@ -748,12 +766,30 @@
   background: var(--wedding-rsvp-page-background);
 }
 
+[data-wedding-theme="refined-midnight-garden"] .wedding-rsvp-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  background-image: url("/images/decoration/section-pattern-garden-blooms.webp");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+}
+
 [data-wedding-theme="refined-midnight-garden"] .wedding-rsvp-card {
   background: var(--wedding-rsvp-surface);
   border-color: var(--wedding-rsvp-surface-border);
   border-radius: var(--wedding-panel-radius);
   box-shadow: var(--wedding-shadow-floating);
   color: var(--wedding-rsvp-text);
+}
+
+[data-wedding-theme="refined-midnight-garden"] .wedding-rsvp-couple-name {
+  font-size: clamp(2rem, 10vw, 4rem);
+  white-space: nowrap;
 }
 
 [data-wedding-theme="refined-midnight-garden"] .wedding-rsvp-field {
@@ -1091,4 +1127,209 @@
   background: var(--wedding-surface-dark);
   border-color: var(--wedding-nav-border);
   color: var(--wedding-text-on-dark);
+}
+
+/* =========================================================
+   COMPONENT-LEVEL WEDDING DECORATIONS
+
+   Families:
+   - card-edge: floral accents for cards and panels
+   - frame-corner: corner accents for photographs and media
+
+   Asset paths and intrinsic dimensions belong to client.config.ts.
+   This CSS owns size, opacity, offsets, layering and responsive
+   presentation. Section components opt in explicitly.
+
+   Future client themes should replace asset configuration and
+   semantic variables rather than editing the reusable component.
+   ========================================================= */
+
+.wedding-decoration {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  object-fit: contain;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+/* Edge-overlap mode: sits above card base layer but below protected text content */
+.wedding-decoration--mode-edge-overlap {
+  z-index: 15;
+}
+
+/* Family Specific Sizes */
+.wedding-decoration--family-card-edge.wedding-decoration--size-small {
+  width: var(--wedding-decoration-card-edge-sm, 80px);
+  height: auto;
+}
+.wedding-decoration--family-card-edge.wedding-decoration--size-medium {
+  width: var(--wedding-decoration-card-edge-md, 110px);
+  height: auto;
+}
+.wedding-decoration--family-card-edge.wedding-decoration--size-large {
+  width: var(--wedding-decoration-card-edge-lg, 150px);
+  height: auto;
+}
+
+.wedding-decoration--family-frame-corner.wedding-decoration--size-small {
+  width: var(--wedding-decoration-frame-corner-sm, 110px);
+  height: auto;
+}
+.wedding-decoration--family-frame-corner.wedding-decoration--size-medium {
+  width: var(--wedding-decoration-frame-corner-md, 140px);
+  height: auto;
+}
+.wedding-decoration--family-frame-corner.wedding-decoration--size-large {
+  width: var(--wedding-decoration-frame-corner-lg, 170px);
+  height: auto;
+}
+
+/* Section Target Specific Tuning Rules */
+/* Section Target Specific Tuning Rules */
+.wedding-decoration--target-countdown {
+  width: clamp(110px, 14vw, 155px) !important;
+}
+.wedding-decoration--target-gallery {
+  width: clamp(100px, 13vw, 145px) !important;
+}
+.wedding-decoration--target-music {
+  width: clamp(130px, 17vw, 180px) !important;
+}
+.wedding-decoration--target-ceremony {
+  width: clamp(130px, 17vw, 180px) !important;
+}
+.wedding-decoration--target-venue {
+  width: clamp(130px, 17vw, 185px) !important;
+}
+.wedding-decoration--target-reception {
+  width: clamp(135px, 17vw, 185px) !important;
+}
+.wedding-decoration--target-timeline {
+  width: clamp(105px, 13vw, 145px) !important;
+}
+.wedding-decoration--target-entourage {
+  width: clamp(115px, 14vw, 155px) !important;
+}
+.wedding-decoration--target-sponsors {
+  width: clamp(120px, 15vw, 160px) !important;
+}
+.wedding-decoration--target-attire {
+  width: clamp(120px, 15vw, 165px) !important;
+}
+.wedding-decoration--target-extra-info {
+  width: clamp(115px, 14vw, 155px) !important;
+}
+.wedding-decoration--target-gifts {
+  width: clamp(120px, 15vw, 160px) !important;
+}
+.wedding-decoration--target-guestbook {
+  width: clamp(115px, 14vw, 155px) !important;
+}
+.wedding-decoration--target-rsvp {
+  width: clamp(88px, 18vw, 155px) !important;
+}
+
+/* Mobile Breakpoint Tuning (< 640px) */
+@media (max-width: 639px) {
+  [data-wedding-theme="refined-midnight-garden"] {
+    --wedding-decoration-edge-offset-overlap: -12px;
+  }
+  .wedding-decoration--target-countdown {
+    width: clamp(85px, 11vw, 115px) !important;
+  }
+  .wedding-decoration--target-gallery {
+    width: clamp(85px, 11vw, 115px) !important;
+  }
+  .wedding-decoration--target-timeline {
+    width: clamp(85px, 11vw, 115px) !important;
+  }
+  .wedding-decoration--target-entourage {
+    width: clamp(90px, 12vw, 125px) !important;
+  }
+  .wedding-decoration--target-sponsors {
+    width: clamp(95px, 12vw, 130px) !important;
+  }
+  .wedding-decoration--target-attire {
+    width: clamp(95px, 12vw, 135px) !important;
+  }
+  .wedding-decoration--target-extra-info {
+    width: clamp(90px, 12vw, 125px) !important;
+  }
+  .wedding-decoration--target-gifts {
+    width: clamp(95px, 12vw, 130px) !important;
+  }
+  .wedding-decoration--target-guestbook {
+    width: clamp(90px, 12vw, 125px) !important;
+  }
+  .wedding-decoration--target-ceremony {
+    width: clamp(100px, 13vw, 140px) !important;
+  }
+  .wedding-decoration--target-venue {
+    width: clamp(100px, 13vw, 140px) !important;
+  }
+  .wedding-decoration--target-reception {
+    width: clamp(105px, 14vw, 145px) !important;
+  }
+  .wedding-decoration--target-music {
+    width: clamp(105px, 14vw, 145px) !important;
+  }
+}
+
+/* Positional Anchor Classes */
+.wedding-decoration--pos-bottom-edge-left,
+.wedding-decoration--pos-bottom-left {
+  bottom: var(--wedding-decoration-edge-offset, -6px);
+  left: var(--wedding-decoration-edge-offset, -6px);
+}
+
+.wedding-decoration--pos-bottom-edge-right,
+.wedding-decoration--pos-bottom-right {
+  bottom: var(--wedding-decoration-edge-offset, -6px);
+  right: var(--wedding-decoration-edge-offset, -6px);
+}
+
+.wedding-decoration--pos-top-left {
+  top: var(--wedding-decoration-corner-offset, -6px);
+  left: var(--wedding-decoration-corner-offset, -6px);
+}
+
+.wedding-decoration--pos-top-right {
+  top: var(--wedding-decoration-corner-offset, -6px);
+  right: var(--wedding-decoration-corner-offset, -6px);
+}
+
+/* Positional Anchor Classes — Edge Overlap Mode */
+.wedding-decoration--mode-edge-overlap.wedding-decoration--pos-top-left {
+  top: var(--wedding-decoration-edge-offset-overlap, -32px);
+  left: var(--wedding-decoration-edge-offset-overlap, -32px);
+}
+
+.wedding-decoration--mode-edge-overlap.wedding-decoration--pos-top-right {
+  top: var(--wedding-decoration-edge-offset-overlap, -32px);
+  right: var(--wedding-decoration-edge-offset-overlap, -32px);
+}
+
+.wedding-decoration--mode-edge-overlap.wedding-decoration--pos-bottom-left {
+  bottom: var(--wedding-decoration-edge-offset-overlap, -32px);
+  left: var(--wedding-decoration-edge-offset-overlap, -32px);
+}
+
+.wedding-decoration--mode-edge-overlap.wedding-decoration--pos-bottom-right {
+  bottom: var(--wedding-decoration-edge-offset-overlap, -32px);
+  right: var(--wedding-decoration-edge-offset-overlap, -32px);
+}
+
+/* Tone Opacity Variations (Resolved to 1.0 Baseline) */
+.wedding-decoration--tone-light {
+  opacity: var(--wedding-decoration-opacity-light, 1);
+}
+.wedding-decoration--tone-warm {
+  opacity: var(--wedding-decoration-opacity-warm, 1);
+}
+.wedding-decoration--tone-olive {
+  opacity: var(--wedding-decoration-opacity-olive, 1);
+}
+.wedding-decoration--tone-dark {
+  opacity: var(--wedding-decoration-opacity-dark, 1);
 }

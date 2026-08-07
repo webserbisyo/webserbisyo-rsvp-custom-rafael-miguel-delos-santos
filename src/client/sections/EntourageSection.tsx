@@ -13,6 +13,7 @@ import { SectionHeading } from "@/client/components/SectionHeading";
 import { AnimatedContent } from "@/client/libs/reactbits";
 import type { ClientEntourageGroup } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type EntourageSectionProps = {
   entourage: { groups: ClientEntourageGroup[]; introLine?: string };
@@ -88,37 +89,50 @@ export function EntourageSection({
                       return (
                         <div
                           key={cardIndex}
-                          className="relative group/card-wrapper"
+                          className="relative group/card-wrapper overflow-visible"
                         >
-                          {/* Glassmorphism Card */}
-                          <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md relative z-20 h-full flex flex-col justify-center">
-                            <h4 className="text-coral font-medium tracking-widest uppercase mb-2 text-sm">
-                              {displayTitle}
-                            </h4>
+                          {/* Glassmorphism Card (z-10 base surface) */}
+                          <div className="bg-white/65 backdrop-blur-md border border-sand/40 rounded-2xl p-6 sm:p-8 shadow-soft text-center transition-[border-color,box-shadow,transform] duration-500 hover:border-sand/60 hover:-translate-y-1 hover:shadow-md relative z-10 h-full flex flex-col justify-center">
+                            <div className="relative z-20">
+                              <h4 className="text-coral font-medium tracking-widest uppercase mb-2 text-sm">
+                                {displayTitle}
+                              </h4>
 
-                            {/* Elegant Typographic Divider: ──── ✦ ──── */}
-                            <div
-                              className="my-3 flex items-center justify-center gap-3 select-none pointer-events-none whitespace-nowrap"
-                              aria-hidden="true"
-                            >
-                              <span className="h-px w-10 bg-sand opacity-70" />
-                              <span className="text-sm leading-none text-sand">
-                                ✦
-                              </span>
-                              <span className="h-px w-10 bg-sand opacity-70" />
+                              {/* Elegant Typographic Divider: ──── ✦ ──── */}
+                              <div
+                                className="my-3 flex items-center justify-center gap-3 select-none pointer-events-none whitespace-nowrap"
+                                aria-hidden="true"
+                              >
+                                <span className="h-px w-10 bg-sand opacity-70" />
+                                <span className="text-sm leading-none text-sand">
+                                  ✦
+                                </span>
+                                <span className="h-px w-10 bg-sand opacity-70" />
+                              </div>
+
+                              <ul className="space-y-2">
+                                {displayNames.map((name, j) => (
+                                  <li
+                                    key={j}
+                                    className="text-cocoa font-serif text-lg"
+                                  >
+                                    {name}
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
-
-                            <ul className="space-y-2">
-                              {displayNames.map((name, j) => (
-                                <li
-                                  key={j}
-                                  className="text-cocoa font-serif text-lg"
-                                >
-                                  {name}
-                                </li>
-                              ))}
-                            </ul>
                           </div>
+
+                          {/* Alternating top-corner sprig (z-15) */}
+                          <WeddingDecoration
+                            family="frame-corner"
+                            orientation={cardIndex % 2 === 0 ? "left" : "right"}
+                            position={cardIndex % 2 === 0 ? "top-left" : "top-right"}
+                            size="small"
+                            tone="light"
+                            placementMode="edge-overlap"
+                            className="wedding-decoration--target-entourage"
+                          />
                         </div>
                       );
                     })}

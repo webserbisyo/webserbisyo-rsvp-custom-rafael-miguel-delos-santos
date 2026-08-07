@@ -20,6 +20,7 @@ import { WeddingButton } from "@/client/components/ui/WeddingButton";
 import type { GuestbookMessage } from "@/types/public-event";
 import { MOCK_GUESTBOOK_MESSAGES } from "@/client/mock/guestbook.mock";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type GuestbookSectionProps = {
   guestbook: ClientGuestbookData;
@@ -169,15 +170,26 @@ export function GuestbookSection({
             /* Note-card grid: 1-col mobile, 2-col tablet, 3-col desktop */
             <div className="flex flex-col items-center w-full">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 w-full text-center items-start">
-                {visibleMessages.map((msg) => {
+                {visibleMessages.map((msg, index) => {
                   const isLong = msg.message.length > 180;
                   const isExpanded = expandedMessageId === msg.id;
 
+                  // Responsive column placement logic:
+                  // Mobile/Tablet (< lg): 1-col or 2-col -> alternate top-left / top-right
+                  const mobileOrientation = index % 2 === 0 ? "left" : "right";
+                  const mobilePosition = index % 2 === 0 ? "top-left" : "top-right";
+
+                  // Desktop (lg+): 3-col grid -> Col 0 top-left, Col 2 top-right, Col 1 undecorated to prevent seam collision
+                  const desktopCol = index % 3;
+                  const showDesktopDecoration = desktopCol === 0 || desktopCol === 2;
+                  const desktopPosition = desktopCol === 0 ? "top-left" : "top-right";
+                  const desktopOrientation = desktopCol === 0 ? "left" : "right";
+
                   return (
-                    <article
-                      key={msg.id}
-                      className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex h-[13.75rem] sm:h-[14rem] md:h-[14.5rem] flex-col items-center justify-between overflow-hidden text-center"
-                    >
+                    <div key={msg.id} className="relative overflow-visible">
+                      <article
+                        className="bg-white/65 backdrop-blur-md border border-sand/30 rounded-2xl p-6 sm:p-7 shadow-soft hover:border-sand/50 transition-[border-color,box-shadow] duration-300 flex h-[13.75rem] sm:h-[14rem] md:h-[14.5rem] flex-col items-center justify-between overflow-hidden text-center relative z-10"
+                      >
                       {/* Upper Part: Message & Inline Toggle */}
                       <div className="min-h-0 flex flex-1 flex-col items-center justify-start w-full">
                         {isLong && isExpanded ? (
@@ -250,7 +262,32 @@ export function GuestbookSection({
                         </span>
                       </div>
                     </article>
-                  );
+
+                    {/* Mobile/Tablet Variant (< lg) */}
+                    <WeddingDecoration
+                      family="frame-corner"
+                      orientation={mobileOrientation}
+                      position={mobilePosition}
+                      size="small"
+                      tone="light"
+                      placementMode="edge-overlap"
+                      className="wedding-decoration--target-guestbook lg:hidden"
+                    />
+
+                    {/* Desktop Variant (lg+) — 3-col grid aware */}
+                    {showDesktopDecoration && (
+                      <WeddingDecoration
+                        family="frame-corner"
+                        orientation={desktopOrientation}
+                        position={desktopPosition}
+                        size="small"
+                        tone="light"
+                        placementMode="edge-overlap"
+                        className="wedding-decoration--target-guestbook hidden lg:block"
+                      />
+                    )}
+                  </div>
+                );
                 })}
               </div>
 

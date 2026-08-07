@@ -24,6 +24,7 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import type { ClientExtraInfoItem } from "@/client/types/client-view-model";
 import type { SectionSurface } from "@/client/client-section-registry";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
 
 type ExtraInfoSectionProps = {
   extraInfo: {
@@ -61,38 +62,51 @@ export function ExtraInfoSection({
             const badgeNumber = String(index + 1).padStart(2, "0");
 
             return (
-              <div key={index} className="relative group/card-wrapper">
-                {/* 4. Glassmorphism Note Card (z-20) */}
+              <div key={index} className="relative group/card-wrapper overflow-visible">
+                {/* 4. Glassmorphism Note Card (z-10 base surface) */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-soft hover:border-sand/60 transition-[border-color,box-shadow] duration-300 relative z-20 h-full flex flex-col justify-center"
+                  className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-soft hover:border-sand/60 transition-[border-color,box-shadow] duration-300 relative z-10 h-full flex flex-col justify-center"
                 >
-                  {/* Badge Row */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-coral">
-                      NOTE {badgeNumber}
-                    </span>
-                    <span className="text-sand text-xs select-none">✦</span>
+                  <div className="relative z-20">
+                    {/* Badge Row */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-coral">
+                        NOTE {badgeNumber}
+                      </span>
+                      <span className="text-sand text-xs select-none">✦</span>
+                    </div>
+
+                    {/* Card Title */}
+                    <h4 className="font-serif text-xl md:text-2xl text-[#302722] font-semibold">
+                      {item.title}
+                    </h4>
+
+                    {/* Elegant Divider */}
+                    <div className="h-px w-16 bg-sand/35 my-4" />
+
+                    {/* Card Body Description */}
+                    {item.details && (
+                      <p className="text-[#725d4f] text-sm md:text-base leading-relaxed text-balance">
+                        {item.details}
+                      </p>
+                    )}
                   </div>
-
-                  {/* Card Title */}
-                  <h4 className="font-serif text-xl md:text-2xl text-[#302722] font-semibold">
-                    {item.title}
-                  </h4>
-
-                  {/* Elegant Divider */}
-                  <div className="h-px w-16 bg-sand/35 my-4" />
-
-                  {/* Card Body Description */}
-                  {item.details && (
-                    <p className="text-[#725d4f] text-sm md:text-base leading-relaxed text-balance">
-                      {item.details}
-                    </p>
-                  )}
                 </motion.div>
+
+                {/* Alternating corner decoration (z-15) */}
+                <WeddingDecoration
+                  family="frame-corner"
+                  orientation={index % 2 === 0 ? "left" : "right"}
+                  position={index % 2 === 0 ? "top-left" : "top-right"}
+                  size="small"
+                  tone="light"
+                  placementMode="edge-overlap"
+                  className="wedding-decoration--target-extra-info"
+                />
               </div>
             );
           })}

@@ -32,6 +32,56 @@ test("contract: client-theme.css defines Option B RSVP tokens and ClientRsvpPage
     "ClientRsvpPage.tsx must use pb-36 for FloatingGuestDock bottom clearance"
   );
 
+  assert.ok(
+    rsvpPageTsx.includes("WeddingDecoration"),
+    "ClientRsvpPage must use the centralized WeddingDecoration component",
+  );
+  for (const position of [
+    "top-left",
+    "top-right",
+    "bottom-left",
+    "bottom-right",
+  ]) {
+    assert.ok(
+      rsvpPageTsx.includes(`position="${position}"`),
+      `ClientRsvpPage must render an RSVP decoration at ${position}`,
+    );
+  }
+  assert.ok(
+    !rsvpPageTsx.includes("/images/decoration/dianne/"),
+    "ClientRsvpPage must not import Dianne floral image paths directly",
+  );
+  assert.ok(
+    rsvpPageTsx.includes("wedding-rsvp-content relative z-20"),
+    "RSVP content must layer above card decorations",
+  );
+  assert.ok(
+    rsvpPageTsx.includes("wedding-rsvp-couple-name"),
+    "RSVP heading must use its dedicated responsive one-line class",
+  );
+
+  assert.ok(
+    css.includes(".wedding-rsvp-pattern"),
+    "RSVP shell must expose a dedicated pattern layer",
+  );
+  assert.ok(
+    css.includes("section-pattern-garden-blooms.webp"),
+    "RSVP pattern must reuse the approved garden-blooms asset",
+  );
+  assert.ok(
+    css.includes(".wedding-decoration--target-rsvp"),
+    "RSVP floral sizing must remain centralized in theme CSS",
+  );
+  assert.ok(
+    css.includes("font-size: clamp(2rem, 10vw, 4rem);"),
+    "RSVP heading must use the measured responsive font range",
+  );
+  assert.ok(css.includes("white-space: nowrap;"), "RSVP heading must not wrap");
+  assert.ok(
+    !css.includes("--wedding-decoration-optical-x-tl"),
+    "RSVP finalization must not introduce optical translation variables",
+  );
+
   // Check ClientRsvpForm.tsx omits hardcoded inline hex colors
   assert.ok(
     !rsvpFormTsx.includes("bg-[#fffaf1]/30"),

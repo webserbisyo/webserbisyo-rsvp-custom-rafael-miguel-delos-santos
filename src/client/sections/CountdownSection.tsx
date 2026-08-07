@@ -14,6 +14,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SectionHeading } from "@/client/components/SectionHeading";
 import { formatTime } from "@/client/utils/formatters";
+import { WeddingDecoration } from "@/client/components/decorations/WeddingDecoration";
+import { getAlternatingDecorationOrientation } from "@/client/components/decorations/get-decoration-placement";
 import type {
   ClientCountdownData,
   ClientCeremonyData,
@@ -129,49 +131,62 @@ export function CountdownSection({
           subtitle={countdown?.shortNote}
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mt-12 max-w-4xl mx-auto">
-          {units.map(({ label, value }) => {
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-12 max-w-4xl mx-auto">
+          {units.map(({ label, value }, index) => {
             const formattedValue = mounted
               ? String(value).padStart(label === "Days" && value >= 100 ? 3 : 2, "0")
               : "00";
+            const orientation = getAlternatingDecorationOrientation(index);
+            const position =
+              orientation === "left" ? "top-left" : "top-right";
+
             return (
-              <div
-                key={label}
-                className="wedding-panel min-w-0 rounded-sm p-3 sm:p-4 md:px-4 md:py-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300"
-              >
-                <div className="relative flex justify-center items-center h-14 sm:h-16 md:h-20 lg:h-24 overflow-hidden w-full px-1">
-                  <AnimatePresence initial={false} mode="wait">
-                    <motion.span
-                      key={`${label}-${formattedValue}`}
-                      initial={
-                        shouldReduceMotion
-                          ? { opacity: 0 }
-                          : { y: -12, opacity: 0 }
-                      }
-                      animate={
-                        shouldReduceMotion
-                          ? { opacity: 1 }
-                          : { y: 0, opacity: 1 }
-                      }
-                      exit={
-                        shouldReduceMotion
-                          ? { opacity: 0 }
-                          : { y: 12, opacity: 0 }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? { duration: 0.1 }
-                          : { duration: 0.25, ease: "easeOut" }
-                      }
-                      className="wedding-numeric-display wedding-countdown-number block whitespace-nowrap tabular-nums text-center"
-                    >
-                      {formattedValue}
-                    </motion.span>
-                  </AnimatePresence>
+              <div key={label} className="relative overflow-visible">
+                <div className="wedding-panel relative min-w-0 rounded-sm p-3 sm:p-4 md:px-4 md:py-6 text-center bg-[color:var(--wedding-surface-secondary)] hover:-translate-y-1.5 transition-[border-color,box-shadow,transform] duration-300">
+                  <div className="relative z-20 flex justify-center items-center h-14 sm:h-16 md:h-20 lg:h-24 overflow-hidden w-full px-1">
+                    <AnimatePresence initial={false} mode="wait">
+                      <motion.span
+                        key={`${label}-${formattedValue}`}
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 0 }
+                            : { y: -12, opacity: 0 }
+                        }
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { y: 0, opacity: 1 }
+                        }
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0 }
+                            : { y: 12, opacity: 0 }
+                        }
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0.1 }
+                            : { duration: 0.25, ease: "easeOut" }
+                        }
+                        className="wedding-numeric-display wedding-countdown-number block whitespace-nowrap tabular-nums text-center"
+                      >
+                        {formattedValue}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                  <p className="relative z-20 text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">
+                    {label}
+                  </p>
                 </div>
-                <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase mt-2 md:mt-3 text-[color:var(--wedding-text-secondary)]">
-                  {label}
-                </p>
+
+                <WeddingDecoration
+                  family="frame-corner"
+                  orientation={orientation}
+                  position={position}
+                  size="small"
+                  tone="light"
+                  placementMode="edge-overlap"
+                  className="wedding-decoration--target-countdown"
+                />
               </div>
             );
           })}
