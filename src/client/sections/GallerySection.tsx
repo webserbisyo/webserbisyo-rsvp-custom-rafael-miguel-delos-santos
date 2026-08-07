@@ -120,7 +120,7 @@ export function GallerySection({ surface }: { surface: SectionSurface }) {
                     }}
                   >
                     <div
-                      className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[var(--border)] via-[#D4B896] to-[#C4A882] overflow-hidden`}
+                      className={`w-full ${isPortrait ? "aspect-[3/4]" : "aspect-[4/3]"} rounded-sm bg-gradient-to-br from-[color:var(--wedding-surface-champagne)] via-[color:var(--wedding-surface-olive)] to-[color:var(--wedding-panel-border)] overflow-hidden`}
                     >
                       {mounted && (
                         <img

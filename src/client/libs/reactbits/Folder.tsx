@@ -31,7 +31,7 @@ const darkenColor = (hex: string, percent: number): string => {
 };
 
 const Folder: React.FC<FolderProps> = ({
-  color = "#5227FF",
+  color = "var(--wedding-story-folder-base, #3F6475)",
   size = 1,
   items = [],
   className = "",
@@ -60,7 +60,11 @@ const Folder: React.FC<FolderProps> = ({
     Array.from({ length: maxItems }, () => ({ x: 0, y: 0 }))
   );
 
-  const folderBackColor = darkenColor(color, 0.08);
+  const isCssVar = typeof color === "string" && color.startsWith("var(");
+  const folderFrontColor = isCssVar ? color : color;
+  const folderBackColor = isCssVar
+    ? "var(--wedding-story-folder-back, #2E4E5D)"
+    : darkenColor(color, 0.08);
 
   const handleClick = () => {
     const nextOpen = !open;
@@ -283,7 +287,7 @@ const Folder: React.FC<FolderProps> = ({
           <div
             className="absolute z-40 w-full h-full origin-bottom transition-transform duration-300 ease-out transform-gpu will-change-transform folder-cover-left"
             style={{
-              backgroundColor: color,
+              backgroundColor: folderFrontColor,
               borderRadius: "5px 10px 10px 10px",
               backfaceVisibility: "hidden",
             }}
@@ -291,7 +295,7 @@ const Folder: React.FC<FolderProps> = ({
           <div
             className="absolute z-40 w-full h-full origin-bottom transition-transform duration-300 ease-out transform-gpu will-change-transform folder-cover-right"
             style={{
-              backgroundColor: color,
+              backgroundColor: folderFrontColor,
               borderRadius: "5px 10px 10px 10px",
               backfaceVisibility: "hidden",
             }}

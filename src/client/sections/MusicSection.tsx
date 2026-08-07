@@ -93,7 +93,7 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
               <motion.div
                 animate={{ rotate: !shouldReduceMotion && isPlaying ? 360 : 0 }}
                 transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-                className="w-full h-full rounded-full bg-gradient-to-br from-[#1c1410] via-[#2d211a] to-[#1c1410] border-2 border-cream/20 shadow-xl flex items-center justify-center relative group"
+                className="w-full h-full rounded-full bg-gradient-to-br from-[color:var(--wedding-surface-olive-deep)] via-[color:var(--wedding-surface-dark)] to-[color:var(--wedding-surface-olive-deep)] border-2 border-cream/20 shadow-xl flex items-center justify-center relative group"
               >
                 {/* Record grooves */}
                 <div className="absolute inset-2 rounded-full border border-cream/5 pointer-events-none" />
@@ -108,7 +108,7 @@ export function MusicSection({ musicEffects, surface }: MusicSectionProps) {
             </div>
 
             {/* Metadata */}
-            <h3 className={`relative z-20 font-serif text-3xl font-medium truncate text-[#f9efe3] ${displayArtist ? "mb-1" : "mb-6"}`}>
+            <h3 className={`relative z-20 font-serif text-3xl font-medium truncate text-[color:var(--wedding-text-on-dark)] ${displayArtist ? "mb-1" : "mb-6"}`}>
               {displayTitle}
             </h3>
             {displayArtist ? (

@@ -43,7 +43,7 @@ export function TimelineSection({
 
         <div className="relative mt-24 max-w-4xl mx-auto pb-12 sm:max-w-[560px] md:max-w-[760px] lg:max-w-4xl">
           {/* The softened vertical line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-[color:var(--wedding-timeline-line)] opacity-70 md:-translate-x-1/2 z-10" />
+          <div className="wedding-timeline-line absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] md:-translate-x-1/2 z-10" />
 
           <div className="flex flex-col space-y-12 md:space-y-0">
             {timelineProgram.items.map((item, i) => {
@@ -54,9 +54,9 @@ export function TimelineSection({
               const isImportant =
                 title.toLowerCase().includes("ceremony") ||
                 title.toLowerCase().includes("reception");
-              const nodeClasses = isImportant
-                ? "w-[18px] h-[18px] ring-8 ring-sand/40"
-                : "w-4 h-4 ring-4 ring-sand/30";
+              const markerClass = isImportant
+                ? "wedding-timeline-marker--emphasis w-[18px] h-[18px]"
+                : "wedding-timeline-marker w-4 h-4";
 
               return (
                 <div
@@ -69,7 +69,7 @@ export function TimelineSection({
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full bg-[color:var(--wedding-timeline-marker)] -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${nodeClasses}`}
+                    className={`absolute left-6 md:left-1/2 top-[42px] md:top-1/2 rounded-full -translate-x-1/2 md:-translate-y-1/2 z-30 transition-transform duration-500 group-hover/row:scale-110 ${markerClass}`}
                   />
 
                   {/* Mobile and small-tablet layout — true single-column, badge always left */}
@@ -86,8 +86,8 @@ export function TimelineSection({
                   >
                     {/* Badge row: time badge always on left */}
                     <div className="flex flex-row items-center justify-start mb-3">
-                      <div className="text-coral font-serif text-2xl tracking-wide pl-2 relative z-20">
-                        <span className="inline-flex rounded-full border border-sand/35 bg-cream/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+                      <div className="relative z-20">
+                        <span className="wedding-timeline-badge">
                           {formattedTime}
                         </span>
                       </div>
@@ -95,12 +95,18 @@ export function TimelineSection({
                     <div className="relative overflow-visible max-w-[420px] w-full">
                       <div className={glassCardClasses}>
                         {title && (
-                          <h4 className="font-serif text-xl text-[#302722] font-semibold mb-2 tracking-wide text-balance relative z-20">
+                          <h4 className="wedding-timeline-card-title text-xl text-balance relative z-20">
                             {title}
                           </h4>
                         )}
+                        {title && item.description && (
+                          <div
+                            className="wedding-timeline-divider"
+                            aria-hidden="true"
+                          />
+                        )}
                         {item.description && (
-                          <p className="text-[#725d4f] text-sm leading-relaxed text-balance relative z-20">
+                          <p className="wedding-timeline-card-body text-sm text-balance relative z-20">
                             {item.description}
                           </p>
                         )}
@@ -133,8 +139,8 @@ export function TimelineSection({
                           }}
                           className="w-1/2 flex justify-end pr-6 lg:pr-20 relative z-10"
                         >
-                          <div className="text-coral font-serif text-[1.35rem] lg:text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
-                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-3 py-1 lg:px-4 lg:py-1.5 shadow-sm backdrop-blur-sm">
+                          <div className="z-20 transition-transform duration-300 group-hover/row:scale-105">
+                            <span className="wedding-timeline-badge">
                               {formattedTime}
                             </span>
                           </div>
@@ -154,12 +160,18 @@ export function TimelineSection({
                           <div className="relative overflow-visible max-w-[420px] w-full">
                             <div className={glassCardClasses}>
                               {title && (
-                                <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance relative z-20">
+                                <h4 className="wedding-timeline-card-title text-[1.2rem] lg:text-[1.4rem] text-balance relative z-20">
                                   {title}
                                 </h4>
                               )}
+                              {title && item.description && (
+                                <div
+                                  className="wedding-timeline-divider"
+                                  aria-hidden="true"
+                                />
+                              )}
                               {item.description && (
-                                <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance relative z-20">
+                                <p className="wedding-timeline-card-body text-sm lg:text-base text-balance relative z-20">
                                   {item.description}
                                 </p>
                               )}
@@ -193,12 +205,18 @@ export function TimelineSection({
                           <div className="relative overflow-visible max-w-[420px] w-full flex justify-end">
                             <div className={glassCardClasses}>
                               {title && (
-                                <h4 className="font-serif text-[1.2rem] lg:text-[1.4rem] text-[#302722] font-semibold mb-2 lg:mb-3 tracking-wide text-balance relative z-20">
+                                <h4 className="wedding-timeline-card-title text-[1.2rem] lg:text-[1.4rem] text-balance relative z-20">
                                   {title}
                                 </h4>
                               )}
+                              {title && item.description && (
+                                <div
+                                  className="wedding-timeline-divider"
+                                  aria-hidden="true"
+                                />
+                              )}
                               {item.description && (
-                                <p className="text-[#725d4f] text-sm lg:text-base leading-relaxed text-balance relative z-20">
+                                <p className="wedding-timeline-card-body text-sm lg:text-base text-balance relative z-20">
                                   {item.description}
                                 </p>
                               )}
@@ -226,8 +244,8 @@ export function TimelineSection({
                           }}
                           className="w-1/2 flex justify-start pl-6 lg:pl-20 relative z-10"
                         >
-                          <div className="text-coral font-serif text-[1.35rem] lg:text-[1.7rem] tracking-wide z-20 transition-transform duration-300 group-hover/row:scale-105 group-hover/row:text-[#c46949]">
-                            <span className="inline-flex rounded-full border border-sand/30 bg-cream/80 px-3 py-1 lg:px-4 lg:py-1.5 shadow-sm backdrop-blur-sm">
+                          <div className="z-20 transition-transform duration-300 group-hover/row:scale-105">
+                            <span className="wedding-timeline-badge">
                               {formattedTime}
                             </span>
                           </div>

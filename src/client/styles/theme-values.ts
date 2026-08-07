@@ -10,26 +10,26 @@
  */
 
 export const THEME = {
-  /** Primary coral accent — replaces #C95E35 / #D47A5A */
-  accent: "var(--color-coral)",
+  /** Primary Blue Slate accent */
+  accent: "var(--wedding-label-on-light, #3F6475)",
   /** Darker hover state for buttons */
-  accentDark: "#8C4520",
+  accentDark: "var(--wedding-button-primary-hover-bg, #2E4E5D)",
   /** Hero gradient overlay */
-  overlayDark: "rgba(45, 27, 18, 0.30)",
-  /** Music section green gradient start */
-  sectionGreen: "#E8F4F0",
-  /** Music section green gradient mid */
-  sectionGreenMid: "#C5E5DC",
-  /** Music section green gradient end */
-  sectionGreenDeep: "#8EC9BB",
-  /** Gallery warm gradient start */
-  galleryWarmStart: "#FDECD0",
-  /** Gallery warm gradient mid */
-  galleryWarmMid: "#F5D5A8",
-  /** Gallery warm gradient end */
-  galleryWarmEnd: "#EBC485",
+  overlayDark: "var(--wedding-hero-overlay-top, rgba(23, 49, 61, 0.45))",
+  /** Soft blue gradient start */
+  sectionGreen: "var(--wedding-surface-champagne, #DCE8ED)",
+  /** Soft blue gradient mid */
+  sectionGreenMid: "var(--wedding-surface-olive, #7498AB)",
+  /** Soft blue gradient end */
+  sectionGreenDeep: "var(--wedding-surface-dark, #17313D)",
+  /** Gallery gradient start */
+  galleryWarmStart: "var(--wedding-surface-ivory, #F8F4EC)",
+  /** Gallery gradient mid */
+  galleryWarmMid: "var(--wedding-surface-champagne, #DCE8ED)",
+  /** Gallery gradient end */
+  galleryWarmEnd: "var(--wedding-panel-border, #D6C3A7)",
   /** Extra info icon background */
-  iconBg: "#EBF7F5",
+  iconBg: "var(--wedding-surface-champagne, #DCE8ED)",
   /** Extra info icon color */
-  iconColor: "#2D7A70",
+  iconColor: "var(--wedding-label-on-light, #3F6475)",
 } as const;

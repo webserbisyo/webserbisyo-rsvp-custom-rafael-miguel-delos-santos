@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 export function SpotlightCard({
   children,
   className = "",
-  spotlightColor = "rgba(232, 201, 122, 0.16)",
+  spotlightColor = "var(--wedding-spotlight-color, rgba(116, 152, 171, 0.16))",
 }: {
   children: React.ReactNode;
   className?: string;

@@ -30,17 +30,24 @@ export type ClientNavigationGroup =
 /**
  * Semantic section surface roles.
  *
- * These five roles are the ONLY valid section surfaces.
+ * These six roles are the ONLY valid section surfaces.
  * All theme overrides resolve through these roles.
  * No raw colors, legacy aliases, or per-section hardcoded backgrounds are permitted.
  *
- * - photo  : Hero image background (no solid fill needed)
- * - light  : Primary warm-ivory editorial surface
- * - warm   : Champagne-highlighted accent surface
- * - olive  : Deep green feature/interlude surface
- * - dark   : Soft-black CTA and closing surface
+ * - photo     : Hero image background / photo-backed surface
+ * - light     : Primary Pearl Ivory editorial surface
+ * - secondary : Cloud White secondary surface
+ * - soft      : Mist Blue soft accent surface
+ * - accent    : Signature Dusty Blue statement feature surface
+ * - dark      : Evening Navy deep statement surface
  */
-export type SectionSurface = "photo" | "light" | "warm" | "olive" | "dark";
+export type SectionSurface =
+  | "photo"
+  | "light"
+  | "secondary"
+  | "soft"
+  | "accent"
+  | "dark";
 
 export type ClientSectionDescriptor = {
   anchor: string;
@@ -65,7 +72,7 @@ export const clientSectionRegistry: Record<
     icon: Home,
     key: "host_info",
     label: "Home",
-    surface: "dark",
+    surface: "photo",
   },
 
   countdown: {
@@ -75,13 +82,13 @@ export const clientSectionRegistry: Record<
     key: "countdown",
     label: "Countdown",
     topNav: true,
-    surface: "warm",
+    surface: "soft",
   },
   music_effects: {
     anchor: "#music",
     key: "music_effects",
     label: "Music",
-    surface: "olive",
+    surface: "accent",
   },
   gallery: {
     anchor: "#gallery",
@@ -90,7 +97,7 @@ export const clientSectionRegistry: Record<
     key: "gallery",
     label: "Gallery",
     topNav: true,
-    surface: "warm",
+    surface: "secondary",
   },
   main_event: {
     anchor: "#ceremony",
@@ -108,7 +115,7 @@ export const clientSectionRegistry: Record<
     icon: MapPin,
     key: "venue",
     label: "Venue",
-    surface: "warm",
+    surface: "soft",
   },
   secondary_event: {
     anchor: "#reception",
@@ -126,7 +133,7 @@ export const clientSectionRegistry: Record<
     key: "timeline_program",
     label: "Timeline",
     topNav: true,
-    surface: "olive",
+    surface: "dark",
   },
   entourage: {
     anchor: "#entourage",
@@ -134,7 +141,7 @@ export const clientSectionRegistry: Record<
     icon: Users,
     key: "entourage",
     label: "Entourage",
-    surface: "light",
+    surface: "secondary",
   },
   principal_sponsors: {
     anchor: "#sponsors",
@@ -142,7 +149,7 @@ export const clientSectionRegistry: Record<
     icon: Award,
     key: "principal_sponsors",
     label: "Sponsors",
-    surface: "warm",
+    surface: "soft",
   },
   attire_motif: {
     anchor: "#attire",
@@ -160,7 +167,7 @@ export const clientSectionRegistry: Record<
     key: "extra_info",
     label: "Details",
     topNav: true,
-    surface: "warm",
+    surface: "soft",
   },
   rsvp_form: {
     anchor: "/rsvp",
@@ -187,7 +194,7 @@ export const clientSectionRegistry: Record<
     key: "guestbook",
     label: "Guestbook",
     topNav: true,
-    surface: "warm",
+    surface: "soft",
   },
   story_message: {
     anchor: "#our-story",

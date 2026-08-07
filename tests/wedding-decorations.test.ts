@@ -180,7 +180,7 @@ test("contract: client-theme.css keeps floral overlap ownership on the theme sel
   const cssPath = path.join(rootDir, "src/client/styles/client-theme.css");
   const css = fs.readFileSync(cssPath, "utf8");
 
-  const themeSelector = '[data-wedding-theme="refined-midnight-garden"]';
+  const themeSelector = `[data-wedding-theme="${clientConfig.theme.id}"]`;
   assert.ok(
     css.includes(`${themeSelector} {\n  --background:`),
     "Desktop floral token must be owned by the theme selector"
@@ -191,7 +191,7 @@ test("contract: client-theme.css keeps floral overlap ownership on the theme sel
   );
   assert.match(
     css,
-    /@media \(max-width: 639px\) \{\s*\[data-wedding-theme="refined-midnight-garden"\] \{\s*--wedding-decoration-edge-offset-overlap: -12px;/,
+    /@media \(max-width: 639px\) \{\s*\[data-wedding-theme="blue-hour-romance"\] \{\s*--wedding-decoration-edge-offset-overlap: -12px;/,
     "Mobile overlap must override the token on the same theme-owned subtree"
   );
   assert.ok(

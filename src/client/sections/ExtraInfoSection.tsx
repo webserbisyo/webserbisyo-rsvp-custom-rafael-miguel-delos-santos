@@ -81,7 +81,7 @@ export function ExtraInfoSection({
                     </div>
 
                     {/* Card Title */}
-                    <h4 className="font-serif text-xl md:text-2xl text-[#302722] font-semibold">
+                    <h4 className="font-serif text-xl md:text-2xl text-[color:var(--wedding-text-primary)] font-semibold">
                       {item.title}
                     </h4>
 
@@ -90,7 +90,7 @@ export function ExtraInfoSection({
 
                     {/* Card Body Description */}
                     {item.details && (
-                      <p className="text-[#725d4f] text-sm md:text-base leading-relaxed text-balance">
+                      <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base leading-relaxed text-balance">
                         {item.details}
                       </p>
                     )}

@@ -37,6 +37,6 @@
   --radius-lg: 0.75rem;
   --radius: 0.5rem;
   --shadow-soft: 0 18px 50px rgba(63, 45, 35, 0.08);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-manrope), Arial, Helvetica, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
 }

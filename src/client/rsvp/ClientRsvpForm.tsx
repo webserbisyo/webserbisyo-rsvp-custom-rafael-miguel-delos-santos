@@ -138,7 +138,7 @@ export function ClientRsvpForm({
   if (status === "success") {
     return (
       <div id="rsvp-form" className="py-12 text-center flex flex-col items-center justify-center animate-fadeIn">
-        <div className="w-14 h-14 bg-[#4f7d5a]/10 text-[#4f7d5a] rounded-full flex items-center justify-center mb-5 text-3xl select-none" aria-hidden="true">
+        <div className="w-14 h-14 bg-[color:var(--wedding-status-success-bg,rgba(79,125,90,0.1))] text-[color:var(--wedding-status-success,#4f7d5a)] rounded-full flex items-center justify-center mb-5 text-3xl select-none" aria-hidden="true">
           ✓
         </div>
         <h2 className="wedding-display text-3xl text-[color:var(--wedding-text-primary)] mb-3">Thank You!</h2>

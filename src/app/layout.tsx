@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Italiana, Manrope, MonteCarlo } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { PwaRegister } from "@/components/pwa-register";
 import { WEDDING_BROWSER_THEME_COLOR } from "@/config/browser-theme";
 import "@/styles/globals.css";
 
-const bodoni = Bodoni_Moda({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-bodoni",
+  variable: "--font-cormorant",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["500", "600", "700"],
   style: ["normal", "italic"],
 });
 
@@ -16,21 +16,7 @@ const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const italiana = Italiana({
-  subsets: ["latin"],
-  variable: "--font-italiana",
-  display: "swap",
-  weight: "400",
-});
-
-const montecarlo = MonteCarlo({
-  subsets: ["latin"],
-  variable: "--font-montecarlo",
-  display: "swap",
-  weight: "400",
+  weight: ["500", "600", "700", "800"],
 });
 
 export const viewport: Viewport = {
@@ -50,11 +36,14 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 };
 
+import { clientConfig } from "@/client/client.config";
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${bodoni.variable} ${manrope.variable} ${italiana.variable} ${montecarlo.variable}`}
+      className={`${cormorant.variable} ${manrope.variable}`}
+      data-wedding-theme={clientConfig.theme.id}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
       style={
