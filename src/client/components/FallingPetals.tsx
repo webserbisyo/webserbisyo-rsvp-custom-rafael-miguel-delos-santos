@@ -2,23 +2,19 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import {
+  resolvePetalTheme,
+  type PetalColorTuple,
+  type PetalTheme,
+} from "@/client/theme/resolve-petal-theme";
 
-type ColorTuple = {
-  highlight: string;
-  base: string;
-  shadow: string;
-  vein: string;
-};
-
-// Refined Soft Romantic Beach Palette
-const PETAL_COLORS: ColorTuple[] = [
-  { highlight: "#FFC5D0", base: "#FFB7C4", shadow: "#E89EA9", vein: "#CC828F" }, // Soft rose pink (20%)
-  { highlight: "#FFAEBE", base: "#FF98AC", shadow: "#E88295", vein: "#CC6679" }, // Blush pink (22%)
-  { highlight: "#FF94A9", base: "#F77992", shadow: "#DE647C", vein: "#C24C63" }, // Softer hibiscus (22%)
-  { highlight: "#FF8198", base: "#EA667F", shadow: "#D15068", vein: "#B5394F" }, // Rose-coral (16%)
-  { highlight: "#F27585", base: "#DC5D6E", shadow: "#C44758", vein: "#A83443" }, // Muted pink-red (10%)
-  { highlight: "#FFAF91", base: "#F49A7B", shadow: "#DC8364", vein: "#BD6747" }  // Coral-peach accent (10%)
-];
+export const PETAL_COLOR_WEIGHTS = [
+  { role: "primary", weight: 30 },
+  { role: "secondary", weight: 25 },
+  { role: "light", weight: 25 },
+  { role: "metallic", weight: 15 },
+  { role: "botanical", weight: 5 },
+] as const;
 
 type Petal = {
   x: number;
@@ -31,7 +27,7 @@ type Petal = {
   phase: number;
   rotation: number;
   rotationSpeed: number;
-  colorTuple: ColorTuple;
+  colorTuple: PetalColorTuple;
   opacity: number;
   depth: number;
 };
@@ -98,19 +94,21 @@ export function FallingPetals() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Resolve theme custom properties once upon animation initialization
+    const petalTheme = resolvePetalTheme(canvas);
+
     // Initialize config dynamically based on current viewport width
     const currentWidth = window.visualViewport?.width ?? window.innerWidth;
     let config = getViewportConfig(currentWidth, pathname);
 
-    // Color distribution selector
-    const getRandomColorTuple = (): ColorTuple => {
-      const rand = Math.random();
-      if (rand < 0.20) return PETAL_COLORS[0]; // 20%
-      if (rand < 0.42) return PETAL_COLORS[1]; // 22%
-      if (rand < 0.64) return PETAL_COLORS[2]; // 22%
-      if (rand < 0.80) return PETAL_COLORS[3]; // 16%
-      if (rand < 0.90) return PETAL_COLORS[4]; // 10%
-      return PETAL_COLORS[5];                 // 10%
+    // Color distribution selector based on theme roles
+    const getRandomColorTuple = (theme: PetalTheme): PetalColorTuple => {
+      const rand = Math.random() * 100;
+      if (rand < 30) return theme.primary;
+      if (rand < 55) return theme.secondary;
+      if (rand < 80) return theme.light;
+      if (rand < 95) return theme.metallic;
+      return theme.botanical;
     };
 
     // Helper to create a single petal particle using the current config
@@ -154,7 +152,7 @@ export function FallingPetals() {
         phase: Math.random() * Math.PI * 2,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.012,
-        colorTuple: getRandomColorTuple(),
+        colorTuple: getRandomColorTuple(petalTheme),
         opacity: activeConfig.minOpacity + Math.random() * (activeConfig.maxOpacity - activeConfig.minOpacity),
         depth
       };
@@ -239,9 +237,9 @@ export function FallingPetals() {
 
       ctx.fillStyle = grad;
 
-      // Apply soft coral shadow for larger petals
+      // Apply soft theme canvas shadow for larger petals
       if (p.size > 14) {
-        ctx.shadowColor = "rgba(201, 114, 88, 0.12)";
+        ctx.shadowColor = petalTheme.canvasShadow;
         ctx.shadowBlur = 4;
         ctx.shadowOffsetY = 2;
       } else {

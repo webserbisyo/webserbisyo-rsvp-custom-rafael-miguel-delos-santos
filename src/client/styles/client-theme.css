@@ -215,6 +215,40 @@
   --wedding-pattern-wash-warm: rgb(232 221 199 / 92%);
   --wedding-pattern-wash-olive: rgb(53 64 50 / 92%);
   --wedding-pattern-wash-dark: rgb(23 21 18 / 91%);
+
+  /* Semantic Falling Petal Theme Roles */
+  /* Primary petal — Dusty Rose */
+  --wedding-petal-primary-highlight: #c48e8e;
+  --wedding-petal-primary-base: #b98282;
+  --wedding-petal-primary-shadow: #9e6c6c;
+  --wedding-petal-primary-vein: #825454;
+
+  /* Secondary petal — Antique Blush */
+  --wedding-petal-secondary-highlight: #dfb3ad;
+  --wedding-petal-secondary-base: #d6a6a0;
+  --wedding-petal-secondary-shadow: #bc8d87;
+  --wedding-petal-secondary-vein: #9f726d;
+
+  /* Light petal — Champagne */
+  --wedding-petal-light-highlight: #e4d7bc;
+  --wedding-petal-light-base: #d8c8a9;
+  --wedding-petal-light-shadow: #bdac8d;
+  --wedding-petal-light-vein: #9e8e70;
+
+  /* Metallic petal — Muted Gold */
+  --wedding-petal-metallic-highlight: #aa8b54;
+  --wedding-petal-metallic-base: #9a7b45;
+  --wedding-petal-metallic-shadow: #7e6231;
+  --wedding-petal-metallic-vein: #634b21;
+
+  /* Botanical accent — Sage Olive */
+  --wedding-petal-botanical-highlight: #89927a;
+  --wedding-petal-botanical-base: #7a836b;
+  --wedding-petal-botanical-shadow: #616953;
+  --wedding-petal-botanical-vein: #4a513f;
+
+  /* Neutral canvas shadow */
+  --wedding-petal-canvas-shadow: rgb(23 21 18 / 12%);
 }
 
 /* Tone ownership is presentation-only and keeps dark surfaces from inheriting
