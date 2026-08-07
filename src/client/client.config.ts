@@ -63,6 +63,20 @@ export type ClientAttireConfigItem = {
   color: string;
 };
 
+export type ClientAttireIllustrationConfig = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export const DIANNE_ATTIRE_ILLUSTRATION: ClientAttireIllustrationConfig = {
+  src: "/images/attire/dianne-attire-illustration.webp",
+  alt: "Tropical formal guest outfit examples in cocoa black, sage olive, warm taupe, and muted gold.",
+  width: 2752,
+  height: 1536,
+};
+
 export const DIANNE_ATTIRE_PALETTE: ClientAttireConfigItem[] = [
   { label: "Champagne", color: "#D8C8A9" },
   { label: "Muted Gold", color: "#9A7B45" },
@@ -104,6 +118,7 @@ export const clientConfig = {
   },
   sections: {
     attire: {
+      illustration: DIANNE_ATTIRE_ILLUSTRATION,
       palette: DIANNE_ATTIRE_PALETTE,
     },
   },

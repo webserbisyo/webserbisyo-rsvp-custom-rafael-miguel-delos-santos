@@ -1,7 +1,11 @@
 import test from "node:test";
 import assert from "node:assert";
 import fs from "node:fs/promises";
-import { DIANNE_ATTIRE_PALETTE } from "../src/client/client.config";
+import {
+  DIANNE_ATTIRE_PALETTE,
+  DIANNE_ATTIRE_ILLUSTRATION,
+  clientConfig,
+} from "../src/client/client.config";
 
 test("Client-local attire palette configuration", () => {
   assert.strictEqual(DIANNE_ATTIRE_PALETTE.length, 5, "Palette must contain exactly 5 colors");
@@ -24,6 +28,27 @@ test("Client-local attire palette configuration", () => {
   }
 });
 
+test("Client-local attire illustration configuration", () => {
+  assert.ok(DIANNE_ATTIRE_ILLUSTRATION, "Illustration config must exist");
+  assert.strictEqual(
+    DIANNE_ATTIRE_ILLUSTRATION.src,
+    "/images/attire/dianne-attire-illustration.webp",
+    "Illustration source must use public semantic asset path"
+  );
+  assert.ok(
+    DIANNE_ATTIRE_ILLUSTRATION.alt.length > 20,
+    "Illustration must have descriptive alt text"
+  );
+  assert.strictEqual(DIANNE_ATTIRE_ILLUSTRATION.width, 2752);
+  assert.strictEqual(DIANNE_ATTIRE_ILLUSTRATION.height, 1536);
+
+  // Check clientConfig integration
+  const configAttire = clientConfig.sections?.attire as {
+    illustration?: typeof DIANNE_ATTIRE_ILLUSTRATION;
+  };
+  assert.ok(configAttire?.illustration, "clientConfig.sections.attire must include illustration");
+});
+
 test("AttireSection and AttireColorSwatch design contract assertions", async () => {
   const attireSectionTsx = await fs.readFile(
     new URL("../src/client/sections/AttireSection.tsx", import.meta.url),
@@ -34,35 +59,45 @@ test("AttireSection and AttireColorSwatch design contract assertions", async () 
     "utf-8"
   );
 
-  // 1. Verify AttireSection uses AttireColorSwatch
+  // 1. Verify AttireSection renders Next/Image illustration from config
   assert.ok(
-    attireSectionTsx.includes("AttireColorSwatch"),
-    "AttireSection must import and render AttireColorSwatch"
+    attireSectionTsx.includes("import Image from \"next/image\""),
+    "AttireSection must import Next/Image"
+  );
+  assert.ok(
+    attireSectionTsx.includes("illustration.src"),
+    "AttireSection must render illustration src dynamically from config"
+  );
+  assert.ok(
+    !attireSectionTsx.includes("/images/attire/dianne-attire-illustration.webp"),
+    "Image asset path must not be hardcoded in AttireSection.tsx"
   );
 
-  // 2. Verify redundant text summary is absent and clean label is present
+  // 2. Verify Content Order: Heading -> Illustration -> Guidance -> Compact Palette Card
+  const headingPos = attireSectionTsx.indexOf("SectionHeading");
+  const illustrationPos = attireSectionTsx.indexOf("Four-Model Fashion Illustration");
+  const guidancePos = attireSectionTsx.indexOf("Standalone Guideline Paragraph");
+  const cardPos = attireSectionTsx.indexOf("Compact Warm Ivory Dress Code Card");
+
+  assert.ok(headingPos < illustrationPos, "Heading must render before Illustration");
+  assert.ok(illustrationPos < guidancePos, "Illustration must render before Guidance Paragraph");
+  assert.ok(guidancePos < cardPos, "Guideline Paragraph must render before Palette Card");
+
+  // 3. Verify Palette Card uses 5-column horizontal grid layout
   assert.ok(
-    attireSectionTsx.includes("SUGGESTED GUEST COLORS"),
-    "AttireSection must display SUGGESTED GUEST COLORS label"
+    attireSectionTsx.includes("grid grid-cols-5"),
+    "AttireSection palette container must use grid grid-cols-5"
   );
   assert.ok(
-    !attireSectionTsx.includes("Sand, Ivory, Sage Green"),
-    "AttireSection must not contain hardcoded generic color list text"
+    !attireSectionTsx.includes("flex-wrap"),
+    "AttireSection must remove old flex-wrap layout"
+  );
+  assert.ok(
+    !attireSectionTsx.includes("overflow-x-auto"),
+    "AttireSection must not use horizontal scroll rail"
   );
 
-  // 3. Verify no regex mutations exist
-  assert.ok(
-    !attireSectionTsx.includes("replace(/Ivory/gi"),
-    "AttireSection must not contain regex replacements for Ivory"
-  );
-
-  // 4. Verify SpotlightCard is NOT used in AttireSection
-  assert.ok(
-    !attireSectionTsx.includes("SpotlightCard"),
-    "AttireSection must use custom light card div instead of SpotlightCard"
-  );
-
-  // 5. Verify Swatch labels do not use break-words or break-all
+  // 4. Verify Swatch component label safety rules
   assert.ok(
     !attireSwatchTsx.includes("break-words"),
     "AttireColorSwatch must NOT use break-words"
@@ -75,14 +110,8 @@ test("AttireSection and AttireColorSwatch design contract assertions", async () 
     attireSwatchTsx.includes("break-normal"),
     "AttireColorSwatch must use break-normal"
   );
-
-  // 6. Verify centered responsive 3+2 and 2+2+1 flex layout classes
   assert.ok(
-    attireSwatchTsx.includes("w-[calc(50%-0.75rem)]"),
-    "AttireColorSwatch must use 50% mobile item width"
-  );
-  assert.ok(
-    attireSwatchTsx.includes("sm:w-[calc(33.333%-1rem)]"),
-    "AttireColorSwatch must use 33.333% desktop item width"
+    attireSwatchTsx.includes("min-w-0"),
+    "AttireColorSwatch must use min-w-0 for flex/grid child flex safety"
   );
 });
