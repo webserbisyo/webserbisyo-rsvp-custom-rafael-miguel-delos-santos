@@ -115,19 +115,16 @@ export type ClientAttireIllustrationConfig = {
   height: number;
 };
 
-export const DIANNE_ATTIRE_ILLUSTRATION: ClientAttireIllustrationConfig = {
-  src: "/images/attire/dianne-attire-illustration.webp",
-  alt: "Tropical formal guest outfit examples in cocoa black, sage olive, warm taupe, and muted gold.",
-  width: 2752,
-  height: 1536,
-};
-
-export const DIANNE_ATTIRE_PALETTE: ClientAttireConfigItem[] = [
-  { label: "Champagne", color: "#D8C8A9" },
-  { label: "Muted Gold", color: "#9A7B45" },
-  { label: "Sage Olive", color: "#7A836B" },
-  { label: "Warm Taupe", color: "#A99583" },
-  { label: "Cocoa Black", color: "#3A302A" },
+/**
+ * Configurable Princess Anne custom-site starter palette.
+ * Note: These are client-configurable Attire palette values, not global website-theme CSS ownership.
+ */
+export const PRINCESS_ANNE_ATTIRE_PALETTE: ClientAttireConfigItem[] = [
+  { label: "Dusty Blue", color: "#7498AB" },
+  { label: "Blue Slate", color: "#3F6475" },
+  { label: "Mist Blue", color: "#DCE8ED" },
+  { label: "Champagne Sand", color: "#D6C3A7" },
+  { label: "Evening Navy", color: "#17313D" },
 ];
 
 export const clientConfig = {
@@ -163,8 +160,7 @@ export const clientConfig = {
   },
   sections: {
     attire: {
-      illustration: DIANNE_ATTIRE_ILLUSTRATION,
-      palette: DIANNE_ATTIRE_PALETTE,
+      palette: PRINCESS_ANNE_ATTIRE_PALETTE,
     },
   },
   componentFlorals: DIANNE_COMPONENT_FLORAL_DECORATIONS,
