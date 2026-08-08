@@ -123,11 +123,11 @@ test("contract: HeroSection overlay middle is 38% on mobile and 28% on desktop w
   );
 
   assert.ok(
-    css.includes("--wedding-hero-overlay-middle: rgb(23 49 61 / 38%);"),
+    css.includes("--wedding-hero-overlay-middle: rgb(23 21 18 / 38%);"),
     "client-theme.css must set mobile middle overlay to 38%"
   );
   assert.ok(
-    css.includes("--wedding-hero-overlay-middle: rgb(23 49 61 / 28%);"),
+    css.includes("--wedding-hero-overlay-middle: rgb(23 21 18 / 28%);"),
     "client-theme.css must set desktop middle overlay to 28%"
   );
   assert.ok(

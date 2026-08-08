@@ -5,11 +5,11 @@ import test from "node:test";
 import manifestGenerator from "../src/app/manifest";
 import { WEDDING_BROWSER_THEME_COLOR } from "../src/config/browser-theme";
 
-test("WEDDING_BROWSER_THEME_COLOR equals approved dark #17313D", () => {
+test("WEDDING_BROWSER_THEME_COLOR equals approved dark espresso #171512", () => {
   assert.equal(
     WEDDING_BROWSER_THEME_COLOR,
-    "#17313D",
-    "WEDDING_BROWSER_THEME_COLOR must be #17313D",
+    "#171512",
+    "WEDDING_BROWSER_THEME_COLOR must be #171512",
   );
 });
 
@@ -35,18 +35,18 @@ test("src/app/layout.tsx exports viewport metadata using WEDDING_BROWSER_THEME_C
   );
 });
 
-test("src/app/manifest.ts exports App Router manifest with #17313D theme and background colors", () => {
+test("src/app/manifest.ts exports App Router manifest with #171512 theme and background colors", () => {
   const manifestData = manifestGenerator();
 
   assert.equal(
     manifestData.theme_color,
-    "#17313D",
-    "manifest theme_color must be #17313D",
+    "#171512",
+    "manifest theme_color must be #171512",
   );
   assert.equal(
     manifestData.background_color,
-    "#17313D",
-    "manifest background_color must be #17313D",
+    "#171512",
+    "manifest background_color must be #171512",
   );
   assert.equal(
     manifestData.name,

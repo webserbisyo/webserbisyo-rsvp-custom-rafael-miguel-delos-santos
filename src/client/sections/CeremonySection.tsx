@@ -143,7 +143,7 @@ export function CeremonySection({
                     >
                       {/* Month & Year header */}
                       <div className="text-center mb-6">
-                        <span className="font-serif text-xl sm:text-2xl font-semibold text-[color:var(--wedding-text-primary)] block">
+                        <span className="font-serif text-xl sm:text-2xl font-semibold text-[#302722] block">
                           {grid ? `${grid.monthName} ${grid.year}` : "Month Year"}
                         </span>
                       </div>
@@ -153,7 +153,7 @@ export function CeremonySection({
                         {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
                           <span
                             key={idx}
-                            className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[color:var(--wedding-text-secondary)]/70 uppercase"
+                            className="text-[10px] sm:text-xs font-bold tracking-[0.1em] text-[#725d4f]/70 uppercase"
                           >
                             {day}
                           </span>
@@ -213,15 +213,15 @@ export function CeremonySection({
               <div className="flex">
                 <SpotlightCard
                   className="w-full h-full bg-white/80 backdrop-blur-md border border-sand/30 p-6 sm:p-8 rounded-3xl flex flex-col justify-center shadow-soft text-left"
-                  spotlightColor="rgba(116, 152, 171, 0.16)"
+                  spotlightColor="rgba(232, 201, 122, 0.16)"
                 >
                   <div className="space-y-6 relative z-20">
                     {/* Title & Kicker */}
                     <div>
-                      <h3 className="font-serif text-2xl text-[color:var(--wedding-text-primary)] font-semibold mb-1">
+                      <h3 className="font-serif text-2xl text-[#302722] font-semibold mb-1">
                         Save Our Date
                       </h3>
-                      <p className="text-xs text-[color:var(--wedding-text-secondary)] uppercase tracking-widest font-semibold">
+                      <p className="text-xs text-[#725d4f] uppercase tracking-widest font-semibold">
                         We can&apos;t wait to celebrate with you
                       </p>
                     </div>
@@ -248,7 +248,7 @@ export function CeremonySection({
                               ` - ${formatTime(ceremony.endTime)}`}
                           </p>
                         )}
-                        <p className="text-xs text-[color:var(--wedding-text-secondary)] mt-1">
+                        <p className="text-xs text-[#725d4f] mt-1">
                           {mounted ? formatDate(ceremony.eventDate) : ""}
                         </p>
                       </div>
@@ -294,7 +294,7 @@ export function CeremonySection({
                                     ceremony.rsvpDeadline.split("T")[1],
                                   )}
                                 </p>
-                                <p className="text-xs text-[color:var(--wedding-text-secondary)] mt-1">
+                                <p className="text-xs text-[#725d4f] mt-1">
                                   {formatDate(
                                     ceremony.rsvpDeadline.split("T")[0],
                                   )}
@@ -305,7 +305,7 @@ export function CeremonySection({
                                 <p className="text-sm text-coral font-medium mt-1">
                                   Kindly respond by
                                 </p>
-                                <p className="text-xs text-[color:var(--wedding-text-secondary)] mt-1">
+                                <p className="text-xs text-[#725d4f] mt-1">
                                   {formatDate(ceremony.rsvpDeadline)}
                                 </p>
                               </>

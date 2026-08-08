@@ -17,7 +17,7 @@ export function ClientRsvpPage({ config, event }: ClientRsvpPageProps) {
 
       {/* 1. Terracotta/Coral Sunset Glow in Background */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[image:var(--wedding-gradient-rsvp-glow)] pointer-events-none -z-10 select-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,rgb(216_183_111_/_16%)_0%,rgb(23_21_18_/_8%)_50%,transparent_75%)] pointer-events-none -z-10 select-none"
         aria-hidden="true"
       />
 

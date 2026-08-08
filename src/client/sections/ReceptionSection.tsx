@@ -80,7 +80,7 @@ export function ReceptionSection({
           <div className="relative overflow-visible">
             <SpotlightCard
               className="bg-white/65 backdrop-blur-md border border-sand/40 p-6 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-              spotlightColor="rgba(116, 152, 171, 0.16)"
+              spotlightColor="rgba(232, 201, 122, 0.16)"
             >
               <div className="space-y-6 sm:space-y-8 relative z-20">
                 {/* Venue Name & Full Address */}
@@ -96,7 +96,7 @@ export function ReceptionSection({
                         </h3>
                       )}
                       {reception.fullAddress && (
-                        <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base mt-1.5 leading-relaxed">
+                        <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                           {reception.fullAddress}
                         </p>
                       )}
@@ -115,7 +115,7 @@ export function ReceptionSection({
                         Time
                       </h4>
                       {derivedDate && (
-                        <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base mt-1.5 font-medium leading-relaxed">
+                        <p className="text-[#725d4f] text-sm md:text-base mt-1.5 font-medium leading-relaxed">
                           {derivedDate}
                         </p>
                       )}
@@ -138,7 +138,7 @@ export function ReceptionSection({
                       <h4 className="font-serif text-base font-semibold text-cocoa">
                         Note
                       </h4>
-                      <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base mt-1.5 leading-relaxed">
+                      <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                         {reception.receptionNote}
                       </p>
                     </div>

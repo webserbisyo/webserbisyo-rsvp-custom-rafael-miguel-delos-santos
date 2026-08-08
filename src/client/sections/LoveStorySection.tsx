@@ -106,8 +106,10 @@ export function LoveStorySection({
               : "h-40 mt-20 mb-16 pb-4 sm:h-52 sm:mt-12 sm:mb-14 sm:pb-4 md:h-60 md:mt-12 md:mb-14 md:pb-4 lg:h-72 lg:mt-12 lg:mb-16 lg:pb-4"
           }`}
         >
-          {/* Folder uses theme-driven semantic CSS properties */}
+          {/* Folder derives a darker shade in JavaScript, so it needs a parseable
+              client-theme value instead of a CSS variable string. */}
           <Folder
+            color="#4F5A46"
             size={folderSize}
             items={folderItems}
             className="mx-auto"

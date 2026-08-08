@@ -146,8 +146,8 @@ export const clientConfig = {
     subtitle: "",
   },
   theme: {
-    id: "blue-hour-romance",
-    preset: "blue-hour-romance",
+    id: "refined-midnight-garden",
+    preset: "refined-midnight-garden",
     fonts: {
       heading: "",
       body: "",

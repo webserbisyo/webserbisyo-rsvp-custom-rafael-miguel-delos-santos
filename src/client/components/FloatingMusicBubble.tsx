@@ -60,15 +60,15 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={
               isInline
-                ? "absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-[color:var(--wedding-surface-secondary)]/90 backdrop-blur-md border border-[color:var(--wedding-panel-border)] p-4 shadow-soft text-[color:var(--wedding-text-primary)] select-none"
-                : "mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-[color:var(--wedding-surface-secondary)]/90 backdrop-blur-md border border-[color:var(--wedding-panel-border)] p-4 shadow-soft text-[color:var(--wedding-text-primary)] select-none"
+                ? "absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/85 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
+                : "mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/80 backdrop-blur-md border border-[#E6D5C3]/40 p-4 shadow-soft text-cocoa select-none"
             }
           >
             <div className="flex justify-between items-start mb-3">
               <div className="flex gap-3 items-center min-w-0">
                 {/* Spinning vinyl disc indicator */}
                 <div
-                  className={`w-9 h-9 rounded-full bg-[color:var(--wedding-surface-dark)] flex items-center justify-center text-[color:var(--wedding-text-on-dark)] shrink-0 ${
+                  className={`w-9 h-9 rounded-full bg-cocoa flex items-center justify-center text-cream shrink-0 ${
                     isPlaying ? "animate-spin" : ""
                   }`}
                   style={{ animationDuration: "6s" }}
@@ -76,10 +76,10 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
                   <Music4 className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="font-serif text-sm font-semibold truncate leading-tight text-[color:var(--wedding-text-primary)]">
+                  <h4 className="font-serif text-sm font-semibold truncate leading-tight text-cocoa">
                     {displayTitle}
                   </h4>
-                  <p className="text-[10px] text-[color:var(--wedding-label-on-light)] uppercase tracking-widest truncate">
+                  <p className="text-[10px] text-coral uppercase tracking-widest truncate">
                     {displayArtist}
                   </p>
                 </div>
@@ -87,14 +87,14 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
               <button
                 type="button"
                 onClick={() => setIsExpanded(false)}
-                className="text-[color:var(--wedding-text-secondary)] hover:text-[color:var(--wedding-text-primary)] p-1 rounded-full hover:bg-[color:var(--wedding-panel-border)]/20 transition"
+                className="text-cocoa/40 hover:text-cocoa p-1 rounded-full hover:bg-[#E6D5C3]/20 transition"
                 aria-label="Minimize player"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="h-px bg-gradient-to-r from-[color:var(--wedding-panel-border)]/30 to-transparent mb-3" />
+            <div className="h-px bg-gradient-to-r from-[#E6D5C3]/30 to-transparent mb-3" />
 
             <div className="flex gap-2 justify-center">
               {isPlaying ? (
@@ -142,7 +142,7 @@ export function FloatingMusicBubble({ layout = "fixed" }: FloatingMusicBubblePro
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsExpanded((prev) => !prev)}
-        className="w-14 h-14 rounded-full bg-[color:var(--wedding-control-primary-bg)] text-[color:var(--wedding-control-primary-fg)] shadow-[0_8px_24px_rgb(23_49_61_/_25%)] hover:brightness-105 flex items-center justify-center relative group cursor-pointer transition-all duration-300"
+        className="w-14 h-14 rounded-full bg-[color:var(--wedding-control-primary-bg)] text-[color:var(--wedding-control-primary-fg)] shadow-[0_8px_24px_rgb(216_183_111_/_35%)] hover:brightness-105 flex items-center justify-center relative group cursor-pointer transition-all duration-300"
         aria-label="Wedding song controls"
       >
         <AnimatePresence mode="wait">

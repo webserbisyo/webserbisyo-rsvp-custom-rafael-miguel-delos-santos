@@ -298,7 +298,7 @@ export function GuestDockToolbar({
             onClick={() => handleItemClick(item.anchor)}
             className={
               isPrimary
-                ? "bg-[color:var(--wedding-control-primary-bg)] text-[color:var(--wedding-control-primary-fg)] border-[color:var(--wedding-control-primary-bg)] shadow-[color:var(--wedding-shadow-floating)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95"
+                ? "bg-[color:var(--wedding-control-primary-bg)] text-[color:var(--wedding-control-primary-fg)] border-[color:var(--wedding-control-primary-bg)] shadow-[0_0_16px_rgb(216_183_111_/_35%)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95"
                 : "bg-[color:var(--wedding-control-secondary-bg)] border border-[color:var(--wedding-control-border)] text-[color:var(--wedding-control-secondary-fg)] hover:border-ivory/30 hover:text-white hover:-translate-y-0.5 active:scale-95"
             }
             mouseX={mouseX}

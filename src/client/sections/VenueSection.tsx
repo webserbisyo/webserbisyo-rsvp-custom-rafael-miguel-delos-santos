@@ -174,7 +174,7 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
             {/* Left Column: Details & Logistics */}
             <SpotlightCard
               className="bg-white/65 backdrop-blur-md border border-sand/40 p-8 sm:p-10 rounded-3xl shadow-[0_12px_40px_rgba(139,104,58,0.06)] hover:border-sand/60 transition-[border-color,box-shadow] duration-500"
-              spotlightColor="rgba(116, 152, 171, 0.16)"
+              spotlightColor="rgba(232, 201, 122, 0.16)"
             >
               <div className="space-y-8">
                 {/* Row 1: Full Address */}
@@ -186,7 +186,7 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
                     <h4 className="font-serif text-base font-semibold text-cocoa">
                       Full Address
                     </h4>
-                    <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base mt-1.5 leading-relaxed">
+                    <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                       {venue.address}
                     </p>
                   </div>
@@ -202,7 +202,7 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
                       <h4 className="font-serif text-base font-semibold text-cocoa">
                         Arrival / Landmark Note
                       </h4>
-                      <p className="text-[color:var(--wedding-text-secondary)] text-sm md:text-base mt-1.5 leading-relaxed">
+                      <p className="text-[#725d4f] text-sm md:text-base mt-1.5 leading-relaxed">
                         {venue.arrivalNote}
                       </p>
                     </div>
@@ -214,15 +214,15 @@ export function VenueSection({ venue, surface }: VenueSectionProps) {
             {/* Right Column: Framed Map Picture Card + CTA */}
             <div className="flex flex-col items-center">
               {embedUrl ? (
-                <div className="relative overflow-visible w-full mt-6">
-                  <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)] overflow-visible">
+                <div className="relative overflow-visible w-full">
+                  <div className="w-full bg-white border border-sand/20 rounded-[32px] p-3 sm:p-4 pb-5 sm:pb-7 shadow-[0_16px_40px_rgba(139,104,58,0.12)] relative transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(139,104,58,0.18)] overflow-hidden">
                     {/* Decorative Pin Overlay attached to the border */}
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
-                      <Pin className="w-11 h-11 fill-current wedding-venue-pin-shadow" />
+                    <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
+                      <Pin className="w-11 h-11 text-coral fill-current wedding-venue-pin-shadow" />
                     </div>
 
                     {/* Map Container */}
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[color:var(--wedding-surface-champagne)] border border-sand/10">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#e5e3df] border border-sand/10">
                       <iframe
                         key={embedUrl}
                         src={embedUrl}

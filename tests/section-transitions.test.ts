@@ -154,28 +154,27 @@ test("section ordering and visibility remain intact without transition wrappers"
 const ALLOWED_SURFACES: Set<SectionSurface> = new Set([
   "photo",
   "light",
-  "secondary",
-  "soft",
-  "accent",
+  "warm",
+  "olive",
   "dark",
 ]);
 
 const APPROVED_SURFACE_SEQUENCE: Record<ClientSectionKey, SectionSurface> = {
-  host_info: "photo",
-  countdown: "soft",
-  music_effects: "accent",
-  gallery: "secondary",
+  host_info: "dark",
+  countdown: "warm",
+  music_effects: "olive",
+  gallery: "warm",
   main_event: "light",
-  venue: "soft",
+  venue: "warm",
   secondary_event: "light",
-  timeline_program: "dark",
-  entourage: "secondary",
-  principal_sponsors: "soft",
+  timeline_program: "olive",
+  entourage: "light",
+  principal_sponsors: "warm",
   attire_motif: "light",
-  extra_info: "soft",
+  extra_info: "warm",
   rsvp_form: "dark",
   gift_details: "light",
-  guestbook: "soft",
+  guestbook: "warm",
   story_message: "light",
   contact_socials: "dark",
 };
@@ -237,7 +236,7 @@ test("section components do not hardcode manual surface role literals", () => {
   for (const file of files) {
     const content = fs.readFileSync(path.join(sectionsDir, file), "utf-8");
     const matches = content.match(
-      /data-tone=["'](light|secondary|soft|accent|dark|photo)["']/g,
+      /data-tone=["'](light|warm|olive|dark|photo)["']/g,
     );
     assert.equal(
       matches,
@@ -277,7 +276,7 @@ test("ClientFooter uses centralized dark surface CSS variable", () => {
   );
 });
 
-test("client-theme.css defines rules for all semantic surface roles", () => {
+test("client-theme.css defines rules for all 5 semantic surface roles", () => {
   const cssPath = path.join(
     process.cwd(),
     "src/client/styles/client-theme.css",
@@ -293,16 +292,12 @@ test("client-theme.css defines rules for all semantic surface roles", () => {
     "CSS must define rule for data-tone=light",
   );
   assert.ok(
-    content.includes('data-tone="secondary"'),
-    "CSS must define rule for data-tone=secondary",
+    content.includes('data-tone="warm"'),
+    "CSS must define rule for data-tone=warm",
   );
   assert.ok(
-    content.includes('data-tone="soft"'),
-    "CSS must define rule for data-tone=soft",
-  );
-  assert.ok(
-    content.includes('data-tone="accent"'),
-    "CSS must define rule for data-tone=accent",
+    content.includes('data-tone="olive"'),
+    "CSS must define rule for data-tone=olive",
   );
   assert.ok(
     content.includes('data-tone="dark"'),
