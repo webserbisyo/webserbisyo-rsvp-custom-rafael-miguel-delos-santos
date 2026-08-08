@@ -37,17 +37,17 @@ function buildRenderModel(
 }
 
 test("WebP floral trace asset files exist in public/images/decoration/", () => {
-  const bloomsPath = path.join(
+  const densePath = path.join(
     process.cwd(),
-    "public/images/decoration/section-pattern-garden-blooms.webp",
+    "public/images/decoration/section-pattern-dense-allover.webp",
   );
-  const vinesPath = path.join(
+  const openPath = path.join(
     process.cwd(),
-    "public/images/decoration/section-pattern-botanical-vines.webp",
+    "public/images/decoration/section-pattern-open-framed.webp",
   );
 
-  assert.ok(fs.existsSync(bloomsPath), "Garden blooms asset must exist");
-  assert.ok(fs.existsSync(vinesPath), "Botanical vines asset must exist");
+  assert.ok(fs.existsSync(densePath), "Dense allover asset must exist");
+  assert.ok(fs.existsSync(openPath), "Open framed asset must exist");
 });
 
 test("SectionFloralPatternContext component file exists", () => {
@@ -77,12 +77,12 @@ test("ClientEventRenderer centrally imports and uses SectionFloralPatternContext
     "ClientEventRenderer must exclude host_info (Hero) from pattern context",
   );
   assert.ok(
-    content.includes("garden-blooms"),
-    "ClientEventRenderer must alternate garden-blooms variant",
+    content.includes("dense-allover"),
+    "ClientEventRenderer must alternate dense-allover variant",
   );
   assert.ok(
-    content.includes("botanical-vines"),
-    "ClientEventRenderer must alternate botanical-vines variant",
+    content.includes("open-framed"),
+    "ClientEventRenderer must alternate open-framed variant",
   );
 });
 
@@ -114,8 +114,8 @@ test("client-theme.css defines semantic wash variables and section pattern backg
     "CSS must contain .wedding-section-pattern-context background rule",
   );
   assert.ok(
-    cssContent.includes('[data-floral-pattern="botanical-vines"]'),
-    "CSS must contain botanical-vines variant visibility boost rule",
+    cssContent.includes('[data-floral-pattern="open-framed"]'),
+    "CSS must contain open-framed variant visibility boost rule",
   );
 });
 
@@ -123,21 +123,21 @@ test("alternation logic correctly assigns pattern variants to visible sections a
   const fullVisible = getVisibleClientSectionKeys(buildRenderModel());
   const eligibleFull = fullVisible.filter((k) => k !== "host_info");
 
-  // First eligible section after Hero -> garden-blooms (index 0)
+  // First eligible section after Hero -> dense-allover (index 0)
   assert.equal(eligibleFull.indexOf("countdown"), 0);
-  assert.equal(0 % 2 === 0 ? "garden-blooms" : "botanical-vines", "garden-blooms");
+  assert.equal(0 % 2 === 0 ? "dense-allover" : "open-framed", "dense-allover");
 
-  // Second eligible section -> botanical-vines (index 1)
+  // Second eligible section -> open-framed (index 1)
   assert.equal(eligibleFull.indexOf("music_effects"), 1);
-  assert.equal(1 % 2 === 0 ? "garden-blooms" : "botanical-vines", "botanical-vines");
+  assert.equal(1 % 2 === 0 ? "dense-allover" : "open-framed", "open-framed");
 
-  // Disabling 'countdown' causes 'music_effects' to become index 0 -> garden-blooms
+  // Disabling 'countdown' causes 'music_effects' to become index 0 -> dense-allover
   const disabledCountdown = getVisibleClientSectionKeys(
     buildRenderModel(["countdown"]),
   );
   const eligibleDisabled = disabledCountdown.filter((k) => k !== "host_info");
   assert.equal(eligibleDisabled.indexOf("music_effects"), 0);
-  assert.equal(0 % 2 === 0 ? "garden-blooms" : "botanical-vines", "garden-blooms");
+  assert.equal(0 % 2 === 0 ? "dense-allover" : "open-framed", "dense-allover");
 });
 
 test("individual section components do not import or hardcode section pattern context", () => {

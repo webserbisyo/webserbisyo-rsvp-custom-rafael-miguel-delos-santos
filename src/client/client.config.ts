@@ -76,29 +76,29 @@ export type ComponentFloralDecorationsConfig = {
   };
 };
 
-export const DIANNE_COMPONENT_FLORAL_DECORATIONS: ComponentFloralDecorationsConfig = {
+export const PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS: ComponentFloralDecorationsConfig = {
   frameCorner: {
     left: {
-      src: "/images/decoration/dianne/frame-corner-sprig-left.webp",
-      width: 1254,
-      height: 1254,
+      src: "/images/decoration/princess-anne/princess-anne-corner-top-left.webp",
+      width: 2048,
+      height: 2048,
     },
     right: {
-      src: "/images/decoration/dianne/frame-corner-sprig-right.webp",
-      width: 1254,
-      height: 1254,
+      src: "/images/decoration/princess-anne/princess-anne-corner-top-right.webp",
+      width: 2048,
+      height: 2048,
     },
   },
   cardEdge: {
     left: {
-      src: "/images/decoration/dianne/card-edge-flourish-left.webp",
-      width: 1254,
-      height: 1254,
+      src: "/images/decoration/princess-anne/princess-anne-corner-bottom-left.webp",
+      width: 2048,
+      height: 2048,
     },
     right: {
-      src: "/images/decoration/dianne/card-edge-flourish-right.webp",
-      width: 1254,
-      height: 1254,
+      src: "/images/decoration/princess-anne/princess-anne-corner-bottom-right.webp",
+      width: 2048,
+      height: 2048,
     },
   },
 };
@@ -113,6 +113,13 @@ export type ClientAttireIllustrationConfig = {
   alt: string;
   width: number;
   height: number;
+};
+
+export const PRINCESS_ANNE_ATTIRE_ILLUSTRATION: ClientAttireIllustrationConfig = {
+  src: "/images/attire/princess-anne-attire-illustration-blue-hour-romance.webp",
+  alt: "Princess Anne wedding attire dress code fashion illustration",
+  width: 2752,
+  height: 1536,
 };
 
 /**
@@ -160,10 +167,11 @@ export const clientConfig = {
   },
   sections: {
     attire: {
+      illustration: PRINCESS_ANNE_ATTIRE_ILLUSTRATION,
       palette: PRINCESS_ANNE_ATTIRE_PALETTE,
     },
   },
-  componentFlorals: DIANNE_COMPONENT_FLORAL_DECORATIONS,
+  componentFlorals: PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS,
   assets: {},
   libs: {
     icons: {

@@ -65,8 +65,8 @@ test("contract: client-theme.css defines Option B RSVP tokens and ClientRsvpPage
     "RSVP shell must expose a dedicated pattern layer",
   );
   assert.ok(
-    css.includes("section-pattern-garden-blooms.webp"),
-    "RSVP pattern must reuse the approved garden-blooms asset",
+    css.includes("section-pattern-open-framed.webp"),
+    "RSVP pattern must reuse the approved open-framed asset",
   );
   assert.ok(
     css.includes(".wedding-decoration--target-rsvp"),

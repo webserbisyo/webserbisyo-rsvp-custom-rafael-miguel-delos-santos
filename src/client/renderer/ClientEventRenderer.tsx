@@ -62,7 +62,7 @@ export function ClientEventRenderer({ event }: ClientEventRendererProps) {
           }
           const eligibleIndex = eligibleVisibleKeys.indexOf(key);
           const variant =
-            eligibleIndex % 2 === 0 ? "garden-blooms" : "botanical-vines";
+            eligibleIndex % 2 === 0 ? "dense-allover" : "open-framed";
           return (
             <SectionFloralPatternContext key={key} variant={variant}>
               {renderSection(key)}

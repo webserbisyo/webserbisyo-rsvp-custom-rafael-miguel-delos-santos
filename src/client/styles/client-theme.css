@@ -361,13 +361,13 @@
 
 /* Variant-specific visibility compensation for naturally lighter botanical-vines line art */
 [data-wedding-theme="blue-hour-romance"]
-  .wedding-section-pattern-context[data-floral-pattern="botanical-vines"]
+  .wedding-section-pattern-context[data-floral-pattern="open-framed"]
   .wedding-section[data-tone="light"] {
   --wedding-section-pattern-wash: rgb(246 241 232 / 89%);
 }
 
 [data-wedding-theme="blue-hour-romance"]
-  .wedding-section-pattern-context[data-floral-pattern="botanical-vines"]
+  .wedding-section-pattern-context[data-floral-pattern="open-framed"]
   .wedding-section[data-tone="warm"] {
   --wedding-section-pattern-wash: rgb(232 221 199 / 90%);
 }
@@ -826,7 +826,7 @@
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  background-image: url("/images/decoration/section-pattern-garden-blooms.webp");
+  background-image: url("/images/decoration/section-pattern-open-framed.webp");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;

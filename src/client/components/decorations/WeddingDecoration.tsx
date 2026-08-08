@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { clientConfig, DIANNE_COMPONENT_FLORAL_DECORATIONS } from "@/client/client.config";
+import { clientConfig, PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS } from "@/client/client.config";
 
 export type DecorationFamily = "card-edge" | "frame-corner";
 export type DecorationOrientation = "left" | "right";
@@ -38,7 +38,7 @@ export function WeddingDecoration({
   className = "",
 }: WeddingDecorationProps) {
   const decorationsConfig =
-    clientConfig.componentFlorals || DIANNE_COMPONENT_FLORAL_DECORATIONS;
+    clientConfig.componentFlorals || PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS;
 
   if (!decorationsConfig) return null;
 

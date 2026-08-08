@@ -2,21 +2,21 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { clientConfig, DIANNE_COMPONENT_FLORAL_DECORATIONS } from "../src/client/client.config";
+import { clientConfig, PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS } from "../src/client/client.config";
 import { getAlternatingDecorationOrientation } from "../src/client/components/decorations/get-decoration-placement";
 
 const rootDir = process.cwd();
 
-test("contract: four semantic WebP decoration assets exist in public/images/decoration/dianne/", () => {
+test("contract: four semantic WebP decoration assets exist in public/images/decoration/princess-anne/", () => {
   const assets = [
-    "frame-corner-sprig-left.webp",
-    "frame-corner-sprig-right.webp",
-    "card-edge-flourish-left.webp",
-    "card-edge-flourish-right.webp",
+    "princess-anne-corner-top-left.webp",
+    "princess-anne-corner-top-right.webp",
+    "princess-anne-corner-bottom-left.webp",
+    "princess-anne-corner-bottom-right.webp",
   ];
 
   for (const asset of assets) {
-    const fullPath = path.join(rootDir, "public/images/decoration/dianne", asset);
+    const fullPath = path.join(rootDir, "public/images/decoration/princess-anne", asset);
     assert.ok(
       fs.existsSync(fullPath),
       `Expected destination asset to exist: ${asset}`
@@ -27,7 +27,7 @@ test("contract: four semantic WebP decoration assets exist in public/images/deco
 });
 
 test("contract: asset paths in client configuration use lowercase kebab-case without raw numbered names", () => {
-  const config = clientConfig.componentFlorals || DIANNE_COMPONENT_FLORAL_DECORATIONS;
+  const config = clientConfig.componentFlorals || PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS;
   assert.ok(config, "Expected componentFlorals configuration to exist");
 
   const paths = [
@@ -40,7 +40,7 @@ test("contract: asset paths in client configuration use lowercase kebab-case wit
   for (const srcPath of paths) {
     assert.match(
       srcPath,
-      /^\/images\/decoration\/dianne\/[a-z0-9-]+\.webp$/,
+      /^\/images\/decoration\/princess-anne\/[a-z0-9-]+\.webp$/,
       `Path must be lowercase kebab-case: ${srcPath}`
     );
     assert.ok(
@@ -50,8 +50,8 @@ test("contract: asset paths in client configuration use lowercase kebab-case wit
   }
 });
 
-test("contract: decoration assets configure 1254x1254 intrinsic dimensions", () => {
-  const config = clientConfig.componentFlorals || DIANNE_COMPONENT_FLORAL_DECORATIONS;
+test("contract: decoration assets configure 2048x2048 intrinsic dimensions", () => {
+  const config = clientConfig.componentFlorals || PRINCESS_ANNE_COMPONENT_FLORAL_DECORATIONS;
   const items = [
     config.frameCorner.left,
     config.frameCorner.right,
@@ -60,8 +60,8 @@ test("contract: decoration assets configure 1254x1254 intrinsic dimensions", () 
   ];
 
   for (const item of items) {
-    assert.equal(item.width, 1254);
-    assert.equal(item.height, 1254);
+    assert.equal(item.width, 2048);
+    assert.equal(item.height, 2048);
   }
 });
 
@@ -72,14 +72,14 @@ test("contract: getAlternatingDecorationOrientation provides deterministic orien
   assert.equal(getAlternatingDecorationOrientation(3), "right");
 });
 
-test("contract: WeddingDecoration component contains no hardcoded Dianne file paths", () => {
+test("contract: WeddingDecoration component contains no hardcoded Princess Anne file paths", () => {
   const compPath = path.join(rootDir, "src/client/components/decorations/WeddingDecoration.tsx");
   assert.ok(fs.existsSync(compPath), "WeddingDecoration.tsx must exist");
   const code = fs.readFileSync(compPath, "utf8");
 
   assert.ok(
-    !code.includes("/images/decoration/dianne/"),
-    "WeddingDecoration.tsx must read paths from config, not hardcode Dianne asset paths"
+    !code.includes("/images/decoration/princess-anne/"),
+    "WeddingDecoration.tsx must read paths from config, not hardcode Princess Anne asset paths"
   );
   assert.ok(code.includes('alt=""'), 'Must use alt="" for presentation images');
   assert.ok(code.includes('aria-hidden="true"'), 'Must use aria-hidden="true"');

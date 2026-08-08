@@ -26,11 +26,11 @@ test("Client-local active attire configuration for Princess Anne", () => {
   assert.strictEqual(PRINCESS_ANNE_ATTIRE_PALETTE[4].label, "Evening Navy");
   assert.strictEqual(PRINCESS_ANNE_ATTIRE_PALETTE[4].color, "#17313D");
 
-  // Active config must not set old Dianne attire illustration
+  // Active config must specify approved Princess Anne attire illustration
   assert.strictEqual(
-    configAttire?.illustration,
-    undefined,
-    "Active Princess Anne config must not specify unconfirmed attire illustration"
+    configAttire?.illustration?.src,
+    "/images/attire/princess-anne-attire-illustration-blue-hour-romance.webp",
+    "Active Princess Anne config must specify approved attire illustration"
   );
 });
 

@@ -1,6 +1,6 @@
 import type { ReactNode, CSSProperties } from "react";
 
-export type SectionFloralPatternVariant = "garden-blooms" | "botanical-vines";
+export type SectionFloralPatternVariant = "dense-allover" | "open-framed";
 
 type SectionFloralPatternContextProps = {
   variant: SectionFloralPatternVariant;
@@ -8,20 +8,20 @@ type SectionFloralPatternContextProps = {
 };
 
 /**
-  * SectionFloralPatternContext
-  *
-  * Wraps eligible content sections with display: contents so no extra layout
-  * element is created. Exposes the CSS custom property `--wedding-section-pattern-image`
-  * to child .wedding-section elements for layered floral background rendering.
-  */
+ * SectionFloralPatternContext
+ *
+ * Wraps eligible content sections with display: contents so no extra layout
+ * element is created. Exposes the CSS custom property `--wedding-section-pattern-image`
+ * to child .wedding-section elements for layered floral background rendering.
+ */
 export function SectionFloralPatternContext({
   variant,
   children,
 }: SectionFloralPatternContextProps) {
   const image =
-    variant === "garden-blooms"
-      ? "url('/images/decoration/section-pattern-garden-blooms.webp')"
-      : "url('/images/decoration/section-pattern-botanical-vines.webp')";
+    variant === "dense-allover"
+      ? "url('/images/decoration/section-pattern-dense-allover.webp')"
+      : "url('/images/decoration/section-pattern-open-framed.webp')";
 
   return (
     <div
