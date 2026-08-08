@@ -948,7 +948,14 @@
 
 /* Dark & Photo Context Overrides for Secondary Buttons */
 [data-wedding-theme="blue-hour-romance"]
-  :is([data-tone="dark"], [data-tone="photo"], [data-tone="olive"])
+  :is(
+    [data-tone="dark"],
+    [data-tone="photo"],
+    [data-tone="olive"],
+    [class*="wedding-surface-dark"],
+    [class*="text-on-dark"],
+    #music
+  )
   .wedding-button--secondary {
   background: var(--wedding-button-secondary-on-dark-bg);
   color: var(--wedding-button-secondary-on-dark-fg);
@@ -985,7 +992,14 @@
   }
 
   [data-wedding-theme="blue-hour-romance"]
-    :is([data-tone="dark"], [data-tone="photo"], [data-tone="olive"])
+    :is(
+      [data-tone="dark"],
+      [data-tone="photo"],
+      [data-tone="olive"],
+      [class*="wedding-surface-dark"],
+      [class*="text-on-dark"],
+      #music
+    )
     .wedding-button--secondary:hover {
     background: var(--wedding-button-secondary-on-dark-hover-bg);
     color: var(--wedding-button-secondary-on-dark-hover-fg);
