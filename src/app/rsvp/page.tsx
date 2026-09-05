@@ -4,7 +4,7 @@ import { clientConfig } from "@/client/client.config";
 import { ClientRsvpPage } from "@/client/rsvp";
 import { loadPublicEvent } from "@/app/public-event-loader";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { buildPageDescription, buildPageTitle } from "@/lib/metadata";
+import { buildPageDescription, buildPageTitle, getSiteUrl } from "@/lib/metadata";
 import { type PreviewQuery } from "@/lib/preview-context";
 
 type PageProps = {
@@ -22,15 +22,12 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
     };
   }
 
-  const publicEventUrl =
-    process.env.PUBLIC_EVENT_URL?.replace(/\/+$/, "") ??
-    "https://rafael-and-isabella.rsvp.webserbisyo.com";
-
+  const siteUrl = getSiteUrl();
   const title = `RSVP | ${buildPageTitle(result.event)}`;
   const description = buildPageDescription(result.event);
-  const ogImageUrl = `${publicEventUrl}/opengraph-image`;
 
   return {
+    metadataBase: new URL(siteUrl),
     title,
     description,
     robots:
@@ -40,13 +37,12 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
     openGraph: {
       title,
       description,
-      url: `${publicEventUrl}/rsvp`,
+      url: `${siteUrl}/rsvp`,
       type: "website",
       siteName: "WebSerbisyo RSVP",
       images: [
         {
-          url: ogImageUrl,
-          secureUrl: ogImageUrl,
+          url: "/opengraph-image",
           width: 1200,
           height: 630,
           type: "image/png",
@@ -58,7 +54,7 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrl],
+      images: ["/opengraph-image"],
     },
   };
 }

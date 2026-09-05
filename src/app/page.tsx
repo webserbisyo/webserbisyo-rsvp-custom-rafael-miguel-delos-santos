@@ -6,7 +6,12 @@ import { loadPublicEvent } from "@/app/public-event-loader";
 import { PublicEventPageContent } from "@/components/platform/PublicEventPageContent";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { templateBranding } from "@/config/template-branding";
-import { buildPageDescription, buildPageTitle, safePublicCanonicalUrl } from "@/lib/metadata";
+import {
+  buildPageDescription,
+  buildPageTitle,
+  getSiteUrl,
+  safePublicCanonicalUrl,
+} from "@/lib/metadata";
 import { type PreviewQuery } from "@/lib/preview-context";
 
 type PageProps = {
@@ -24,37 +29,29 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
     };
   }
 
-  const publicEventUrl =
-    process.env.PUBLIC_EVENT_URL?.replace(/\/+$/, "") ??
-    "https://rafael-and-isabella.rsvp.webserbisyo.com";
-
-  const canonical =
-    result.event.previewMode === "dashboard"
-      ? undefined
-      : (safePublicCanonicalUrl(result.event.publicUrl) ?? publicEventUrl);
+  const siteUrl = getSiteUrl();
+  const canonical = safePublicCanonicalUrl(result.event.publicUrl) || siteUrl;
   const shouldNoIndex =
     result.event.previewMode === "dashboard" || result.event.raw.visibility === "private";
 
   const title = buildPageTitle(result.event);
   const description = buildPageDescription(result.event);
-  const ogImageUrl = `${publicEventUrl}/opengraph-image`;
 
   return {
-    metadataBase: new URL(publicEventUrl),
+    metadataBase: new URL(siteUrl),
     title,
     description,
-    alternates: shouldNoIndex || !canonical ? undefined : { canonical },
+    alternates: shouldNoIndex ? undefined : { canonical },
     robots: shouldNoIndex ? { index: false, follow: false } : undefined,
     openGraph: {
       title,
       description,
-      url: publicEventUrl,
+      url: siteUrl,
       type: "website",
       siteName: templateBranding.social.siteName,
       images: [
         {
-          url: ogImageUrl,
-          secureUrl: ogImageUrl,
+          url: "/opengraph-image",
           width: 1200,
           height: 630,
           type: "image/png",
@@ -66,7 +63,7 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrl],
+      images: ["/opengraph-image"],
     },
   };
 }
