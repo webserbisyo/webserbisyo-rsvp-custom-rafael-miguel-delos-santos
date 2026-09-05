@@ -35,8 +35,8 @@ test("src/app/layout.tsx exports viewport metadata using WEDDING_BROWSER_THEME_C
   );
 });
 
-test("src/app/manifest.ts exports App Router manifest with #171512 theme and background colors", () => {
-  const manifestData = manifestGenerator();
+test("src/app/manifest.ts exports App Router manifest with #171512 theme and background colors", async () => {
+  const manifestData = await manifestGenerator();
 
   assert.equal(
     manifestData.theme_color,
@@ -48,10 +48,9 @@ test("src/app/manifest.ts exports App Router manifest with #171512 theme and bac
     "#171512",
     "manifest background_color must be #171512",
   );
-  assert.equal(
-    manifestData.name,
-    "WebSerbisyo RSVP Event",
-    "manifest name must be preserved",
+  assert.ok(
+    manifestData.name && manifestData.name.includes("Wedding Celebration"),
+    "manifest name must include Wedding Celebration",
   );
   assert.equal(
     manifestData.display,

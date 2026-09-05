@@ -13,14 +13,6 @@ type PageProps = {
   searchParams?: Promise<PreviewQuery>;
 };
 
-function getImageMimeType(path: string): string | undefined {
-  const normalized = path.toLowerCase();
-  if (normalized.endsWith(".png")) return "image/png";
-  if (normalized.endsWith(".jpg") || normalized.endsWith(".jpeg")) return "image/jpeg";
-  if (normalized.endsWith(".webp")) return "image/webp";
-  return undefined;
-}
-
 export async function generateMetadata({ searchParams }: PageProps = {}): Promise<Metadata> {
   const resolvedSearchParams = await searchParams;
   const result = await loadPublicEvent(resolvedSearchParams);
@@ -45,14 +37,7 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
 
   const title = buildPageTitle(result.event);
   const description = buildPageDescription(result.event);
-
-  const rawHeroPath = templateBranding.hero.imagePath.replace(/^\//, "");
-  const baseHeroUrl = `${publicEventUrl}/${rawHeroPath}`;
-  const deploymentVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 8);
-  const finalHeroImageUrl = deploymentVersion
-    ? `${baseHeroUrl}?v=${deploymentVersion}`
-    : baseHeroUrl;
-  const imageMimeType = getImageMimeType(templateBranding.hero.imagePath);
+  const ogImageUrl = `${publicEventUrl}/opengraph-image`;
 
   return {
     metadataBase: new URL(publicEventUrl),
@@ -68,8 +53,11 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       siteName: templateBranding.social.siteName,
       images: [
         {
-          url: finalHeroImageUrl,
-          type: imageMimeType,
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
           alt: title,
         },
       ],
@@ -78,7 +66,7 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
       card: "summary_large_image",
       title,
       description,
-      images: [finalHeroImageUrl],
+      images: [ogImageUrl],
     },
   };
 }
