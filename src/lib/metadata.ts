@@ -1,12 +1,30 @@
 import type { EventWebsiteRenderModel } from "@/types/public-event";
 
+export function getSiteUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "") ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  );
+}
+
 export function safePublicCanonicalUrl(value?: string | null): string | undefined {
   if (!value) return undefined;
 
   try {
     const url = new URL(value);
     const hostname = url.hostname.toLowerCase();
-    if (hostname.endsWith(".vercel.app") || hostname === "localhost" || hostname === "127.0.0.1") return undefined;
+    if (
+      hostname.endsWith(".vercel.app") ||
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname.endsWith(".webserbisyo.com") ||
+      hostname === "webserbisyo.com"
+    ) {
+      return undefined;
+    }
     return url.toString();
   } catch {
     return undefined;
