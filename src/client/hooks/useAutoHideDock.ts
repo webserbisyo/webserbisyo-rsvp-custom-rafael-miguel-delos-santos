@@ -26,7 +26,9 @@ export function useAutoHideDock({
   const isFocusedRef = useRef(false);
   const isPointerDownRef = useRef(false);
   const isLockedRef = useRef(isLockedVisible);
-  isLockedRef.current = isLockedVisible;
+  useEffect(() => {
+    isLockedRef.current = isLockedVisible;
+  }, [isLockedVisible]);
 
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
   const scrollSettleTimerRef = useRef<NodeJS.Timeout | null>(null);

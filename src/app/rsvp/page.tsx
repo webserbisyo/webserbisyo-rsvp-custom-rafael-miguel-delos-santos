@@ -22,13 +22,44 @@ export async function generateMetadata({ searchParams }: PageProps = {}): Promis
     };
   }
 
+  const publicEventUrl =
+    process.env.PUBLIC_EVENT_URL?.replace(/\/+$/, "") ??
+    "https://rafael-and-isabella.rsvp.webserbisyo.com";
+
+  const title = `RSVP | ${buildPageTitle(result.event)}`;
+  const description = buildPageDescription(result.event);
+  const ogImageUrl = `${publicEventUrl}/opengraph-image`;
+
   return {
-    title: `RSVP | ${buildPageTitle(result.event)}`,
-    description: buildPageDescription(result.event),
+    title,
+    description,
     robots:
       result.event.previewMode === "dashboard" || result.event.raw.visibility === "private"
         ? { index: false, follow: false }
         : undefined,
+    openGraph: {
+      title,
+      description,
+      url: `${publicEventUrl}/rsvp`,
+      type: "website",
+      siteName: "WebSerbisyo RSVP",
+      images: [
+        {
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
   };
 }
 

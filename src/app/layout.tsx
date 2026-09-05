@@ -19,11 +19,26 @@ const manrope = Manrope({
   weight: ["500", "600", "700", "800"],
 });
 
+function getMetadataBase(): URL {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000";
+  return new URL(siteUrl);
+}
+
 export const viewport: Viewport = {
   themeColor: WEDDING_BROWSER_THEME_COLOR,
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: "WebSerbisyo RSVP Event",
   description: "A public event website powered by WebSerbisyo RSVP.",
   icons: {

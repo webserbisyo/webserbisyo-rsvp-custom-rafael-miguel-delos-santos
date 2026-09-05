@@ -1,11 +1,29 @@
 import type { MetadataRoute } from "next";
+import { loadPublicEvent } from "@/app/public-event-loader";
+import { clientConfig } from "@/client/client.config";
 import { WEDDING_BROWSER_THEME_COLOR } from "@/config/browser-theme";
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const result = await loadPublicEvent();
+  let coupleDisplayName = clientConfig.identity.displayName || "Princess Anne & Quilang";
+  let description = "A wedding celebration invitation powered by WebSerbisyo RSVP.";
+
+  if (result.status === "available" && result.event) {
+    if (result.event.coupleDisplayName) {
+      coupleDisplayName = result.event.coupleDisplayName;
+    } else if (result.event.title) {
+      coupleDisplayName = result.event.title;
+    }
+    description = `Join ${coupleDisplayName} as they celebrate their wedding. View event details and RSVP online.`;
+  }
+
+  const name = `${coupleDisplayName} — Wedding Celebration`;
+  const shortName = coupleDisplayName;
+
   return {
-    name: "WebSerbisyo RSVP Event",
-    short_name: "WebSerbisyo RSVP",
-    description: "A custom invitation powered by WebSerbisyo RSVP.",
+    name,
+    short_name: shortName,
+    description,
     start_url: "/",
     scope: "/",
     display: "standalone",
