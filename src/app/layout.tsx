@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter, Poppins } from "next/font/google";
 import { PwaRegister } from "@/components/pwa-register";
 import "@/styles/globals.css";
@@ -25,7 +25,26 @@ const poppins = Poppins({
   weight: ["400", "600", "700", "800"],
 });
 
+function getMetadataBase(): URL {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000";
+  return new URL(siteUrl);
+}
+
+export const viewport: Viewport = {
+  themeColor: "#c96b48",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: "WebSerbisyo RSVP Event",
   description: "A public event website powered by WebSerbisyo RSVP.",
   icons: {
